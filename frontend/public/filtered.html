@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Out Announcements</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 20px; }
+        h1 { color: #f0f6fc; margin-bottom: 4px; font-size: 1.4em; }
+        .subtitle { color: #8b949e; margin-bottom: 16px; font-size: 0.9em; }
+        .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+        label { color: #8b949e; font-size: 0.85em; }
+        input[type="date"] { background: #161b22; color: #c9d1d9; border: 1px solid #30363d; padding: 6px 10px; border-radius: 6px; font-size: 0.85em; }
+        button { background: #238636; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; }
+        button:hover { background: #2ea043; }
+        .count { color: #8b949e; margin-bottom: 8px; font-size: 0.85em; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+        th { text-align: left; color: #8b949e; padding: 8px 10px; border-bottom: 1px solid #21262d; font-weight: 600; text-transform: uppercase; font-size: 0.75em; }
+        td { padding: 10px; border-bottom: 1px solid #21262d; vertical-align: top; }
+        tr:hover { background: #161b22; }
+        .company { font-weight: 600; color: #f0f6fc; }
+        .exchange { font-size: 0.7em; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+        .exchange.BSE { background: #d29922; color: #000; }
+        .exchange.NSE { background: #1f6feb; color: #fff; }
+        .subject { color: #c9d1d9; }
+        .date { color: #8b949e; white-space: nowrap; }
+        a.pdf { color: #f78166; text-decoration: none; font-weight: 600; }
+        a.pdf:hover { text-decoration: underline; }
+        .back { color: #58a6ff; text-decoration: none; margin-bottom: 16px; display: inline-block; }
+        .back:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <a href="/" class="back">&larr; Back to main</a>
+    <h1>Filtered Out Announcements</h1>
+    <p class="subtitle">These were excluded by noise filters. Review to ensure nothing important is missed.</p>
+
+    <div class="controls">
+        <div><label>FROM</label><br><input type="date" id="fromDate"></div>
+        <div><label>TO</label><br><input type="date" id="toDate"></div>
+        <div style="align-self:flex-end;"><button onclick="fetchFiltered()">Fetch</button></div>
+    </div>
+
+    <p class="count" id="count"></p>
+    <table>
+        <thead><tr><th>Company</th><th>Subject</th><th>Date</th><th>PDF</th></tr></thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script>
+        const today = new Date().toISOString().slice(0, 10);
+        document.getElementById('fromDate').value = today;
+        document.getElementById('toDate').value = today;
+
+        async function fetchFiltered() {
+            const from = document.getElementById('fromDate').value;
+            const to = document.getElementById('toDate').value;
+            const tbody = document.getElementById('tbody');
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#8b949e;">Loading...</td></tr>';
+
+            try {
+                const r = await fetch(`/api/filtered-out?from_date=${from}&to_date=${to}`);
+                const data = await r.json();
+                document.getElementById('count').textContent = `${data.count} announcements filtered out`;
+
+                if (!data.filtered_out.length) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#8b949e;">No filtered announcements</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.filtered_out.map(a => {
+                    const date = formatDate(a.date);
+                    const pdf = a.attachment
+                        ? `<a class="pdf" href="${a.attachment}" target="_blank">PDF</a>`
+                        : '-';
+                    return `<tr>
+                        <td>
+                            <div class="company">${esc(a.company)}</div>
+                            <span class="exchange ${a.exchange}">${a.exchange}</span> ${esc(a.symbol)}
+                        </td>
+                        <td class="subject">${esc(a.subject)}</td>
+                        <td class="date">${date}</td>
+                        <td>${pdf}</td>
+                    </tr>`;
+                }).join('');
+            } catch (e) {
+                tbody.innerHTML = `<tr><td colspan="4" style="color:#f85149;">Error: ${e.message}</td></tr>`;
+            }
+        }
+
+        function formatDate(d) {
+            if (!d) return '';
+            try {
+                const dt = new Date(d);
+                if (isNaN(dt)) return d;
+                return dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) + ' ' +
+                       dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+            } catch { return d; }
+        }
+
+        function esc(s) {
+            const d = document.createElement('div');
+            d.textContent = s || '';
+            return d.innerHTML;
+        }
+
+        fetchFiltered();
+    </script>
+</body>
+</html>

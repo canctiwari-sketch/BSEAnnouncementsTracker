@@ -1,0 +1,388 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0f1117;
+    color: #e1e4e8;
+    min-height: 100vh;
+}
+
+header {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 14px 24px;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 6px;
+}
+
+header h1 {
+    font-size: 1.2rem;
+    color: #f0f6fc;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: #8b949e;
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+
+.controls {
+    padding: 10px 24px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.68rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+input[type="date"], input[type="text"], select {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    color: #e1e4e8;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+input[type="text"] {
+    min-width: 160px;
+}
+
+button {
+    background: #238636;
+    color: #fff;
+    border: none;
+    padding: 5px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+button:hover {
+    background: #2ea043;
+}
+
+button:disabled {
+    background: #21262d;
+    color: #484f58;
+    cursor: not-allowed;
+}
+
+.status {
+    padding: 6px 24px;
+    font-size: 0.78rem;
+    color: #8b949e;
+}
+
+.status.error {
+    color: #f85149;
+}
+
+.status.loading {
+    color: #58a6ff;
+}
+
+#results {
+    padding: 0 24px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+thead th {
+    background: #161b22;
+    color: #8b949e;
+    padding: 7px 10px;
+    text-align: left;
+    border-bottom: 1px solid #30363d;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #21262d;
+}
+
+tbody tr:hover {
+    background: #161b22;
+}
+
+td {
+    padding: 7px 10px;
+    vertical-align: top;
+}
+
+.company-cell {
+    min-width: 170px;
+}
+
+a.company-name {
+    font-weight: 500;
+    color: #f0f6fc;
+    font-size: 0.82rem;
+    text-decoration: none;
+    display: block;
+}
+
+a.company-name:hover {
+    color: #58a6ff;
+    text-decoration: underline;
+}
+
+.scrip-code {
+    font-size: 0.7rem;
+    color: #8b949e;
+    margin-top: 1px;
+}
+
+.mcap-cell {
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.mcap-cell.large-cap {
+    color: #3fb950;
+}
+
+.mcap-cell.mid-cap {
+    color: #d29922;
+}
+
+.mcap-cell.small-cap {
+    color: #8b949e;
+}
+
+.mcap-cell.na {
+    color: #484f58;
+    font-weight: 400;
+}
+
+.subject-cell {
+    max-width: 420px;
+    line-height: 1.35;
+}
+
+.category-badge {
+    display: inline-block;
+    background: #8957e522;
+    color: #d2a8ff;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.summary-text {
+    font-size: 0.78rem;
+    color: #c9d1d9;
+    line-height: 1.3;
+    margin-top: 2px;
+}
+
+.date-cell {
+    white-space: nowrap;
+    color: #8b949e;
+    font-size: 0.78rem;
+}
+
+.attachment-link {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+
+.attachment-link:hover {
+    text-decoration: underline;
+}
+
+.exchange-badge {
+    display: inline-block;
+    padding: 0 4px;
+    border-radius: 3px;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
+}
+
+.exchange-badge.bse {
+    background: #d2992222;
+    color: #d29922;
+}
+
+.exchange-badge.nse {
+    background: #1f6feb22;
+    color: #58a6ff;
+}
+
+.multi-select-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.multi-label {
+    font-size: 0.68rem;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.multi-select {
+    position: relative;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 5px 8px;
+    cursor: pointer;
+    min-width: 130px;
+    font-size: 0.8rem;
+    color: #e1e4e8;
+}
+
+.multi-select-text {
+    pointer-events: none;
+}
+
+.multi-select-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    right: -1px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    z-index: 100;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.multi-select:focus .multi-select-dropdown,
+.multi-select:focus-within .multi-select-dropdown {
+    display: block;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-size: 0.78rem;
+    color: #e1e4e8;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+    flex-direction: row;
+}
+
+.check-item:hover {
+    background: #21262d;
+}
+
+.check-item input[type="checkbox"] {
+    accent-color: #8957e5;
+}
+
+.pagination {
+    padding: 10px 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button {
+    background: #21262d;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #30363d;
+}
+
+#pageInfo {
+    font-size: 0.8rem;
+    color: #8b949e;
+}
+
+/* Starred / high-priority rows */
+.starred-row {
+    background: #1a1f2b;
+    border-left: 3px solid #f0b429;
+}
+
+.starred-row:hover {
+    background: #1f2535;
+}
+
+.star-icon {
+    color: #f0b429;
+    font-size: 1rem;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.star-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #f0b429;
+    cursor: pointer;
+    padding: 4px 8px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #0d1117;
+    align-self: flex-end;
+}
+
+.star-filter-label input {
+    accent-color: #f0b429;
+}
+
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+    }
+    .subject-cell {
+        max-width: 200px;
+    }
+}

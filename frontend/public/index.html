@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Wheel Capital - Announcements</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-row">
+            <img src="logo.png" alt="Time Wheel" class="header-logo">
+            <div>
+                <h1>Time Wheel Capital Announcements</h1>
+                <p class="subtitle">BSE + NSE corporate announcements</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="controls">
+        <label>
+            Source
+            <select id="source">
+                <option value="both" selected>Both (BSE + NSE)</option>
+                <option value="bse">BSE Only</option>
+                <option value="nse">NSE Only</option>
+            </select>
+        </label>
+        <label>
+            From
+            <input type="date" id="fromDate">
+        </label>
+        <label>
+            To
+            <input type="date" id="toDate">
+        </label>
+        <div class="multi-select-wrap">
+            <span class="multi-label">Category</span>
+            <div class="multi-select" id="categoryFilter" tabindex="0">
+                <span class="multi-select-text">All</span>
+                <div class="multi-select-dropdown" id="categoryDropdown">
+                </div>
+            </div>
+        </div>
+        <div class="multi-select-wrap">
+            <span class="multi-label">Market Cap</span>
+            <div class="multi-select" id="mcapFilter" tabindex="0">
+                <span class="multi-select-text">All</span>
+                <div class="multi-select-dropdown">
+                    <label class="check-item"><input type="checkbox" value="large" checked onchange="onMcapChange()"> Large Cap (20K+ Cr)</label>
+                    <label class="check-item"><input type="checkbox" value="mid" checked onchange="onMcapChange()"> Mid Cap (5K-20K Cr)</label>
+                    <label class="check-item"><input type="checkbox" value="small" checked onchange="onMcapChange()"> Small Cap (&lt;5K Cr)</label>
+                    <label class="check-item"><input type="checkbox" value="na" checked onchange="onMcapChange()"> N/A</label>
+                </div>
+            </div>
+        </div>
+        <label class="star-filter-label">
+            <input type="checkbox" id="starFilter" onchange="applyFilter()">
+            &#9733; Starred Only
+        </label>
+        <label>
+            Search
+            <input type="text" id="searchBox" placeholder="Company, symbol, subject...">
+        </label>
+        <button id="fetchBtn" onclick="fetchAnnouncements()">Fetch</button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div id="results">
+        <table id="annTable">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Market Cap</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>PDF</th>
+                </tr>
+            </thead>
+            <tbody id="annBody"></tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
