@@ -268,6 +268,17 @@ def is_starred(category, subject=""):
     return False
 
 
+def _extract_nse_symbol(nsurl):
+    """Extract short symbol from BSE NSURL field (often matches NSE symbol)."""
+    if not nsurl:
+        return ""
+    # URL format: .../stock-share-price/company-name/SYMBOL/scripcode/
+    parts = nsurl.rstrip("/").split("/")
+    if len(parts) >= 2:
+        return parts[-2].upper()
+    return ""
+
+
 # ─── BSE Fetching ────────────────────────────────────────────────────────────
 def fetch_bse(from_date, to_date):
     """Fetch BSE announcements, filter noise, return normalized list."""
@@ -319,6 +330,7 @@ def fetch_bse(from_date, to_date):
 
         att = a.get("ATTACHMENTNAME") or ""
         category = categorize(sub, headline, cat_name)
+        nse_sym = _extract_nse_symbol(a.get("NSURL") or "")
         results.append({
             "company": a.get("SLONGNAME") or "Unknown",
             "symbol": str(a.get("SCRIP_CD") or ""),
@@ -329,6 +341,7 @@ def fetch_bse(from_date, to_date):
             "attachment": f"https://www.bseindia.com/xml-data/corpfiling/AttachLive/{att}" if att else "",
             "category": category,
             "starred": is_starred(category, sub),
+            "_nse_symbol": nse_sym,
         })
 
     return results
@@ -647,7 +660,7 @@ def main():
         ex.submit(do_bse)
         ex.submit(do_nse)
 
-    # Fill BSE market cap from NSE data
+    # Fill BSE market cap from NSE data (cross-reference)
     nse_mcap_by_name = {}
     for a in nse_anns:
         if a.get("market_cap"):
@@ -655,12 +668,47 @@ def main():
                 "market_cap": a["market_cap"],
                 "market_cap_fmt": a["market_cap_fmt"],
             }
+
+    # For BSE companies: first try cross-reference, then fetch from NSE directly
+    bse_need_mcap = []
     for a in bse_anns:
-        if not a.get("market_cap"):
-            norm = _normalize_name(a["company"])
-            if norm in nse_mcap_by_name:
-                a["market_cap"] = nse_mcap_by_name[norm]["market_cap"]
-                a["market_cap_fmt"] = nse_mcap_by_name[norm]["market_cap_fmt"]
+        norm = _normalize_name(a["company"])
+        if norm in nse_mcap_by_name:
+            a["market_cap"] = nse_mcap_by_name[norm]["market_cap"]
+            a["market_cap_fmt"] = nse_mcap_by_name[norm]["market_cap_fmt"]
+        elif a.get("_nse_symbol"):
+            bse_need_mcap.append(a)
+
+    # Fetch market cap from NSE for remaining BSE companies (cap at 40)
+    if bse_need_mcap:
+        # Deduplicate symbols
+        sym_to_anns = {}
+        for a in bse_need_mcap:
+            sym = a["_nse_symbol"]
+            if sym not in sym_to_anns:
+                sym_to_anns[sym] = []
+            sym_to_anns[sym].append(a)
+
+        symbols_to_fetch = list(sym_to_anns.keys())[:40]
+        log(f"Fetching market cap for {len(symbols_to_fetch)} BSE companies via NSE...")
+        client = _get_nse_client()
+        if client:
+            for i, sym in enumerate(symbols_to_fetch):
+                data = fetch_nse_mcap(client, sym)
+                if data:
+                    for a in sym_to_anns[sym]:
+                        a["market_cap"] = data["value"]
+                        a["market_cap_fmt"] = data["formatted"]
+                if (i + 1) % 5 == 0:
+                    log(f"  BSE MCap progress: {i + 1}/{len(symbols_to_fetch)}")
+                    time.sleep(0.3)
+            client.close()
+            filled = sum(1 for a in bse_anns if a.get("market_cap"))
+            log(f"BSE market cap filled: {filled}/{len(bse_anns)}")
+
+    # Clean internal _nse_symbol field
+    for a in bse_anns:
+        a.pop("_nse_symbol", None)
 
     # Combine and dedup
     all_anns = bse_anns + nse_anns
