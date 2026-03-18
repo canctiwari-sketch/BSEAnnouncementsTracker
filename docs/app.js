@@ -160,7 +160,7 @@ function applyFilter() {
 function renderTable(announcements) {
     const tbody = document.getElementById("annBody");
     if (!announcements.length) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#484f58">No announcements found.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:#484f58">No announcements found.</td></tr>';
         return;
     }
     tbody.innerHTML = announcements.map(renderRow).join("");
@@ -186,15 +186,18 @@ function renderRow(a) {
         : "-";
     const categoryBadge = category ? `<span class="category-badge">${escapeHtml(category)}</span>` : "";
 
-    // Show AI summary if available, otherwise show detail text
+    // Subject: show detail text
     const detail = a.detail || "";
-    let summaryHtml = "";
-    if (aiSummary) {
-        summaryHtml = `<div class="summary-text ai-summary">${escapeHtml(aiSummary)}</div>`;
-    } else if (detail) {
+    let detailHtml = "";
+    if (detail) {
         const short = detail.length > 150 ? detail.slice(0, 147) + "..." : detail;
-        summaryHtml = `<div class="summary-text">${escapeHtml(short)}</div>`;
+        detailHtml = `<div class="summary-text">${escapeHtml(short)}</div>`;
     }
+
+    // AI Summary column
+    const aiHtml = aiSummary
+        ? `<span class="ai-summary">${escapeHtml(aiSummary)}</span>`
+        : `<span class="ai-pending">—</span>`;
 
     return `<tr class="${rowClass}">
         <td class="company-cell">
@@ -205,8 +208,9 @@ function renderRow(a) {
         <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
         <td class="subject-cell">
             ${categoryBadge}
-            ${summaryHtml}
+            ${detailHtml}
         </td>
+        <td class="ai-cell">${aiHtml}</td>
         <td class="date-cell">${escapeHtml(date)}</td>
         <td>${attachmentLink}</td>
     </tr>`;
