@@ -14,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchData() {
     setStatus("Loading announcements...", "loading");
     try {
-        const r = await fetch("../data/announcements.json?" + Date.now());
+        // Use raw GitHub URL to fetch data from the data/ folder
+        const repo = "canctiwari-sketch/BSEAnnouncementsTracker";
+        const r = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/announcements.json?${Date.now()}`);
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = await r.json();
         allAnnouncements = data.announcements || [];
