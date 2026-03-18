@@ -587,24 +587,32 @@ Details: {detail}
 
 Summary:"""
 
-    try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"maxOutputTokens": 150, "temperature": 0.3},
-        }
-        r = requests.post(url, json=payload, timeout=30)
-        if r.status_code == 429:
-            print("Gemini rate limited, pausing...")
-            time.sleep(10)
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"maxOutputTokens": 150, "temperature": 0.3},
+    }
+
+    # Retry up to 3 times on rate limit
+    for attempt in range(3):
+        try:
+            r = requests.post(url, json=payload, timeout=30)
+            if r.status_code == 429:
+                wait = 15 * (attempt + 1)
+                log(f"  Gemini 429 rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
+                time.sleep(wait)
+                continue
+            r.raise_for_status()
+            data = r.json()
+            text = data["candidates"][0]["content"]["parts"][0]["text"]
+            return text.strip()
+        except Exception as e:
+            log(f"  Gemini error: {e}")
+            if attempt < 2:
+                time.sleep(5)
+                continue
             return None
-        r.raise_for_status()
-        data = r.json()
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        return text.strip()
-    except Exception as e:
-        print(f"Gemini error: {e}")
-        return None
+    return None
 
 
 # ─── Main Worker ─────────────────────────────────────────────────────────────
@@ -736,7 +744,7 @@ def main():
 
     log(f"New announcements: {len(new_anns)}")
 
-    # Summarize new announcements with Gemini (rate-limited)
+    # Summarize new announcements with Gemini (rate-limited to ~12 RPM)
     summarized = 0
     for i, a in enumerate(new_anns):
         if not GEMINI_KEY:
@@ -750,10 +758,12 @@ def main():
         else:
             a["ai_summary"] = None
 
-        # Rate limit: max 10 RPM
+        # Progress log every 10
         if (i + 1) % 10 == 0:
-            log(f"Summarized {i + 1}/{len(new_anns)}, pausing...")
-            time.sleep(6)
+            log(f"  Summarized progress: {i + 1}/{len(new_anns)} ({summarized} successful)")
+
+        # Wait 5 seconds between EVERY call to stay under 15 RPM
+        time.sleep(5)
 
     log(f"Summarized {summarized} announcements with Gemini")
 
