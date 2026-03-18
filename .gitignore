@@ -4,3 +4,4 @@ __pycache__/
 server.log
 node_modules/
 .claude/
+nse_data/

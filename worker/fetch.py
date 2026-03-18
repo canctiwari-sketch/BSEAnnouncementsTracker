@@ -11,6 +11,7 @@ import sys
 import time
 import hashlib
 import requests
+import httpx
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import quote
@@ -333,10 +334,11 @@ def fetch_bse(from_date, to_date):
     return results
 
 
-# ─── NSE Fetching ────────────────────────────────────────────────────────────
-def _get_nse_session():
-    session = requests.Session()
-    session.headers.update({
+# ─── NSE Fetching (HTTP/2 via httpx — bypasses cloud IP blocks) ──────────────
+def _get_nse_client():
+    """Create an httpx HTTP/2 client for NSE. Works from datacenter IPs."""
+    client = httpx.Client(http2=True, follow_redirects=True, timeout=15)
+    client.headers.update({
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
             "(KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
@@ -344,40 +346,29 @@ def _get_nse_session():
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
         "Accept-Encoding": "gzip, deflate",
-        "Sec-Ch-Ua": '"Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"',
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": '"Windows"',
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1",
-        "Connection": "keep-alive",
     })
     try:
-        r = session.get("https://www.nseindia.com", timeout=15)
-        if r.status_code == 403:
-            return None
-    except Exception:
+        r = client.get("https://www.nseindia.com")
+        # Even if homepage returns 403, cookies are set and API works
+        print(f"NSE homepage: {r.status_code} (HTTP/2), cookies: {len(r.cookies)}")
+    except Exception as e:
+        print(f"NSE session error: {e}")
+        client.close()
         return None
 
-    session.headers.update({
+    client.headers.update({
         "Accept": "application/json, text/plain, */*",
         "Referer": "https://www.nseindia.com/",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
     })
-    return session
+    return client
 
 
-def fetch_nse_mcap(session, symbol):
+def fetch_nse_mcap(client, symbol):
     """Fetch market cap from NSE for a symbol."""
     try:
         encoded = quote(symbol, safe="")
-        r = session.get(
+        r = client.get(
             f"https://www.nseindia.com/api/quote-equity?symbol={encoded}",
-            timeout=10,
         )
         if r.status_code != 200:
             return None
@@ -403,8 +394,8 @@ def fetch_nse_mcap(session, symbol):
 
 def fetch_nse(from_date, to_date):
     """Fetch NSE announcements, filter noise, return normalized list."""
-    session = _get_nse_session()
-    if not session:
+    client = _get_nse_client()
+    if not client:
         print("NSE session failed")
         return []
 
@@ -419,29 +410,32 @@ def fetch_nse(from_date, to_date):
     )
 
     try:
-        r = session.get(url, timeout=15)
+        r = client.get(url)
         if r.status_code in (401, 403):
-            # Retry with fresh session
-            session = _get_nse_session()
-            if not session:
+            # Retry with fresh client
+            client.close()
+            client = _get_nse_client()
+            if not client:
                 return []
-            r = session.get(url, timeout=15)
+            r = client.get(url)
         r.raise_for_status()
-        r.encoding = "utf-8"
-        raw = json.loads(r.text) if r.text.strip() else []
+        raw = r.json() if r.text.strip() else []
     except Exception as e:
         print(f"NSE fetch error: {e}")
+        client.close()
         return []
 
     # Fetch market caps
     symbols = list(set(a.get("symbol", "").strip() for a in raw if a.get("symbol")))
     mcap_data = {}
     for i, sym in enumerate(symbols):
-        data = fetch_nse_mcap(session, sym)
+        data = fetch_nse_mcap(client, sym)
         if data:
             mcap_data[sym] = data
         if (i + 1) % 3 == 0 and i < len(symbols) - 1:
-            time.sleep(0.2)
+            time.sleep(0.3)
+
+    client.close()
 
     # Filter and normalize
     results = []
