@@ -350,7 +350,7 @@ def _get_nse_client():
     try:
         r = client.get("https://www.nseindia.com")
         # Even if homepage returns 403, cookies are set and API works
-        print(f"NSE homepage: {r.status_code} (HTTP/2), cookies: {len(r.cookies)}")
+        log(f"NSE homepage: {r.status_code} (HTTP/2), cookies: {len(r.cookies)}")
     except Exception as e:
         print(f"NSE session error: {e}")
         client.close()
@@ -425,27 +425,41 @@ def fetch_nse(from_date, to_date):
         client.close()
         return []
 
-    # Fetch market caps
-    symbols = list(set(a.get("symbol", "").strip() for a in raw if a.get("symbol")))
-    mcap_data = {}
-    for i, sym in enumerate(symbols):
-        data = fetch_nse_mcap(client, sym)
-        if data:
-            mcap_data[sym] = data
-        if (i + 1) % 3 == 0 and i < len(symbols) - 1:
-            time.sleep(0.3)
+    log(f"NSE raw announcements: {len(raw)}")
 
-    client.close()
-
-    # Filter and normalize
-    results = []
+    # Filter noise FIRST, then collect symbols for market cap
+    filtered_raw = []
     for a in raw:
         subject = a.get("desc") or ""
         detail = a.get("attchmntText") or ""
         combined = f"{subject} {detail}"
-        if is_noise(combined, subject):
-            continue
+        if not is_noise(combined, subject):
+            filtered_raw.append(a)
 
+    log(f"NSE after noise filter: {len(filtered_raw)}")
+
+    # Fetch market caps only for filtered symbols (cap at 60)
+    symbols = list(set(a.get("symbol", "").strip() for a in filtered_raw if a.get("symbol")))
+    if len(symbols) > 60:
+        symbols = symbols[:60]
+    mcap_data = {}
+    log(f"Fetching market cap for {len(symbols)} symbols...")
+    for i, sym in enumerate(symbols):
+        data = fetch_nse_mcap(client, sym)
+        if data:
+            mcap_data[sym] = data
+        if (i + 1) % 5 == 0:
+            log(f"  MCap progress: {i + 1}/{len(symbols)}")
+            time.sleep(0.3)
+
+    client.close()
+    log(f"Got market cap for {len(mcap_data)} symbols")
+
+    # Normalize
+    results = []
+    for a in filtered_raw:
+        subject = a.get("desc") or ""
+        detail = a.get("attchmntText") or ""
         sym = a.get("symbol", "").strip()
         mcap = mcap_data.get(sym, {})
         category = categorize(subject, detail)
@@ -594,8 +608,13 @@ def save_cache(cache):
         json.dump(cache, f, ensure_ascii=False, indent=2)
 
 
+def log(msg):
+    """Print with flush so GitHub Actions shows logs in real-time."""
+    print(msg, flush=True)
+
+
 def main():
-    print(f"Worker starting at {datetime.utcnow().isoformat()}")
+    log(f"Worker starting at {datetime.utcnow().isoformat()}")
 
     # Load existing cache
     cache = load_cache()
@@ -608,7 +627,7 @@ def main():
     from_date = yesterday.strftime("%Y-%m-%d")
     to_date = today.strftime("%Y-%m-%d")
 
-    print(f"Fetching {from_date} to {to_date}...")
+    log(f"Fetching {from_date} to {to_date}...")
 
     # Fetch from both exchanges in parallel
     bse_anns = []
@@ -617,12 +636,12 @@ def main():
     def do_bse():
         nonlocal bse_anns
         bse_anns = fetch_bse(from_date, to_date)
-        print(f"BSE: {len(bse_anns)} announcements after filtering")
+        log(f"BSE: {len(bse_anns)} announcements after filtering")
 
     def do_nse():
         nonlocal nse_anns
         nse_anns = fetch_nse(from_date, to_date)
-        print(f"NSE: {len(nse_anns)} announcements after filtering")
+        log(f"NSE: {len(nse_anns)} announcements after filtering")
 
     with ThreadPoolExecutor(max_workers=2) as ex:
         ex.submit(do_bse)
@@ -647,7 +666,7 @@ def main():
     all_anns = bse_anns + nse_anns
     all_anns.sort(key=lambda a: a.get("date", ""), reverse=True)
     deduped = dedup(all_anns)
-    print(f"After dedup: {len(deduped)}")
+    log(f"After dedup: {len(deduped)}")
 
     # Filter micro-caps (below 50 Cr)
     MIN_MCAP = 50 * 1e7
@@ -656,7 +675,7 @@ def main():
         mcap = a.get("market_cap")
         if mcap is None or mcap >= MIN_MCAP:
             filtered.append(a)
-    print(f"After mcap filter: {len(filtered)}")
+    log(f"After mcap filter: {len(filtered)}")
 
     # Find NEW announcements (not in cache)
     new_anns = []
@@ -667,7 +686,7 @@ def main():
             new_anns.append(a)
             seen_keys.add(key)
 
-    print(f"New announcements: {len(new_anns)}")
+    log(f"New announcements: {len(new_anns)}")
 
     # Summarize new announcements with Gemini (rate-limited)
     summarized = 0
@@ -685,10 +704,10 @@ def main():
 
         # Rate limit: max 10 RPM
         if (i + 1) % 10 == 0:
-            print(f"Summarized {i + 1}/{len(new_anns)}, pausing...")
+            log(f"Summarized {i + 1}/{len(new_anns)}, pausing...")
             time.sleep(6)
 
-    print(f"Summarized {summarized} announcements with Gemini")
+    log(f"Summarized {summarized} announcements with Gemini")
 
     # Merge new into existing (prepend new, keep last 7 days)
     cutoff = (today - timedelta(days=7)).isoformat()
@@ -718,8 +737,8 @@ def main():
         "seen_keys": list(seen_keys),
     }
     save_cache(cache)
-    print(f"Saved {len(merged)} announcements to {CACHE_FILE}")
-    print(f"Done at {datetime.utcnow().isoformat()}")
+    log(f"Saved {len(merged)} announcements to {CACHE_FILE}")
+    log(f"Done at {datetime.utcnow().isoformat()}")
 
 
 if __name__ == "__main__":
