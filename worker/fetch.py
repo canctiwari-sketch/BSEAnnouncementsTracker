@@ -107,10 +107,18 @@ NOISE_PATTERNS = [
     r"spurt in volume",
     r"corporate insolvency resolution process",
     r"insolvency resolution",
+    r"resignation of",
     r"^resignation$",
-    r"^resignation of independent director$",
+    r"appointment of.*director",
+    r"appointment of.*auditor",
+    r"appointment.*statutory auditor",
+    r"appointment.*internal auditor",
+    r"appointment.*secretarial auditor",
+    r"appointment of managing director",
+    r"re.?appointment of",
     r"^appointment$",
-    r"^change in director",
+    r"change in director",
+    r"change in directorate",
     r"^cessation$",
     r"cessation",
     r"appointment.*company secretary",
@@ -587,7 +595,7 @@ Details: {detail}
 
 Summary:"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": 150, "temperature": 0.3},
