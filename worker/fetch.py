@@ -183,6 +183,10 @@ STARRED_KEYWORDS = re.compile(
 
 # ─── Category Rules ──────────────────────────────────────────────────────────
 CATEGORY_RULES = [
+    # Priority categories — matched first
+    ("Open Offer", re.compile(r"open.?offer", re.I)),
+    ("Warrants", re.compile(r"warrants?", re.I)),
+    ("Buyback", re.compile(r"buybacks?|buy.?backs?", re.I)),
     ("New Order", re.compile(
         r"order|contract.*award|letter of intent|LOI|work order|purchase order|"
         r"supply agreement|received.*order|bagged.*order|secured.*order|"
@@ -192,13 +196,13 @@ CATEGORY_RULES = [
         r"un.?audited.*result|audited.*result|standalone.*result|consolidated.*result|"
         r"profit|loss.*quarter|revenue|turnover|earning", re.I)),
     ("Acquisition", re.compile(
-        r"acqui(?:sition|red|ring)|takeover|open offer|bought|purchase.*stake|"
+        r"acqui(?:sition|red|ring)|takeover|bought|purchase.*stake|"
         r"purchase.*share|purchase.*business|buy.*stake", re.I)),
     ("Merger/Demerger", re.compile(
         r"merger|demerger|amalgamation|scheme of arrangement|composite scheme", re.I)),
     ("Fund Raising", re.compile(
         r"fund.?rais|qip|qualified institutional|rights issue|fpo|"
-        r"preferential.*allot|preferential.*issue|warrant|convertible|"
+        r"preferential.*allot|preferential.*issue|convertible|"
         r"ncd|debenture.*issue|ipo|initial public|private placement", re.I)),
     ("Business Expansion", re.compile(
         r"expansion|new plant|new facility|new unit|capex|capital expenditure|"
@@ -209,7 +213,7 @@ CATEGORY_RULES = [
         r"joint venture|jv|tie.up|partnership|collaboration|mou|"
         r"memorandum of understanding|strategic alliance|consortium", re.I)),
     ("Capital Structure", re.compile(
-        r"bonus|stock split|sub.?division|buyback|buy.back|"
+        r"bonus|stock split|sub.?division|"
         r"reduction.*capital|alteration.*capital|reclassification", re.I)),
     ("Board Meeting", re.compile(
         r"board meeting|outcome of board|board.*consider|"
@@ -630,7 +634,7 @@ Details: {a.get('detail', '')}"""
             entry += f"\nPDF Content: {pdf_text}"
         parts.append(entry)
 
-    categories_list = "New Order, Results, Acquisition, Merger/Demerger, Fund Raising, Business Expansion, Joint Venture, Capital Structure, Board Meeting, Press Release, Subsidiary, Divestment, Delisting, Regulatory, Allotment, Clarification, Corporate Guarantee, Plant Visit, SAST/Insider, Litigation, General Update"
+    categories_list = "Open Offer, Warrants, Buyback, New Order, Results, Acquisition, Merger/Demerger, Fund Raising, Business Expansion, Joint Venture, Capital Structure, Board Meeting, Press Release, Subsidiary, Divestment, Delisting, Regulatory, Allotment, Clarification, Corporate Guarantee, Plant Visit, SAST/Insider, Litigation, General Update"
 
     prompt = f"""For each stock exchange announcement below, provide:
 1. A CATEGORY from this list: {categories_list}
@@ -667,6 +671,7 @@ Format each response EXACTLY as:
 
 
 VALID_CATEGORIES = {
+    "Open Offer", "Warrants", "Buyback",
     "New Order", "Results", "Acquisition", "Merger/Demerger", "Fund Raising",
     "Business Expansion", "Joint Venture", "Capital Structure", "Board Meeting",
     "Press Release", "Subsidiary", "Divestment", "Delisting", "Regulatory",
