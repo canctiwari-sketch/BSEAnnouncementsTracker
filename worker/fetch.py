@@ -574,53 +574,72 @@ def dedup(all_anns):
     return final
 
 
-# ─── Gemini Summarizer ───────────────────────────────────────────────────────
-def summarize_with_gemini(announcement):
-    """Summarize an announcement using Gemini Flash."""
-    if not GEMINI_KEY:
-        return None
+# ─── Gemini Batch Summarizer ──────────────────────────────────────────────────
+def summarize_batch(announcements_batch):
+    """Summarize a batch of announcements in ONE Gemini call. Returns list of summaries."""
+    if not GEMINI_KEY or not announcements_batch:
+        return [None] * len(announcements_batch)
 
-    subject = announcement.get("subject", "")
-    detail = announcement.get("detail", "")
-    company = announcement.get("company", "")
-    category = announcement.get("category", "")
+    # Build batch prompt
+    parts = []
+    for i, a in enumerate(announcements_batch):
+        parts.append(f"""[{i+1}]
+Company: {a.get('company', '')}
+Category: {a.get('category', '')}
+Subject: {a.get('subject', '')}
+Details: {a.get('detail', '')}""")
 
-    prompt = f"""Summarize this stock exchange announcement in 2-3 concise sentences for an investor.
-Focus on: what happened, financial impact, and why it matters.
+    prompt = f"""Summarize each stock exchange announcement below in 1-2 concise sentences for an investor.
+Focus on: what happened and why it matters.
 
-Company: {company}
-Category: {category}
-Subject: {subject}
-Details: {detail}
+Return EXACTLY one summary per announcement, numbered [1], [2], etc.
 
-Summary:"""
+{chr(10).join(parts)}"""
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 150, "temperature": 0.3},
+        "generationConfig": {"maxOutputTokens": 200 * len(announcements_batch), "temperature": 0.3},
     }
 
     # Retry up to 3 times on rate limit
     for attempt in range(3):
         try:
-            r = requests.post(url, json=payload, timeout=30)
+            r = requests.post(url, json=payload, timeout=60)
             if r.status_code == 429:
-                wait = 15 * (attempt + 1)
+                wait = 20 * (attempt + 1)
                 log(f"  Gemini 429 rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
                 time.sleep(wait)
                 continue
             r.raise_for_status()
             data = r.json()
             text = data["candidates"][0]["content"]["parts"][0]["text"]
-            return text.strip()
+            return _parse_batch_response(text, len(announcements_batch))
         except Exception as e:
-            log(f"  Gemini error: {e}")
+            log(f"  Gemini batch error: {e}")
             if attempt < 2:
-                time.sleep(5)
+                time.sleep(10)
                 continue
-            return None
-    return None
+            return [None] * len(announcements_batch)
+    return [None] * len(announcements_batch)
+
+
+def _parse_batch_response(text, expected_count):
+    """Parse numbered summaries from Gemini batch response."""
+    summaries = [None] * expected_count
+    # Split by [1], [2], etc.
+    import re as _re
+    parts = _re.split(r'\[(\d+)\]', text)
+    # parts = ['', '1', 'summary1', '2', 'summary2', ...]
+    for i in range(1, len(parts) - 1, 2):
+        try:
+            idx = int(parts[i]) - 1
+            summary = parts[i + 1].strip().strip(':').strip()
+            if 0 <= idx < expected_count and summary:
+                summaries[idx] = summary
+        except (ValueError, IndexError):
+            continue
+    return summaries
 
 
 # ─── Main Worker ─────────────────────────────────────────────────────────────
@@ -752,26 +771,24 @@ def main():
 
     log(f"New announcements: {len(new_anns)}")
 
-    # Summarize new announcements with Gemini (rate-limited to ~12 RPM)
+    # Summarize new announcements with Gemini in batches of 10
+    BATCH_SIZE = 10
     summarized = 0
-    for i, a in enumerate(new_anns):
-        if not GEMINI_KEY:
+    if not GEMINI_KEY:
+        for a in new_anns:
             a["ai_summary"] = None
-            continue
-
-        summary = summarize_with_gemini(a)
-        if summary:
-            a["ai_summary"] = summary
-            summarized += 1
-        else:
-            a["ai_summary"] = None
-
-        # Progress log every 10
-        if (i + 1) % 10 == 0:
-            log(f"  Summarized progress: {i + 1}/{len(new_anns)} ({summarized} successful)")
-
-        # Wait 5 seconds between EVERY call to stay under 15 RPM
-        time.sleep(5)
+    else:
+        for batch_start in range(0, len(new_anns), BATCH_SIZE):
+            batch = new_anns[batch_start:batch_start + BATCH_SIZE]
+            summaries = summarize_batch(batch)
+            for a, summary in zip(batch, summaries):
+                a["ai_summary"] = summary
+                if summary:
+                    summarized += 1
+            log(f"  Batch {batch_start // BATCH_SIZE + 1}: {batch_start + len(batch)}/{len(new_anns)} done ({summarized} successful)")
+            # Wait between batches to respect rate limits
+            if batch_start + BATCH_SIZE < len(new_anns):
+                time.sleep(8)
 
     log(f"Summarized {summarized} announcements with Gemini")
 
