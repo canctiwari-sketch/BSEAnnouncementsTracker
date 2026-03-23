@@ -1,0 +1,42 @@
+name: Weekly Email Summary
+
+on:
+  schedule:
+    # Every Sunday at 14:00 IST = 08:30 UTC
+    - cron: '30 8 * * 0'
+  workflow_dispatch:  # Manual trigger for testing
+
+jobs:
+  send-weekly-email:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run weekly email script
+        env:
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT || 'canctiwari@gmail.com' }}
+        run: python worker/weekly_email.py
+
+      - name: Upload HTML preview as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-email-preview
+          path: data/weekly_email_preview.html
+          retention-days: 14
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Weekly Email workflow failed! Check logs above for details."
+          echo "## Weekly Email Failed" >> $GITHUB_STEP_SUMMARY
+          echo "The Weekly Email job failed at $(date -u +%Y-%m-%dT%H:%M:%S)Z." >> $GITHUB_STEP_SUMMARY
+          echo "Check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details." >> $GITHUB_STEP_SUMMARY
