@@ -630,18 +630,25 @@ Details: {a.get('detail', '')}"""
             entry += f"\nPDF Content: {pdf_text}"
         parts.append(entry)
 
-    prompt = f"""Summarize each stock exchange announcement below in 2-3 concise sentences for an investor.
+    categories_list = "New Order, Results, Acquisition, Merger/Demerger, Fund Raising, Business Expansion, Joint Venture, Capital Structure, Board Meeting, Press Release, Subsidiary, Divestment, Delisting, Regulatory, Allotment, Clarification, Corporate Guarantee, Plant Visit, SAST/Insider, Litigation, General Update"
+
+    prompt = f"""For each stock exchange announcement below, provide:
+1. A CATEGORY from this list: {categories_list}
+2. A SUMMARY of 3-4 concise sentences for an investor.
+
 Focus on: specific numbers, amounts, names, and concrete details from the PDF content.
 Do NOT give generic statements. Extract the actual facts — deal size, counterparty, location, timeline, etc.
 
-Return EXACTLY one summary per announcement, numbered [1], [2], etc.
+Format each response EXACTLY as:
+[N] Category: <category>
+<summary text>
 
 {chr(10).join(parts)}"""
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 250 * len(announcements_batch), "temperature": 0.3},
+        "generationConfig": {"maxOutputTokens": 300 * len(announcements_batch), "temperature": 0.3},
     }
 
     # Single attempt — if rate limited, skip and let next hourly run handle it
@@ -659,22 +666,42 @@ Return EXACTLY one summary per announcement, numbered [1], [2], etc.
         return [None] * len(announcements_batch)
 
 
+VALID_CATEGORIES = {
+    "New Order", "Results", "Acquisition", "Merger/Demerger", "Fund Raising",
+    "Business Expansion", "Joint Venture", "Capital Structure", "Board Meeting",
+    "Press Release", "Subsidiary", "Divestment", "Delisting", "Regulatory",
+    "Allotment", "Clarification", "Corporate Guarantee", "Plant Visit",
+    "SAST/Insider", "Litigation", "General Update",
+}
+
 def _parse_batch_response(text, expected_count):
-    """Parse numbered summaries from Gemini batch response."""
-    summaries = [None] * expected_count
-    # Split by [1], [2], etc.
+    """Parse numbered responses with category and summary from Gemini."""
+    results = [None] * expected_count
     import re as _re
     parts = _re.split(r'\[(\d+)\]', text)
-    # parts = ['', '1', 'summary1', '2', 'summary2', ...]
     for i in range(1, len(parts) - 1, 2):
         try:
             idx = int(parts[i]) - 1
-            summary = parts[i + 1].strip().strip(':').strip()
-            if 0 <= idx < expected_count and summary:
-                summaries[idx] = summary
+            content = parts[i + 1].strip().strip(':').strip()
+            if 0 <= idx < expected_count and content:
+                # Try "Category: X\n" format
+                cat_match = _re.match(r'(?:\*\*)?Category:\s*(?:\*\*)?(.+?)(?:\*\*)?\n', content)
+                if cat_match:
+                    category = cat_match.group(1).strip().strip('*')
+                    summary = content[cat_match.end():].strip()
+                else:
+                    # Try "CategoryName: summary..." format (first word before colon)
+                    colon_match = _re.match(r'(?:\*\*)?([A-Za-z /]+?)(?:\*\*)?:\s*', content)
+                    if colon_match and colon_match.group(1).strip().strip('*') in VALID_CATEGORIES:
+                        category = colon_match.group(1).strip().strip('*')
+                        summary = content[colon_match.end():].strip()
+                    else:
+                        category = None
+                        summary = content
+                results[idx] = {"category": category, "summary": summary}
         except (ValueError, IndexError):
             continue
-    return summaries
+    return results
 
 
 # ─── Main Worker ─────────────────────────────────────────────────────────────
@@ -822,10 +849,14 @@ def main():
                     a["ai_summary"] = None
                 log("  Stopping Gemini — rate limited. Unsummarized will retry next run.")
                 break
-            for a, summary in zip(batch, summaries):
-                a["ai_summary"] = summary
-                if summary:
+            for a, result in zip(batch, summaries):
+                if result and isinstance(result, dict):
+                    a["ai_summary"] = result["summary"]
+                    if result.get("category"):
+                        a["category"] = result["category"]
                     summarized += 1
+                else:
+                    a["ai_summary"] = None
             log(f"  Batch {batch_start // BATCH_SIZE + 1}: {batch_start + len(batch)}/{len(new_anns)} done ({summarized} successful)")
             # Wait between batches to respect rate limits
             if batch_start + BATCH_SIZE < len(new_anns):
@@ -844,9 +875,11 @@ def main():
                 if summaries == "RATE_LIMITED":
                     log("  Rate limited during retry — stopping")
                     break
-                for a, summary in zip(batch, summaries):
-                    if summary:
-                        a["ai_summary"] = summary
+                for a, result in zip(batch, summaries):
+                    if result and isinstance(result, dict):
+                        a["ai_summary"] = result["summary"]
+                        if result.get("category"):
+                            a["category"] = result["category"]
                 if batch_start + BATCH_SIZE < len(need_retry):
                     time.sleep(8)
 

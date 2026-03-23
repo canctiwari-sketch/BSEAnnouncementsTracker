@@ -118,11 +118,19 @@ function applyFilter() {
     const catFilters = getSelectedValues("categoryFilter");
     const mcapFilters = getSelectedValues("mcapFilter");
     const starOnly = document.getElementById("starFilter").checked;
+    const dateVal = document.getElementById("dateFilter").value;
 
     let filtered = allAnnouncements;
 
     if (starOnly) {
         filtered = filtered.filter(a => isStarred(a));
+    }
+
+    if (dateVal) {
+        filtered = filtered.filter(a => {
+            const d = a.date || "";
+            return d.startsWith(dateVal) || d.includes(dateVal);
+        });
     }
 
     const allCatChecks = document.querySelectorAll("#categoryDropdown input").length;
