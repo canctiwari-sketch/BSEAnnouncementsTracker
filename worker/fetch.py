@@ -175,9 +175,9 @@ IMPORTANT_PATTERNS = [
 _important_re = re.compile("|".join(IMPORTANT_PATTERNS), re.IGNORECASE)
 
 # Starred categories
-STARRED_CATEGORIES = {"Business Expansion", "Fund Raising", "Capital Structure", "Acquisition"}
+STARRED_CATEGORIES = {"Business Expansion"}
 STARRED_KEYWORDS = re.compile(
-    r"capex|capital expenditure|expansion|warrant|raising.*capital|raise.*fund",
+    r"capex|capital expenditure|expansion|warrant",
     re.IGNORECASE,
 )
 

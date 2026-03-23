@@ -2,9 +2,9 @@ let allAnnouncements = [];
 
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
-    "Business Expansion", "Fund Raising", "Capital Structure", "Acquisition",
+    "Business Expansion",
 ]);
-const STARRED_RE = /capex|capital expenditure|expansion|warrant|raising.*capital|raise.*fund/i;
+const STARRED_RE = /capex|capital expenditure|expansion|warrant/i;
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("searchBox").addEventListener("input", applyFilter);
