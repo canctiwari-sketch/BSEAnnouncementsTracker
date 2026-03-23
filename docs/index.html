@@ -53,19 +53,24 @@
             Search
             <input type="text" id="searchBox" placeholder="Company, symbol, subject...">
         </label>
+        <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
+        <button class="export-btn" onclick="exportCSV()" title="Export filtered results as CSV">Export CSV</button>
     </div>
 
-    <div id="status" class="status"></div>
+    <div class="status-bar">
+        <div id="status" class="status"></div>
+        <div id="refreshInfo" class="refresh-info"></div>
+    </div>
 
     <div id="results">
         <table id="annTable">
             <thead>
                 <tr>
-                    <th>Company</th>
-                    <th>Market Cap</th>
+                    <th class="sortable" onclick="sortBy('company')">Company <span class="sort-arrow" data-col="company"></span></th>
+                    <th class="sortable" onclick="sortBy('market_cap')">Market Cap <span class="sort-arrow" data-col="market_cap"></span></th>
                     <th>Subject</th>
                     <th>AI Summary</th>
-                    <th>Date</th>
+                    <th class="sortable" onclick="sortBy('date')">Date <span class="sort-arrow" data-col="date"></span></th>
                     <th>PDF</th>
                 </tr>
             </thead>

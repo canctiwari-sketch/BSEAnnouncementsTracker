@@ -12,6 +12,7 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -21,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests "httpx[http2]" pypdf
+        run: pip install requests==2.32.3 "httpx[http2]==0.28.1" pypdf==5.4.0
 
       - name: Run fetch worker
         env:
@@ -39,3 +40,11 @@ jobs:
             git commit -m "Update announcements $(date -u +%Y-%m-%dT%H:%M)"
             git push
           fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Fetch Announcements workflow failed! Check logs above for details."
+          echo "## Workflow Failed" >> $GITHUB_STEP_SUMMARY
+          echo "The Fetch Announcements job failed at $(date -u +%Y-%m-%dT%H:%M:%S)Z." >> $GITHUB_STEP_SUMMARY
+          echo "Check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details." >> $GITHUB_STEP_SUMMARY

@@ -154,6 +154,27 @@ NOISE_PATTERNS = [
     r"change of name",
     r"intimation of record date",
     r"disclosures under reg",
+    r"duplicate share certificate",
+    r"issue of duplicate",
+    r"stock lending",
+    r"code of conduct",
+    r"code of fair disclosure",
+    r"minutes of meeting",
+    r"minutes of.*annual general",
+    r"minutes of.*board meeting",
+    r"familiarisation programme",
+    r"familiarization programme",
+    r"secretarial compliance report",
+    r"corporate governance report",
+    r"certificate.*non.?disqualification",
+    r"reconciliation of share capital",
+    r"statement of investor complaints",
+    r"disclosure of events",
+    r"regulation 39.*3",
+    r"confirmation.*return of excess",
+    r"updation of email",
+    r"iepf",
+    r"unclaimed dividend",
 ]
 
 _noise_re = re.compile("|".join(NOISE_PATTERNS), re.IGNORECASE)
@@ -530,8 +551,9 @@ def _ann_key(a):
 
 def dedup(all_anns):
     """Deduplicate by normalized name + category within 60 min."""
-    # Pass 1: exact subject match
+    # Pass 1: exact subject match (O(n) using index dict)
     seen = {}
+    seen_idx = {}  # key -> index in results
     results = []
     for a in all_anns:
         norm = _normalize_name(a["company"])
@@ -541,11 +563,12 @@ def dedup(all_anns):
             existing = seen[key]
             if (a.get("market_cap") and not existing.get("market_cap")) or \
                len(a.get("subject", "")) > len(existing.get("subject", "")):
-                idx = results.index(existing)
+                idx = seen_idx[key]
                 results[idx] = a
                 seen[key] = a
         else:
             seen[key] = a
+            seen_idx[key] = len(results)
             results.append(a)
 
     # Pass 2: fuzzy — same company + category within 60 min

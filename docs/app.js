@@ -1,4 +1,7 @@
 let allAnnouncements = [];
+let currentFiltered = [];
+let currentSort = { col: "date", dir: "desc" };
+let searchTimeout = null;
 
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
@@ -7,14 +10,18 @@ const STARRED_CATEGORIES = new Set([
 const STARRED_RE = /open.?offer|warrants?|buybacks?|buy.?backs?|delisting|delist|capex|capital expenditure|expansion/i;
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("searchBox").addEventListener("input", applyFilter);
+    // Debounced search (300ms)
+    document.getElementById("searchBox").addEventListener("input", () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applyFilter, 300);
+    });
+    restoreFilters();
     fetchData();
 });
 
 async function fetchData() {
     setStatus("Loading announcements...", "loading");
     try {
-        // Use raw GitHub URL to fetch data from the data/ folder
         const repo = "canctiwari-sketch/BSEAnnouncementsTracker";
         const r = await fetch(`https://raw.githubusercontent.com/${repo}/main/data/announcements.json?${Date.now()}`);
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -22,15 +29,35 @@ async function fetchData() {
         allAnnouncements = data.announcements || [];
 
         const updated = data.last_updated
-            ? new Date(data.last_updated + "Z").toLocaleString("en-IN")
-            : "unknown";
-        setStatus(`${allAnnouncements.length} announcements \u2014 Last updated: ${updated}`);
+            ? new Date(data.last_updated + "Z")
+            : null;
+        const updatedStr = updated ? updated.toLocaleString("en-IN") : "unknown";
+        setStatus(`${allAnnouncements.length} announcements \u2014 Last updated: ${updatedStr}`);
+
+        // Show "X minutes ago" refresh indicator
+        if (updated) {
+            updateRefreshInfo(updated);
+            setInterval(() => updateRefreshInfo(updated), 60000);
+        }
 
         populateCategoryFilter();
         applyFilter();
     } catch (e) {
         setStatus(`Error loading data: ${e.message}`, "error");
     }
+}
+
+function updateRefreshInfo(updatedDate) {
+    const mins = Math.floor((Date.now() - updatedDate.getTime()) / 60000);
+    const el = document.getElementById("refreshInfo");
+    if (mins < 1) {
+        el.textContent = "Updated just now";
+    } else if (mins < 60) {
+        el.textContent = `Updated ${mins}m ago`;
+    } else {
+        el.textContent = `Updated ${Math.floor(mins / 60)}h ${mins % 60}m ago`;
+    }
+    el.innerHTML += ' <a href="#" onclick="location.reload();return false" class="refresh-link">Refresh</a>';
 }
 
 function setStatus(msg, type = "") {
@@ -42,19 +69,25 @@ function setStatus(msg, type = "") {
 function isStarred(a) {
     if (a.starred) return true;
     if (STARRED_CATEGORIES.has(a.category || "")) return true;
-    const text = a.subject || "";
+    const text = (a.subject || "") + " " + (a.ai_summary || "");
     if (STARRED_RE.test(text)) return true;
     return false;
 }
 
 function populateCategoryFilter() {
     const dropdown = document.getElementById("categoryDropdown");
-    const categories = [...new Set(allAnnouncements.map(a => a.category || "").filter(Boolean))].sort();
+    // Count announcements per category
+    const catCounts = {};
+    allAnnouncements.forEach(a => {
+        const cat = a.category || "";
+        if (cat) catCounts[cat] = (catCounts[cat] || 0) + 1;
+    });
+    const categories = Object.keys(catCounts).sort();
     dropdown.innerHTML = "";
     categories.forEach(cat => {
         const label = document.createElement("label");
         label.className = "check-item";
-        label.innerHTML = `<input type="checkbox" value="${escapeAttr(cat)}" checked onchange="onCategoryChange()"> ${escapeHtml(cat)}`;
+        label.innerHTML = `<input type="checkbox" value="${escapeAttr(cat)}" checked onchange="onCategoryChange()"> ${escapeHtml(cat)} <span class="cat-count">(${catCounts[cat]})</span>`;
         dropdown.appendChild(label);
     });
     updateMultiSelectText("categoryFilter", "categoryDropdown");
@@ -113,6 +146,44 @@ function screenerLink(name) {
     return `https://www.google.com/search?q=${q}`;
 }
 
+// ─── Sorting ────────────────────────────────────────────────────────────────
+function sortBy(col) {
+    if (currentSort.col === col) {
+        currentSort.dir = currentSort.dir === "asc" ? "desc" : "asc";
+    } else {
+        currentSort.col = col;
+        currentSort.dir = col === "date" ? "desc" : "asc";
+    }
+    // Update arrow indicators
+    document.querySelectorAll(".sort-arrow").forEach(el => {
+        el.textContent = el.dataset.col === col
+            ? (currentSort.dir === "asc" ? "\u25B2" : "\u25BC")
+            : "";
+    });
+    applySort();
+    renderTable(currentFiltered);
+}
+
+function applySort() {
+    const { col, dir } = currentSort;
+    currentFiltered.sort((a, b) => {
+        let va, vb;
+        if (col === "date") {
+            va = parseAnnDate(a.date);
+            vb = parseAnnDate(b.date);
+        } else if (col === "market_cap") {
+            va = a.market_cap || 0;
+            vb = b.market_cap || 0;
+        } else if (col === "company") {
+            va = (a.company || "").toLowerCase();
+            vb = (b.company || "").toLowerCase();
+            return dir === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
+        }
+        return dir === "asc" ? va - vb : vb - va;
+    });
+}
+
+// ─── Filters ────────────────────────────────────────────────────────────────
 function applyFilter() {
     const query = document.getElementById("searchBox").value.toLowerCase().trim();
     const catFilters = getSelectedValues("categoryFilter");
@@ -158,6 +229,9 @@ function applyFilter() {
         });
     }
 
+    currentFiltered = filtered;
+    applySort();
+
     // Update count
     const total = allAnnouncements.length;
     const shown = filtered.length;
@@ -165,9 +239,75 @@ function applyFilter() {
     const base = statusEl.textContent.split(" | Showing")[0];
     statusEl.textContent = shown < total ? `${base} | Showing ${shown} of ${total}` : base;
 
-    renderTable(filtered);
+    renderTable(currentFiltered);
+    saveFilters();
 }
 
+function clearAllFilters() {
+    document.getElementById("searchBox").value = "";
+    document.getElementById("starFilter").checked = false;
+    document.getElementById("dateFrom").value = "";
+    document.getElementById("dateTo").value = "";
+    document.querySelectorAll("#categoryDropdown input").forEach(c => c.checked = true);
+    document.querySelectorAll("#mcapFilter .check-item input").forEach(c => c.checked = true);
+    updateMultiSelectText("categoryFilter", "categoryDropdown");
+    document.querySelector("#mcapFilter .multi-select-text").textContent = "All";
+    localStorage.removeItem("twc_filters");
+    applyFilter();
+}
+
+// ─── localStorage persistence ───────────────────────────────────────────────
+function saveFilters() {
+    const state = {
+        starOnly: document.getElementById("starFilter").checked,
+        dateFrom: document.getElementById("dateFrom").value,
+        dateTo: document.getElementById("dateTo").value,
+        search: document.getElementById("searchBox").value,
+    };
+    localStorage.setItem("twc_filters", JSON.stringify(state));
+}
+
+function restoreFilters() {
+    try {
+        const raw = localStorage.getItem("twc_filters");
+        if (!raw) return;
+        const state = JSON.parse(raw);
+        if (state.starOnly) document.getElementById("starFilter").checked = true;
+        if (state.dateFrom) document.getElementById("dateFrom").value = state.dateFrom;
+        if (state.dateTo) document.getElementById("dateTo").value = state.dateTo;
+        if (state.search) document.getElementById("searchBox").value = state.search;
+    } catch {}
+}
+
+// ─── Export CSV ──────────────────────────────────────────────────────────────
+function exportCSV() {
+    if (!currentFiltered.length) return;
+    const headers = ["Company", "Symbol", "Exchange", "Market Cap", "Category", "Subject", "AI Summary", "Date", "PDF"];
+    const rows = currentFiltered.map(a => [
+        a.company || "",
+        a.symbol || "",
+        a.exchange || "",
+        a.market_cap_fmt || "N/A",
+        a.category || "",
+        (a.subject || "").replace(/"/g, '""'),
+        (a.ai_summary || "").replace(/"/g, '""'),
+        a.date || "",
+        a.attachment || "",
+    ]);
+    let csv = headers.join(",") + "\n";
+    rows.forEach(r => {
+        csv += r.map(v => `"${v}"`).join(",") + "\n";
+    });
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `announcements_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// ─── Rendering ──────────────────────────────────────────────────────────────
 function renderTable(announcements) {
     const tbody = document.getElementById("annBody");
     if (!announcements.length) {
@@ -197,23 +337,21 @@ function renderRow(a) {
         : "-";
     const categoryBadge = category ? `<span class="category-badge">${escapeHtml(category)}</span>` : "";
 
-    // Subject: show detail text
     const detail = a.detail || "";
     let detailHtml = "";
     if (detail) {
         const short = detail.length > 150 ? detail.slice(0, 147) + "..." : detail;
-        detailHtml = `<div class="summary-text">${escapeHtml(short)}</div>`;
+        detailHtml = `<div class="summary-text">${highlightSearch(escapeHtml(short))}</div>`;
     }
 
-    // AI Summary column
     const aiHtml = aiSummary
-        ? `<span class="ai-summary">${escapeHtml(aiSummary)}</span>`
-        : `<span class="ai-pending">—</span>`;
+        ? `<span class="ai-summary">${highlightSearch(escapeHtml(aiSummary))}</span>`
+        : `<span class="ai-pending">\u2014</span>`;
 
     return `<tr class="${rowClass}">
         <td class="company-cell">
             ${starIcon}
-            <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${escapeHtml(name)}</a>
+            <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${highlightSearch(escapeHtml(name))}</a>
             <div class="scrip-code">${exchangeBadge} ${escapeHtml(symbol)}</div>
         </td>
         <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
@@ -227,12 +365,23 @@ function renderRow(a) {
     </tr>`;
 }
 
+// ─── Search highlighting ────────────────────────────────────────────────────
+function highlightSearch(html) {
+    const query = document.getElementById("searchBox").value.trim();
+    if (!query || query.length < 2) return html;
+    try {
+        const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+        return html.replace(re, '<mark class="search-highlight">$1</mark>');
+    } catch {
+        return html;
+    }
+}
+
+// ─── Date helpers ───────────────────────────────────────────────────────────
 function parseAnnDate(dateStr) {
     if (!dateStr) return 0;
-    // Try direct parse (works for ISO "2026-03-23T16:08:51")
     let d = new Date(dateStr);
     if (!isNaN(d)) return d.getTime();
-    // Try "23-Mar-2026 16:11:55" format
     const m = dateStr.match(/(\d{1,2})-(\w{3})-(\d{4})\s*(\d{2}:\d{2}:\d{2})?/);
     if (m) {
         const s = `${m[2]} ${m[1]}, ${m[3]}${m[4] ? " " + m[4] : ""}`;
