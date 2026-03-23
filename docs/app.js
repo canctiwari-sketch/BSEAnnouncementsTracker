@@ -127,9 +127,15 @@ function applyFilter() {
     }
 
     if (dateVal) {
+        // dateVal is "2026-03-23", parse to compare with any date format
+        const [fy, fm, fd] = dateVal.split("-");
+        const filterDate = `${fd}-${fm}-${fy}`; // "23-03-2026"
+        const months = {"01":"Jan","02":"Feb","03":"Mar","04":"Apr","05":"May","06":"Jun",
+                        "07":"Jul","08":"Aug","09":"Sep","10":"Oct","11":"Nov","12":"Dec"};
+        const filterDateMon = `${fd}-${months[fm]}-${fy}`; // "23-Mar-2026"
         filtered = filtered.filter(a => {
             const d = a.date || "";
-            return d.startsWith(dateVal) || d.includes(dateVal);
+            return d.startsWith(dateVal) || d.startsWith(filterDateMon) || d.includes(dateVal);
         });
     }
 
