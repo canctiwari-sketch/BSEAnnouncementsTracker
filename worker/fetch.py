@@ -574,23 +574,65 @@ def dedup(all_anns):
     return final
 
 
+# ─── PDF Text Extraction ─────────────────────────────────────────────────────
+def extract_pdf_text(url, max_chars=1500):
+    """Download PDF and extract first ~max_chars of text."""
+    if not url:
+        return ""
+    try:
+        r = requests.get(url, timeout=20, headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        })
+        if r.status_code != 200:
+            return ""
+        import io
+        try:
+            import PyPDF2
+            reader = PyPDF2.PdfReader(io.BytesIO(r.content))
+        except ImportError:
+            import pypdf
+            reader = pypdf.PdfReader(io.BytesIO(r.content))
+        text = ""
+        for page in reader.pages[:3]:  # First 3 pages max
+            text += page.extract_text() or ""
+            if len(text) >= max_chars:
+                break
+        # Clean up
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text[:max_chars]
+    except Exception as e:
+        log(f"  PDF extract error for {url[:60]}: {e}")
+        return ""
+
+
 # ─── Gemini Batch Summarizer ──────────────────────────────────────────────────
 def summarize_batch(announcements_batch):
     """Summarize a batch of announcements in ONE Gemini call. Returns list of summaries."""
     if not GEMINI_KEY or not announcements_batch:
         return [None] * len(announcements_batch)
 
-    # Build batch prompt
+    # Extract PDF text for each announcement
+    log(f"  Downloading {len(announcements_batch)} PDFs...")
+    pdf_texts = []
+    for a in announcements_batch:
+        pdf_text = extract_pdf_text(a.get("attachment", ""))
+        pdf_texts.append(pdf_text)
+
+    # Build batch prompt with PDF content
     parts = []
-    for i, a in enumerate(announcements_batch):
-        parts.append(f"""[{i+1}]
+    for i, (a, pdf_text) in enumerate(zip(announcements_batch, pdf_texts)):
+        entry = f"""[{i+1}]
 Company: {a.get('company', '')}
 Category: {a.get('category', '')}
 Subject: {a.get('subject', '')}
-Details: {a.get('detail', '')}""")
+Details: {a.get('detail', '')}"""
+        if pdf_text:
+            entry += f"\nPDF Content: {pdf_text}"
+        parts.append(entry)
 
-    prompt = f"""Summarize each stock exchange announcement below in 1-2 concise sentences for an investor.
-Focus on: what happened and why it matters.
+    prompt = f"""Summarize each stock exchange announcement below in 2-3 concise sentences for an investor.
+Focus on: specific numbers, amounts, names, and concrete details from the PDF content.
+Do NOT give generic statements. Extract the actual facts — deal size, counterparty, location, timeline, etc.
 
 Return EXACTLY one summary per announcement, numbered [1], [2], etc.
 
@@ -599,12 +641,12 @@ Return EXACTLY one summary per announcement, numbered [1], [2], etc.
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 200 * len(announcements_batch), "temperature": 0.3},
+        "generationConfig": {"maxOutputTokens": 250 * len(announcements_batch), "temperature": 0.3},
     }
 
     # Single attempt — if rate limited, skip and let next hourly run handle it
     try:
-        r = requests.post(url, json=payload, timeout=60)
+        r = requests.post(url, json=payload, timeout=90)
         if r.status_code == 429:
             log("  Gemini 429 rate limited — skipping, will retry next hour")
             return "RATE_LIMITED"
@@ -764,8 +806,8 @@ def main():
 
     log(f"New announcements: {len(new_anns)}")
 
-    # Summarize new announcements with Gemini in batches of 10
-    BATCH_SIZE = 10
+    # Summarize new announcements with Gemini in batches of 5 (smaller due to PDF content)
+    BATCH_SIZE = 5
     summarized = 0
     if not GEMINI_KEY:
         for a in new_anns:
