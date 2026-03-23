@@ -409,6 +409,45 @@ def _get_nse_client():
     return client
 
 
+def _format_mcap(raw):
+    """Format raw market cap value into human-readable string."""
+    cr = raw / 1e7
+    if cr >= 100000:
+        return f"{cr / 100000:.2f}L Cr"
+    elif cr >= 1000:
+        return f"{cr / 1000:.2f}K Cr"
+    elif cr >= 1:
+        return f"{cr:.0f} Cr"
+    else:
+        return f"{raw:,.0f}"
+
+
+def fetch_bse_mcap(session, scrip_code):
+    """Fetch market cap directly from BSE using scrip code."""
+    try:
+        url = f"https://api.bseindia.com/BseIndiaAPI/api/ComHeadernew/w?scripcode={scrip_code}"
+        r = session.get(url, timeout=10)
+        if r.status_code != 200:
+            return None
+        d = r.json()
+        # BSE returns market cap in Cr in "Mktcap" or "MktCap" field
+        mktcap_str = d.get("Mktcap") or d.get("MktCap") or d.get("CurrMktCap") or ""
+        if not mktcap_str:
+            return None
+        # Clean and parse — BSE returns like "12,345.67" (in Cr)
+        mktcap_str = str(mktcap_str).replace(",", "").strip()
+        try:
+            cr_val = float(mktcap_str)
+        except ValueError:
+            return None
+        if cr_val <= 0:
+            return None
+        raw = cr_val * 1e7  # Convert Cr to raw value
+        return {"value": raw, "formatted": _format_mcap(raw)}
+    except Exception:
+        return None
+
+
 def fetch_nse_mcap(client, symbol):
     """Fetch market cap from NSE for a symbol."""
     try:
@@ -423,16 +462,7 @@ def fetch_nse_mcap(client, symbol):
         issued = d.get("securityInfo", {}).get("issuedSize", 0)
         if price and issued:
             raw = price * issued
-            cr = raw / 1e7
-            if cr >= 100000:
-                fmt = f"{cr / 100000:.2f}L Cr"
-            elif cr >= 1000:
-                fmt = f"{cr / 1000:.2f}K Cr"
-            elif cr >= 1:
-                fmt = f"{cr:.0f} Cr"
-            else:
-                fmt = f"{raw:,.0f}"
-            return {"value": raw, "formatted": fmt}
+            return {"value": raw, "formatted": _format_mcap(raw)}
     except Exception:
         pass
     return None
@@ -831,6 +861,38 @@ def main():
             filled = sum(1 for a in bse_anns if a.get("market_cap"))
             log(f"BSE market cap filled: {filled}/{len(bse_anns)}")
 
+    # FALLBACK: Fetch remaining BSE market caps directly from BSE API
+    still_need_mcap = [a for a in bse_anns if not a.get("market_cap")]
+    if still_need_mcap:
+        # Deduplicate by scrip code
+        scrip_to_anns = {}
+        for a in still_need_mcap:
+            sc = a.get("symbol", "")
+            if sc and sc not in scrip_to_anns:
+                scrip_to_anns[sc] = []
+            if sc:
+                scrip_to_anns[sc].append(a)
+
+        scrips_to_fetch = list(scrip_to_anns.keys())[:50]
+        log(f"Fetching market cap for {len(scrips_to_fetch)} BSE companies via BSE API (fallback)...")
+        bse_session = requests.Session()
+        bse_session.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json",
+            "Referer": "https://www.bseindia.com/",
+        })
+        for i, sc in enumerate(scrips_to_fetch):
+            data = fetch_bse_mcap(bse_session, sc)
+            if data:
+                for a in scrip_to_anns[sc]:
+                    a["market_cap"] = data["value"]
+                    a["market_cap_fmt"] = data["formatted"]
+            if (i + 1) % 10 == 0:
+                log(f"  BSE MCap fallback progress: {i + 1}/{len(scrips_to_fetch)}")
+            time.sleep(0.15)  # Be gentle with BSE API
+        filled = sum(1 for a in bse_anns if a.get("market_cap"))
+        log(f"BSE market cap total filled: {filled}/{len(bse_anns)}")
+
     # Clean internal _nse_symbol field
     for a in bse_anns:
         a.pop("_nse_symbol", None)
@@ -910,6 +972,35 @@ def main():
                             a["category"] = result["category"]
                 if batch_start + BATCH_SIZE < len(need_retry):
                     time.sleep(8)
+
+    # Backfill market cap for existing cached BSE announcements still missing it
+    bse_missing_mcap = [a for a in existing if a.get("exchange") == "BSE" and not a.get("market_cap") and a.get("symbol")]
+    if bse_missing_mcap:
+        # Deduplicate by scrip code
+        scrip_to_cached = {}
+        for a in bse_missing_mcap:
+            sc = a["symbol"]
+            if sc not in scrip_to_cached:
+                scrip_to_cached[sc] = []
+            scrip_to_cached[sc].append(a)
+        scrips_list = list(scrip_to_cached.keys())[:30]  # Cap at 30 for backfill
+        log(f"Backfilling market cap for {len(scrips_list)} cached BSE companies...")
+        bse_session = requests.Session()
+        bse_session.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json",
+            "Referer": "https://www.bseindia.com/",
+        })
+        backfilled = 0
+        for i, sc in enumerate(scrips_list):
+            data = fetch_bse_mcap(bse_session, sc)
+            if data:
+                for a in scrip_to_cached[sc]:
+                    a["market_cap"] = data["value"]
+                    a["market_cap_fmt"] = data["formatted"]
+                backfilled += 1
+            time.sleep(0.15)
+        log(f"Backfilled market cap for {backfilled}/{len(scrips_list)} cached BSE companies")
 
     # Merge new into existing (prepend new, keep last 7 days)
     cutoff = (today - timedelta(days=7)).isoformat()
