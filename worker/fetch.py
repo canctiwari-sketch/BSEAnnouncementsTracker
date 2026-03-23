@@ -596,7 +596,7 @@ Return EXACTLY one summary per announcement, numbered [1], [2], etc.
 
 {chr(10).join(parts)}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": 200 * len(announcements_batch), "temperature": 0.3},
