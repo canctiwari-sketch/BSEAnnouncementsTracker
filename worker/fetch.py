@@ -602,26 +602,19 @@ Return EXACTLY one summary per announcement, numbered [1], [2], etc.
         "generationConfig": {"maxOutputTokens": 200 * len(announcements_batch), "temperature": 0.3},
     }
 
-    # Retry up to 3 times on rate limit
-    for attempt in range(3):
-        try:
-            r = requests.post(url, json=payload, timeout=60)
-            if r.status_code == 429:
-                wait = 20 * (attempt + 1)
-                log(f"  Gemini 429 rate limited, waiting {wait}s (attempt {attempt+1}/3)...")
-                time.sleep(wait)
-                continue
-            r.raise_for_status()
-            data = r.json()
-            text = data["candidates"][0]["content"]["parts"][0]["text"]
-            return _parse_batch_response(text, len(announcements_batch))
-        except Exception as e:
-            log(f"  Gemini batch error: {e}")
-            if attempt < 2:
-                time.sleep(10)
-                continue
-            return [None] * len(announcements_batch)
-    return [None] * len(announcements_batch)
+    # Single attempt — if rate limited, skip and let next hourly run handle it
+    try:
+        r = requests.post(url, json=payload, timeout=60)
+        if r.status_code == 429:
+            log("  Gemini 429 rate limited — skipping, will retry next hour")
+            return "RATE_LIMITED"
+        r.raise_for_status()
+        data = r.json()
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        return _parse_batch_response(text, len(announcements_batch))
+    except Exception as e:
+        log(f"  Gemini batch error: {e}")
+        return [None] * len(announcements_batch)
 
 
 def _parse_batch_response(text, expected_count):
@@ -781,6 +774,12 @@ def main():
         for batch_start in range(0, len(new_anns), BATCH_SIZE):
             batch = new_anns[batch_start:batch_start + BATCH_SIZE]
             summaries = summarize_batch(batch)
+            if summaries == "RATE_LIMITED":
+                # Stop trying — unsummarized ones will be picked up next hour
+                for a in new_anns[batch_start:]:
+                    a["ai_summary"] = None
+                log("  Stopping Gemini — rate limited. Unsummarized will retry next run.")
+                break
             for a, summary in zip(batch, summaries):
                 a["ai_summary"] = summary
                 if summary:
@@ -791,6 +790,23 @@ def main():
                 time.sleep(8)
 
     log(f"Summarized {summarized} announcements with Gemini")
+
+    # Retry summaries for existing announcements missing ai_summary
+    if GEMINI_KEY and summarized > 0:  # only if Gemini is working this run
+        need_retry = [a for a in existing if a.get("ai_summary") is None]
+        if need_retry:
+            log(f"Retrying {len(need_retry)} existing announcements missing summaries...")
+            for batch_start in range(0, len(need_retry), BATCH_SIZE):
+                batch = need_retry[batch_start:batch_start + BATCH_SIZE]
+                summaries = summarize_batch(batch)
+                if summaries == "RATE_LIMITED":
+                    log("  Rate limited during retry — stopping")
+                    break
+                for a, summary in zip(batch, summaries):
+                    if summary:
+                        a["ai_summary"] = summary
+                if batch_start + BATCH_SIZE < len(need_retry):
+                    time.sleep(8)
 
     # Merge new into existing (prepend new, keep last 7 days)
     cutoff = (today - timedelta(days=7)).isoformat()
