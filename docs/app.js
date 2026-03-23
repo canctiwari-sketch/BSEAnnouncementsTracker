@@ -118,7 +118,8 @@ function applyFilter() {
     const catFilters = getSelectedValues("categoryFilter");
     const mcapFilters = getSelectedValues("mcapFilter");
     const starOnly = document.getElementById("starFilter").checked;
-    const dateVal = document.getElementById("dateFilter").value;
+    const dateFrom = document.getElementById("dateFrom").value;
+    const dateTo = document.getElementById("dateTo").value;
 
     let filtered = allAnnouncements;
 
@@ -126,16 +127,12 @@ function applyFilter() {
         filtered = filtered.filter(a => isStarred(a));
     }
 
-    if (dateVal) {
-        // dateVal is "2026-03-23", parse to compare with any date format
-        const [fy, fm, fd] = dateVal.split("-");
-        const filterDate = `${fd}-${fm}-${fy}`; // "23-03-2026"
-        const months = {"01":"Jan","02":"Feb","03":"Mar","04":"Apr","05":"May","06":"Jun",
-                        "07":"Jul","08":"Aug","09":"Sep","10":"Oct","11":"Nov","12":"Dec"};
-        const filterDateMon = `${fd}-${months[fm]}-${fy}`; // "23-Mar-2026"
+    if (dateFrom || dateTo) {
+        const fromTs = dateFrom ? new Date(dateFrom + "T00:00:00").getTime() : 0;
+        const toTs = dateTo ? new Date(dateTo + "T23:59:59").getTime() : Infinity;
         filtered = filtered.filter(a => {
-            const d = a.date || "";
-            return d.startsWith(dateVal) || d.startsWith(filterDateMon) || d.includes(dateVal);
+            const ts = parseAnnDate(a.date);
+            return ts >= fromTs && ts <= toTs;
         });
     }
 
@@ -228,6 +225,21 @@ function renderRow(a) {
         <td class="date-cell">${escapeHtml(date)}</td>
         <td>${attachmentLink}</td>
     </tr>`;
+}
+
+function parseAnnDate(dateStr) {
+    if (!dateStr) return 0;
+    // Try direct parse (works for ISO "2026-03-23T16:08:51")
+    let d = new Date(dateStr);
+    if (!isNaN(d)) return d.getTime();
+    // Try "23-Mar-2026 16:11:55" format
+    const m = dateStr.match(/(\d{1,2})-(\w{3})-(\d{4})\s*(\d{2}:\d{2}:\d{2})?/);
+    if (m) {
+        const s = `${m[2]} ${m[1]}, ${m[3]}${m[4] ? " " + m[4] : ""}`;
+        d = new Date(s);
+        if (!isNaN(d)) return d.getTime();
+    }
+    return 0;
 }
 
 function formatDisplayDate(date) {
