@@ -338,9 +338,15 @@ a.company-name:hover {
     background: #30363d;
 }
 
-#pageInfo {
+#pageInfo, #pageNum {
     font-size: 0.8rem;
     color: #8b949e;
+}
+
+.page-info {
+    margin-left: 8px;
+    font-size: 0.75rem;
+    color: #484f58;
 }
 
 /* Starred / high-priority rows */

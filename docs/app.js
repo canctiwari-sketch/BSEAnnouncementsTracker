@@ -2,6 +2,8 @@ let allAnnouncements = [];
 let currentFiltered = [];
 let currentSort = { col: "date", dir: "desc" };
 let searchTimeout = null;
+let currentPage = 1;
+const PAGE_SIZE = 50;
 
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
@@ -161,7 +163,8 @@ function sortBy(col) {
             : "";
     });
     applySort();
-    renderTable(currentFiltered);
+    currentPage = 1;
+    renderPage();
 }
 
 function applySort() {
@@ -231,6 +234,7 @@ function applyFilter() {
 
     currentFiltered = filtered;
     applySort();
+    currentPage = 1;
 
     // Update count
     const total = allAnnouncements.length;
@@ -239,7 +243,7 @@ function applyFilter() {
     const base = statusEl.textContent.split(" | Showing")[0];
     statusEl.textContent = shown < total ? `${base} | Showing ${shown} of ${total}` : base;
 
-    renderTable(currentFiltered);
+    renderPage();
     saveFilters();
 }
 
@@ -322,7 +326,51 @@ function exportXLSX() {
     XLSX.writeFile(wb, `announcements_${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
 
-// ─── Rendering ──────────────────────────────────────────────────────────────
+// ─── Pagination & Rendering ─────────────────────────────────────────────────
+function renderPage() {
+    const total = currentFiltered.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, total);
+    const pageItems = currentFiltered.slice(start, end);
+
+    renderTable(pageItems);
+    updatePagination(totalPages, start, end, total);
+}
+
+function updatePagination(totalPages, start, end, total) {
+    const el = document.getElementById("pagination");
+    if (!el) return;
+    if (total === 0) {
+        el.style.display = "none";
+        return;
+    }
+    el.style.display = "flex";
+    document.getElementById("pageInfo").textContent = `${start + 1}–${end} of ${total}`;
+    document.getElementById("prevBtn").disabled = currentPage <= 1;
+    document.getElementById("nextBtn").disabled = currentPage >= totalPages;
+    document.getElementById("pageNum").textContent = `Page ${currentPage} of ${totalPages}`;
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderPage();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+function nextPage() {
+    const totalPages = Math.ceil(currentFiltered.length / PAGE_SIZE);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderPage();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
 function renderTable(announcements) {
     const tbody = document.getElementById("annBody");
     if (!announcements.length) {

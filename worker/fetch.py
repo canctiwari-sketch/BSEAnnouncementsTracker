@@ -1034,12 +1034,9 @@ def main():
             time.sleep(0.15)
         log(f"Backfilled market cap for {backfilled}/{len(scrips_list)} cached BSE companies")
 
-    # Merge new into existing (prepend new, keep last 7 days)
-    cutoff = (today - timedelta(days=7)).isoformat()
-    # Filter old announcements
-    kept_existing = [a for a in existing if a.get("date", "") >= cutoff]
-
+    # Merge new into existing (keep ALL history)
     # Merge: new first, then existing (avoid duplicates)
+    kept_existing = existing
     existing_keys = set(a.get("_key", "") for a in kept_existing)
     merged = []
     for a in new_anns:
