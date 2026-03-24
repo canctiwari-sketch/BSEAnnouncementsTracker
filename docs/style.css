@@ -67,7 +67,7 @@ label {
     font-weight: 500;
 }
 
-input[type="date"], input[type="text"], select {
+input[type="date"], input[type="text"], input[type="number"], select {
     background: #fff;
     border: 1px solid #ddd;
     color: #333;
@@ -77,7 +77,7 @@ input[type="date"], input[type="text"], select {
     transition: border-color 0.2s;
 }
 
-input[type="date"]:focus, input[type="text"]:focus {
+input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus {
     outline: none;
     border-color: #5a3d8a;
     box-shadow: 0 0 0 2px rgba(90,61,138,0.1);
@@ -85,6 +85,20 @@ input[type="date"]:focus, input[type="text"]:focus {
 
 input[type="text"] {
     min-width: 180px;
+}
+
+input[type="number"] {
+    width: 100px;
+}
+
+/* Hide number spinner arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 button {
@@ -428,6 +442,27 @@ a.company-name:hover {
     font-size: 1rem;
     margin-right: 4px;
     vertical-align: middle;
+}
+
+.na-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: #888;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    align-self: flex-end;
+    flex-direction: row;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.na-filter-label input {
+    accent-color: #5a3d8a;
 }
 
 .star-filter-label {

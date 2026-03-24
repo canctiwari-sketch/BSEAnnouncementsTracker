@@ -26,18 +26,18 @@
                 <div class="multi-select-dropdown" id="categoryDropdown"></div>
             </div>
         </div>
-        <div class="multi-select-wrap">
-            <span class="multi-label">Market Cap</span>
-            <div class="multi-select" id="mcapFilter" tabindex="0">
-                <span class="multi-select-text">All</span>
-                <div class="multi-select-dropdown">
-                    <label class="check-item"><input type="checkbox" value="large" checked onchange="onMcapChange()"> Large Cap (20K+ Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="mid" checked onchange="onMcapChange()"> Mid Cap (5K-20K Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="small" checked onchange="onMcapChange()"> Small Cap (&lt;5K Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="na" checked onchange="onMcapChange()"> N/A</label>
-                </div>
-            </div>
-        </div>
+        <label>
+            Min MCap (Cr)
+            <input type="number" id="mcapMin" placeholder="e.g. 500" onchange="applyFilter()" min="0">
+        </label>
+        <label>
+            Max MCap (Cr)
+            <input type="number" id="mcapMax" placeholder="e.g. 50000" onchange="applyFilter()" min="0">
+        </label>
+        <label class="na-filter-label">
+            <input type="checkbox" id="includeNA" onchange="applyFilter()">
+            Include N/A MCap
+        </label>
         <label class="star-filter-label">
             <input type="checkbox" id="starFilter" onchange="applyFilter()">
             &#9733; Starred Only

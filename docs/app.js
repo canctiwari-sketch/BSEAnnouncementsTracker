@@ -100,22 +100,6 @@ function onCategoryChange() {
     applyFilter();
 }
 
-function onMcapChange() {
-    const allChecks = document.querySelectorAll("#mcapFilter .check-item input");
-    const checks = document.querySelectorAll("#mcapFilter .check-item input:checked");
-    const text = document.querySelector("#mcapFilter .multi-select-text");
-    if (checks.length === 0 || checks.length === allChecks.length) {
-        text.textContent = "All";
-    } else {
-        text.textContent = [...checks].map(c => {
-            if (c.value === "large") return "Large";
-            if (c.value === "mid") return "Mid";
-            if (c.value === "small") return "Small";
-            return "N/A";
-        }).join(", ");
-    }
-    applyFilter();
-}
 
 function updateMultiSelectText(selectId, dropdownId) {
     const allChecks = document.querySelectorAll(`#${dropdownId} input`);
@@ -190,10 +174,14 @@ function applySort() {
 function applyFilter() {
     const query = document.getElementById("searchBox").value.toLowerCase().trim();
     const catFilters = getSelectedValues("categoryFilter");
-    const mcapFilters = getSelectedValues("mcapFilter");
     const starOnly = document.getElementById("starFilter").checked;
     const dateFrom = document.getElementById("dateFrom").value;
     const dateTo = document.getElementById("dateTo").value;
+    const mcapMinVal = document.getElementById("mcapMin").value;
+    const mcapMaxVal = document.getElementById("mcapMax").value;
+    const mcapMin = mcapMinVal ? parseFloat(mcapMinVal) * 1e7 : null;  // Convert Cr to raw
+    const mcapMax = mcapMaxVal ? parseFloat(mcapMaxVal) * 1e7 : null;
+    const includeNA = document.getElementById("includeNA").checked;
 
     let filtered = allAnnouncements;
 
@@ -215,15 +203,14 @@ function applyFilter() {
         filtered = filtered.filter(a => catFilters.includes(a.category || ""));
     }
 
-    const allMcapChecks = document.querySelectorAll("#mcapFilter .check-item input").length;
-    if (mcapFilters.length > 0 && mcapFilters.length < allMcapChecks) {
-        filtered = filtered.filter(a => {
-            const val = a.market_cap;
-            const cr = val ? val / 1e7 : 0;
-            const bucket = !val ? "na" : cr >= 20000 ? "large" : cr >= 5000 ? "mid" : "small";
-            return mcapFilters.includes(bucket);
-        });
-    }
+    // Market cap filter — exclude N/A unless checkbox is checked
+    filtered = filtered.filter(a => {
+        const val = a.market_cap;
+        if (!val) return includeNA;  // N/A companies only shown if checkbox checked
+        if (mcapMin !== null && val < mcapMin) return false;
+        if (mcapMax !== null && val > mcapMax) return false;
+        return true;
+    });
 
     if (query) {
         filtered = filtered.filter(a => {
@@ -252,10 +239,11 @@ function clearAllFilters() {
     document.getElementById("starFilter").checked = false;
     document.getElementById("dateFrom").value = "";
     document.getElementById("dateTo").value = "";
+    document.getElementById("mcapMin").value = "";
+    document.getElementById("mcapMax").value = "";
+    document.getElementById("includeNA").checked = false;
     document.querySelectorAll("#categoryDropdown input").forEach(c => c.checked = true);
-    document.querySelectorAll("#mcapFilter .check-item input").forEach(c => c.checked = true);
     updateMultiSelectText("categoryFilter", "categoryDropdown");
-    document.querySelector("#mcapFilter .multi-select-text").textContent = "All";
     localStorage.removeItem("twc_filters");
     applyFilter();
 }
@@ -267,6 +255,9 @@ function saveFilters() {
         dateFrom: document.getElementById("dateFrom").value,
         dateTo: document.getElementById("dateTo").value,
         search: document.getElementById("searchBox").value,
+        mcapMin: document.getElementById("mcapMin").value,
+        mcapMax: document.getElementById("mcapMax").value,
+        includeNA: document.getElementById("includeNA").checked,
     };
     localStorage.setItem("twc_filters", JSON.stringify(state));
 }
@@ -280,6 +271,9 @@ function restoreFilters() {
         if (state.dateFrom) document.getElementById("dateFrom").value = state.dateFrom;
         if (state.dateTo) document.getElementById("dateTo").value = state.dateTo;
         if (state.search) document.getElementById("searchBox").value = state.search;
+        if (state.mcapMin) document.getElementById("mcapMin").value = state.mcapMin;
+        if (state.mcapMax) document.getElementById("mcapMax").value = state.mcapMax;
+        if (state.includeNA) document.getElementById("includeNA").checked = true;
     } catch {}
 }
 
