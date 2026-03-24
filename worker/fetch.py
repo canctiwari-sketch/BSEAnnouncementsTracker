@@ -1043,6 +1043,13 @@ def main():
             merged.append(a)
     merged.extend(kept_existing)
 
+    # Remove micro-caps (below 50 Cr) from entire dataset including cached
+    MIN_MCAP_CLEANUP = 50 * 1e7
+    before_cleanup = len(merged)
+    merged = [a for a in merged if a.get("market_cap") is None or a.get("market_cap") >= MIN_MCAP_CLEANUP]
+    if before_cleanup != len(merged):
+        log(f"Removed {before_cleanup - len(merged)} cached micro-cap announcements (<50 Cr)")
+
     # Sort by date
     merged.sort(key=lambda a: a.get("date", ""), reverse=True)
 
