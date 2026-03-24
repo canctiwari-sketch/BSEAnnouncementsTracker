@@ -423,18 +423,17 @@ def _format_mcap(raw):
 
 
 def fetch_bse_mcap(session, scrip_code):
-    """Fetch market cap directly from BSE using scrip code."""
+    """Fetch market cap directly from BSE StockTrading API using scrip code."""
     try:
-        url = f"https://api.bseindia.com/BseIndiaAPI/api/ComHeadernew/w?scripcode={scrip_code}"
+        url = f"https://api.bseindia.com/BseIndiaAPI/api/StockTrading/w?flag=&scripcode={scrip_code}"
         r = session.get(url, timeout=10)
         if r.status_code != 200:
             return None
         d = r.json()
-        # BSE returns market cap in Cr in "Mktcap" or "MktCap" field
-        mktcap_str = d.get("Mktcap") or d.get("MktCap") or d.get("CurrMktCap") or ""
+        # BSE StockTrading returns MktCapFull in Cr like "12,481.90"
+        mktcap_str = d.get("MktCapFull") or d.get("MktCapFF") or ""
         if not mktcap_str:
             return None
-        # Clean and parse — BSE returns like "12,345.67" (in Cr)
         mktcap_str = str(mktcap_str).replace(",", "").strip()
         try:
             cr_val = float(mktcap_str)
@@ -1015,7 +1014,7 @@ def main():
             if sc not in scrip_to_cached:
                 scrip_to_cached[sc] = []
             scrip_to_cached[sc].append(a)
-        scrips_list = list(scrip_to_cached.keys())[:40]
+        scrips_list = list(scrip_to_cached.keys())[:100]
         log(f"Backfilling market cap for {len(scrips_list)} cached BSE companies...")
         bse_session = requests.Session()
         bse_session.headers.update({
