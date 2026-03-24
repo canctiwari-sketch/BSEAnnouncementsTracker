@@ -172,8 +172,8 @@ a.company-name:hover {
 
 .mcap-cell {
     white-space: nowrap;
-    font-weight: 500;
-    font-size: 0.8rem;
+    font-weight: 600;
+    font-size: 0.88rem;
 }
 
 .mcap-cell.large-cap {
@@ -194,7 +194,7 @@ a.company-name:hover {
 }
 
 .subject-cell {
-    max-width: 420px;
+    max-width: 280px;
     line-height: 1.35;
 }
 
@@ -386,9 +386,10 @@ a.company-name:hover {
 
 /* AI Summary column */
 .ai-cell {
-    max-width: 320px;
-    font-size: 0.76rem;
-    line-height: 1.35;
+    min-width: 380px;
+    max-width: 500px;
+    font-size: 0.78rem;
+    line-height: 1.4;
 }
 
 .ai-summary {
