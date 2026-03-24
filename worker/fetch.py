@@ -608,11 +608,15 @@ def dedup(all_anns):
         return None
 
     final = []
-    seen_fuzzy = {}
+    seen_fuzzy = {}  # (norm, cat) -> (dt, idx)
+    seen_company_day = {}  # (norm, date_str) -> [(idx, subject, dt)]
     for a in results:
         norm = _normalize_name(a["company"])
         cat = a.get("category", "")
         dt = parse_dt(a.get("date", ""))
+        date_day = dt.strftime("%Y-%m-%d") if dt else ""
+
+        # Pass 2a: same company + category within 60 min
         fuzzy_key = (norm, cat)
         if fuzzy_key in seen_fuzzy and dt:
             prev_dt, prev_idx = seen_fuzzy[fuzzy_key]
@@ -622,7 +626,33 @@ def dedup(all_anns):
                     final[prev_idx] = a
                     seen_fuzzy[fuzzy_key] = (dt, prev_idx)
                 continue
+
+        # Pass 2b: same company + same day + different category but overlapping subject
+        # Catches cross-exchange dupes where one is "General Update" and other is "Allotment"
+        day_key = (norm, date_day)
+        is_dup = False
+        if day_key in seen_company_day:
+            subj_words = set(a.get("subject", "").lower().split())
+            for prev_idx, prev_subj, prev_dt_val in seen_company_day[day_key]:
+                prev_words = set(prev_subj.lower().split())
+                # If >40% word overlap in subjects, consider it a duplicate
+                if prev_words and subj_words:
+                    overlap = len(subj_words & prev_words) / max(1, min(len(subj_words), len(prev_words)))
+                    if overlap > 0.4:
+                        existing = final[prev_idx]
+                        if existing and (a.get("market_cap") and not existing.get("market_cap")):
+                            final[prev_idx] = a
+                            seen_company_day[day_key] = [(prev_idx, a.get("subject", ""), dt)] + \
+                                [(i, s, d) for i, s, d in seen_company_day[day_key] if i != prev_idx]
+                        is_dup = True
+                        break
+        if is_dup:
+            continue
+
         seen_fuzzy[fuzzy_key] = (dt, len(final))
+        if day_key not in seen_company_day:
+            seen_company_day[day_key] = []
+        seen_company_day[day_key].append((len(final), a.get("subject", ""), dt))
         final.append(a)
 
     return final
