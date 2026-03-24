@@ -1073,6 +1073,12 @@ def main():
             merged.append(a)
     merged.extend(kept_existing)
 
+    # Re-dedup entire dataset (catches cached duplicates from before dedup improvements)
+    before_dedup = len(merged)
+    merged = dedup(merged)
+    if before_dedup != len(merged):
+        log(f"Removed {before_dedup - len(merged)} duplicate announcements from cache")
+
     # Remove micro-caps (below 50 Cr) from entire dataset including cached
     MIN_MCAP_CLEANUP = 50 * 1e7
     before_cleanup = len(merged)
