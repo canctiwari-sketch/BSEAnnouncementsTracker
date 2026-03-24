@@ -960,7 +960,7 @@ def main():
     log(f"Summarized {summarized} announcements with Gemini")
 
     # Retry summaries for existing announcements missing ai_summary
-    if GEMINI_KEY and summarized > 0:  # only if Gemini is working this run
+    if GEMINI_KEY:  # always retry unsummarized announcements
         need_retry = [a for a in existing if a.get("ai_summary") is None]
         # Sort oldest first — yesterday's announcements get summarized before today's
         need_retry.sort(key=lambda a: a.get("date", ""))
