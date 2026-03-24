@@ -1,6 +1,118 @@
 {
   "announcements": [
     {
+      "company": "MRF Limited",
+      "symbol": "MRF",
+      "exchange": "NSE",
+      "subject": "General Updates",
+      "detail": "MRF Limited has informed the Exchange about General Updates",
+      "date": "24-Mar-2026 12:41:28",
+      "attachment": "https://nsearchives.nseindia.com/corporate/MRF_24032026123949_reg.pdf",
+      "category": "Regulatory",
+      "starred": false,
+      "market_cap": null,
+      "market_cap_fmt": null,
+      "ai_summary": "MRF Limited has been penalized Rs. 37,15,438 by the Deputy Commissioner of Income Tax. The company received this order on March 23, 2026. This disclosure is made under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015."
+    },
+    {
+      "company": "Fischer Medical Ventures Limited",
+      "symbol": "FISCHER",
+      "exchange": "NSE",
+      "subject": "Outcome of Board Meeting",
+      "detail": "Fischer Medical Ventures Limited has informed the Exchange regarding Outcome of Board Meeting held on March 24, 2026.",
+      "date": "24-Mar-2026 12:40:37",
+      "attachment": "https://nsearchives.nseindia.com/corporate/FISCHER_24032026123909_Bmoutcome.pdf",
+      "category": "Board Meeting",
+      "starred": false,
+      "market_cap": null,
+      "market_cap_fmt": null,
+      "ai_summary": "Fischer Medical Ventures Limited announced the appointment of Mr. Balaji Gandla as Company Secretary & Compliance Officer. He will also serve as Company Secretary for its wholly-owned subsidiary, M/s. Time Medical International Ventures (India) Private Limited. These appointments are effective from March 24, 2026."
+    },
+    {
+      "company": "Adani Enterprises Limited",
+      "symbol": "ADANIENT",
+      "exchange": "NSE",
+      "subject": "General Updates",
+      "detail": "Outcome of Management Committee Meeting of Board of Directors - Early fullredemption of Non-Convertible Debentures",
+      "date": "24-Mar-2026 12:36:32",
+      "attachment": "https://nsearchives.nseindia.com/corporate/kuntal_chandya_adani_com_24032026123409_MCM_Outcome.pdf",
+      "category": "Fund Raising",
+      "starred": false,
+      "market_cap": 2130617625734,
+      "market_cap_fmt": "2.13L Cr",
+      "ai_summary": "Adani Enterprises Limited's Management Committee has approved the early full redemption of Non-Convertible Debentures (NCDs). This includes 1,25,000 NCDs worth Rs. 1250,00,00,000 issued on July 11, 2023, and 70,000 NCDs worth Rs. 700,00,00,000 issued on October 11, 2023. The meeting concluded on March 24, 2026."
+    },
+    {
+      "company": "GlaxoSmithKline Pharmaceuticals Limited",
+      "symbol": "GLAXO",
+      "exchange": "NSE",
+      "subject": "Action(s) initiated or orders passed",
+      "detail": "GlaxoSmithKline Pharmaceuticals Limited has informed the Exchange about Action(s) initiated or orders passed",
+      "date": "24-Mar-2026 12:13:19",
+      "attachment": "https://nsearchives.nseindia.com/corporate/GLAXO1924_24032026121259_Disclosure_under_Regulation_30_-_24th_March_2026.pdf",
+      "category": "New Order",
+      "starred": false,
+      "market_cap": null,
+      "market_cap_fmt": null,
+      "ai_summary": null
+    },
+    {
+      "company": "Fractal Analytics Limited",
+      "symbol": "FRACTAL",
+      "exchange": "NSE",
+      "subject": "Updates",
+      "detail": "Fractal s Climate Action Progress Recognized: 2025 [CDP]  B  Rating Highlights Governanceand Measurable Action",
+      "date": "24-Mar-2026 12:09:10",
+      "attachment": "https://nsearchives.nseindia.com/corporate/FRACTAL_24032026120810_Press_Release_Intimation_CDP_B_rating.pdf",
+      "category": "Other",
+      "starred": false,
+      "market_cap": null,
+      "market_cap_fmt": null,
+      "ai_summary": null
+    },
+    {
+      "company": "Jash Engineering Limited",
+      "symbol": "JASH",
+      "exchange": "NSE",
+      "subject": "Updates",
+      "detail": "Jash Engineering Limited has informed the Exchange regarding 'Chaneg in the name of subsidiary company '.",
+      "date": "24-Mar-2026 12:04:54",
+      "attachment": "https://nsearchives.nseindia.com/corporate/JASH_24032026120235_NAMECHANGEWESTECH.pdf",
+      "category": "Subsidiary",
+      "starred": false,
+      "market_cap": 21617344488.0,
+      "market_cap_fmt": "2.16K Cr",
+      "ai_summary": null
+    },
+    {
+      "company": "Rategain Travel Technologies Limited",
+      "symbol": "RATEGAIN",
+      "exchange": "NSE",
+      "subject": "Press Release",
+      "detail": "Rategain Travel Technologies Limited has informed the Exchange regarding a press release dated March 24, 2026, titled \"Myanmar Airways International (MAI) Partners with AirGain to Strengthen Pricing Intelligence and Market Responsiveness\".",
+      "date": "24-Mar-2026 11:59:03",
+      "attachment": "https://nsearchives.nseindia.com/corporate/RATEGAIN_24032026115855_RG_PR_24032026.pdf",
+      "category": "Press Release",
+      "starred": false,
+      "market_cap": 57225228480.65,
+      "market_cap_fmt": "5.72K Cr",
+      "ai_summary": null
+    },
+    {
+      "company": "Whirlpool of India Limited",
+      "symbol": "WHIRLPOOL",
+      "exchange": "NSE",
+      "subject": "Updates",
+      "detail": "Whirlpool of India Limited has informed the Exchange regarding General Update-Communication to Proxy Advisory Firms.",
+      "date": "24-Mar-2026 11:49:22",
+      "attachment": "https://nsearchives.nseindia.com/corporate/WHIRLPOOL_24032026114858_SE_Intimation_Comm_to_proxy_signed.pdf",
+      "category": "Other",
+      "starred": false,
+      "market_cap": 100292181615.0,
+      "market_cap_fmt": "10.03K Cr",
+      "ai_summary": null
+    },
+    {
       "company": "Mangalam Worldwide Limited",
       "symbol": "MWL",
       "exchange": "NSE",
@@ -43,6 +155,20 @@
       "ai_summary": "Arun Kumar Saraf, a promoter of Asian Hotels (East) Limited, has filed a prior intimation for a proposed acquisition of equity shares. The acquisition is planned to be conducted through a gift under Regulation 10(1)(a) of the SEBI (SAST) Regulations, 2011. This notification is submitted in compliance with the requirement of at least four working days' notice."
     },
     {
+      "company": "IIFL Capital Services Limited",
+      "symbol": "IIFLCAPS",
+      "exchange": "NSE",
+      "subject": "Outcome of Board Meeting",
+      "detail": "IIFL Capital Services Limited has informed the Exchange regarding Outcome of Board Meeting held on March 24, 2026.",
+      "date": "24-Mar-2026 11:07:15",
+      "attachment": "https://nsearchives.nseindia.com/corporate/IIFLSEC_24032026110534_BMOutcome.pdf",
+      "category": "Board Meeting",
+      "starred": false,
+      "market_cap": 80469324369.59999,
+      "market_cap_fmt": "8.05K Cr",
+      "ai_summary": "The Board of Directors of IIFL Capital Services Limited met on March 24, 2026. They approved an increase in borrowing limits up to ₹7,000 crores, subject to shareholder approval. This increase applies to both Section 180(1)(c) and Section 180(1)(a) of the Companies Act, 2013."
+    },
+    {
       "company": "WeWork India Management Limited",
       "symbol": "WEWORK",
       "exchange": "NSE",
@@ -54,7 +180,7 @@
       "starred": true,
       "market_cap": null,
       "market_cap_fmt": null,
-      "ai_summary": null
+      "ai_summary": "WeWork India Management Limited has entered into a Leave and License Agreement for an additional 41,621 square feet. This expansion is at their Pune location, further increasing its operational capacity. This follows a previous disclosure on February 24, 2026, regarding capacity addition at the same site."
     },
     {
       "company": "Tata Communications Limited",
@@ -68,7 +194,7 @@
       "starred": false,
       "market_cap": 396121500000.0,
       "market_cap_fmt": "39.61K Cr",
-      "ai_summary": null
+      "ai_summary": "Tata Communications Limited has issued a press release dated March 24, 2026, announcing the launch of its IZO™ Data Centre Dynamic Connectivity platform. This software-defined platform aims to transform how enterprises connect their data centers. The new offering is designed to enhance resilience and ensure uninterrupted data flow in the global digital economy."
     },
     {
       "company": "Timken India Limited",
@@ -82,7 +208,7 @@
       "starred": false,
       "market_cap": 236638137164,
       "market_cap_fmt": "23.66K Cr",
-      "ai_summary": null
+      "ai_summary": "Timken India Limited has completed the purchase of 26.1% equity shares of Sunstreamgreen Energy C&I Three Private Limited. This acquisition was finalized on March 23, 2026. This update follows earlier communications regarding the agreement to acquire shares of the target company on September 22, 2025, and December 31, 2025."
     },
     {
       "company": "Marine Electricals (India) Limited",
@@ -152,7 +278,7 @@
       "starred": false,
       "market_cap": 13343536856.25,
       "market_cap_fmt": "1.33K Cr",
-      "ai_summary": null
+      "ai_summary": "Veranda Learning Solutions Limited has announced that its Veranda RACE division has crossed ₹100 crore in revenue. The division has also achieved over 5 lakh cumulative student enrollments. This press release, dated March 24, 2026, highlights significant growth for the government exam coaching institution."
     },
     {
       "company": "JINDAL STEEL LIMITED",
@@ -166,7 +292,7 @@
       "starred": true,
       "market_cap": null,
       "market_cap_fmt": null,
-      "ai_summary": null
+      "ai_summary": "Jindal Steel Limited has completed a 6 MTPA expansion at its Angul Integrated Steel Complex in Odisha. This expansion, which included commissioning the third Basic Oxygen Furnace (BOF-3) of 3 MTPA, brings the plant's total crude steel capacity to 12 MTPA. This makes it one of India's largest single-location integrated steel complexes."
     },
     {
       "company": "Kalpataru Projects International Limited",
@@ -180,7 +306,21 @@
       "starred": false,
       "market_cap": 176664198837.0,
       "market_cap_fmt": "17.67K Cr",
-      "ai_summary": null
+      "ai_summary": "Kalpataru Projects International Limited has secured new orders totaling ₹4,439 crores. These orders were received in the normal course of business and are a significant addition to the company's existing contracts. Investors should note the substantial value of these new business wins."
+    },
+    {
+      "company": "Brightcom Group Limited",
+      "symbol": "BCG",
+      "exchange": "NSE",
+      "subject": "General Updates",
+      "detail": "Brightcom Group Limited has informed the Exchange about General Update on Governance, Compliance and Operational Matters",
+      "date": "24-Mar-2026 08:30:03",
+      "attachment": "https://nsearchives.nseindia.com/corporate/BCG_24032026082946_24March2026_disclosure.pdf",
+      "category": "General Update",
+      "starred": false,
+      "market_cap": 16506600921.14,
+      "market_cap_fmt": "1.65K Cr",
+      "ai_summary": "Brightcom Group Limited is undertaking a structured review to strengthen governance, compliance, and transparency. This includes regularizing certain filings and procedural requirements, reinforcing systems for improved monitoring, and consolidating subsidiary information for enhanced financial reporting. The company is also working with auditors to strengthen internal controls and improve documentation processes."
     },
     {
       "company": "Acme Solar Holdings Limited",
@@ -194,7 +334,7 @@
       "starred": false,
       "market_cap": 145524128730.6,
       "market_cap_fmt": "14.55K Cr",
-      "ai_summary": null
+      "ai_summary": "Acme Solar Holdings Limited has announced the commissioning of additional Battery Energy Storage System projects. These projects in Rajasthan have a capacity of 155 MW and 470 MWh. This expansion highlights the company's ongoing development in the renewable energy sector."
     },
     {
       "company": "Five-Star Business Finance Limited",
@@ -208,7 +348,7 @@
       "starred": true,
       "market_cap": 105204306901.2,
       "market_cap_fmt": "10.52K Cr",
-      "ai_summary": null
+      "ai_summary": "Five-Star Business Finance Limited has completed the conversion of 3,10,000 share warrants into equity shares. The conversion price for these warrants was INR 770.00 per share. This action increases the company's issued equity share capital."
     },
     {
       "company": "Tata Power Company Limited",
@@ -218,11 +358,11 @@
       "detail": "Tata Power Company Limited has informed the Exchange about  update on Closure of operations",
       "date": "24-Mar-2026 07:38:23",
       "attachment": "https://nsearchives.nseindia.com/corporate/VPTPCL_24032026073718_Reg_30_-_Update_SEBI.pdf",
-      "category": "Other",
+      "category": "Regulatory",
       "starred": false,
       "market_cap": 1243466384715.05,
       "market_cap_fmt": "1.24L Cr",
-      "ai_summary": null
+      "ai_summary": "Tata Power Company Limited has executed a Supplementary Power Purchase Agreement for its Mundra Plant with GUVNL (Gujarat). This agreement is in reference to the temporary suspension of operations at the Mundra units. Similar agreements are expected with Maharashtra, Rajasthan, Punjab, and Haryana."
     },
     {
       "company": "HDFC Bank Limited",
@@ -824,7 +964,7 @@
       "starred": true,
       "market_cap": 3354515169.24,
       "market_cap_fmt": "335 Cr",
-      "ai_summary": null
+      "ai_summary": "Vardhman Polytex Limited's board of directors has approved the allotment of 65,00,000 equity shares. These shares are issued at a price of Rs.12.55 per share, including a premium of Rs.11.55, upon the conversion of 65,00,000 warrants. These warrants were previously issued on a preferential basis."
     },
     {
       "company": "Birla Corporation Limited",
@@ -838,7 +978,7 @@
       "starred": true,
       "market_cap": 62112512890.200005,
       "market_cap_fmt": "6.21K Cr",
-      "ai_summary": null
+      "ai_summary": "RCCPL Private Limited, a wholly owned subsidiary of Birla Corporation Limited, has commissioned the third production line at its Kundanganj grinding unit in Uttar Pradesh on March 23, 2026. This expansion increases the unit's production capacity by 1.4 million tons."
     },
     {
       "company": "Endurance Technologies Limited",
@@ -848,11 +988,11 @@
       "detail": "Endurance Technologies Limited has informed the Exchange regarding one-on-one meeting  scheduled on 25th March, 2026 from 3.00 p.m. to 4.00 p.m. in Pune.",
       "date": "23-Mar-2026 18:36:25",
       "attachment": "https://nsearchives.nseindia.com/corporate/ENDURANCE_23032026183609_Intimation.pdf",
-      "category": "Other",
+      "category": "Board Meeting",
       "starred": false,
       "market_cap": 309317602752,
       "market_cap_fmt": "30.93K Cr",
-      "ai_summary": null
+      "ai_summary": "Endurance Technologies Limited has scheduled a one-on-one meeting with Axis Mutual Fund on March 25, 2026, from 3:00 p.m. to 4:00 p.m. in Pune. Senior management representatives will attend the meeting."
     },
     {
       "company": "Capri Global Capital Limited",
@@ -866,7 +1006,7 @@
       "starred": false,
       "market_cap": 154906787882,
       "market_cap_fmt": "15.49K Cr",
-      "ai_summary": null
+      "ai_summary": "Capri Global Capital Limited announced on March 23, 2026, that it has secured a 'Ba3' Corporate Family Rating from Moody's and a 'BB-' Long-Term Issuer Default Rating from Fitch Ratings. These ratings signal strong credit strength and growth momentum for the NBFC."
     },
     {
       "company": "NHPC Limited",
@@ -918,11 +1058,11 @@
       "detail": "Avenue Supermarts Limited has informed the Exchange regarding 'Store Opening Intimation'.",
       "date": "23-Mar-2026 18:26:32",
       "attachment": "https://nsearchives.nseindia.com/corporate/DMART_23032026182533_ASLInitmationStoreOpening23032026.pdf",
-      "category": "Other",
+      "category": "Business Expansion",
       "starred": false,
       "market_cap": 2370620566724,
       "market_cap_fmt": "2.37L Cr",
-      "ai_summary": null
+      "ai_summary": "Avenue Supermarts Limited opened a new store at Bling Square Mall, Bhopal, Madhya Pradesh, on March 23, 2026. This opening brings the company's total store count to 467."
     },
     {
       "company": "Samvardhana Motherson International Limited",
@@ -988,11 +1128,11 @@
       "detail": "Nakoda Group of Industries Limited has informed the Exchange about Agreements",
       "date": "23-Mar-2026 18:08:39",
       "attachment": "https://nsearchives.nseindia.com/corporate/NGIL_23032026180757_OutcomeofBoardMeetings_organized__1_.pdf",
-      "category": "Other",
+      "category": "Joint Venture",
       "starred": false,
       "market_cap": null,
       "market_cap_fmt": null,
-      "ai_summary": null
+      "ai_summary": "Nakoda Group of Industries Limited's Board of Directors, in a meeting on March 23, 2026, authorized Whole Time Director Mr. Jayesh Choudhary to enter into an agreement with M/s Rudransh Beverages Private Limited. This agreement is for the co-packing, manufacturing, and supply of packaged drinking water under the brand name \"NOCTRL\"."
     },
     {
       "company": "Indo-National Limited",
@@ -1072,11 +1212,11 @@
       "detail": "Solar Industries India Limited has informed the Exchange about Certificate confirming fulfilment of payment obligation with respect to Commercial Paper issued dated December 23, 2025 by Solar Industries India Limited.",
       "date": "23-Mar-2026 17:51:41",
       "attachment": "https://nsearchives.nseindia.com/corporate/SOLARINDS_23032026175109_STOCK_EXCHANGE_SIIL_FINAL_SD.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 1125786774255,
       "market_cap_fmt": "1.13L Cr",
-      "ai_summary": null
+      "ai_summary": "Solar Industries India Limited has confirmed the full payment of Rs. 100 Crores for its Commercial Paper issued on December 23, 2025. The payment was made on the due date, March 23, 2026, to Kotak Mahindra Bank Limited. This fulfills the company's payment obligation related to this issuance."
     },
     {
       "company": "Medplus Health Services Limited",
@@ -1104,7 +1244,7 @@
       "starred": false,
       "market_cap": 168966520839.0,
       "market_cap_fmt": "16.90K Cr",
-      "ai_summary": null
+      "ai_summary": "Godawari Power And Ispat Limited has received a certified copy of the National Company Law Tribunal's (NCLT) order dated March 12, 2026, sanctioning the amalgamation of its wholly-owned subsidiary, Godawari Energy Limited, with itself. The order has been filed with the Registrar of Companies, making the scheme effective as of March 23, 2026."
     },
     {
       "company": "Highway Infrastructure Limited",
@@ -1212,11 +1352,11 @@
       "detail": "Mittal Life Style Limited has informed the Exchange regarding Outcome of Board Meeting held on March 23, 2026.",
       "date": "23-Mar-2026 16:59:26",
       "attachment": "https://nsearchives.nseindia.com/corporate/MITTAL_23032026165820_BM_Outcome_Pref_Issue.pdf",
-      "category": "Board Meeting",
+      "category": "Fund Raising",
       "starred": false,
       "market_cap": null,
       "market_cap_fmt": null,
-      "ai_summary": null
+      "ai_summary": "Mittal Life Style Limited's Board of Directors, in a meeting held on March 23, 2026, approved raising funds through a preferential issue. The company will issue up to 99,225 equity shares at Rs. 1.20 per share, including a premium of Rs. 0.20, aggregating to Rs. 1,19,070. This issuance will be on a private placement basis."
     },
     {
       "company": "G R Infraprojects Limited",
@@ -1426,7 +1566,7 @@
       "starred": false,
       "market_cap": null,
       "market_cap_fmt": null,
-      "ai_summary": null
+      "ai_summary": "Lypsa Gems & Jewellery Limited held a meeting of its Independent Directors on March 23, 2026. During this meeting, the directors reviewed the performance of non-independent directors, the board as a whole, and the chairperson. They also assessed the quality and quantity of information provided to the board."
     },
     {
       "company": "Fineotex Chemical Limited",
@@ -2045,6 +2185,182 @@
       "ai_summary": "RITES Limited has received a Letter of Acceptance from Research Designs and Standards Organisation (RDSO), Lucknow. The contract is for the comprehensive maintenance of a dedicated test track between Gudha and Thathana Mithri stations in the Jodhpur division of NWR."
     },
     {
+      "company": "Switching Technologies Gunther Ltd",
+      "symbol": "517201",
+      "exchange": "BSE",
+      "subject": "Switching Technologies Gunther Ltd - 517201 - Compliance-57 (4) : Prior intimation to the beginning  of the quarter",
+      "detail": "Prior Intimation under Regulation 57(4) of SEBI (LODR) Regulations, 2015",
+      "date": "2026-03-24T12:45:12.71",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6ccd4ece-722c-46ec-a664-ae718f3302da.pdf",
+      "category": "Regulatory",
+      "starred": false,
+      "ai_summary": "Switching Technologies Gunther Ltd has provided prior intimation under Regulation 57(4) of SEBI (LODR) Regulations, 2015. The company has not issued any non-convertible securities during the quarter, therefore, no interest, dividend, or principal obligations arise."
+    },
+    {
+      "company": "Anzen India Energy Yield Plus Trust",
+      "symbol": "543655",
+      "exchange": "BSE",
+      "subject": "Anzen India Energy Yield Plus Trust - 543655 - Reg 23(5)(i): Disclosure of material issue",
+      "detail": "Anzen India Energy Yield Plus Trust has informed the Exchange regarding Disclosure of material issue",
+      "date": "2026-03-24T12:44:40.32",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5419ae0e-e902-4142-bfd3-1d6dd9740878.pdf",
+      "category": "SAST/Insider",
+      "starred": false,
+      "market_cap": 31964862500,
+      "market_cap_fmt": "3.20K Cr",
+      "ai_summary": "Anzen India Energy Yield Plus Trust has disclosed that SEPL Energy Private Limited, the sponsor, sold 12,00,000 units on BSE Limited and 11,50,000 units on the National Stock Exchange of India Limited. This disclosure is made pursuant to the PIT Regulations and the company's policy on Unpublished Price Sensitive Information."
+    },
+    {
+      "company": "ITCONS E-Solutions Ltd",
+      "symbol": "543806",
+      "exchange": "BSE",
+      "subject": "ITCONS E-Solutions Ltd - 543806 - Announcement under Regulation 30 (LODR)-Memorandum of Understanding /Agreements",
+      "detail": "The Company is pleased to inform that it has entered into agreement with Pay10 Services Private Limited (Formerly known as Bhartipay Services Private Limited) for providing trained and skilled personnel on a contractual basis and recruitment of candidate for permanent employment. For further details, please refer attached file",
+      "date": "2026-03-24T12:41:39.253",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/78ef5ab9-9dee-40b4-a7f1-28043c523028.pdf",
+      "category": "Joint Venture",
+      "starred": false,
+      "ai_summary": "ITCONS E-Solutions Ltd has entered into an agreement with Pay10 Services Private Limited, a Fintech company. This agreement is for providing trained and skilled personnel on a contractual basis and for recruiting candidates for permanent employment. The company expects this partnership to create future growth opportunities and generate profit."
+    },
+    {
+      "company": "Wanbury Ltd",
+      "symbol": "524212",
+      "exchange": "BSE",
+      "subject": "Wanbury Ltd - 524212 - Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release dated 24th March, 2026.",
+      "date": "2026-03-24T12:38:28.843",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/79375dfd-8c4c-4253-ab8c-cd7a63933b90.pdf",
+      "category": "Press Release",
+      "starred": false,
+      "market_cap": 8471057045.099999,
+      "market_cap_fmt": "847 Cr",
+      "ai_summary": "Wanbury Ltd. is strengthening its Coriminic brand with new pediatric-focused product launches. These include Coriminic CPM Drops and Coriminic NS Nasal Drops. These launches align with drug control notifications restricting fixed-dose cold combinations for children under 4 years of age. The announcement was made on March 24, 2026."
+    },
+    {
+      "company": "Piccadily Agro Industries Ltd",
+      "symbol": "530305",
+      "exchange": "BSE",
+      "subject": "Piccadily Agro Industries Ltd - 530305 - Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release dated 24.03.2026",
+      "date": "2026-03-24T12:30:39.28",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f5bde813-c6b7-47ba-b22d-cb1115255615.pdf",
+      "category": "Press Release",
+      "starred": false,
+      "market_cap": 53779750206,
+      "market_cap_fmt": "5.38K Cr",
+      "ai_summary": "Piccadily Agro Industries Ltd., in collaboration with The Dram Club, has unveiled Indri Rudhira, India's first single malt whisky matured in Pineau des Charentes casks. This limited edition release features only 252 individually numbered bottles. The press release was issued on March 24, 2026."
+    },
+    {
+      "company": "Innovassynth Technologies (India) Ltd",
+      "symbol": "533315",
+      "exchange": "BSE",
+      "subject": "Innovassynth Technologies (India) Ltd - 533315 - Board Meeting Intimation for Fund Raising.",
+      "detail": "Innovassynth Technologies (India) Ltdhas informed BSE that the meeting of the Board of Directors of the Company is scheduled on 27/03/2026 ,inter alia, to consider and approve raising of funds by way of issuance of equity shares or any other eligible securities through various permissible methods including by way of Rights Issue, Preferential issue, Qualified Institutional Placement, or such other modes as may be decided by the Board subject to such ....",
+      "date": "2026-03-24T12:30:17.11",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/677ca73d-ddac-44fa-ac07-4d0072c2e88b.pdf",
+      "category": "Fund Raising",
+      "starred": false,
+      "ai_summary": "Innovassynth Technologies (India) Ltd will hold a Board Meeting on March 27, 2026. The agenda includes considering and approving the raising of funds. This could be through the issuance of equity shares or other eligible securities via methods like Rights Issue, Preferential Issue, or Qualified Institutional Placement."
+    },
+    {
+      "company": "Tyche Industries Ltd",
+      "symbol": "532384",
+      "exchange": "BSE",
+      "subject": "Tyche Industries Ltd - 532384 - Intimation Regarding Receipt Of ANVISA, Brazil GMP Certificate For  The Company''s Manufacturing Facility Located At Kakinada, Andhra Pradesh.",
+      "detail": "Please find attached the intimation regarding receipt of ANVISA, Brazil GMP certificate for the Company''s Manufacturing facility located at Kakinada, Andhra Pradesh.",
+      "date": "2026-03-24T12:24:46.44",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c28ee1ef-608c-41c8-b613-4bfea10880fa.pdf",
+      "category": "Regulatory",
+      "starred": false,
+      "ai_summary": "Tyche Industries Ltd has received a Certificate of GMP Compliance from ANVISA, Brazil for its manufacturing facility in Kakinada, Andhra Pradesh. This certificate is valid for two years, from March 16, 2026, to March 16, 2028. This follows a successful GMP inspection previously intimated on September 11, 2025."
+    },
+    {
+      "company": "Sodhani Capital Ltd",
+      "symbol": "544560",
+      "exchange": "BSE",
+      "subject": "Sodhani Capital Ltd - 544560 - Announcement under Regulation 30 (LODR)-Amendments to Memorandum & Articles of Association",
+      "detail": "Sodhani capital limited has informed to the exchange in regards with the Alteration of the Main Object clause in the Memorandum of Association of the Company subject to the Approval of the Members of the Company,  Registrar of Companies authority department, bodies as and to the extend necessary",
+      "date": "2026-03-24T12:24:18.873",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/afcd982b-9267-4027-b1ae-b09d1e855cf3.pdf",
+      "category": "General Update",
+      "starred": false,
+      "ai_summary": "Sodhani Capital Ltd's Board of Directors, in a meeting held on March 24, 2026, approved an alteration to the company's Memorandum of Association. This includes adding new sub-clauses to carry on the business of a Direct Selling Agent (DSA), referral agent, facilitator, and service provider for financial institutions. This is subject to member and regulatory approvals."
+    },
+    {
+      "company": "EPIC Energy Ltd-$",
+      "symbol": "530407",
+      "exchange": "BSE",
+      "subject": "EPIC Energy Ltd-$ - 530407 - Board Meeting Outcome for Outcome Of Board Meeting Dated 24-03-2026",
+      "detail": "Outcome of Board Meeting Held on 24-03-2026.",
+      "date": "2026-03-24T12:23:25.903",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/979c8333-76db-48a6-ad25-45e9eabe71d8.pdf",
+      "category": "Allotment",
+      "starred": false,
+      "ai_summary": "EPIC Energy Ltd has approved the allotment of 38,00,000 Convertible Warrants at Rs. 50 per warrant. The company has received an aggregate amount of Rs. 4,75,00,000 as warrant subscription price (25% of the issue price). Each warrant is convertible into one fully paid-up equity share of Rs. 10 face value."
+    },
+    {
+      "company": "Sodhani Capital Ltd",
+      "symbol": "544560",
+      "exchange": "BSE",
+      "subject": "Sodhani Capital Ltd - 544560 - Board Meeting Outcome for Outcome Of The Board Meeting Held On 24Th March, 2026",
+      "detail": "Outcome of the Board Meeting held on 24th March, 2026",
+      "date": "2026-03-24T12:15:56.333",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/773d5616-4710-47f5-9a68-7e915fd711dd.pdf",
+      "category": "Board Meeting",
+      "starred": false,
+      "ai_summary": "Sodhani Capital Ltd's Board of Directors met on March 24, 2026. They approved an alteration to the company's Memorandum of Association (MOA) to include carrying on the business of a Direct Selling Agent (DSA), referral agent, facilitator, and service provider for financial institutions. This alteration is subject to member and regulatory approvals."
+    },
+    {
+      "company": "Union Bank of India",
+      "symbol": "532477",
+      "exchange": "BSE",
+      "subject": "Union Bank of India - 532477 - Announcement under Regulation 30 (LODR)-Allotment",
+      "detail": "Issue of Long - Term Bonds for financing of Infrastructure and affordable housing.",
+      "date": "2026-03-24T12:06:59.303",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/544dba5a-4358-4d64-9290-e105a8d61149.pdf",
+      "category": "Fund Raising",
+      "starred": false,
+      "market_cap": 1335880981225,
+      "market_cap_fmt": "1.34L Cr",
+      "ai_summary": "Union Bank of India will issue Long-Term Bonds worth ₹7,500 Crore to finance infrastructure and affordable housing. The issue has a base size of ₹3,000 Crore and a greenshoe option of ₹4,500 Crore, to be placed privately. These are unsecured, redeemable, non-convertible debentures with a 10-year tenor and a coupon rate of 7.16% p.a., rated \"CARE AAA/Stable\" and \"ICRA AAA /Stable\"."
+    },
+    {
+      "company": "LE Lavoir Ltd",
+      "symbol": "539814",
+      "exchange": "BSE",
+      "subject": "LE Lavoir Ltd - 539814 - Board Meeting Outcome for Outcome Of Board Meeting Held Today I.E., Tuesday, 24Th March, 2026",
+      "detail": "We hereby inform you that the Board of Directors of the Company, at its meeting held today, i.e., Tuesday, 24th March, 2026, at the registered office of the Company situated at 1st Floor, Shop No. 105, Four Square Plaza, UNI. Road, Rajkot Sau Uni Area, Rajkot, Gujarat, India - 360 005, which commenced at 11:00 A.M. and concluded at 11:40 A.M., has considered and approved the Receipt of the 2nd tranche of consideration for allotment of convertible warrants ('Warrants').",
+      "date": "2026-03-24T11:54:52.657",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fb170269-a41a-4aba-a6fd-2e72187453b3.pdf",
+      "category": "Warrants",
+      "starred": true,
+      "ai_summary": "LE Lavoir Ltd's Board of Directors met on March 24, 2026, and approved the receipt of the second tranche of consideration for the allotment of convertible warrants. These warrants were issued at ₹264.75 each, including a premium of ₹254.75 and a face value of ₹10.00, to non-promoter entities on a preferential basis."
+    },
+    {
+      "company": "DRA Consultants Ltd",
+      "symbol": "540144",
+      "exchange": "BSE",
+      "subject": "DRA Consultants Ltd - 540144 - Board Meeting Outcome for Outcome Of Board Meeting Held On Tuesday, March 24, 2026",
+      "detail": "This is to inform you that the Board of Directors of the Company at their meeting held today i.e., Tuesday, March 24, 2026 at 11.00 A.M and concluded at 11.30 A.M. have reviewed the business operations of the company in regards to revenue, expenses, cash flow, work in hand projects and future projects.",
+      "date": "2026-03-24T11:43:38.68",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f0952cf7-e0c8-4533-b5f8-22a86ba8b86f.pdf",
+      "category": "Results",
+      "starred": false,
+      "ai_summary": "DRA Consultants Ltd's Board of Directors met on March 24, 2026, to review the company's business operations. The review covered revenue, expenses, cash flow, current projects, and future projects."
+    },
+    {
+      "company": "Genpharmasec Ltd",
+      "symbol": "531592",
+      "exchange": "BSE",
+      "subject": "Genpharmasec Ltd - 531592 - Outcome Of Separate Meeting Of Independent Directors Of The Company.",
+      "detail": "Outcome of Separate Meeting of Independent Directors held on  March 24, 2026.",
+      "date": "2026-03-24T11:42:41.767",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/59febda2-50c5-4168-8e5a-4c5761f8759c.pdf",
+      "category": "Board Meeting",
+      "starred": false,
+      "ai_summary": "Genpharmasec Ltd held a Separate Meeting of Independent Directors on March 24, 2026. The independent directors reviewed the performance of non-independent directors and the board as a whole. They also assessed the performance of the Chairperson and the quality, quantity, and timeliness of information flow between management and the board."
+    },
+    {
       "company": "Nazara Technologies Ltd",
       "symbol": "543280",
       "exchange": "BSE",
@@ -2052,11 +2368,11 @@
       "detail": "Nazara Technologies Ltdhas informed BSE that the meeting of the Board of Directors of the Company is scheduled on 30/03/2026 ,inter alia, to consider and approve the proposal of raising of funds and other related matters.",
       "date": "2026-03-24T11:31:46.413",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e79a283b-67e8-4f18-9789-6dd99abd876c.pdf",
-      "category": "Fund Raising",
+      "category": "Board Meeting",
       "starred": false,
       "market_cap": 83984420940.8,
       "market_cap_fmt": "8.40K Cr",
-      "ai_summary": null
+      "ai_summary": "Nazara Technologies Limited has scheduled a Board of Directors meeting for March 30, 2026. The primary agenda item is to consider and approve a proposal for raising funds. This could be through the issuance of equity shares, convertible instruments, or other eligible securities on a preferential basis."
     },
     {
       "company": "Whirlpool of India Ltd",
@@ -2066,11 +2382,11 @@
       "detail": "As enclosed",
       "date": "2026-03-24T11:30:58.603",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/79fe58da-b725-45a5-b1de-2fa6673a8855.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 98858529936.0,
       "market_cap_fmt": "9.89K Cr",
-      "ai_summary": null
+      "ai_summary": "Whirlpool of India Ltd is communicating clarifications to proxy advisory firms, Institutional Investor Advisory Services India Limited (IiAS) and Stakeholders Empowerment Services (SES). These clarifications are in response to voting recommendations regarding the proposed re-designation of Mr. Anil Berera as a Non-Executive Independent Director. The company is seeking shareholder approval via postal ballot for this re-designation."
     },
     {
       "company": "Easy Trip Planners Ltd",
@@ -2101,6 +2417,20 @@
       "ai_summary": "The Board of Directors of IIFL Capital Services Ltd met on March 24, 2026, and approved an increase in borrowing limits. The company plans to increase its borrowing limits up to ₹7,000 crores under Section 180(1)(c) and Section 180(1)(a) of the Companies Act, 2013, subject to shareholder approval. The meeting was held from 10:30 a.m. to 11:00 a.m."
     },
     {
+      "company": "Tata Communications Ltd",
+      "symbol": "500483",
+      "exchange": "BSE",
+      "subject": "Tata Communications Ltd - 500483 - Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release - Tata Communications Unveils Self-Healing Network, Marks New Frontier in Global Data Centre Connectivity",
+      "date": "2026-03-24T11:03:58.34",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cb84e036-aee2-4f39-8d31-85ea42163fc2.pdf",
+      "category": "Press Release",
+      "starred": false,
+      "market_cap": 402334500000.0,
+      "market_cap_fmt": "40.23K Cr",
+      "ai_summary": "Tata Communications Limited has launched IZO™ Data Centre Dynamic Connectivity, a software-defined platform designed to enhance global data centre connectivity. This new offering aims to transform how enterprises connect their data centres, particularly in an AI-driven and distributed environment. The launch signifies a new frontier in global data centre connectivity."
+    },
+    {
       "company": "Saven Technologies Ltd",
       "symbol": "532404",
       "exchange": "BSE",
@@ -2110,7 +2440,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/aa1d1d2c-dbcf-42ba-bcf4-1172be8c89c1.pdf",
       "category": "Board Meeting",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Saven Technologies Limited's Board of Directors met on March 24, 2026. They noted the postal ballot results approving remuneration for Mr. Rajagopal Ravi, Non-Executive, Non-Independent Director and Chairman. The Board also approved a performance incentive of Rs. 20,00,000 for Mr. Murty Gudipati, Managing Director & CEO, for FY 2025-26."
     },
     {
       "company": "Coforge Ltd",
@@ -2138,7 +2468,7 @@
       "starred": false,
       "market_cap": 9087457608.0,
       "market_cap_fmt": "909 Cr",
-      "ai_summary": null
+      "ai_summary": "SEPC Limited has announced a strategic acquisition of a 90% stake in Avenir International Engineers and Consultants LLC, based in Abu Dhabi. This acquisition aims to expand SEPC's global footprint and strengthen its presence in the Oil & Gas engineering sector, particularly in the Middle East and North Africa region."
     },
     {
       "company": "KPI Green Energy Ltd",
@@ -2152,7 +2482,7 @@
       "starred": false,
       "market_cap": 71309196728.55,
       "market_cap_fmt": "7.13K Cr",
-      "ai_summary": null
+      "ai_summary": "KPI Green Energy Limited has successfully energized 965 MWp capacity out of its 2.17 GWp Independent Power Producer (IPP) portfolio. This achievement reinforces the company's transition to an asset-backed IPP model, complemented by its EPC expertise, and highlights a sustainable annuity revenue stream from long-term contracted projects."
     },
     {
       "company": "Kilburn Engineering Ltd",
@@ -2164,7 +2494,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7811e989-b313-41ca-80b3-ef511d4bd000.pdf",
       "category": "New Order",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Kilburn Engineering Limited has received new orders totaling Rs. 5458 lakhs since its last announcement on January 28, 2026. These orders include Rotary Dryers for Limestone (Rs. 1985 lakhs), Paddle Dryer & Cooler for Palm Oil (Rs. 1500 lakhs), VFBDs & Band Dryer (Rs. 912 lakhs), and Tea Dryers (Rs. 265 lakhs), along with Service/Spares/Others (Rs. 796 lakhs)."
     },
     {
       "company": "Suzlon Energy Ltd",
@@ -2178,7 +2508,7 @@
       "starred": false,
       "market_cap": 552562569009.15,
       "market_cap_fmt": "55.26K Cr",
-      "ai_summary": null
+      "ai_summary": "Suzlon Energy has secured a repeat order for 100 MW from GAIL, marking their sixth such order from the company. This project, to be executed in the Nandurbar district of Maharashtra, will utilize 47 S120 WTGs with a rated capacity of 2.1 MW each. This is Suzlon's fourth PSU order in FY26, reinforcing its market leadership in Maharashtra's wind capacity."
     },
     {
       "company": "Kalpataru Projects International Ltd",
@@ -2192,7 +2522,7 @@
       "starred": false,
       "market_cap": 176817894128.40002,
       "market_cap_fmt": "17.68K Cr",
-      "ai_summary": null
+      "ai_summary": "Kalpataru Projects International Limited (KPIL) has been awarded new orders totaling ₹4,439 crores. These orders were received in the normal course of business and are being disclosed as per SEBI regulations."
     },
     {
       "company": "Brightcom Group Ltd",
@@ -2202,11 +2532,11 @@
       "detail": "General Update on Corporate Governance and operational Matters",
       "date": "2026-03-24T08:34:03.66",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/80e21795-ccbc-42de-b90c-3948d0eca403.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 16768930764.630001,
       "market_cap_fmt": "1.68K Cr",
-      "ai_summary": null
+      "ai_summary": "Brightcom Group Ltd is undertaking a structured review to strengthen governance, compliance, and transparency. This includes regularizing certain filings, reinforcing systems for improved monitoring, consolidating subsidiary information for enhanced financial reporting, and working with auditors to strengthen internal controls."
     },
     {
       "company": "Mobavenue AI Tech Ltd",
@@ -2216,9 +2546,9 @@
       "detail": "''Mobavenue'' recognized with two gold Awards at the AdTech Honours by ad:tech India",
       "date": "2026-03-24T08:28:55.37",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/34ddf8c1-800d-46c9-90da-7bc910137837.pdf",
-      "category": "Other",
+      "category": "Subsidiary",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Mobavenue Media Private Limited (MMPL), a wholly owned subsidiary of Mobavenue AI Tech Limited, has won two Gold awards at the AdTech Honours by ad:tech India. The awards were for \"Programmatic & Emerging Media – Connected TV Advertising\" and \"AI & Creative Automation – AI-Driven Dynamic Creative Optimisation,\" recognizing MMPL's advancements in digital advertising."
     },
     {
       "company": "ACME Solar Holdings Ltd",
@@ -2228,11 +2558,11 @@
       "detail": "ACME Solar commissions additional 155 MW/470 MWh Battery Energy Storage System projects in Rajsthan.",
       "date": "2026-03-24T08:27:15.28",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6f35c022-9eb8-4672-970b-cb6bf9a556b4.pdf",
-      "category": "Press Release",
+      "category": "Business Expansion",
       "starred": false,
       "market_cap": 144281886532.4,
       "market_cap_fmt": "14.43K Cr",
-      "ai_summary": null
+      "ai_summary": "ACME Solar Holdings Limited has commissioned an additional 155 MW/470 MWh Battery Energy Storage System (BESS) projects in Rajasthan. This expansion signifies a move towards enhancing energy storage capabilities."
     },
     {
       "company": "Tata Power Company Ltd",
@@ -2256,11 +2586,11 @@
       "detail": "Appointment of external law firms",
       "date": "2026-03-24T06:04:49.543",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f6b30fa5-c16d-4006-bd81-f610105972fd.pdf",
-      "category": "Other",
+      "category": "Clarification",
       "starred": false,
       "market_cap": 11670201233098.8,
       "market_cap_fmt": "11.67L Cr",
-      "ai_summary": null
+      "ai_summary": "HDFC Bank has appointed external law firms, both domestic and international, to review the resignation of Mr. Atanu Chakraborty as Part-time Chairman and Independent Director. This proactive step by the Board of Directors aims to reinforce the bank's governance standards following Mr. Chakraborty's departure. The law firms have been tasked with providing their report within a reasonable timeframe."
     },
     {
       "company": "Capri Global Capital Ltd",
@@ -2326,11 +2656,11 @@
       "detail": "National Highways Infra Trust has informed the Exchange regarding Disclosure of material issue",
       "date": "2026-03-23T23:16:43.78",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bbe8d88b-a65a-47b8-b09c-f42092a3ca38.pdf",
-      "category": "Other",
+      "category": "Fund Raising",
       "starred": false,
       "market_cap": 297306567100.0,
       "market_cap_fmt": "29.73K Cr",
-      "ai_summary": null
+      "ai_summary": "National Highways Infra Trust's Investment Manager, National Highways Infra Investment Managers Private Limited, held a Board Meeting on March 23, 2026. The Board approved taking note of in-principle approvals from BSE and NSE for a Preferential Issue. This action is in connection with the proposed Private Placement of Units of National Highways Infra Trust."
     },
     {
       "company": "Gconnect Logitech and Supply Chain Ltd",
@@ -2340,9 +2670,9 @@
       "detail": "Outcome of the Board Meeting held on March 23, 2026, under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ('SEBI Listing Regulations')",
       "date": "2026-03-23T23:04:37.237",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f4cc4e7a-c4e8-47e2-9866-136c51f115dd.pdf",
-      "category": "Board Meeting",
+      "category": "Fund Raising",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Gconnect Logitech and Supply Chain Limited's Board of Directors approved an increase in authorized share capital from ₹4 crore to ₹11 crore. They also approved the issuance of up to 64,83,000 equity shares at ₹18.31 per share, aggregating to ₹11,87,03,730. This fundraising initiative is subject to shareholder approval."
     },
     {
       "company": "ACME Solar Holdings Ltd",
@@ -2352,11 +2682,11 @@
       "detail": "Commissioning of first phase of 60 MW capacity of BESS Project",
       "date": "2026-03-23T21:54:01.033",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2f27d25b-17a8-43b7-a3d4-45d9bfdb17b8.pdf",
-      "category": "Other",
+      "category": "Business Expansion",
       "starred": false,
       "market_cap": 144827261156,
       "market_cap_fmt": "14.48K Cr",
-      "ai_summary": null
+      "ai_summary": "ACME Solar Holdings Limited, through its wholly owned subsidiary ACME Surya Power Private Limited, has commissioned the first phase of its Battery Energy Storage System (BESS) project. This initial phase comprises 60 MW capacity (269.606 MWh) and is located in Jaimalsar, Bikaner, Rajasthan. The total project capacity is 250 MW (1103.392 MWh)."
     },
     {
       "company": "Persistent Systems Ltd",
@@ -2370,7 +2700,7 @@
       "starred": false,
       "market_cap": 743791250000,
       "market_cap_fmt": "74.38K Cr",
-      "ai_summary": null
+      "ai_summary": "Persistent Systems Limited has issued a press release announcing the appointment of Ruchi Kulhari as Executive Vice President - Enterprise Strategy & Execution. This appointment is intended to strengthen enterprise execution, leadership alignment, and operating rigor as the company enters its next phase of growth."
     },
     {
       "company": "GE Power India Ltd",
@@ -2380,11 +2710,11 @@
       "detail": "As enclosed",
       "date": "2026-03-23T21:01:39.147",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4a159f54-4809-4671-b21d-2203b3179e82.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 27687633931.350002,
       "market_cap_fmt": "2.77K Cr",
-      "ai_summary": null
+      "ai_summary": "GE Power India Ltd has updated the contact details for its Key Managerial Personnel (KMP) authorized to determine the materiality of events or information. These changes are effective from April 3, 2026. The updated contact information is for the corporate office located at Axis House, Jaypee Wish Town, Sector 128, Noida, Uttar Pradesh."
     },
     {
       "company": "Nitco Ltd",
@@ -2394,11 +2724,11 @@
       "detail": "Allotment of Equity Shares pursuant to exercise of share warrants",
       "date": "2026-03-23T21:00:10.203",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/de05854c-f412-4e11-8a26-c74333c6ffbf.pdf",
-      "category": "Warrants",
+      "category": "Allotment",
       "starred": true,
       "market_cap": 17298265927.5,
       "market_cap_fmt": "1.73K Cr",
-      "ai_summary": null
+      "ai_summary": "Nitco Ltd announced the allotment of equity shares following the exercise of share warrants. This allotment was approved by shareholders at an Extraordinary General Meeting on November 15, 2024. The company had previously received in-principle approval for this issuance from BSE Limited and the National Stock Exchange of India Limited in January 2025."
     },
     {
       "company": "KPIT Technologies Ltd",
@@ -2412,7 +2742,7 @@
       "starred": false,
       "market_cap": 179838338048,
       "market_cap_fmt": "17.98K Cr",
-      "ai_summary": null
+      "ai_summary": "KPIT Technologies Ltd has completed the transfer of its 26% stake in N-Dream AG to its wholly-owned subsidiary, KPIT Technologies (UK) Limited. Following this, KPIT UK now holds a 90% stake in N-Dream, making it a step-down subsidiary of KPIT India. This restructuring aims to achieve parity within the KPIT group's organizational structure, with the overall group holding in N-Dream remaining at 90%."
     },
     {
       "company": "Indian Railway Finance Corporation Ltd",
@@ -2426,7 +2756,7 @@
       "starred": false,
       "market_cap": 1167671011100.0,
       "market_cap_fmt": "1.17L Cr",
-      "ai_summary": null
+      "ai_summary": "Indian Railway Finance Corporation Ltd (IRFC) has delivered strategic refinancing of Rs 12,842 crore for Hindustan Urvarak & Rasayan Limited (HURL). This transaction advances IRFC's vision for whole-of-government financing. The announcement was made via a press release."
     },
     {
       "company": "Suzlon Energy Ltd",
@@ -2468,7 +2798,7 @@
       "starred": false,
       "market_cap": 547899593743.25006,
       "market_cap_fmt": "54.79K Cr",
-      "ai_summary": null
+      "ai_summary": "Suzlon Energy Ltd has been penalized Rs 25 Lacs by the Office of the Deputy Director, Enforcement Directorate, Mumbai Zonal Office-II. This penalty relates to a procedural matter for a bona fide transaction that was previously reported to the Reserve Bank of India. The contravention is alleged under Section 7 of FEMA, 1999, read with regulation 15 of the Foreign Exchange Management (Current Account Transaction) Rules, 2000."
     },
     {
       "company": "Kriti Industries India Ltd-$",
@@ -2546,7 +2876,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/94fc2156-2efc-4c32-95cb-fbc553c806c9.pdf",
       "category": "Regulatory",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "The statutory auditor, M/s. N K JALAN & CO, has expressed their unwillingness to continue as the statutory auditor for Avi Products India Ltd. This decision, communicated via a letter dated March 23, 2026, is due to better professional engagements. The company has provided the necessary disclosure as per SEBI (LODR) Regulations, 2015."
     },
     {
       "company": "Coal India Ltd",
@@ -2570,11 +2900,11 @@
       "detail": "CIL at is Board meeting has given in principle approval to divest upto 25% equity holding in MCL",
       "date": "2026-03-23T20:00:25.02",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b7f0c26d-1f02-431a-a5e1-8b6de0a8f63d.pdf",
-      "category": "Board Meeting",
+      "category": "Divestment",
       "starred": false,
       "market_cap": 2811744799193.75,
       "market_cap_fmt": "2.81L Cr",
-      "ai_summary": null
+      "ai_summary": "Coal India Limited's (CIL) Board has granted in-principle approval to divest up to 25% of its equity shares in its wholly-owned subsidiary, Mahanadi Coalfields Limited (MCL). This divestment will be executed through an Offer for Sale (OFS) in one or more tranches, potentially via an Initial Public Offering (IPO) or other market routes. The proposed listing of MCL is subject to regulatory approvals and market conditions."
     },
     {
       "company": "Coal India Ltd",
@@ -2584,11 +2914,11 @@
       "detail": "CIL is giving guarantee to CRAUL a subsidiary of CIL",
       "date": "2026-03-23T19:52:46.01",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7bf34b83-a74a-4bf8-9a01-da01107454bb.pdf",
-      "category": "Subsidiary",
+      "category": "Corporate Guarantee",
       "starred": false,
       "market_cap": 2811744799193.75,
       "market_cap_fmt": "2.81L Cr",
-      "ai_summary": null
+      "ai_summary": "The Board of Coal India Limited (CIL) has approved providing a guarantee to CIL Rajasthan Akshay Urja Limited (CRAUL), which is a subsidiary of CIL. This decision was made during a Board meeting, and further details are provided in an enclosed annexure as per SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015."
     },
     {
       "company": "Biogen Pharmachem Industries Ltd",
@@ -2600,7 +2930,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b510c64f-ed45-48aa-9fc8-7e9619138b1c.pdf",
       "category": "Capital Structure",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Biogen Pharmachem Industries Ltd's Board of Directors has recommended the issuance of fully paid-up bonus shares in a 1:6 ratio. This recommendation is subject to shareholder approval via postal ballot. Additionally, the Board has approved increasing the authorized share capital from Rs. 91,00,00,000 to Rs 1,08,00,00,000, also requiring shareholder consent."
     },
     {
       "company": "Starlineps Enterprises Ltd",
@@ -2612,7 +2942,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c56adc4a-da13-4945-9d4d-d7a70a44eb03.pdf",
       "category": "Warrants",
       "starred": true,
-      "ai_summary": null
+      "ai_summary": "Starlineps Enterprises Ltd's Board of Directors has approved the allotment of 6,78,33,700 equity shares and convertible warrants on a preferential basis. These shares are being allotted to non-promoters at a price of Rs. 6 per share, including a premium of Rs. 5. This decision follows previous intimations and in-principle approval from BSE Limited."
     },
     {
       "company": "Biogen Pharmachem Industries Ltd",
@@ -2624,7 +2954,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/198acb92-59eb-495f-af1c-42892b2ab67f.pdf",
       "category": "Board Meeting",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "The Board of Directors of Biogen Pharmachem Industries Ltd met on March 23, 2026, and approved increasing the authorized share capital from Rs. 91,00,00,000 to Rs 1,08,00,00,000, subject to shareholder approval. They also recommended the issuance of fully paid-up Bonus Shares in a 1:6 ratio and an alteration to the Memorandum of Association's capital clause."
     },
     {
       "company": "JK Tyre & Industries Ltd",
@@ -2652,7 +2982,7 @@
       "starred": false,
       "market_cap": 197775108156.0,
       "market_cap_fmt": "19.78K Cr",
-      "ai_summary": null
+      "ai_summary": "CESC Ltd announced that its subsidiary, Purvah Green Power Private Limited, incorporated a new Wholly Owned Subsidiary named Purvah Poweredge Private Limited on March 23, 2026. This new entity, Purvah Poweredge Private Limited, has the CIN U35100WB2026PTC287592 and is a newly incorporated company with no applicable turnover at this stage."
     },
     {
       "company": "Three M Paper Boards Ltd",
@@ -2662,9 +2992,9 @@
       "detail": "Disclosure under Regulation 29(2) of SEBI (SAST) Regulation, 2011",
       "date": "2026-03-23T19:40:28.44",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e40a3a0f-8e3b-4b96-b267-bd3345684d99.pdf",
-      "category": "Acquisition",
+      "category": "SAST/Insider",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Three M Paper Boards Ltd has submitted a disclosure under Regulation 29(2) of the SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011. This filing pertains to an acquisition of shares in the target company, Three M Paper Boards Limited, by Rushabh Hitendra Shah, who is part of the Promoter group."
     },
     {
       "company": "Brijlaxmi Leasing & Finance Ltd",
@@ -2676,7 +3006,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9D095ECA-7204-4A1C-A3C5-C2AD2535EB88-193819.pdf",
       "category": "Open Offer",
       "starred": true,
-      "ai_summary": null
+      "ai_summary": "Brijlaxmi Leasing & Finance Ltd provided an update on its Open Offer, stating that SEBI provided final comments on the Draft Letter of Offer (DLOF) on March 23, 2026. The Open Offer is for acquiring up to 64,99,889 equity shares at ₹10.05 per share, aggregating to ₹6,53,23,884.45, by Jaykishor Chaitanyakishor Chaturvedi, Siddharth Jaykishor Chaturvedi, Ankur J Chaturvedi, and Brijlaxmi Infotech Limited."
     },
     {
       "company": "H.G. Infra Engineering Ltd",
@@ -2714,9 +3044,9 @@
       "detail": "Issuance of Commercial Papers by Banking and Investment Committee of A. K. Capital Services Limited",
       "date": "2026-03-23T19:24:01.1",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d258e887-5884-4835-bca1-d644a1b0035f.pdf",
-      "category": "Other",
+      "category": "Fund Raising",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "AK Capital Services Limited's Banking and Investment Committee approved the issuance of Commercial Papers on March 23, 2026. The company plans to list 100 units of Commercial Papers on BSE Limited, each with a face value of INR 5,00,000, aggregating to INR 5,00,00,000, with a maturity date of October 15, 2026."
     },
     {
       "company": "InterGlobe Aviation Ltd",
@@ -2740,11 +3070,11 @@
       "detail": "Intimation of allotment of 351836870 equity shares on conversion of Fully Convertible Warrants and consequential changes in the paid-up equity share capital",
       "date": "2026-03-23T19:10:09.973",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c7cd3cf5-19a2-447f-ab91-003882e016b5.pdf",
-      "category": "Warrants",
+      "category": "Allotment",
       "starred": true,
       "market_cap": 62931491071.75,
       "market_cap_fmt": "6.29K Cr",
-      "ai_summary": null
+      "ai_summary": "PC Jeweller Ltd has allotted 35,18,36,870 equity shares on March 23, 2026. This allotment is a result of the conversion of Fully Convertible Warrants. The face value of each share is ₹ 1."
     },
     {
       "company": "Patel Engineering Ltd-$",
@@ -2754,11 +3084,11 @@
       "detail": "Outcome of Meeting with Investors held on Monday, March 23, 2026",
       "date": "2026-03-23T19:07:48.43",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4d373b89-c5e2-44d1-b7e9-9d47e5c7c61c.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 23394706874.46,
       "market_cap_fmt": "2.34K Cr",
-      "ai_summary": null
+      "ai_summary": "On March 23, 2026, officials from Patel Engineering Ltd participated in the 11th Annual Valorem Conference. They interacted with analysts and investors in a physical group meeting format. Discussions were based on publicly available information, and no unpublished price sensitive information was shared."
     },
     {
       "company": "Sudarshan Colorants India Ltd",
@@ -2768,11 +3098,11 @@
       "detail": "Announcement under Reg 30 - Receipt of GST Order",
       "date": "2026-03-23T19:03:23.443",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b0e7f3f1-6f30-4ab9-a283-4f71ce5d3e6d.pdf",
-      "category": "New Order",
+      "category": "Regulatory",
       "starred": false,
       "market_cap": 6534457013.8,
       "market_cap_fmt": "653 Cr",
-      "ai_summary": null
+      "ai_summary": "Sudarshan Colorants India Ltd has received an order from the Office of the Commercial Tax Officer in Chidambaram-I, Cuddalore, Tamil Nadu, dated March 23, 2026. The company is in the process of filing an appeal against this order. The issuance of this order is not expected to impact the company's financials, operations, or other activities."
     },
     {
       "company": "Suncity Synthetics Ltd",
@@ -2784,7 +3114,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c145b395-5d27-42df-a42b-32ac0e418f18.pdf",
       "category": "Fund Raising",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Suncity Synthetics Ltd has issued a revised announcement regarding a Board Meeting outcome held on March 20, 2026. The revision corrects a typographical error in the disclosure related to post-reduction share capital. The company has also made an application for reduction of share capital, which is pending before the NCLT."
     },
     {
       "company": "Rita Finance and Leasing Ltd",
@@ -2794,9 +3124,9 @@
       "detail": "Regulation 31(2) of the SEBI (SAST) Regulation, 2011 (takeover) Regulation, 2011",
       "date": "2026-03-23T19:01:15.923",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f3898d99-4232-47dd-97d3-7d0c691f2f55.pdf",
-      "category": "Acquisition",
+      "category": "SAST/Insider",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Rita Finance and Leasing Limited has disclosed the creation of a pledge on 22,33,614 equity shares. This disclosure is made by the promoter under Regulation 31(2) of the SEBI (Substantial Acquisition of Shares and Takeover) Regulation, 2011, dated March 20, 2026."
     },
     {
       "company": "Orient Tradelink Ltd",
@@ -2806,9 +3136,9 @@
       "detail": "Due to an inadvertent administrative delay, the Statement of Utilization/Deviation could not be placed before the Board\r\nor submitted to the Exchange simultaneously with the financial results.\r\n\r\nWe are hereby submitting the Financial results, Limited review report and Statement of utilization of fund for the quarter ended December ,2025",
       "date": "2026-03-23T19:00:16.55",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/da7aa259-0d26-4930-9628-f95c8143f116.pdf",
-      "category": "Results",
+      "category": "Clarification",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Orient Tradelink Ltd is clarifying a delay in submitting the Statement of Utilization/Deviation for funds raised via preferential allotment of 1,67,69,000 Equity Shares during the quarter ended December 2025. The delay was due to an administrative issue, with the auditor's certificate being issued on March 20, 2026, after the financial results were declared on February 18, 2026. The company confirms no deviation in fund utilization from the stated objects."
     },
     {
       "company": "Sammaan Capital Ltd",
@@ -2822,7 +3152,7 @@
       "starred": false,
       "market_cap": 107295769495.2,
       "market_cap_fmt": "10.73K Cr",
-      "ai_summary": null
+      "ai_summary": "Sammaan Capital Ltd has certified timely interest payments on its Secured and Unsecured Redeemable Non-Convertible Debentures (NCDs) issued through a public issue and listed on stock exchanges. The company has paid the entire interest amount due, as required by Regulation 57 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015."
     },
     {
       "company": "Suncity Synthetics Ltd",
@@ -2834,7 +3164,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0b28b81e-6184-4ef7-add4-3e23d721044d.pdf",
       "category": "Board Meeting",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Suncity Synthetics Ltd has issued a revised outcome for its Board Meeting held on March 20, 2026. The revision corrects a typographical error in the disclosure related to post-reduction share capital. The Board had considered and approved an application for reduction of share capital, which is currently pending before the NCLT for approval."
     },
     {
       "company": "Coral Laboratories Ltd",
@@ -2846,7 +3176,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/97a89e8a-fe5e-4517-af5b-c1f98f2f1b7e.pdf",
       "category": "Business Expansion",
       "starred": true,
-      "ai_summary": null
+      "ai_summary": "Coral Laboratories Ltd has successfully completed the capacity expansion at its Dehradun plant, increasing the General Pharmaceuticals Formulation (Ointment) unit capacity to 360,000 kgs. The company has commenced commercial operations at the expanded facility, following its earlier announcement on October 13, 2025."
     },
     {
       "company": "Roadstar Infra Investment Trust",
@@ -2856,9 +3186,9 @@
       "detail": "Roadstar Infra Investment Trust has informed the Exchange regarding Disclosure of material issue",
       "date": "2026-03-23T18:50:05.9",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e0db1fa8-3832-49d3-8cfd-9737fc63a5b9.pdf",
-      "category": "Other",
+      "category": "SAST/Insider",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Roadstar Infra Investment Trust's Board, via circular resolution on March 23, 2026, noted and approved the disclosure of certain information, potentially including unpublished price sensitive information (UPSI), related to Infrastructure Leasing & Financial Services Limited's (IL&FS) proposed sale of its investments in the Sponsor, units of the Trust, and associated entities. This disclosure is made in accordance with Regulation 3(3)(ii) of SEBI (Prohibition of Insider Trading) Regulations, 2015."
     },
     {
       "company": "Birla Corporation Ltd",
@@ -2868,11 +3198,11 @@
       "detail": "Please find attached the copy of press release issued by the Company regarding the commencement of third line of production at Kundanganj unit in Uttar Pradesh of RCCPL Private Limited, a wholly owned material subsidiary of the Company.",
       "date": "2026-03-23T18:49:29.71",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f56ff3f5-ab05-45e1-8f52-b2f4c9410af7.pdf",
-      "category": "Press Release",
+      "category": "Business Expansion",
       "starred": false,
       "market_cap": 62112512890.200005,
       "market_cap_fmt": "6.21K Cr",
-      "ai_summary": null
+      "ai_summary": "RCCPL Private Limited, a wholly owned subsidiary of Birla Corporation Ltd, has commissioned the third production line at its Kundanganj grinding unit in Uttar Pradesh. This expansion increases the unit's production capacity by 1.4 million tons. The announcement was made on March 23, 2026."
     },
     {
       "company": "Caprihans India Ltd-$",
@@ -2884,7 +3214,7 @@
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/af09e92f-d66b-4d4f-a500-3a341f565a73.pdf",
       "category": "Warrants",
       "starred": true,
-      "ai_summary": null
+      "ai_summary": "Caprihans India Limited's Board of Directors approved the allotment of 330,000 equity shares upon the conversion of warrants. These warrants were previously issued on a preferential basis to Bilcare Limited. The decision was made during the Board Meeting held on March 23, 2026."
     },
     {
       "company": "Vardhman Polytex Ltd",
@@ -2898,7 +3228,7 @@
       "starred": true,
       "market_cap": 3354515169.24,
       "market_cap_fmt": "335 Cr",
-      "ai_summary": null
+      "ai_summary": "Vardhman Polytex Ltd's Board of Directors approved the allotment of 6,500,000 equity shares at a price of Rs. 12.55 per share. This allotment is a result of the conversion of 6,500,000 warrants, which were issued on a preferential basis. The Board Meeting where this was approved was held on March 23, 2026."
     },
     {
       "company": "GOCL Corporation Ltd-$",
@@ -2962,7 +3292,7 @@
       "starred": true,
       "market_cap": 62112512890.200005,
       "market_cap_fmt": "6.21K Cr",
-      "ai_summary": null
+      "ai_summary": "Birla Corporation Ltd announced that its wholly owned subsidiary, RCCPL Private Limited, has successfully commissioned the third production line at its Kundanganj grinding unit in Uttar Pradesh. This expansion adds 1.4 million tons to the unit's production capacity. Commercial production commenced on March 23, 2026."
     },
     {
       "company": "Capri Global Capital Ltd",
@@ -2976,7 +3306,7 @@
       "starred": false,
       "market_cap": 154906787882,
       "market_cap_fmt": "15.49K Cr",
-      "ai_summary": null
+      "ai_summary": "Capri Global Capital Limited has secured a 'Ba3' Corporate Family Rating from Moody's and a 'BB-' Long-Term Issuer Default Rating from Fitch Ratings. These ratings, assigned on March 23, 2026, signal strong credit strength and growth momentum for the Non-Banking Financial Company."
     },
     {
       "company": "Avenue Supermarts Ltd",
@@ -3004,7 +3334,7 @@
       "starred": false,
       "market_cap": 1123098237172.41,
       "market_cap_fmt": "1.12L Cr",
-      "ai_summary": null
+      "ai_summary": "Samvardhana Motherson International Limited (SAMIL) is acquiring a 28.15% stake in HR Dhauliganga Private Limited (HRDPL). HRDPL is a special purpose vehicle established by Hinduja Renewables Energy Private Limited. This acquisition is to comply with regulatory requirements for captive power generation and consumption under Electricity Laws."
     },
     {
       "company": "Shantidoot Infra Services Ltd",
@@ -3042,7 +3372,7 @@
       "starred": false,
       "market_cap": 754181213159.4,
       "market_cap_fmt": "75.42K Cr",
-      "ai_summary": null
+      "ai_summary": "NHPC Limited has been assigned an ESG Score of \"60\" by M/s ESG Risk Assessments & Insights Limited. This disclosure is made in compliance with Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015. The ESG Score is available on the websites of BSE Limited and the National Stock Exchange of India Limited."
     },
     {
       "company": "Grameva Ltd",
@@ -3116,9 +3446,9 @@
       "detail": "Disclosure in term of Regulation 29(2) of SEBI (SAST) Regulation 2011.",
       "date": "2026-03-23T17:54:27.137",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dd2b0cfb-da0d-4cd6-8f79-d9cb8428cbbf.pdf",
-      "category": "Acquisition",
+      "category": "SAST/Insider",
       "starred": false,
-      "ai_summary": null
+      "ai_summary": "Ayushi Doshi, who belongs to the Promoter/Promoter group of Shalibhadra Finance Limited, has made a disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011. The disclosure pertains to acquisition or disposal of shares in Shalibhadra Finance Limited, where Ayushi Doshi is the acquirer."
     },
     {
       "company": "Knowledge Realty Trust",
@@ -3128,11 +3458,11 @@
       "detail": "Knowledge Realty Trust has informed the Exchange regarding Disclosure of material issue",
       "date": "2026-03-23T17:53:41.983",
       "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d44865f7-f2c6-43ad-abb2-0fd1b89d5fb6.pdf",
-      "category": "Other",
+      "category": "General Update",
       "starred": false,
       "market_cap": 483305205973.58997,
       "market_cap_fmt": "48.33K Cr",
-      "ai_summary": null
+      "ai_summary": "Knowledge Realty Trust, through its manager Knowledge Realty Office Management Services Private Limited, has informed the Exchange about the closure of the Trading Window for dealing in its securities. This action is in pursuance of SEBI (Prohibition of Insider Trading) Regulations, 2015. The closure affects trading in Units, Non-Convertible Debentures, and other securities of the Trust."
     },
     {
       "company": "KSB Ltd",
@@ -3146,7 +3476,7 @@
       "starred": false,
       "market_cap": 136838336725.0,
       "market_cap_fmt": "13.68K Cr",
-      "ai_summary": null
+      "ai_summary": "KSB Limited has submitted the Transcript of the Institutional Investors Meet held on March 17, 2026. This transcript is in continuation of previous intimations dated March 11, 2026, and March 17, 2026. The meet included presentations from the Managing Director, Chief Financial Officer, and Company Secretary of KSB Limited."
     },
     {
       "company": "Saven Technologies Ltd",
@@ -3935,298 +4265,323 @@
       "ai_summary": "Brainbees Solutions Ltd has responded to a BSE query regarding increased trading volume in its securities. The company stated that all material information has been duly disclosed to the stock exchanges and its website. Brainbees Solutions Ltd believes the volume movement is market-driven and will continue to comply with disclosure obligations."
     }
   ],
-  "last_updated": "2026-03-24T06:04:42.055751",
-  "total_count": 290,
+  "last_updated": "2026-03-24T07:21:45.835580",
+  "total_count": 315,
   "seen_keys": [
-    "5d3e6b579e38e01768c59e382586471a",
-    "d4b48f6365fba2ca631587e604db23dc",
-    "08cc49155186fe4338bb054a7597f226",
-    "94a9db3290994abe038d303bc5ecd4c6",
-    "306733a383772bb4157e0e4d0b49e589",
-    "7c1b886cc5243e421e6be7e947652b08",
-    "0430418b3b4a562f9483b2dbc0a38b48",
-    "e2670290008418eaa94e94d1f81013b9",
-    "c9839a2313858f89f317035204c36546",
-    "ad005f499eebd7545387a54938a02f0c",
-    "a2c9e58f30002d6bc3ce5e18e0ecdddd",
-    "2e3b09a6c8645cef713ffbe6a80f98b6",
-    "1543fd00994dd3f28ab5103dd4c366d3",
-    "c167136c2b8fc25c2e5a4f8e3ed825bf",
+    "1c389231919de030ad8e69885564a941",
+    "1a371f1a4a93c5fea3f22ee05890618f",
+    "7809572203705462e2b72654a92c9e79",
+    "ab6722d2623fbf8ac22d73d2481accd6",
+    "19686106712446753f16540da978e514",
+    "b5ce6b72ba28b335a0dae5f17c272be6",
+    "0ff03286e74a72b1a84bdff0c79a42c7",
+    "afccf6888721540d1972205afc570813",
+    "e9e6d37f4f4edc5e729d6d0bde1096fe",
+    "3886ff8db9e2a7b4b7c02a678d0b1be0",
     "95e9dc83b7b92dab3f2b30136fae5e86",
-    "19b076ac474301838b30685e807f67e9",
-    "88882c7c172cc05c3bf82c260ee3cac5",
+    "e38c0180c4343dd4aa9ea3c64d37fb8f",
+    "a276cd12ea45b754f69cd32f9fd5a137",
+    "2ee710403092bd1bb737477a0271e3cb",
+    "94b582b8813bde6daee92514310f0ccc",
+    "2bafca395956d05ccef96717f8ef3d9b",
+    "7c008c6cccf8ec1e8b2a7e31cd140f38",
+    "a2c9e58f30002d6bc3ce5e18e0ecdddd",
+    "b1e2132813ae517bff76076fe7d020ff",
+    "2906d4c314937eca2dce06a6e8fff672",
+    "79110918fd23538844988cf47d8e9998",
+    "f305d933e67774c0f02fb6df5f23a583",
     "c925f1abfd054be8e96fa97c153fdfaa",
-    "7ef3e7fb293e288824024e0af0e646d1",
+    "88882c7c172cc05c3bf82c260ee3cac5",
+    "578fec572a326667b02b53a387a73345",
+    "bfcae3141152643f611c461d6ba472d3",
+    "a9039c4c580238321e3f1c15ede69c6c",
+    "aab90ce6087dd6482464d90e613af87e",
+    "5b42098ef943fa6380189f68d71fce63",
+    "1cdf6b13e7560d40ea1306d395884b04",
+    "4047369fa32ccbc7989a74472d423092",
+    "5d3e6b579e38e01768c59e382586471a",
+    "386b86992c300fd41df33d046b98c3b5",
+    "aa89cd6dfff93817b1a4770500dafc93",
+    "c3909f1a1f3731b4dc449fd1fcfdbd06",
+    "a9251c98b8666b60c2013faa6a54b9ab",
+    "d33eca941d774a7f44d2263dd3de9a55",
+    "49aee5f3bdc211919021e70981820bea",
+    "27796fdc35e0d807aee50b28ec241435",
+    "bd9c02b4ebd3692a7a046366117b1bac",
+    "0bcc24297c679f0755d28c5a5b5e6ae4",
+    "4137795eef4f119c4ae87e41b8397103",
+    "f795b7049703cb49d029fdb43b4d382b",
+    "ac58dfb1f52c663e3f06eced0fa1b1a7",
+    "dd1b0e0d770a946421562ba49711ab2c",
+    "1b0f5148d254efe3d008a25a25f5b925",
+    "02b2e5603523ba9b445e19555ce51d46",
+    "71f75077487bf542f58d793da1e5b409",
+    "88a8b20b3b842fe189d9e2b26c89bbf1",
+    "678b3e7b5d1b12378c426e01d05ffa24",
+    "7da36964bb49ab830200418778fe554a",
+    "2b3fc93eef55e496f4ae3c32b8d4fa47",
+    "14855b21a70183952a0b450ea8d6e7be",
+    "4d8c773d01e923a4bb60e2e6e2036f86",
+    "4f9ad447288abf5092a4ae2a8f998981",
+    "19b076ac474301838b30685e807f67e9",
+    "93a95884ffe75a3d5da2385c31d0efa3",
+    "e7509c670d1acdcce98f070e47ce5ac9",
+    "35c145a4c52f6500f789e579f8d577b2",
+    "6e279786004e95bd902d68e278063ec7",
+    "013927b7e140ba7ce95c4286d8b8dbf7",
+    "d4b48f6365fba2ca631587e604db23dc",
+    "7c1b886cc5243e421e6be7e947652b08",
+    "fda4e7164fe2ca5bf2e1dc492effe753",
+    "a042f69a0787fe6611433d63f892a361",
+    "f79c8f39b59eaecaf3f0aec594f25f67",
+    "35e457b3254b1d85e8c819c8bb2cdfb6",
+    "3d0e0ad0ad72d2bdff57c2e30922d40a",
+    "efa7edbde4a61513320484841cd36c68",
+    "ea19b2a6b150775026e2dc2e22c10a00",
+    "8dbe2956fdcfb6a45256964c2edbef80",
+    "4e717c5f673eeb8c0eef6b6fc1a66131",
+    "140f56e34793d2a3ec3ce03ead2aaba8",
+    "1b6c99ce32d4b5276306c6b4020744bb",
+    "7d7ac18bddd0114ee6cd8dbc2ea4755d",
+    "01a225468276cfa28bc091481255dfad",
+    "b5c951e2c90328af744c17cf73324066",
+    "4432b950cb0773a4b5c947aa2c09451f",
+    "1e5ff281a1f81680a88c89f415f863a7",
+    "5dee4b8462515e47a6bee1c3063fb6c8",
+    "9c8727d5577cf0b2ebb30fa7f495fc06",
+    "a412cb5219d0a305f3cd031be054a1b5",
+    "44ca3f40799dbb4542c48377d6b792e9",
+    "3576df273536e3b36862c10f2db32e3d",
+    "cf5ebdd5b3ea476e02058fa0a195f37e",
+    "5eef7bc092d20ffe5c2ae7a157ca1c0c",
+    "ec7ccc5ab6d3075c61de9ef5d066ae64",
+    "7fbfa5d0b8f46be29ee272d89fe4c075",
+    "aa5192493bd1b2d37d43054786b1710c",
+    "b0e5f3aa4826093448eb79a7e1a1fd0e",
+    "370d6cb17eeb220ca9f4d93ada7b7e24",
+    "51951ff073716c511438f966510a40c2",
+    "30060ce5e716d350603a30855f501cc9",
+    "afcc27f9758309bf4e5e4704246eba16",
+    "93eff229b5d419669183ec090bf929b9",
+    "43f96c01abf402d8f79b0d433afea1ca",
+    "9330b49b2643d39fe8d6ae7c03c1f32c",
+    "5059f0a1fd06a8f1ebe7db8aaaaa5b5a",
+    "6621a44b314e05271ff08a39874b8606",
+    "068d351fc73d2d931fcdd229acf838c3",
+    "0aa1a2205403223de426669aaa5b9c56",
+    "cd290b83ff30435e382c98e176c22e9c",
+    "fa1c3a20fecb519d7ec776b977526869",
+    "2d18fc6e9f978fdc015b4a249519c073",
+    "43c8d5f299e659a998e28c75a2827866",
+    "f8d8eec126f4a7cacee1bce125a2568c",
+    "b4fb553ab17931f247aaf700a4784563",
+    "da568ff79fecc49a8fe3c27452dd85b4",
+    "66ac0a510cc19f2d5fcca720a3ad0d69",
+    "0faa84325a8c974149acc2ac6a93d3dc",
+    "ba21e9d8f5c5374c84444bc807d4472c",
+    "217cf699d35802887f9526c10cf05d20",
+    "7db82e08bd9230eccc3a2fb38576b257",
+    "6546d1623b08b1aac48c1136d991a113",
+    "eced348928e6ac66b6df71e7944d0132",
+    "3b0d68364fcfbcaf53af64c9245a1185",
+    "c8a4e783a3fed834e46069c5be175b2b",
+    "4db4f2ab3d89305149367802ed0b029a",
+    "fb706e83434360301461512245d58119",
+    "b5f11a6e41e1cceccb819a0dd7f9f589",
+    "c8660d15a81da337c1ff6144d5d405e8",
+    "7b4b57a52822e47c2d7c1775cebee6ab",
+    "1c98439f7621cd4ef5e47ff217b08053",
+    "0430418b3b4a562f9483b2dbc0a38b48",
+    "d0cad5c59a8fe3d35a8d1d146155781e",
+    "fb9b0485c102277cff00f740c05735c5",
+    "f190bcc8f248965047dccdd633fb08f8",
+    "d1303f49af6538632138323a561469b2",
+    "8f393824fdafc7d7fcb272ffbf7e3377",
+    "28c3ed6c5b194483be14d94e0b4a5533",
+    "79cdd27d6cb539a2015ecd56d937ab83",
+    "33f1db259fa04eaaffe26578004d44fa",
+    "e6ce6d131c568b07415e7dffb8155d63",
+    "3cef4f54dd13c6ad34563bb2cdf9b3d7",
+    "0b149deeb568bea6988df4b0ed8873d6",
+    "c9f4193c32b512050196380f4f043a90",
+    "7bc1dca56ca765edf4b99debe77cee45",
+    "87d0a48007223765098f8dfa439443d8",
     "0efad475d2713d5f6b00a8b356b49faf",
+    "acd20e49ec0b2ab0f925ae68408da8fe",
+    "a234070a8ad12d2341ba9ca310c27ffe",
+    "5a33007e9e675325794604d3648e2021",
+    "2c432b94823e0d0d4889a1cdff3db312",
+    "a1d0dfd1572f15d5f2c0fcaa8c64e7b8",
+    "f461557882dd178f50ee1721f4771595",
+    "cc7410db9327d66fd3853eedd29ec36d",
+    "106b394f2e4c0f361772a955618435ff",
+    "16f8be820e8f32fe851558c2f9141499",
+    "f346f96b2888d58399b046ba5a7c8f9a",
+    "918436859c37c4218098de735012974f",
+    "61a74365be0957cd0ca5764f0c74be58",
+    "a7c508ba093855d7316d3a5401364f53",
+    "2426bb435efd748a9bf95cc5cf64f7da",
+    "c7d4d64036908b03eff3c0d333d788ba",
+    "c728c676fc66db793cdc57e335f0761c",
+    "6df8f0da68f144b1a296ffe8980e2a53",
+    "f74bc433a023a660e8b60b23f91abc9b",
+    "18d444d018e886a5b02ab16f4674f47d",
+    "db1070875eafb9e8d75ac5d4bedc7cae",
+    "3fb9674542f02bac84cbd43231664a0f",
+    "1543fd00994dd3f28ab5103dd4c366d3",
+    "7455878b95ff5b29c503c07bf1870907",
+    "48f90abaa8d6c66b713a582fd1ff8cda",
+    "5a884d1a74b836f4bece1f62e0542251",
+    "076ba2598ce5be55486f373499fd5f58",
+    "b3abe4b2b1ca2a8a7e946a9b511eec60",
+    "544332daaf6a6732dcf0fead0afc99a9",
+    "2a5197e0b81b261906da8e6d829724b8",
+    "b0d683920a140a9b597143769e07625a",
+    "303cf52a965516715c38208ea8abc405",
+    "08cc49155186fe4338bb054a7597f226",
+    "ebf36ae13762e13c69b2a0326b510d59",
+    "3ffc92d84ab60e59ebd2e0f08bb54801",
+    "b4d70f47a07da2388a736eba3150e818",
+    "745130c79fbb608d018d0aec9c3608ae",
+    "3464589c61748d08a8e0d314952c6f20",
     "1b46e29f3e6e606a946e26aa69db098e",
     "bc305ad1de274eaeb9063f9989088d23",
-    "18f24282907e8a8894421acf17b3e604",
-    "ec34011b6634941af5725468ebef5cce",
-    "7db82e08bd9230eccc3a2fb38576b257",
-    "b0d683920a140a9b597143769e07625a",
-    "0967f274633f2a4f60b8078ededce0f6",
-    "acc2f786dd32bab04fc002064efaca0d",
-    "a9039c4c580238321e3f1c15ede69c6c",
-    "c1463c3f2509e20b3a3c40b8aea26818",
     "0c1c217d1c81f22605239e9353920926",
-    "782c1d7f71044ba5decd4ecf01c9c7ba",
-    "217cf699d35802887f9526c10cf05d20",
-    "b4d70f47a07da2388a736eba3150e818",
-    "d0d2b8e251fe81aa6f9d93cd8629878a",
-    "02b2e5603523ba9b445e19555ce51d46",
-    "a7c508ba093855d7316d3a5401364f53",
-    "43bc324bd4db75285b682c876ac0d68a",
-    "267a2b5fd449889d0512fb4a2f850a55",
-    "79cdd27d6cb539a2015ecd56d937ab83",
-    "8c439a9c1260f515022b4b54efddc558",
-    "a0204f08f9894b3305f1908184436f4f",
-    "317b76e9b23108a1dcbb806e81f2eb27",
-    "18186c5851b72dd167f2f3d866baeafd",
-    "3464589c61748d08a8e0d314952c6f20",
-    "3e00fcfaeb358515fcd046e6ecab9a2c",
-    "106b394f2e4c0f361772a955618435ff",
-    "dd1b0e0d770a946421562ba49711ab2c",
-    "a1cbff220ce008309e96a7a1124c4c17",
-    "ce30b63b0b28f98eb68746119fd3a0f1",
-    "3ef2723743f1e4d59cb601e8d1ba282b",
-    "250f76119a39d469b348f69ff8231276",
-    "7aa1e758a9ec918b631e84faf4ab9084",
-    "35c145a4c52f6500f789e579f8d577b2",
-    "2788fdd1aa7c1c415072239678171178",
-    "08feca22852e2eef3f6939bf06eb3440",
-    "9b1e0816d9dbd9853e330f9be6d0376d",
-    "01a225468276cfa28bc091481255dfad",
-    "e6ce6d131c568b07415e7dffb8155d63",
-    "e0c597ab93ac7d1d6c700bd6c94aa677",
-    "0bdca4fa4be3206d85c20ff88b1acd0d",
-    "4d11b7cc22cc2b5145b6f90d1a17ad6b",
-    "c6a4f5ed2814cfbaf4ca9e6669a4ed89",
-    "5dee4b8462515e47a6bee1c3063fb6c8",
-    "8a0efdb6aed28eb365b8c7a22dee1eac",
-    "4137795eef4f119c4ae87e41b8397103",
-    "66ac0a510cc19f2d5fcca720a3ad0d69",
-    "b842f1b8f63484f8d35e21f15eac22b7",
-    "f79c8f39b59eaecaf3f0aec594f25f67",
-    "bfcae3141152643f611c461d6ba472d3",
-    "4d8c773d01e923a4bb60e2e6e2036f86",
-    "eb8f035bb2028b85c633e4182e16ca85",
-    "1b6c99ce32d4b5276306c6b4020744bb",
-    "578fec572a326667b02b53a387a73345",
-    "1e35c049fa264de1a199d0f670736fd1",
-    "a5668c4ac1bdd6ba5db5c0c2b979cc1a",
-    "93a95884ffe75a3d5da2385c31d0efa3",
-    "1cdf6b13e7560d40ea1306d395884b04",
-    "1a371f1a4a93c5fea3f22ee05890618f",
-    "1555b5984ecddece7bfcd8b585b5fb13",
-    "6df8f0da68f144b1a296ffe8980e2a53",
-    "4db4f2ab3d89305149367802ed0b029a",
-    "4df9553e75cbc3423874ba7db82b4333",
-    "8dbe2956fdcfb6a45256964c2edbef80",
-    "acd20e49ec0b2ab0f925ae68408da8fe",
-    "64e0280eff3c4279931fe4e61e526a8b",
-    "a33aa748014655e5c3fd5f582fd5f062",
-    "e9e6d37f4f4edc5e729d6d0bde1096fe",
-    "89a7f965f69423283fc3cb914b1543ee",
-    "15ecbe427dfe2dd60f9ee39cc4ac8237",
-    "1e5ff281a1f81680a88c89f415f863a7",
-    "9c8727d5577cf0b2ebb30fa7f495fc06",
-    "d1303f49af6538632138323a561469b2",
-    "0faa84325a8c974149acc2ac6a93d3dc",
-    "67ce71e9792fa64f73f20de9e8fe3ad8",
-    "0a80595090b2b919c775cb1abe481de4",
-    "ec45a4ee231453c983ca1a229994aed1",
-    "93eff229b5d419669183ec090bf929b9",
-    "2426bb435efd748a9bf95cc5cf64f7da",
-    "9ff80925691a96dda702a6738b4707b2",
-    "5eef7bc092d20ffe5c2ae7a157ca1c0c",
-    "27796fdc35e0d807aee50b28ec241435",
-    "3576df273536e3b36862c10f2db32e3d",
-    "87d0a48007223765098f8dfa439443d8",
-    "f4ab8fbcce941476b1aa6d3338153643",
-    "b6729e2291eaf885b3388bad80574576",
-    "afccf6888721540d1972205afc570813",
-    "ab6722d2623fbf8ac22d73d2481accd6",
-    "48f90abaa8d6c66b713a582fd1ff8cda",
-    "2a3400a2f2d35ac028cba23002ab81b9",
-    "2b3fc93eef55e496f4ae3c32b8d4fa47",
-    "c7d4d64036908b03eff3c0d333d788ba",
-    "1c389231919de030ad8e69885564a941",
-    "d59656af025a287c1c1fb4c3035756cb",
-    "3cef4f54dd13c6ad34563bb2cdf9b3d7",
-    "5059f0a1fd06a8f1ebe7db8aaaaa5b5a",
-    "13649fbdc44b5f7ee6894fa6bafb03d7",
-    "a412cb5219d0a305f3cd031be054a1b5",
-    "bd9c02b4ebd3692a7a046366117b1bac",
-    "e08792f6bf2077618e09708efdd4752a",
-    "afcc27f9758309bf4e5e4704246eba16",
-    "ec7ccc5ab6d3075c61de9ef5d066ae64",
-    "e38c0180c4343dd4aa9ea3c64d37fb8f",
-    "a9251c98b8666b60c2013faa6a54b9ab",
-    "4782b522eabad898e197b77250362580",
-    "3fb9674542f02bac84cbd43231664a0f",
-    "60a81ab8df19fff2ba83a2513ba0f81d",
-    "015d9744e85517496c10b9cbad515609",
-    "b4fb553ab17931f247aaf700a4784563",
-    "d33eca941d774a7f44d2263dd3de9a55",
-    "d3e7bc7ffa1b9c918716f38ec23be0ec",
-    "2d18fc6e9f978fdc015b4a249519c073",
-    "140f56e34793d2a3ec3ce03ead2aaba8",
-    "df7369bc8c944dc82d4ff6ec238e40cd",
-    "745130c79fbb608d018d0aec9c3608ae",
-    "2cc6bef248be81a80083a6cff38997d6",
-    "5b8d2e2a8bab9c7025878a746a45f6ad",
-    "f8d8eec126f4a7cacee1bce125a2568c",
-    "43c8d5f299e659a998e28c75a2827866",
-    "0a24111fa76b52d8466b5aaa6478db16",
-    "b9ec2dd74b0e173d4c0f57c28c29e65a",
-    "ea19b2a6b150775026e2dc2e22c10a00",
-    "4e717c5f673eeb8c0eef6b6fc1a66131",
-    "cf8fccb7dfcfc3f6c6491111fb683279",
-    "88bc6715f02a8f13029c1c6271a584a3",
-    "da568ff79fecc49a8fe3c27452dd85b4",
-    "e0467dbe813c9c4bba5d0bce463578d5",
-    "f75341c9e8bcd6b9659a54aa50c33bcf",
-    "0fd78e243448e9bed864f44f18b22318",
-    "0b1d1a58454ad265eaf83535627cc6ca",
-    "44ca3f40799dbb4542c48377d6b792e9",
-    "28c3ed6c5b194483be14d94e0b4a5533",
-    "32c0e67a81aeb0f6b8eb3871bc18bcea",
-    "72a199d4fa96bce321626f94553a450b",
-    "c8a4e783a3fed834e46069c5be175b2b",
-    "3e958d3a8dfcdc843cc3235551acf815",
-    "b5a08c6b265f03c84507cf8805d7b0d3",
-    "119efb31fe73dfe862b77688d219ec9d",
-    "d8a2c955c997be25822400f626764168",
-    "33f1db259fa04eaaffe26578004d44fa",
-    "918436859c37c4218098de735012974f",
-    "5a884d1a74b836f4bece1f62e0542251",
-    "662ceadfd87f8927092933099df7b194",
-    "b3abe4b2b1ca2a8a7e946a9b511eec60",
-    "61a74365be0957cd0ca5764f0c74be58",
-    "6546d1623b08b1aac48c1136d991a113",
-    "5c861d3209860659d78d567ae04b73ad",
-    "88a8b20b3b842fe189d9e2b26c89bbf1",
-    "7bc1dca56ca765edf4b99debe77cee45",
-    "c12362cddf9df12bf668e42964323eab",
-    "c4873daf7930fc9bb21287da4270a5bd",
-    "ad7ee3c6fba51e77cc6d3b322e2db753",
-    "f7dd889eb8b2c0d65721915db901ffe6",
-    "16f8be820e8f32fe851558c2f9141499",
-    "cf5ebdd5b3ea476e02058fa0a195f37e",
-    "0b149deeb568bea6988df4b0ed8873d6",
-    "d0cad5c59a8fe3d35a8d1d146155781e",
-    "eced348928e6ac66b6df71e7944d0132",
-    "43f96c01abf402d8f79b0d433afea1ca",
-    "3886ff8db9e2a7b4b7c02a678d0b1be0",
-    "b5ce6b72ba28b335a0dae5f17c272be6",
-    "fa1c3a20fecb519d7ec776b977526869",
-    "b1e2132813ae517bff76076fe7d020ff",
-    "f190bcc8f248965047dccdd633fb08f8",
-    "f346f96b2888d58399b046ba5a7c8f9a",
-    "7b4b57a52822e47c2d7c1775cebee6ab",
-    "db1070875eafb9e8d75ac5d4bedc7cae",
-    "88c3ec7a77f822a4974edde1cf12e5d4",
-    "51951ff073716c511438f966510a40c2",
-    "cfbe69a703ee90c8c44f09d115d2abbb",
-    "3b0d68364fcfbcaf53af64c9245a1185",
-    "a276cd12ea45b754f69cd32f9fd5a137",
-    "38e1f28c06ef2b4d39c685bf65e682bc",
-    "a1d0dfd1572f15d5f2c0fcaa8c64e7b8",
-    "c8660d15a81da337c1ff6144d5d405e8",
-    "433522f332536ce7f67ffe68df5d66f4",
-    "30330f2e0204abd7fae3ba36105446f8",
-    "3f1e12e6fc8fb807842cfee0dfd9711d",
     "21bdbe2ea98ebe70bf51724476427b4d",
-    "b5c951e2c90328af744c17cf73324066",
-    "fb9b0485c102277cff00f740c05735c5",
-    "94b582b8813bde6daee92514310f0ccc",
-    "b0e5f3aa4826093448eb79a7e1a1fd0e",
-    "837163de1ad5e417427963b236a831e1",
-    "de5a6ac31e8c88ddb7cf918166fe7e7c",
-    "4c84959e6b72e649e62fbc2b673dfb42",
-    "2906d4c314937eca2dce06a6e8fff672",
+    "fd4b19fd8f2d05dad01c176fbffeeb59",
+    "2cc6bef248be81a80083a6cff38997d6",
+    "250f76119a39d469b348f69ff8231276",
     "f94265f2965a81aefcfb009f9948c7f7",
-    "013927b7e140ba7ce95c4286d8b8dbf7",
-    "7fbfa5d0b8f46be29ee272d89fe4c075",
-    "3d0e0ad0ad72d2bdff57c2e30922d40a",
-    "5e62fa504207b8bac318c0da1bd247e9",
-    "efa7edbde4a61513320484841cd36c68",
-    "cc7410db9327d66fd3853eedd29ec36d",
-    "fda4e7164fe2ca5bf2e1dc492effe753",
-    "19686106712446753f16540da978e514",
-    "068d351fc73d2d931fcdd229acf838c3",
-    "2bafca395956d05ccef96717f8ef3d9b",
-    "47932a87fddbda60763eb7097acf8389",
-    "9e69a2f1dc8bfd8e919c220b585cee7e",
-    "8a35d9ccc9b06083e91fff9840c6ff69",
-    "8868db9567a54b0f28bafc8e628d28a4",
-    "a234070a8ad12d2341ba9ca310c27ffe",
-    "9330b49b2643d39fe8d6ae7c03c1f32c",
-    "9ea0914e3934dcc71860b4ecae733b59",
-    "f305d933e67774c0f02fb6df5f23a583",
-    "d19843f0364b6630b98ef77988b73866",
-    "00f3a9a5ed8d3777d86a4a58c9608f05",
-    "ba21e9d8f5c5374c84444bc807d4472c",
-    "ee5dfe19dc5d6061a5ae1c81018fb344",
-    "1c98439f7621cd4ef5e47ff217b08053",
-    "aab90ce6087dd6482464d90e613af87e",
-    "303cf52a965516715c38208ea8abc405",
-    "33414ff27486b25299d8ecfe0280d66b",
-    "7d592a6af5ec49052eed4325bb9c47ea",
-    "4b8db7d640f52c4331b72b58b534315c",
-    "ac58dfb1f52c663e3f06eced0fa1b1a7",
-    "0a2bc0cac89654c87f7ed2618459c1f6",
-    "0bcc24297c679f0755d28c5a5b5e6ae4",
-    "f795b7049703cb49d029fdb43b4d382b",
-    "0aa1a2205403223de426669aaa5b9c56",
-    "4f9ad447288abf5092a4ae2a8f998981",
-    "386b86992c300fd41df33d046b98c3b5",
-    "5e520095a77b75c4847f63975df27c18",
-    "14855b21a70183952a0b450ea8d6e7be",
-    "a5a2709831de288556653a08f0d7ebff",
-    "6621a44b314e05271ff08a39874b8606",
-    "a042f69a0787fe6611433d63f892a361",
-    "e7509c670d1acdcce98f070e47ce5ac9",
-    "ebf36ae13762e13c69b2a0326b510d59",
-    "49aee5f3bdc211919021e70981820bea",
+    "88c3ec7a77f822a4974edde1cf12e5d4",
     "84964b0e7efa09d1e36a2f5f41bcf627",
-    "4047369fa32ccbc7989a74472d423092",
-    "bc9d98a83f31b57b47edea9373fde916",
-    "5b42098ef943fa6380189f68d71fce63",
-    "398bb57a5280298123929f9204141633",
-    "7da36964bb49ab830200418778fe554a",
-    "30060ce5e716d350603a30855f501cc9",
-    "eff2bf4acb4c414cdd2bf7de27cce18c",
-    "cd290b83ff30435e382c98e176c22e9c",
-    "fb706e83434360301461512245d58119",
-    "678b3e7b5d1b12378c426e01d05ffa24",
-    "1d00db538d3d7854919e3e05cb2f6a99",
-    "aa216cde552d80f89733d24058371746",
-    "4432b950cb0773a4b5c947aa2c09451f",
-    "7809572203705462e2b72654a92c9e79",
-    "2c432b94823e0d0d4889a1cdff3db312",
-    "18d444d018e886a5b02ab16f4674f47d",
-    "58d3370cf5d4e27599e8415a3111efeb",
-    "e3ce753b757ad683138dd4bba73978ae",
-    "3ffc92d84ab60e59ebd2e0f08bb54801",
-    "fe9a6085bfc42147e12befd23030c67c",
-    "2a5197e0b81b261906da8e6d829724b8",
-    "aa5192493bd1b2d37d43054786b1710c",
-    "e4169861c5d9c296df5a53c00abe22ab",
+    "e0c597ab93ac7d1d6c700bd6c94aa677",
+    "b5a08c6b265f03c84507cf8805d7b0d3",
+    "7cbd96bf80d5eda77ed4e15f365c6e35",
     "ee5c80173f6b39a54b0168daadef9eb9",
-    "8c8a3676d42f0bc66bf377cc38e7d403",
-    "c9f4193c32b512050196380f4f043a90",
-    "c73fc95be247ae36d0e9e6bdd59fc683",
-    "0ff03286e74a72b1a84bdff0c79a42c7",
-    "b5f11a6e41e1cceccb819a0dd7f9f589",
-    "80cf91a83ffbd26231fe0b5d6f4c8abf",
-    "79110918fd23538844988cf47d8e9998",
+    "782c1d7f71044ba5decd4ecf01c9c7ba",
+    "acc2f786dd32bab04fc002064efaca0d",
     "5936a39e305c4ee6ef25db9ca4916725",
+    "08feca22852e2eef3f6939bf06eb3440",
+    "5e520095a77b75c4847f63975df27c18",
+    "d8a2c955c997be25822400f626764168",
+    "d0d2b8e251fe81aa6f9d93cd8629878a",
+    "47932a87fddbda60763eb7097acf8389",
+    "9ea0914e3934dcc71860b4ecae733b59",
+    "58d3370cf5d4e27599e8415a3111efeb",
+    "4782b522eabad898e197b77250362580",
+    "aa216cde552d80f89733d24058371746",
+    "18f24282907e8a8894421acf17b3e604",
+    "de5a6ac31e8c88ddb7cf918166fe7e7c",
+    "43bc324bd4db75285b682c876ac0d68a",
+    "c9839a2313858f89f317035204c36546",
+    "267a2b5fd449889d0512fb4a2f850a55",
+    "cfbe69a703ee90c8c44f09d115d2abbb",
+    "ec34011b6634941af5725468ebef5cce",
+    "5b8d2e2a8bab9c7025878a746a45f6ad",
+    "94a9db3290994abe038d303bc5ecd4c6",
+    "eb8f035bb2028b85c633e4182e16ca85",
+    "67ce71e9792fa64f73f20de9e8fe3ad8",
+    "3ef2723743f1e4d59cb601e8d1ba282b",
+    "bc9d98a83f31b57b47edea9373fde916",
+    "734bbd51b9839cd65248dd439a821fd7",
+    "a5668c4ac1bdd6ba5db5c0c2b979cc1a",
+    "64e0280eff3c4279931fe4e61e526a8b",
+    "119efb31fe73dfe862b77688d219ec9d",
+    "015d9744e85517496c10b9cbad515609",
+    "15ecbe427dfe2dd60f9ee39cc4ac8237",
+    "38e1f28c06ef2b4d39c685bf65e682bc",
+    "eff2bf4acb4c414cdd2bf7de27cce18c",
+    "c167136c2b8fc25c2e5a4f8e3ed825bf",
+    "ee5dfe19dc5d6061a5ae1c81018fb344",
+    "8a0efdb6aed28eb365b8c7a22dee1eac",
+    "b9ec2dd74b0e173d4c0f57c28c29e65a",
+    "a0204f08f9894b3305f1908184436f4f",
+    "0bdca4fa4be3206d85c20ff88b1acd0d",
+    "a5a2709831de288556653a08f0d7ebff",
+    "4df9553e75cbc3423874ba7db82b4333",
+    "93e86a522be897584cc8cfdfe413522f",
+    "9e69a2f1dc8bfd8e919c220b585cee7e",
+    "662ceadfd87f8927092933099df7b194",
+    "acabcf61a72d3cdc8af2dcdeee57d4ba",
+    "0a80595090b2b919c775cb1abe481de4",
+    "c73fc95be247ae36d0e9e6bdd59fc683",
+    "306733a383772bb4157e0e4d0b49e589",
+    "8c439a9c1260f515022b4b54efddc558",
+    "0fd78e243448e9bed864f44f18b22318",
+    "8868db9567a54b0f28bafc8e628d28a4",
+    "317b76e9b23108a1dcbb806e81f2eb27",
+    "ec45a4ee231453c983ca1a229994aed1",
+    "0b1d1a58454ad265eaf83535627cc6ca",
+    "0a2bc0cac89654c87f7ed2618459c1f6",
+    "c12362cddf9df12bf668e42964323eab",
+    "88bc6715f02a8f13029c1c6271a584a3",
+    "285b0945c72c7e4eb4f0721623a0d460",
+    "8c8a3676d42f0bc66bf377cc38e7d403",
+    "398bb57a5280298123929f9204141633",
+    "f75341c9e8bcd6b9659a54aa50c33bcf",
+    "c1463c3f2509e20b3a3c40b8aea26818",
+    "2e3b09a6c8645cef713ffbe6a80f98b6",
+    "7ef3e7fb293e288824024e0af0e646d1",
+    "33414ff27486b25299d8ecfe0280d66b",
+    "ce30b63b0b28f98eb68746119fd3a0f1",
     "cfa869cfb70be384e0a6b2bc27966ee5",
+    "f7dd889eb8b2c0d65721915db901ffe6",
+    "0967f274633f2a4f60b8078ededce0f6",
+    "2788fdd1aa7c1c415072239678171178",
+    "9ff80925691a96dda702a6738b4707b2",
+    "0a24111fa76b52d8466b5aaa6478db16",
+    "433522f332536ce7f67ffe68df5d66f4",
+    "a33aa748014655e5c3fd5f582fd5f062",
+    "4d11b7cc22cc2b5145b6f90d1a17ad6b",
+    "e0467dbe813c9c4bba5d0bce463578d5",
+    "ad005f499eebd7545387a54938a02f0c",
+    "cf23506a0253bd0209cf8692a5d344c9",
+    "cf8fccb7dfcfc3f6c6491111fb683279",
+    "4c84959e6b72e649e62fbc2b673dfb42",
+    "d19843f0364b6630b98ef77988b73866",
+    "e3ce753b757ad683138dd4bba73978ae",
+    "3e00fcfaeb358515fcd046e6ecab9a2c",
+    "df7369bc8c944dc82d4ff6ec238e40cd",
+    "13649fbdc44b5f7ee6894fa6bafb03d7",
+    "7d592a6af5ec49052eed4325bb9c47ea",
+    "00f3a9a5ed8d3777d86a4a58c9608f05",
+    "e2912a3d9720af08e1349198d42e59a0",
+    "e08792f6bf2077618e09708efdd4752a",
+    "d3e7bc7ffa1b9c918716f38ec23be0ec",
+    "5e62fa504207b8bac318c0da1bd247e9",
+    "1555b5984ecddece7bfcd8b585b5fb13",
+    "a1cbff220ce008309e96a7a1124c4c17",
+    "3e958d3a8dfcdc843cc3235551acf815",
+    "c6a4f5ed2814cfbaf4ca9e6669a4ed89",
+    "d59656af025a287c1c1fb4c3035756cb",
+    "f4ab8fbcce941476b1aa6d3338153643",
+    "e4169861c5d9c296df5a53c00abe22ab",
+    "72a199d4fa96bce321626f94553a450b",
+    "2a3400a2f2d35ac028cba23002ab81b9",
+    "9b1e0816d9dbd9853e330f9be6d0376d",
+    "80cf91a83ffbd26231fe0b5d6f4c8abf",
+    "8a35d9ccc9b06083e91fff9840c6ff69",
+    "b6729e2291eaf885b3388bad80574576",
+    "3415e5f13554f3790661ea7d64083322",
+    "32c0e67a81aeb0f6b8eb3871bc18bcea",
+    "e2670290008418eaa94e94d1f81013b9",
+    "30330f2e0204abd7fae3ba36105446f8",
+    "ad7ee3c6fba51e77cc6d3b322e2db753",
+    "4b8db7d640f52c4331b72b58b534315c",
+    "c4873daf7930fc9bb21287da4270a5bd",
+    "18186c5851b72dd167f2f3d866baeafd",
     "edb4fcf2d47a9f72d9aa78a500393c8b",
-    "aa89cd6dfff93817b1a4770500dafc93",
-    "35e457b3254b1d85e8c819c8bb2cdfb6",
-    "c3909f1a1f3731b4dc449fd1fcfdbd06",
-    "b37650ae36cb4798f4bc77c194ad9abf"
+    "837163de1ad5e417427963b236a831e1",
+    "b37650ae36cb4798f4bc77c194ad9abf",
+    "7aa1e758a9ec918b631e84faf4ab9084",
+    "60a81ab8df19fff2ba83a2513ba0f81d",
+    "b842f1b8f63484f8d35e21f15eac22b7",
+    "1d00db538d3d7854919e3e05cb2f6a99",
+    "5c861d3209860659d78d567ae04b73ad",
+    "fe9a6085bfc42147e12befd23030c67c",
+    "3f1e12e6fc8fb807842cfee0dfd9711d",
+    "89a7f965f69423283fc3cb914b1543ee",
+    "1e35c049fa264de1a199d0f670736fd1",
+    "c83460e36f39871613571121b847b9f1"
   ]
 }
