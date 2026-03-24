@@ -924,6 +924,8 @@ def main():
             new_anns.append(a)
             seen_keys.add(key)
 
+    # Sort oldest first so yesterday's announcements get summarized before today's
+    new_anns.sort(key=lambda a: a.get("date", ""))
     log(f"New announcements: {len(new_anns)}")
 
     # Summarize new announcements with Gemini in batches of 5 (smaller due to PDF content)
@@ -960,6 +962,8 @@ def main():
     # Retry summaries for existing announcements missing ai_summary
     if GEMINI_KEY and summarized > 0:  # only if Gemini is working this run
         need_retry = [a for a in existing if a.get("ai_summary") is None]
+        # Sort oldest first — yesterday's announcements get summarized before today's
+        need_retry.sort(key=lambda a: a.get("date", ""))
         if need_retry:
             log(f"Retrying {len(need_retry)} existing announcements missing summaries...")
             for batch_start in range(0, len(need_retry), BATCH_SIZE):
