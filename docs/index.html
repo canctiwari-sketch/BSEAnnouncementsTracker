@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Wheel Capital - Announcements</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
     <header>
@@ -54,7 +55,7 @@
             <input type="text" id="searchBox" placeholder="Company, symbol, subject...">
         </label>
         <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
-        <button class="export-btn" onclick="exportCSV()" title="Export filtered results as CSV">Export CSV</button>
+        <button class="export-btn" onclick="exportXLSX()" title="Export filtered results as Excel">Export Excel</button>
     </div>
 
     <div class="status-bar">

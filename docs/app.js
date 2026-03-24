@@ -279,32 +279,47 @@ function restoreFilters() {
     } catch {}
 }
 
-// ─── Export CSV ──────────────────────────────────────────────────────────────
-function exportCSV() {
+// ─── Export Excel ────────────────────────────────────────────────────────────
+function exportXLSX() {
     if (!currentFiltered.length) return;
     const headers = ["Company", "Symbol", "Exchange", "Market Cap", "Category", "Subject", "AI Summary", "Date", "PDF"];
-    const rows = currentFiltered.map(a => [
-        a.company || "",
-        a.symbol || "",
-        a.exchange || "",
-        a.market_cap_fmt || "N/A",
-        a.category || "",
-        (a.subject || "").replace(/"/g, '""'),
-        (a.ai_summary || "").replace(/"/g, '""'),
-        a.date || "",
-        a.attachment || "",
-    ]);
-    let csv = headers.join(",") + "\n";
-    rows.forEach(r => {
-        csv += r.map(v => `"${v}"`).join(",") + "\n";
-    });
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `announcements_${new Date().toISOString().slice(0, 10)}.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
+    const data = currentFiltered.map(a => ({
+        "Company": a.company || "",
+        "Symbol": a.symbol || "",
+        "Exchange": a.exchange || "",
+        "Market Cap": a.market_cap_fmt || "N/A",
+        "Category": a.category || "",
+        "Subject": a.subject || "",
+        "AI Summary": a.ai_summary || "",
+        "Date": a.date || "",
+        "PDF": a.attachment || "",
+    }));
+    const ws = XLSX.utils.json_to_sheet(data, { header: headers });
+    // Set column widths
+    ws["!cols"] = [
+        { wch: 25 },  // Company
+        { wch: 12 },  // Symbol
+        { wch: 8 },   // Exchange
+        { wch: 14 },  // Market Cap
+        { wch: 18 },  // Category
+        { wch: 50 },  // Subject
+        { wch: 80 },  // AI Summary — wide enough to read
+        { wch: 20 },  // Date
+        { wch: 40 },  // PDF
+    ];
+    // Enable text wrapping on AI Summary and Subject columns
+    const range = XLSX.utils.decode_range(ws["!ref"]);
+    for (let r = range.s.r; r <= range.e.r; r++) {
+        for (const c of [5, 6]) { // Subject=5, AI Summary=6
+            const addr = XLSX.utils.encode_cell({ r, c });
+            if (ws[addr]) {
+                ws[addr].s = { alignment: { wrapText: true, vertical: "top" } };
+            }
+        }
+    }
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Announcements");
+    XLSX.writeFile(wb, `announcements_${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
 
 // ─── Rendering ──────────────────────────────────────────────────────────────
