@@ -6,14 +6,14 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #0f1117;
-    color: #e1e4e8;
+    background: #f6f8fa;
+    color: #1f2328;
     min-height: 100vh;
 }
 
 header {
-    background: #161b22;
-    border-bottom: 1px solid #30363d;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d9e0;
     padding: 14px 24px;
 }
 
@@ -31,20 +31,20 @@ header {
 
 header h1 {
     font-size: 1.2rem;
-    color: #f0f6fc;
+    color: #1f2328;
     font-weight: 600;
 }
 
 .subtitle {
-    color: #8b949e;
+    color: #656d76;
     font-size: 0.75rem;
     margin-top: 2px;
 }
 
 .controls {
     padding: 10px 24px;
-    background: #161b22;
-    border-bottom: 1px solid #30363d;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d9e0;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -56,15 +56,15 @@ label {
     flex-direction: column;
     gap: 2px;
     font-size: 0.68rem;
-    color: #8b949e;
+    color: #656d76;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
 
 input[type="date"], input[type="text"], select {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    color: #e1e4e8;
+    background: #ffffff;
+    border: 1px solid #d1d9e0;
+    color: #1f2328;
     padding: 5px 8px;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -90,23 +90,23 @@ button:hover {
 }
 
 button:disabled {
-    background: #21262d;
-    color: #484f58;
+    background: #f6f8fa;
+    color: #afb8c1;
     cursor: not-allowed;
 }
 
 .status {
     padding: 6px 24px;
     font-size: 0.78rem;
-    color: #8b949e;
+    color: #656d76;
 }
 
 .status.error {
-    color: #f85149;
+    color: #cf222e;
 }
 
 .status.loading {
-    color: #58a6ff;
+    color: #0969da;
 }
 
 #results {
@@ -121,11 +121,11 @@ table {
 }
 
 thead th {
-    background: #161b22;
-    color: #8b949e;
+    background: #f6f8fa;
+    color: #656d76;
     padding: 7px 10px;
     text-align: left;
-    border-bottom: 1px solid #30363d;
+    border-bottom: 2px solid #d1d9e0;
     position: sticky;
     top: 0;
     font-weight: 600;
@@ -135,11 +135,11 @@ thead th {
 }
 
 tbody tr {
-    border-bottom: 1px solid #21262d;
+    border-bottom: 1px solid #e1e4e8;
 }
 
 tbody tr:hover {
-    background: #161b22;
+    background: #eef1f5;
 }
 
 td {
@@ -153,20 +153,20 @@ td {
 
 a.company-name {
     font-weight: 500;
-    color: #f0f6fc;
+    color: #1f2328;
     font-size: 0.82rem;
     text-decoration: none;
     display: block;
 }
 
 a.company-name:hover {
-    color: #58a6ff;
+    color: #0969da;
     text-decoration: underline;
 }
 
 .scrip-code {
     font-size: 0.7rem;
-    color: #8b949e;
+    color: #656d76;
     margin-top: 1px;
 }
 
@@ -177,19 +177,19 @@ a.company-name:hover {
 }
 
 .mcap-cell.large-cap {
-    color: #3fb950;
+    color: #1a7f37;
 }
 
 .mcap-cell.mid-cap {
-    color: #d29922;
+    color: #9a6700;
 }
 
 .mcap-cell.small-cap {
-    color: #8b949e;
+    color: #656d76;
 }
 
 .mcap-cell.na {
-    color: #484f58;
+    color: #afb8c1;
     font-weight: 400;
 }
 
@@ -200,8 +200,8 @@ a.company-name:hover {
 
 .category-badge {
     display: inline-block;
-    background: #8957e522;
-    color: #d2a8ff;
+    background: #ddf4ff;
+    color: #0969da;
     padding: 1px 6px;
     border-radius: 10px;
     font-size: 0.65rem;
@@ -211,19 +211,19 @@ a.company-name:hover {
 
 .summary-text {
     font-size: 0.78rem;
-    color: #c9d1d9;
+    color: #1f2328;
     line-height: 1.3;
     margin-top: 2px;
 }
 
 .date-cell {
     white-space: nowrap;
-    color: #8b949e;
+    color: #656d76;
     font-size: 0.78rem;
 }
 
 .attachment-link {
-    color: #58a6ff;
+    color: #0969da;
     text-decoration: none;
     font-size: 0.75rem;
 }
@@ -243,13 +243,13 @@ a.company-name:hover {
 }
 
 .exchange-badge.bse {
-    background: #d2992222;
-    color: #d29922;
+    background: #fff8c5;
+    color: #9a6700;
 }
 
 .exchange-badge.nse {
-    background: #1f6feb22;
-    color: #58a6ff;
+    background: #ddf4ff;
+    color: #0969da;
 }
 
 .multi-select-wrap {
@@ -260,21 +260,21 @@ a.company-name:hover {
 
 .multi-label {
     font-size: 0.68rem;
-    color: #8b949e;
+    color: #656d76;
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
 
 .multi-select {
     position: relative;
-    background: #0d1117;
-    border: 1px solid #30363d;
+    background: #ffffff;
+    border: 1px solid #d1d9e0;
     border-radius: 6px;
     padding: 5px 8px;
     cursor: pointer;
     min-width: 130px;
     font-size: 0.8rem;
-    color: #e1e4e8;
+    color: #1f2328;
 }
 
 .multi-select-text {
@@ -287,13 +287,14 @@ a.company-name:hover {
     top: 100%;
     left: -1px;
     right: -1px;
-    background: #161b22;
-    border: 1px solid #30363d;
+    background: #ffffff;
+    border: 1px solid #d1d9e0;
     border-top: none;
     border-radius: 0 0 6px 6px;
     z-index: 100;
     max-height: 240px;
     overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .multi-select:focus .multi-select-dropdown,
@@ -307,7 +308,7 @@ a.company-name:hover {
     gap: 6px;
     padding: 5px 10px;
     font-size: 0.78rem;
-    color: #e1e4e8;
+    color: #1f2328;
     cursor: pointer;
     text-transform: none;
     letter-spacing: 0;
@@ -315,11 +316,11 @@ a.company-name:hover {
 }
 
 .check-item:hover {
-    background: #21262d;
+    background: #f6f8fa;
 }
 
 .check-item input[type="checkbox"] {
-    accent-color: #8957e5;
+    accent-color: #0969da;
 }
 
 .pagination {
@@ -331,36 +332,38 @@ a.company-name:hover {
 }
 
 .pagination button {
-    background: #21262d;
+    background: #f6f8fa;
+    color: #1f2328;
+    border: 1px solid #d1d9e0;
 }
 
 .pagination button:hover:not(:disabled) {
-    background: #30363d;
+    background: #eef1f5;
 }
 
 #pageInfo, #pageNum {
     font-size: 0.8rem;
-    color: #8b949e;
+    color: #656d76;
 }
 
 .page-info {
     margin-left: 8px;
     font-size: 0.75rem;
-    color: #484f58;
+    color: #656d76;
 }
 
 /* Starred / high-priority rows */
 .starred-row {
-    background: #1a1f2b;
-    border-left: 3px solid #f0b429;
+    background: #fff8c5;
+    border-left: 3px solid #d4a72c;
 }
 
 .starred-row:hover {
-    background: #1f2535;
+    background: #fef3b5;
 }
 
 .star-icon {
-    color: #f0b429;
+    color: #d4a72c;
     font-size: 1rem;
     margin-right: 4px;
     vertical-align: middle;
@@ -371,17 +374,17 @@ a.company-name:hover {
     align-items: center;
     gap: 4px;
     font-size: 0.8rem;
-    color: #f0b429;
+    color: #9a6700;
     cursor: pointer;
     padding: 4px 8px;
-    border: 1px solid #30363d;
+    border: 1px solid #d1d9e0;
     border-radius: 6px;
-    background: #0d1117;
+    background: #ffffff;
     align-self: flex-end;
 }
 
 .star-filter-label input {
-    accent-color: #f0b429;
+    accent-color: #d4a72c;
 }
 
 /* AI Summary column */
@@ -393,12 +396,12 @@ a.company-name:hover {
 }
 
 .ai-summary {
-    color: #7ee787;
+    color: #1a7f37;
     font-style: italic;
 }
 
 .ai-pending {
-    color: #484f58;
+    color: #afb8c1;
 }
 
 /* Sortable column headers */
@@ -408,38 +411,38 @@ a.company-name:hover {
 }
 
 .sortable:hover {
-    color: #e1e4e8;
+    color: #1f2328;
 }
 
 .sort-arrow {
     font-size: 0.6rem;
     margin-left: 3px;
-    color: #58a6ff;
+    color: #0969da;
 }
 
 /* Clear / Export buttons */
 .clear-btn {
-    background: #21262d;
-    color: #e1e4e8;
-    border: 1px solid #30363d;
+    background: #f6f8fa;
+    color: #1f2328;
+    border: 1px solid #d1d9e0;
 }
 
 .clear-btn:hover {
-    background: #30363d;
+    background: #eef1f5;
 }
 
 .export-btn {
-    background: #1f6feb;
+    background: #0969da;
 }
 
 .export-btn:hover {
-    background: #388bfd;
+    background: #0860ca;
 }
 
 /* Search highlighting */
 .search-highlight {
-    background: #f0b42944;
-    color: #f0b429;
+    background: #fff8c5;
+    color: #9a6700;
     padding: 0 1px;
     border-radius: 2px;
 }
@@ -454,12 +457,12 @@ a.company-name:hover {
 
 .refresh-info {
     font-size: 0.72rem;
-    color: #8b949e;
+    color: #656d76;
     padding: 6px 0;
 }
 
 .refresh-link {
-    color: #58a6ff;
+    color: #0969da;
     text-decoration: none;
     font-size: 0.7rem;
 }
@@ -470,7 +473,7 @@ a.company-name:hover {
 
 /* Category count in dropdown */
 .cat-count {
-    color: #484f58;
+    color: #656d76;
     font-size: 0.68rem;
     margin-left: auto;
 }
