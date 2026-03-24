@@ -514,19 +514,17 @@ def fetch_nse(from_date, to_date):
 
     log(f"NSE after noise filter: {len(filtered_raw)}")
 
-    # Fetch market caps only for filtered symbols (cap at 60)
+    # Fetch market caps for all filtered symbols
     symbols = list(set(a.get("symbol", "").strip() for a in filtered_raw if a.get("symbol")))
-    if len(symbols) > 60:
-        symbols = symbols[:60]
     mcap_data = {}
-    log(f"Fetching market cap for {len(symbols)} symbols...")
+    log(f"Fetching market cap for {len(symbols)} NSE symbols...")
     for i, sym in enumerate(symbols):
         data = fetch_nse_mcap(client, sym)
         if data:
             mcap_data[sym] = data
         if (i + 1) % 5 == 0:
             log(f"  MCap progress: {i + 1}/{len(symbols)}")
-            time.sleep(0.3)
+            time.sleep(0.5)
 
     client.close()
     log(f"Got market cap for {len(mcap_data)} symbols")
@@ -973,17 +971,42 @@ def main():
                 if batch_start + BATCH_SIZE < len(need_retry):
                     time.sleep(8)
 
+    # Backfill market cap for existing cached NSE announcements still missing it
+    nse_missing_mcap = [a for a in existing if a.get("exchange") == "NSE" and not a.get("market_cap") and a.get("symbol")]
+    if nse_missing_mcap:
+        sym_to_cached = {}
+        for a in nse_missing_mcap:
+            sym = a["symbol"]
+            if sym not in sym_to_cached:
+                sym_to_cached[sym] = []
+            sym_to_cached[sym].append(a)
+        sym_list = list(sym_to_cached.keys())[:40]
+        log(f"Backfilling market cap for {len(sym_list)} cached NSE companies...")
+        nse_client = _get_nse_client()
+        if nse_client:
+            backfilled = 0
+            for i, sym in enumerate(sym_list):
+                data = fetch_nse_mcap(nse_client, sym)
+                if data:
+                    for a in sym_to_cached[sym]:
+                        a["market_cap"] = data["value"]
+                        a["market_cap_fmt"] = data["formatted"]
+                    backfilled += 1
+                if (i + 1) % 5 == 0:
+                    time.sleep(0.5)
+            nse_client.close()
+            log(f"Backfilled market cap for {backfilled}/{len(sym_list)} cached NSE companies")
+
     # Backfill market cap for existing cached BSE announcements still missing it
     bse_missing_mcap = [a for a in existing if a.get("exchange") == "BSE" and not a.get("market_cap") and a.get("symbol")]
     if bse_missing_mcap:
-        # Deduplicate by scrip code
         scrip_to_cached = {}
         for a in bse_missing_mcap:
             sc = a["symbol"]
             if sc not in scrip_to_cached:
                 scrip_to_cached[sc] = []
             scrip_to_cached[sc].append(a)
-        scrips_list = list(scrip_to_cached.keys())[:30]  # Cap at 30 for backfill
+        scrips_list = list(scrip_to_cached.keys())[:40]
         log(f"Backfilling market cap for {len(scrips_list)} cached BSE companies...")
         bse_session = requests.Session()
         bse_session.headers.update({
