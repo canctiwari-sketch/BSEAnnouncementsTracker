@@ -961,8 +961,8 @@ def main():
     new_anns.sort(key=lambda a: a.get("date", ""))
     log(f"New announcements: {len(new_anns)}")
 
-    # Summarize new announcements with Gemini in batches of 5 (smaller due to PDF content)
-    BATCH_SIZE = 5
+    # Summarize new announcements with Gemini in batches of 10
+    BATCH_SIZE = 10
     summarized = 0
     if not GEMINI_KEY:
         for a in new_anns:
@@ -988,7 +988,7 @@ def main():
             log(f"  Batch {batch_start // BATCH_SIZE + 1}: {batch_start + len(batch)}/{len(new_anns)} done ({summarized} successful)")
             # Wait between batches to respect rate limits
             if batch_start + BATCH_SIZE < len(new_anns):
-                time.sleep(8)
+                time.sleep(2)
 
     log(f"Summarized {summarized} announcements with Gemini")
 
@@ -1011,7 +1011,7 @@ def main():
                         if result.get("category"):
                             a["category"] = result["category"]
                 if batch_start + BATCH_SIZE < len(need_retry):
-                    time.sleep(8)
+                    time.sleep(2)
 
     # Backfill market cap for existing cached NSE announcements still missing it
     nse_missing_mcap = [a for a in existing if a.get("exchange") == "NSE" and not a.get("market_cap") and a.get("symbol")]
