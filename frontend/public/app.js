@@ -15,6 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchAnnouncements();
     });
 
+    // Touch-friendly dropdown toggle (works alongside CSS :focus-within for desktop)
+    document.querySelectorAll(".multi-select").forEach(sel => {
+        sel.addEventListener("click", e => {
+            const isOpen = sel.classList.contains("open");
+            document.querySelectorAll(".multi-select").forEach(s => s.classList.remove("open"));
+            if (!isOpen) {
+                sel.classList.add("open");
+                e.stopPropagation();
+            }
+        });
+    });
+    document.addEventListener("click", () => {
+        document.querySelectorAll(".multi-select").forEach(s => s.classList.remove("open"));
+    });
+
     fetchAnnouncements();
 });
 
@@ -284,13 +299,13 @@ function renderUnifiedRow(a) {
             <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${escapeHtml(name)}</a>
             <div class="scrip-code">${exchangeBadge} ${escapeHtml(symbol)}</div>
         </td>
-        <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
-        <td class="subject-cell">
+        <td class="mcap-cell ${mcapClass}" data-label="MCap">${mcapFmt}</td>
+        <td class="subject-cell" data-label="Subject">
             ${categoryBadge}
             ${summaryHtml}
         </td>
-        <td class="date-cell">${escapeHtml(displayDate)}</td>
-        <td>${attachmentLink}</td>
+        <td class="date-cell" data-label="Date">${escapeHtml(displayDate)}</td>
+        <td data-label="PDF">${attachmentLink}</td>
     </tr>`;
 }
 
@@ -320,13 +335,13 @@ function renderBseRow(a) {
             <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${escapeHtml(name)}</a>
             <div class="scrip-code"><span class="exchange-badge bse">BSE</span> ${escapeHtml(String(scrip))}</div>
         </td>
-        <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
-        <td class="subject-cell">
+        <td class="mcap-cell ${mcapClass}" data-label="MCap">${mcapFmt}</td>
+        <td class="subject-cell" data-label="Subject">
             ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ""}
             ${summary ? `<div class="summary-text">${escapeHtml(summary)}</div>` : ""}
         </td>
-        <td class="date-cell">${escapeHtml(displayDate)}</td>
-        <td>${attachmentLink}</td>
+        <td class="date-cell" data-label="Date">${escapeHtml(displayDate)}</td>
+        <td data-label="PDF">${attachmentLink}</td>
     </tr>`;
 }
 
@@ -354,13 +369,13 @@ function renderNseRow(a) {
             <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${escapeHtml(name)}</a>
             <div class="scrip-code"><span class="exchange-badge nse">NSE</span> ${escapeHtml(symbol)}</div>
         </td>
-        <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
-        <td class="subject-cell">
+        <td class="mcap-cell ${mcapClass}" data-label="MCap">${mcapFmt}</td>
+        <td class="subject-cell" data-label="Subject">
             ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ""}
             ${summary ? `<div class="summary-text">${escapeHtml(summary)}</div>` : ""}
         </td>
-        <td class="date-cell">${escapeHtml(dateStr)}</td>
-        <td>${attachmentLink}</td>
+        <td class="date-cell" data-label="Date">${escapeHtml(dateStr)}</td>
+        <td data-label="PDF">${attachmentLink}</td>
     </tr>`;
 }
 
