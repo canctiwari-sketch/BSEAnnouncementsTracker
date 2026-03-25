@@ -743,12 +743,15 @@ Details: {a.get('detail', '')}"""
 2. A SUMMARY of 5-6 detailed sentences for an investor.
 
 MANDATORY rules for the summary:
-- Always include specific NUMBERS: rupee amounts, share counts, percentages, ratios
-- Always include specific NAMES: counterparties, subsidiaries, directors, auditors involved
-- Always include specific DATES: board meeting date, record date, effective date, deadline
-- Always mention WHAT HAPPENS NEXT: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings, record dates
-- Extract actual TERMS of the deal: price per share, premium, valuation, tenure, interest rate
-- Do NOT use vague phrases like "potentially impacting growth" or "significant development"
+- Always extract exact NUMBERS from the PDF/text: rupee amounts, share counts, percentages, face value, premium, price per share
+- For share transactions: state whether shares were ACQUIRED, SOLD, GIFTED, PLEDGED, or ALLOTTED. Include exact share count and percentage of total voting capital before and after.
+- Always include specific NAMES: buyer/seller/acquirer/promoter names, counterparties, subsidiaries
+- Always include specific DATES: board meeting date, transaction date, record date, effective date
+- Always mention WHAT HAPPENS NEXT: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings
+- Extract actual TERMS: price per share, premium amount, total consideration, valuation, interest rate, tenure
+- For orders: mention exact order value, client name, delivery timeline
+- Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure" — extract the actual details
+- If the PDF contains a table with numbers, extract the key figures from it
 
 Format each response EXACTLY as:
 [N] Category: <category>
@@ -759,7 +762,7 @@ Format each response EXACTLY as:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 450 * len(announcements_batch), "temperature": 0.3},
+        "generationConfig": {"maxOutputTokens": 550 * len(announcements_batch), "temperature": 0.3},
     }
 
     # Single attempt — if rate limited, skip and let next hourly run handle it
