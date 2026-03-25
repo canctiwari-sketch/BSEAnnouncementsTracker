@@ -558,6 +558,7 @@ def _normalize_name(name):
     if not name:
         return ""
     name = name.lower().strip()
+    name = name.replace("&", " and ")
     for suffix in ["limited", "ltd.", "ltd", "pvt.", "pvt", "private", "inc.", "inc",
                     "corporation", "corp.", "corp", "industries", "ind."]:
         name = name.replace(suffix, "")
@@ -634,12 +635,19 @@ def dedup(all_anns):
                 final[prev_idx] = a
             is_dup = True
 
-        # 2b: same company + same day + overlapping subject (cross-category dupes)
+        # 2b: same company + same day + different exchange = cross-exchange dupe
         if not is_dup:
             day_key = (norm, day)
             if day_key in seen_company_day:
-                subj_words = set(a.get("subject", "").lower().split())
-                for prev_idx, prev_subj in seen_company_day[day_key]:
+                for prev_idx, prev_subj, prev_exchange in seen_company_day[day_key]:
+                    # Different exchange = almost certainly same announcement
+                    if a.get("exchange") != prev_exchange:
+                        if score(a) > score(final[prev_idx]):
+                            final[prev_idx] = a
+                        is_dup = True
+                        break
+                    # Same exchange but overlapping subject = dupe
+                    subj_words = set(a.get("subject", "").lower().split())
                     prev_words = set(prev_subj.lower().split())
                     if prev_words and subj_words:
                         overlap = len(subj_words & prev_words) / max(1, min(len(subj_words), len(prev_words)))
@@ -654,9 +662,10 @@ def dedup(all_anns):
 
         idx = len(final)
         seen_day_cat[day_cat_key] = idx
-        if (norm, day) not in seen_company_day:
-            seen_company_day[(norm, day)] = []
-        seen_company_day[(norm, day)].append((idx, a.get("subject", "")))
+        day_key = (norm, day)
+        if day_key not in seen_company_day:
+            seen_company_day[day_key] = []
+        seen_company_day[day_key].append((idx, a.get("subject", ""), a.get("exchange", "")))
         final.append(a)
 
     return final
