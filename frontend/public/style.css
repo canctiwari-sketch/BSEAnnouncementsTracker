@@ -297,7 +297,8 @@ a.company-name:hover {
 }
 
 .multi-select:focus .multi-select-dropdown,
-.multi-select:focus-within .multi-select-dropdown {
+.multi-select:focus-within .multi-select-dropdown,
+.multi-select.open .multi-select-dropdown {
     display: block;
 }
 
@@ -378,11 +379,176 @@ a.company-name:hover {
     accent-color: #f0b429;
 }
 
-@media (max-width: 768px) {
+/* ─── Tablet ──────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .controls {
+        flex-wrap: wrap;
+        padding: 10px 16px;
+    }
+    #results {
+        padding: 0 16px;
+    }
+    .status {
+        padding: 6px 16px;
+    }
+    .pagination {
+        padding: 10px 16px;
+    }
+}
+
+/* ─── Mobile card layout ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    header {
+        padding: 10px 14px;
+    }
+
+    header h1 {
+        font-size: 1rem;
+    }
+
     .controls {
         flex-direction: column;
+        padding: 10px 14px;
+        gap: 8px;
     }
+
+    label,
+    .multi-select-wrap {
+        width: 100%;
+    }
+
+    input[type="date"],
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    input[type="text"] {
+        min-width: unset;
+    }
+
+    .multi-select {
+        width: 100%;
+        min-width: unset;
+        padding: 9px 10px;
+        min-height: 44px;
+    }
+
+    button#fetchBtn {
+        width: 100%;
+        padding: 11px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    .star-filter-label {
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        flex-direction: row;
+    }
+
+    .status {
+        padding: 6px 14px;
+    }
+
+    #results {
+        padding: 10px 14px 0;
+        overflow-x: visible;
+    }
+
+    /* Convert table to card layout */
+    #annTable thead {
+        display: none;
+    }
+
+    #annTable,
+    #annTable tbody {
+        display: block;
+    }
+
+    #annTable tbody tr {
+        display: block;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 10px 12px;
+        background: #161b22;
+        border-left-width: 1px;
+    }
+
+    #annTable tbody tr.starred-row {
+        border-left: 3px solid #f0b429;
+    }
+
+    #annTable tbody td {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 3px 0;
+        min-width: 0;
+        border: none;
+        vertical-align: baseline;
+    }
+
+    #annTable tbody td::before {
+        content: attr(data-label);
+        font-size: 0.62rem;
+        color: #8b949e;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        min-width: 50px;
+        flex-shrink: 0;
+        padding-top: 2px;
+    }
+
+    /* Company cell is the card "title" — no label, full width */
+    #annTable tbody .company-cell {
+        padding-bottom: 7px;
+        border-bottom: 1px solid #21262d;
+        margin-bottom: 4px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #annTable tbody .company-cell::before {
+        display: none;
+    }
+
     .subject-cell {
-        max-width: 200px;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .subject-cell::before {
+        margin-bottom: 2px;
+    }
+
+    .mcap-cell {
+        white-space: normal;
+    }
+
+    .company-cell {
+        min-width: unset;
+    }
+
+    .pagination {
+        padding: 10px 14px;
+    }
+
+    .pagination button {
+        padding: 9px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+
+    /* Dropdown opens upward if near bottom of screen */
+    .multi-select-dropdown {
+        max-height: 200px;
     }
 }

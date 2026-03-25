@@ -7,7 +7,7 @@ const PAGE_SIZE = 50;
 
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
-    "Open Offer", "Warrants", "Buyback", "Delisting", "Business Expansion",
+    "Open Offer", "Warrants", "Buyback", "Delisting", "Business Expansion", "Insider Trading",
 ]);
 const STARRED_RE = /open.?offer|warrants?|buybacks?|buy.?backs?|delisting|delist|capex|capital expenditure|expansion/i;
 
@@ -17,6 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(applyFilter, 300);
     });
+
+    // Touch-friendly dropdown toggle (works alongside CSS :focus-within for desktop)
+    document.querySelectorAll(".multi-select").forEach(sel => {
+        sel.addEventListener("click", e => {
+            const isOpen = sel.classList.contains("open");
+            document.querySelectorAll(".multi-select").forEach(s => s.classList.remove("open"));
+            if (!isOpen) {
+                sel.classList.add("open");
+                e.stopPropagation();
+            }
+        });
+    });
+    document.addEventListener("click", () => {
+        document.querySelectorAll(".multi-select").forEach(s => s.classList.remove("open"));
+    });
+
     restoreFilters();
     fetchData();
 });
@@ -411,14 +427,14 @@ function renderRow(a) {
             <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${highlightSearch(escapeHtml(name))}</a>
             <div class="scrip-code">${exchangeBadge} ${escapeHtml(symbol)}</div>
         </td>
-        <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
-        <td class="subject-cell">
+        <td class="mcap-cell ${mcapClass}" data-label="MCap">${mcapFmt}</td>
+        <td class="subject-cell" data-label="Subject">
             ${categoryBadge}
             ${detailHtml}
         </td>
-        <td class="ai-cell">${aiHtml}</td>
-        <td class="date-cell">${escapeHtml(date)}</td>
-        <td>${attachmentLink}</td>
+        <td class="ai-cell" data-label="AI">${aiHtml}</td>
+        <td class="date-cell" data-label="Date">${escapeHtml(date)}</td>
+        <td data-label="PDF">${attachmentLink}</td>
     </tr>`;
 }
 
