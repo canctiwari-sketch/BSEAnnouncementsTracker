@@ -1104,6 +1104,15 @@ def main():
     if before_dedup != len(merged):
         log(f"Removed {before_dedup - len(merged)} duplicate announcements from cache")
 
+    # Remove cached announcements matching noise patterns (cleanup for old data)
+    before_noise = len(merged)
+    merged = [a for a in merged if not is_noise(
+        f"{a.get('subject', '')} {a.get('detail', '')}",
+        a.get('subject', '')
+    )]
+    if before_noise != len(merged):
+        log(f"Removed {before_noise - len(merged)} cached announcements matching noise filters")
+
     # Remove micro-caps (below 50 Cr) from entire dataset including cached
     MIN_MCAP_CLEANUP = 50 * 1e7
     before_cleanup = len(merged)
