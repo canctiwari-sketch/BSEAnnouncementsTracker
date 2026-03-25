@@ -367,7 +367,8 @@ a.company-name:hover {
 }
 
 .multi-select:focus .multi-select-dropdown,
-.multi-select:focus-within .multi-select-dropdown {
+.multi-select:focus-within .multi-select-dropdown,
+.multi-select.open .multi-select-dropdown {
     display: block;
 }
 
@@ -553,45 +554,192 @@ a.company-name:hover {
     margin-left: auto;
 }
 
-/* ─── Mobile responsive ───────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ─── Tablet ──────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .controls {
+        flex-wrap: wrap;
+        padding: 10px 16px;
+    }
+    #results {
+        padding: 0 16px;
+    }
+    .status-bar {
+        padding: 0 16px;
+    }
+    .pagination {
+        padding: 10px 16px;
+    }
+}
+
+/* ─── Mobile card layout ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    header {
+        padding: 10px 14px;
+    }
+
+    header h1 {
+        font-size: 1rem;
+    }
+
     .controls {
         flex-direction: column;
         padding: 10px 14px;
+        gap: 8px;
     }
-    header {
-        padding: 12px 14px;
+
+    label,
+    .multi-select-wrap,
+    .na-filter-label,
+    .star-filter-label {
+        width: 100%;
     }
-    #results {
-        padding: 0 6px;
+
+    input[type="date"],
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 9px 10px;
+        font-size: 0.9rem;
+        min-height: 44px;
     }
+
+    input[type="text"] {
+        min-width: unset;
+    }
+
+    input[type="number"] {
+        width: 100%;
+    }
+
+    .multi-select {
+        width: 100%;
+        min-width: unset;
+        padding: 9px 10px;
+        min-height: 44px;
+    }
+
+    button {
+        width: 100%;
+        padding: 11px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    .na-filter-label,
+    .star-filter-label {
+        padding: 9px 10px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        flex-direction: row;
+        align-self: auto;
+    }
+
     .status-bar {
         flex-direction: column;
         padding: 0 14px;
         align-items: flex-start;
     }
-    .subject-cell {
-        max-width: 200px;
+
+    #results {
+        padding: 10px 14px 0;
+        overflow-x: visible;
     }
-    .ai-cell {
-        min-width: 160px;
-        max-width: 200px;
+
+    /* Convert table to card layout */
+    #annTable thead {
+        display: none;
     }
-    .company-cell {
-        min-width: 120px;
+
+    #annTable,
+    #annTable tbody {
+        display: block;
     }
-    table {
-        font-size: 0.72rem;
+
+    #annTable tbody tr {
+        display: block;
+        border: 1px solid #e0e0e4;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 10px 12px;
+        background: #fff;
+        border-left-width: 1px;
     }
-    td {
-        padding: 6px 8px;
+
+    #annTable tbody tr.starred-row {
+        border-left: 3px solid #f9a825;
+        background: #fffde7;
     }
-    thead th {
-        padding: 6px 8px;
+
+    #annTable tbody td {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 3px 0;
+        min-width: 0;
+        border: none;
+        vertical-align: baseline;
+    }
+
+    #annTable tbody td::before {
+        content: attr(data-label);
         font-size: 0.62rem;
+        color: #aaa;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        min-width: 56px;
+        flex-shrink: 0;
+        padding-top: 2px;
+        font-weight: 500;
     }
+
+    /* Company cell is the card "title" — no label, full width */
+    #annTable tbody .company-cell {
+        padding-bottom: 7px;
+        border-bottom: 1px solid #f0f0f2;
+        margin-bottom: 4px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #annTable tbody .company-cell::before {
+        display: none;
+    }
+
+    .company-cell {
+        min-width: unset;
+    }
+
+    .subject-cell,
+    .ai-cell {
+        max-width: 100%;
+        min-width: unset;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .subject-cell::before,
+    .ai-cell::before {
+        margin-bottom: 2px;
+    }
+
+    .mcap-cell {
+        white-space: normal;
+    }
+
     .pagination {
         padding: 10px 14px;
         gap: 8px;
+    }
+
+    .pagination button {
+        width: auto;
+        padding: 9px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+
+    .multi-select-dropdown {
+        max-height: 200px;
     }
 }
