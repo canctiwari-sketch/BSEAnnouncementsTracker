@@ -150,6 +150,7 @@ const STARRED_CATEGORIES = new Set([
     "Fund Raising",
     "Capital Structure",
     "Acquisition",
+    "Insider Trading",
 ]);
 
 function isStarred(a) {

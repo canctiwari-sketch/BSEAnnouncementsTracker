@@ -7,7 +7,7 @@ const PAGE_SIZE = 50;
 
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
-    "Open Offer", "Warrants", "Buyback", "Delisting", "Business Expansion",
+    "Open Offer", "Warrants", "Buyback", "Delisting", "Business Expansion", "Insider Trading",
 ]);
 const STARRED_RE = /open.?offer|warrants?|buybacks?|buy.?backs?|delisting|delist|capex|capital expenditure|expansion/i;
 

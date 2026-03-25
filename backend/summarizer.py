@@ -58,10 +58,12 @@ def summarize_announcement(pdf_url, announcement_text="", news_id=""):
     prompt = (
         "You are a financial analyst summarizing BSE/NSE corporate announcements for Indian stock investors.\n\n"
         "Analyze this announcement and provide:\n"
-        "1. A concise 1-2 sentence summary of what the announcement says. Focus on the key business impact.\n"
+        "1. A concise 1-2 sentence summary. Always include specific numbers where present: "
+        "share counts, prices, percentages, order values, loan amounts, stake sizes, etc. "
+        "Do not drop quantitative details — they are the most important part for investors.\n"
         "2. A category from this list: "
         "New Order, Business Expansion, Acquisition, Merger/Demerger, Capital Structure, "
-        "Press Release, Credit Rating, Dividend, Results, Fund Raising, "
+        "Press Release, Credit Rating, Dividend, Results, Fund Raising, Insider Trading, "
         "Regulatory, Joint Venture, Delisting, Resolution, Other\n\n"
         "Return ONLY a JSON object like:\n"
         '{"summary": "...", "category": "..."}\n\n'
