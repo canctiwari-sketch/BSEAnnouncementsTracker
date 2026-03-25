@@ -577,28 +577,8 @@ def _ann_key(a):
 
 
 def dedup(all_anns):
-    """Deduplicate by normalized name + category within 60 min."""
-    # Pass 1: exact subject match (O(n) using index dict)
-    seen = {}
-    seen_idx = {}  # key -> index in results
-    results = []
-    for a in all_anns:
-        norm = _normalize_name(a["company"])
-        subj = a.get("subject", "").lower()[:60]
-        key = f"{norm}::{subj}"
-        if key in seen:
-            existing = seen[key]
-            if (a.get("market_cap") and not existing.get("market_cap")) or \
-               len(a.get("subject", "")) > len(existing.get("subject", "")):
-                idx = seen_idx[key]
-                results[idx] = a
-                seen[key] = a
-        else:
-            seen[key] = a
-            seen_idx[key] = len(results)
-            results.append(a)
+    """Deduplicate by normalized name + category on same day."""
 
-    # Pass 2: fuzzy — same company + category within 60 min
     def parse_dt(d):
         for fmt in ("%d-%b-%Y %H:%M:%S", "%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S", "%d-%b-%Y"):
             try:
@@ -607,52 +587,76 @@ def dedup(all_anns):
                 continue
         return None
 
+    def get_day(date_str):
+        dt = parse_dt(date_str)
+        return dt.strftime("%Y-%m-%d") if dt else ""
+
+    def score(a):
+        """Higher score = better entry to keep."""
+        s = 0
+        if a.get("market_cap"): s += 10
+        if a.get("ai_summary"): s += 5
+        s += len(a.get("subject", ""))
+        return s
+
+    # Pass 1: exact subject match
+    seen = {}
+    seen_idx = {}
+    results = []
+    for a in all_anns:
+        norm = _normalize_name(a["company"])
+        subj = a.get("subject", "").lower()[:60]
+        key = f"{norm}::{subj}"
+        if key in seen:
+            if score(a) > score(seen[key]):
+                results[seen_idx[key]] = a
+                seen[key] = a
+        else:
+            seen[key] = a
+            seen_idx[key] = len(results)
+            results.append(a)
+
+    # Pass 2: same company + same category + same day = duplicate
     final = []
-    seen_fuzzy = {}  # (norm, cat) -> (dt, idx)
-    seen_company_day = {}  # (norm, date_str) -> [(idx, subject, dt)]
+    seen_day_cat = {}  # (norm, day, cat) -> idx in final
+    seen_company_day = {}  # (norm, day) -> [(idx, subject)]
     for a in results:
         norm = _normalize_name(a["company"])
         cat = a.get("category", "")
-        dt = parse_dt(a.get("date", ""))
-        date_day = dt.strftime("%Y-%m-%d") if dt else ""
-
-        # Pass 2a: same company + category within 60 min
-        fuzzy_key = (norm, cat)
-        if fuzzy_key in seen_fuzzy and dt:
-            prev_dt, prev_idx = seen_fuzzy[fuzzy_key]
-            if prev_dt and abs((dt - prev_dt).total_seconds()) < 3600:
-                existing = final[prev_idx]
-                if existing and (a.get("market_cap") and not existing.get("market_cap")):
-                    final[prev_idx] = a
-                    seen_fuzzy[fuzzy_key] = (dt, prev_idx)
-                continue
-
-        # Pass 2b: same company + same day + different category but overlapping subject
-        # Catches cross-exchange dupes where one is "General Update" and other is "Allotment"
-        day_key = (norm, date_day)
+        day = get_day(a.get("date", ""))
         is_dup = False
-        if day_key in seen_company_day:
-            subj_words = set(a.get("subject", "").lower().split())
-            for prev_idx, prev_subj, prev_dt_val in seen_company_day[day_key]:
-                prev_words = set(prev_subj.lower().split())
-                # If >40% word overlap in subjects, consider it a duplicate
-                if prev_words and subj_words:
-                    overlap = len(subj_words & prev_words) / max(1, min(len(subj_words), len(prev_words)))
-                    if overlap > 0.4:
-                        existing = final[prev_idx]
-                        if existing and (a.get("market_cap") and not existing.get("market_cap")):
-                            final[prev_idx] = a
-                            seen_company_day[day_key] = [(prev_idx, a.get("subject", ""), dt)] + \
-                                [(i, s, d) for i, s, d in seen_company_day[day_key] if i != prev_idx]
-                        is_dup = True
-                        break
+
+        # 2a: same company + category + day
+        day_cat_key = (norm, day, cat)
+        if day_cat_key in seen_day_cat:
+            prev_idx = seen_day_cat[day_cat_key]
+            if score(a) > score(final[prev_idx]):
+                final[prev_idx] = a
+            is_dup = True
+
+        # 2b: same company + same day + overlapping subject (cross-category dupes)
+        if not is_dup:
+            day_key = (norm, day)
+            if day_key in seen_company_day:
+                subj_words = set(a.get("subject", "").lower().split())
+                for prev_idx, prev_subj in seen_company_day[day_key]:
+                    prev_words = set(prev_subj.lower().split())
+                    if prev_words and subj_words:
+                        overlap = len(subj_words & prev_words) / max(1, min(len(subj_words), len(prev_words)))
+                        if overlap > 0.4:
+                            if score(a) > score(final[prev_idx]):
+                                final[prev_idx] = a
+                            is_dup = True
+                            break
+
         if is_dup:
             continue
 
-        seen_fuzzy[fuzzy_key] = (dt, len(final))
-        if day_key not in seen_company_day:
-            seen_company_day[day_key] = []
-        seen_company_day[day_key].append((len(final), a.get("subject", ""), dt))
+        idx = len(final)
+        seen_day_cat[day_cat_key] = idx
+        if (norm, day) not in seen_company_day:
+            seen_company_day[(norm, day)] = []
+        seen_company_day[(norm, day)].append((idx, a.get("subject", "")))
         final.append(a)
 
     return final
