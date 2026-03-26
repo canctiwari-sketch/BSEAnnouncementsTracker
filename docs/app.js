@@ -5,6 +5,11 @@ let searchTimeout = null;
 let currentPage = 1;
 const PAGE_SIZE = 50;
 
+// ─── Watchlist ───────────────────────────────────────────────────────────────
+let watchlist = {};
+const WL_KEY = "twc_watchlist";
+window._pageItems = [];
+
 // High-priority categories
 const STARRED_CATEGORIES = new Set([
     "Open Offer", "Warrants", "Buyback", "Delisting", "Business Expansion",
@@ -17,6 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(applyFilter, 300);
     });
+    // Escape key closes watchlist modal
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeWatchlist();
+    });
+    loadWatchlist();
     restoreFilters();
     fetchData();
 });
@@ -329,6 +339,7 @@ function renderPage() {
     const start = (currentPage - 1) * PAGE_SIZE;
     const end = Math.min(start + PAGE_SIZE, total);
     const pageItems = currentFiltered.slice(start, end);
+    window._pageItems = pageItems;
 
     renderTable(pageItems);
     updatePagination(totalPages, start, end, total);
@@ -371,10 +382,10 @@ function renderTable(announcements) {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:#484f58">No announcements found.</td></tr>';
         return;
     }
-    tbody.innerHTML = announcements.map(renderRow).join("");
+    tbody.innerHTML = announcements.map((a, i) => renderRow(a, i)).join("");
 }
 
-function renderRow(a) {
+function renderRow(a, idx) {
     const name = a.company || "Unknown";
     const symbol = a.symbol || "";
     const exchange = a.exchange || "";
@@ -388,6 +399,8 @@ function renderRow(a) {
 
     const starIcon = starred ? `<span class="star-icon" title="High Priority">&#9733;</span>` : "";
     const rowClass = starred ? "starred-row" : "";
+    const inWL = isInWatchlist(a);
+    const wlBtn = `<button class="wl-add-btn ${inWL ? 'wl-added' : ''}" onclick="event.stopPropagation();addToWatchlistByIdx(${idx})" title="${inWL ? 'In watchlist' : 'Add to watchlist'}">${inWL ? '&#10003;' : '+'}</button>`;
     const exchangeBadge = `<span class="exchange-badge ${exchange.toLowerCase()}">${exchange}</span>`;
     const attachmentLink = attachment
         ? `<a class="attachment-link" href="${escapeAttr(attachment)}" target="_blank" rel="noopener">PDF</a>`
@@ -407,7 +420,7 @@ function renderRow(a) {
 
     return `<tr class="${rowClass}">
         <td class="company-cell">
-            ${starIcon}
+            ${wlBtn}${starIcon}
             <a class="company-name" href="${screenerLink(name)}" target="_blank" rel="noopener">${highlightSearch(escapeHtml(name))}</a>
             <div class="scrip-code">${exchangeBadge} ${escapeHtml(symbol)}</div>
         </td>
@@ -468,4 +481,152 @@ function escapeHtml(str) {
 
 function escapeAttr(str) {
     return (str || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// ─── Watchlist Functions ─────────────────────────────────────────────────────
+function loadWatchlist() {
+    try {
+        const raw = localStorage.getItem(WL_KEY);
+        watchlist = raw ? JSON.parse(raw) : {};
+    } catch { watchlist = {}; }
+    updateWatchlistCount();
+}
+
+function saveWatchlist() {
+    localStorage.setItem(WL_KEY, JSON.stringify(watchlist));
+    updateWatchlistCount();
+}
+
+function getWatchlistKey(a) {
+    return (a.symbol || "") + "_" + (a.exchange || "");
+}
+
+function isInWatchlist(a) {
+    return !!watchlist[getWatchlistKey(a)];
+}
+
+function addToWatchlistByIdx(idx) {
+    const a = window._pageItems[idx];
+    if (!a) return;
+    const key = getWatchlistKey(a);
+    const note = {
+        subject: a.subject || "",
+        category: a.category || "",
+        ai_summary: a.ai_summary || "",
+        date: a.date || "",
+        attachment: a.attachment || "",
+        added_on: new Date().toISOString(),
+    };
+    if (watchlist[key]) {
+        // Check for duplicate note (same date + subject)
+        const isDupe = watchlist[key].notes.some(n => n.date === note.date && n.subject === note.subject);
+        if (!isDupe) {
+            watchlist[key].notes.push(note);
+        }
+        // Update company-level fields to latest
+        watchlist[key].market_cap_fmt = a.market_cap_fmt || watchlist[key].market_cap_fmt;
+        watchlist[key].market_cap = a.market_cap || watchlist[key].market_cap;
+    } else {
+        watchlist[key] = {
+            company: a.company || "Unknown",
+            symbol: a.symbol || "",
+            exchange: a.exchange || "",
+            market_cap: a.market_cap || null,
+            market_cap_fmt: a.market_cap_fmt || "N/A",
+            notes: [note],
+        };
+    }
+    saveWatchlist();
+    renderPage(); // Re-render to show checkmark
+}
+
+function removeFromWatchlist(key) {
+    delete watchlist[key];
+    saveWatchlist();
+    renderWatchlistModal();
+    renderPage(); // Update checkmarks in table
+}
+
+function removeNoteFromWatchlist(key, noteIdx) {
+    if (!watchlist[key]) return;
+    watchlist[key].notes.splice(noteIdx, 1);
+    if (watchlist[key].notes.length === 0) {
+        delete watchlist[key];
+    }
+    saveWatchlist();
+    renderWatchlistModal();
+    renderPage();
+}
+
+function updateWatchlistCount() {
+    const el = document.getElementById("wlCount");
+    if (el) el.textContent = `(${Object.keys(watchlist).length})`;
+}
+
+function openWatchlist() {
+    document.getElementById("watchlistOverlay").style.display = "flex";
+    renderWatchlistModal();
+}
+
+function closeWatchlist() {
+    document.getElementById("watchlistOverlay").style.display = "none";
+}
+
+function renderWatchlistModal() {
+    const body = document.getElementById("wlContent");
+    const keys = Object.keys(watchlist).sort((a, b) => {
+        return (watchlist[a].company || "").localeCompare(watchlist[b].company || "");
+    });
+
+    if (!keys.length) {
+        body.innerHTML = '<div class="wl-empty">No companies in watchlist yet.<br>Click the <strong>+</strong> button on any announcement to add it.</div>';
+        return;
+    }
+
+    // Try to get latest market cap from loaded data
+    const latestMcap = {};
+    allAnnouncements.forEach(a => {
+        const k = getWatchlistKey(a);
+        if (a.market_cap_fmt && a.market_cap_fmt !== "N/A") {
+            latestMcap[k] = a.market_cap_fmt;
+        }
+    });
+
+    body.innerHTML = keys.map(key => {
+        const entry = watchlist[key];
+        const mcap = latestMcap[key] || entry.market_cap_fmt || "N/A";
+        const companyLink = `<a class="wl-entry-company" href="${screenerLink(entry.company)}" target="_blank" rel="noopener">${escapeHtml(entry.company)}</a>`;
+        const exchangeBadge = `<span class="exchange-badge ${(entry.exchange || '').toLowerCase()}">${escapeHtml(entry.exchange || '')}</span>`;
+
+        const notesHtml = entry.notes.map((n, ni) => {
+            const catBadge = n.category ? `<span class="wl-note-category">${escapeHtml(n.category)}</span>` : "";
+            const subject = n.subject ? escapeHtml(n.subject.length > 100 ? n.subject.slice(0, 97) + "..." : n.subject) : "";
+            const ai = n.ai_summary ? `<div class="wl-note-ai">${escapeHtml(n.ai_summary.length > 200 ? n.ai_summary.slice(0, 197) + "..." : n.ai_summary)}</div>` : "";
+            const pdfLink = n.attachment ? `<a class="wl-note-pdf" href="${escapeAttr(n.attachment)}" target="_blank">PDF</a>` : "";
+            const dateStr = formatDisplayDate(n.date);
+
+            return `<div class="wl-note">
+                <div class="wl-note-body">
+                    ${catBadge}<span class="wl-note-subject">${subject}</span>
+                    ${ai}
+                </div>
+                <div class="wl-note-meta">
+                    <span class="wl-note-date">${escapeHtml(dateStr)}</span>
+                    ${pdfLink}
+                    <button class="wl-note-remove" onclick="removeNoteFromWatchlist('${escapeAttr(key)}',${ni})" title="Remove this note">&times;</button>
+                </div>
+            </div>`;
+        }).join("");
+
+        return `<div class="wl-entry">
+            <div class="wl-entry-header">
+                <div class="wl-entry-left">
+                    ${companyLink} ${exchangeBadge}
+                    <span class="wl-entry-mcap">${escapeHtml(mcap)}</span>
+                </div>
+                <button class="wl-remove-btn" onclick="removeFromWatchlist('${escapeAttr(key)}')">Remove All</button>
+            </div>
+            ${notesHtml}
+        </div>`;
+    }).join("");
 }

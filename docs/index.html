@@ -56,6 +56,7 @@
         </label>
         <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
         <button class="export-btn" onclick="exportXLSX()" title="Export filtered results as Excel">Export Excel</button>
+        <button class="watchlist-btn" onclick="openWatchlist()" title="View Watchlist">&#9734; Watchlist <span id="wlCount">(0)</span></button>
     </div>
 
     <div class="status-bar">
@@ -84,6 +85,16 @@
         <span id="pageNum">Page 1 of 1</span>
         <button id="nextBtn" onclick="nextPage()">Next &raquo;</button>
         <span id="pageInfo" class="page-info">1–50 of 100</span>
+    </div>
+
+    <div id="watchlistOverlay" class="wl-overlay" style="display:none" onclick="if(event.target===this)closeWatchlist()">
+        <div class="wl-modal">
+            <div class="wl-modal-header">
+                <h2>&#9734; Watchlist</h2>
+                <button class="wl-close-btn" onclick="closeWatchlist()">&times;</button>
+            </div>
+            <div id="wlContent" class="wl-modal-body"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>
