@@ -728,7 +728,7 @@ def dedup(all_anns):
 
 
 # ─── PDF Text Extraction ─────────────────────────────────────────────────────
-def extract_pdf_text(url, max_chars=1500):
+def extract_pdf_text(url, max_chars=3000):
     """Download PDF and extract first ~max_chars of text."""
     if not url:
         return ""
@@ -746,7 +746,7 @@ def extract_pdf_text(url, max_chars=1500):
             import pypdf
             reader = pypdf.PdfReader(io.BytesIO(r.content))
         text = ""
-        for page in reader.pages[:3]:  # First 3 pages max
+        for page in reader.pages[:5]:  # First 5 pages — annexures often on page 2-3
             text += page.extract_text() or ""
             if len(text) >= max_chars:
                 break
@@ -809,7 +809,7 @@ Format each response EXACTLY as:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"maxOutputTokens": 550 * len(announcements_batch), "temperature": 0.3},
+        "generationConfig": {"maxOutputTokens": 700 * len(announcements_batch), "temperature": 0.3},
     }
 
     # Single attempt — if rate limited, skip and let next hourly run handle it
