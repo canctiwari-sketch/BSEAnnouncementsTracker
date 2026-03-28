@@ -484,17 +484,145 @@ function escapeAttr(str) {
 }
 
 // ─── Watchlist Functions ─────────────────────────────────────────────────────
+const GH_REPO = "canctiwari-sketch/BSEAnnouncementsTracker";
+const GH_WL_PATH = "data/watchlist.json";
+const GH_TOKEN_KEY = "twc_gh_token";
+let wlSyncing = false;
+let wlSha = null; // GitHub file SHA for updates
+
 function loadWatchlist() {
+    // Load from localStorage first (instant)
     try {
         const raw = localStorage.getItem(WL_KEY);
         watchlist = raw ? JSON.parse(raw) : {};
     } catch { watchlist = {}; }
     updateWatchlistCount();
+
+    // Then fetch from GitHub and merge (async)
+    fetchWatchlistFromGitHub();
+}
+
+async function fetchWatchlistFromGitHub() {
+    try {
+        const r = await fetch(`https://raw.githubusercontent.com/${GH_REPO}/main/${GH_WL_PATH}?${Date.now()}`);
+        if (!r.ok) return; // File doesn't exist yet
+        const remote = await r.json();
+        if (typeof remote !== "object" || Array.isArray(remote)) return;
+
+        // Merge remote into local (remote entries we don't have locally)
+        let changed = false;
+        for (const key in remote) {
+            if (!watchlist[key]) {
+                watchlist[key] = remote[key];
+                changed = true;
+            } else {
+                // Merge notes
+                const localDates = new Set(watchlist[key].notes.map(n => n.date + n.subject));
+                for (const note of (remote[key].notes || [])) {
+                    if (!localDates.has(note.date + note.subject)) {
+                        watchlist[key].notes.push(note);
+                        changed = true;
+                    }
+                }
+                // Keep user_note from remote if local is empty
+                if (!watchlist[key].user_note && remote[key].user_note) {
+                    watchlist[key].user_note = remote[key].user_note;
+                    changed = true;
+                }
+            }
+        }
+        if (changed) {
+            localStorage.setItem(WL_KEY, JSON.stringify(watchlist));
+            updateWatchlistCount();
+            renderPage();
+        }
+
+        // Get SHA for future updates
+        const token = localStorage.getItem(GH_TOKEN_KEY);
+        if (token) {
+            const shaR = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_WL_PATH}`, {
+                headers: { "Authorization": `token ${token}` }
+            });
+            if (shaR.ok) {
+                const shaData = await shaR.json();
+                wlSha = shaData.sha;
+            }
+        }
+    } catch {}
 }
 
 function saveWatchlist() {
     localStorage.setItem(WL_KEY, JSON.stringify(watchlist));
     updateWatchlistCount();
+    syncWatchlistToGitHub(); // Push to GitHub in background
+}
+
+async function syncWatchlistToGitHub() {
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token || wlSyncing) return;
+
+    wlSyncing = true;
+    try {
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(watchlist, null, 2))));
+        const body = {
+            message: "Update watchlist",
+            content: content,
+            branch: "main",
+        };
+        if (wlSha) body.sha = wlSha;
+
+        const r = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_WL_PATH}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        });
+
+        if (r.ok) {
+            const data = await r.json();
+            wlSha = data.content.sha;
+        } else if (r.status === 409) {
+            // Conflict — refetch SHA and retry once
+            const shaR = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_WL_PATH}`, {
+                headers: { "Authorization": `token ${token}` }
+            });
+            if (shaR.ok) {
+                const shaData = await shaR.json();
+                wlSha = shaData.sha;
+                body.sha = wlSha;
+                const r2 = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_WL_PATH}`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                });
+                if (r2.ok) {
+                    const data2 = await r2.json();
+                    wlSha = data2.content.sha;
+                }
+            }
+        }
+    } catch {}
+    wlSyncing = false;
+}
+
+function setupGitHubToken() {
+    const existing = localStorage.getItem(GH_TOKEN_KEY);
+    const token = prompt(
+        existing
+            ? "GitHub token is set. Enter new token to update, or leave empty to keep current:"
+            : "Enter your GitHub Personal Access Token (needs 'repo' or 'contents:write' permission).\nThis is stored only in your browser, never in the repo."
+    );
+    if (token === null) return; // Cancelled
+    if (token.trim()) {
+        localStorage.setItem(GH_TOKEN_KEY, token.trim());
+        syncWatchlistToGitHub(); // Push current watchlist immediately
+    }
+    renderWatchlistModal();
 }
 
 function getWatchlistKey(a) {
@@ -578,8 +706,13 @@ function renderWatchlistModal() {
         return (watchlist[a].company || "").localeCompare(watchlist[b].company || "");
     });
 
+    const hasToken = !!localStorage.getItem(GH_TOKEN_KEY);
+    const syncStatus = hasToken
+        ? '<span class="wl-sync-status wl-synced" title="Syncing to GitHub">&#9679; Cloud synced</span>'
+        : '<span class="wl-sync-status wl-not-synced" onclick="setupGitHubToken()" title="Click to connect">&#9679; Not synced — <a href="#" onclick="event.preventDefault();setupGitHubToken()">Connect GitHub</a></span>';
+
     if (!keys.length) {
-        body.innerHTML = '<div class="wl-empty">No companies in watchlist yet.<br>Click the <strong>+</strong> button on any announcement to add it.</div>';
+        body.innerHTML = `<div style="padding:8px 0 4px">${syncStatus}</div><div class="wl-empty">No companies in watchlist yet.<br>Click the <strong>+</strong> button on any announcement to add it.</div>`;
         return;
     }
 
@@ -592,7 +725,7 @@ function renderWatchlistModal() {
         }
     });
 
-    body.innerHTML = keys.map(key => {
+    body.innerHTML = `<div style="padding:0 0 8px">${syncStatus}</div>` + keys.map(key => {
         const entry = watchlist[key];
         const mcap = latestMcap[key] || entry.market_cap_fmt || "N/A";
         const companyLink = `<a class="wl-entry-company" href="${screenerLink(entry.company)}" target="_blank" rel="noopener">${escapeHtml(entry.company)}</a>`;

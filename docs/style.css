@@ -840,6 +840,24 @@ a.company-name:hover {
     color: #bbb;
 }
 
+.wl-sync-status {
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+
+.wl-synced {
+    color: #2e7d32;
+}
+
+.wl-not-synced {
+    color: #e65100;
+}
+
+.wl-not-synced a {
+    color: #5a3d8a;
+    text-decoration: underline;
+}
+
 .wl-empty {
     text-align: center;
     padding: 40px;
