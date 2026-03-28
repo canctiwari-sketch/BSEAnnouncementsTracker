@@ -200,6 +200,16 @@ NOISE_PATTERNS = [
     r"gst.*order",
     r"gst.*demand",
     r"gst.*notice",
+    r"cgst",
+    r"sgst",
+    r"igst",
+    r"central goods and services tax",
+    r"state goods and services tax",
+    r"board composition",
+    r"composition of.*board",
+    r"composition of.*committee",
+    r"reconstitution.*committee",
+    r"constitution of.*committee",
     r"gst.*filing",
     r"advance tax",
     r"tax assessment",
@@ -1152,9 +1162,10 @@ def main():
         log(f"Removed {before_dedup - len(merged)} duplicate announcements from cache")
 
     # Remove cached announcements matching noise patterns (cleanup for old data)
+    # Check subject, detail, AND AI summary for noise keywords
     before_noise = len(merged)
     merged = [a for a in merged if not is_noise(
-        f"{a.get('subject', '')} {a.get('detail', '')}",
+        f"{a.get('subject', '')} {a.get('detail', '')} {a.get('ai_summary', '')}",
         a.get('subject', '')
     )]
     if before_noise != len(merged):
