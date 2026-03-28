@@ -826,7 +826,8 @@ Format each response EXACTLY as:
         r.raise_for_status()
         data = r.json()
         text = data["candidates"][0]["content"]["parts"][0]["text"]
-        return _parse_batch_response(text, len(announcements_batch))
+        company_names = [a.get("company", "") for a in announcements_batch]
+        return _parse_batch_response(text, len(announcements_batch), company_names)
     except Exception as e:
         log(f"  Gemini batch error: {e}")
         return [None] * len(announcements_batch)
@@ -841,8 +842,9 @@ VALID_CATEGORIES = {
     "SAST/Insider", "Litigation", "General Update",
 }
 
-def _parse_batch_response(text, expected_count):
-    """Parse numbered responses with category and summary from Gemini."""
+def _parse_batch_response(text, expected_count, company_names=None):
+    """Parse numbered responses with category and summary from Gemini.
+    company_names: list of company names to validate responses against."""
     results = [None] * expected_count
     import re as _re
     parts = _re.split(r'\[(\d+)\]', text)
@@ -865,7 +867,32 @@ def _parse_batch_response(text, expected_count):
                     else:
                         category = None
                         summary = content
-                results[idx] = {"category": category, "summary": summary}
+
+                # Validate: check if summary mentions the correct company
+                if company_names and idx < len(company_names):
+                    expected_name = company_names[idx].lower().split()[0]  # First word of company name
+                    # If summary mentions a completely different company name from the batch,
+                    # it's likely mismatched — skip it so it retries next run
+                    if len(expected_name) > 3 and summary:
+                        # Check if any OTHER company name from the batch appears in this summary
+                        # but NOT the expected company name
+                        summary_lower = summary.lower()
+                        expected_words = set(w.lower() for w in company_names[idx].split() if len(w) > 3)
+                        found_expected = any(w in summary_lower for w in expected_words)
+                        if not found_expected and len(summary) > 50:
+                            # Check if another company's name is in this summary
+                            for j, other_name in enumerate(company_names):
+                                if j != idx:
+                                    other_words = set(w.lower() for w in other_name.split() if len(w) > 3)
+                                    found_other = any(w in summary_lower for w in other_words)
+                                    if found_other:
+                                        log(f"  WARNING: Summary [{idx+1}] mentions '{other_name}' instead of '{company_names[idx]}' — skipping")
+                                        category = None
+                                        summary = None
+                                        break
+
+                if summary:
+                    results[idx] = {"category": category, "summary": summary}
         except (ValueError, IndexError):
             continue
     return results
@@ -1035,7 +1062,7 @@ def main():
     log(f"New announcements: {len(new_anns)}")
 
     # Summarize new announcements with Gemini in batches of 10
-    BATCH_SIZE = 10
+    BATCH_SIZE = 5
     summarized = 0
     if not GEMINI_KEY:
         for a in new_anns:
