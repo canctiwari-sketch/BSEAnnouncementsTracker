@@ -92,5 +92,22 @@
         "added_on": "2026-03-28T09:03:33.764Z"
       }
     ]
+  },
+  "500777_BSE": {
+    "company": "Tamilnadu Petroproducts Ltd",
+    "symbol": "500777",
+    "exchange": "BSE",
+    "market_cap": 7286789679.259999,
+    "market_cap_fmt": "729 Cr",
+    "notes": [
+      {
+        "subject": "Tamilnadu Petroproducts Ltd - 500777 - Announcement Under Regulation 30 LODR - Update",
+        "category": "Business Expansion",
+        "ai_summary": "Tamilnadu Petroproducts Ltd has successfully completed the expansion activities at its Heavy Chemicals Division (HCD) plant. Operations at the expanded facility are scheduled to commence on March 28, 2026. Furthermore, the Tamil Nadu Pollution Control Board has granted the company its Consent to Operate for the enhanced capacity of 250 TPD of Caustic Soda production. This approval allows the company to operate and discharge emissions in compliance with the Air (Prevention and Control of Pollution) Act, 1981, and discharge sewage and trade effluent under the Water (Prevention and Control of Pollution) Act, 1974.",
+        "date": "2026-03-27T16:48:49.997",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/15ebcb2f-454c-435d-9ab8-70efa59f82a3.pdf",
+        "added_on": "2026-03-28T09:09:41.907Z"
+      }
+    ]
   }
 }
