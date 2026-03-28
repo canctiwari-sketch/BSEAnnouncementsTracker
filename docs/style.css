@@ -638,6 +638,28 @@ a.company-name:hover {
     margin: 0;
 }
 
+.wl-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wl-export-btn, .wl-import-btn {
+    background: #fff;
+    color: #5a3d8a;
+    border: 1px solid #ddd;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.wl-export-btn:hover, .wl-import-btn:hover {
+    background: #f3eeff;
+    border-color: #5a3d8a;
+}
+
 .wl-close-btn {
     background: none;
     border: none;
@@ -785,6 +807,37 @@ a.company-name:hover {
 
 .wl-note-pdf:hover {
     text-decoration: underline;
+}
+
+.wl-user-note {
+    padding: 8px 16px 12px;
+    border-top: 1px solid #f0f0f2;
+    background: #fafafa;
+}
+
+.wl-user-note textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    font-family: inherit;
+    color: #333;
+    resize: vertical;
+    min-height: 36px;
+    max-height: 120px;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+.wl-user-note textarea:focus {
+    outline: none;
+    border-color: #5a3d8a;
+    box-shadow: 0 0 0 2px rgba(90,61,138,0.1);
+}
+
+.wl-user-note textarea::placeholder {
+    color: #bbb;
 }
 
 .wl-empty {

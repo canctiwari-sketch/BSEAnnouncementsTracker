@@ -91,7 +91,14 @@
         <div class="wl-modal">
             <div class="wl-modal-header">
                 <h2>&#9734; Watchlist</h2>
-                <button class="wl-close-btn" onclick="closeWatchlist()">&times;</button>
+                <div class="wl-header-actions">
+                    <button class="wl-export-btn" onclick="exportWatchlist()" title="Backup watchlist">Export</button>
+                    <label class="wl-import-btn" title="Restore watchlist">
+                        Import
+                        <input type="file" id="wlImportFile" accept=".json" onchange="importWatchlist(event)" style="display:none">
+                    </label>
+                    <button class="wl-close-btn" onclick="closeWatchlist()">&times;</button>
+                </div>
             </div>
             <div id="wlContent" class="wl-modal-body"></div>
         </div>

@@ -618,6 +618,8 @@ function renderWatchlistModal() {
             </div>`;
         }).join("");
 
+        const userNote = entry.user_note || "";
+
         return `<div class="wl-entry">
             <div class="wl-entry-header">
                 <div class="wl-entry-left">
@@ -627,6 +629,67 @@ function renderWatchlistModal() {
                 <button class="wl-remove-btn" onclick="removeFromWatchlist('${escapeAttr(key)}')">Remove All</button>
             </div>
             ${notesHtml}
+            <div class="wl-user-note">
+                <textarea placeholder="Add your personal note..." onchange="updateUserNote('${escapeAttr(key)}', this.value)" onblur="updateUserNote('${escapeAttr(key)}', this.value)">${escapeHtml(userNote)}</textarea>
+            </div>
         </div>`;
     }).join("");
+}
+
+function updateUserNote(key, value) {
+    if (!watchlist[key]) return;
+    watchlist[key].user_note = value;
+    saveWatchlist();
+}
+
+function exportWatchlist() {
+    const data = JSON.stringify(watchlist, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `watchlist_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function importWatchlist(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const imported = JSON.parse(e.target.result);
+            if (typeof imported !== "object" || Array.isArray(imported)) {
+                alert("Invalid watchlist file.");
+                return;
+            }
+            // Merge: imported entries get added, existing entries keep their data
+            for (const key in imported) {
+                if (watchlist[key]) {
+                    // Merge notes (avoid duplicates)
+                    const existingDates = new Set(watchlist[key].notes.map(n => n.date + n.subject));
+                    for (const note of (imported[key].notes || [])) {
+                        if (!existingDates.has(note.date + note.subject)) {
+                            watchlist[key].notes.push(note);
+                        }
+                    }
+                    // Keep user_note if not already set
+                    if (!watchlist[key].user_note && imported[key].user_note) {
+                        watchlist[key].user_note = imported[key].user_note;
+                    }
+                } else {
+                    watchlist[key] = imported[key];
+                }
+            }
+            saveWatchlist();
+            renderWatchlistModal();
+            renderPage();
+            alert(`Imported ${Object.keys(imported).length} companies.`);
+        } catch {
+            alert("Failed to parse watchlist file.");
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = ""; // Reset file input
 }
