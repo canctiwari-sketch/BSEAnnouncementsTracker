@@ -1,1 +1,96 @@
-{}
+{
+  "524051_BSE": {
+    "company": "Polyplex Corporation Ltd",
+    "symbol": "524051",
+    "exchange": "BSE",
+    "market_cap": 25522071606,
+    "market_cap_fmt": "2.55K Cr",
+    "notes": [
+      {
+        "subject": "Polyplex Corporation Ltd - 524051 - Board Meeting Outcome for Board Approval For Acquisition Of 51% Of The Share Capital Of Technova Printrite Products Private Limited By Polyplex Corporation Limited",
+        "category": "Acquisition",
+        "ai_summary": "Polyplex Corporation Limited has executed a Share Purchase Agreement (SPA) dated March 25, 2026, for the acquisition of 51% of the equity share capital of TechNova Printrite Products Private Limited. The SPA was entered into with the Sellers, whose details are provided in Annexure 1. Concurrently, the company also executed a Shareholder’s and Rights Agreement. This acquisition marks a significant development for Polyplex Corporation Limited, as approved by its Board of Directors. The company will also be filing necessary disclosures under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015.",
+        "date": "2026-03-25T17:44:16.88",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0b0acb28-1058-4c25-adb9-f36c409174dc.pdf",
+        "added_on": "2026-03-26T10:09:36.822Z"
+      }
+    ]
+  },
+  "544526_BSE": {
+    "company": "Saatvik Green Energy Ltd",
+    "symbol": "544526",
+    "exchange": "BSE",
+    "market_cap": 48134665014.799995,
+    "market_cap_fmt": "4.81K Cr",
+    "notes": [
+      {
+        "subject": "Saatvik Green Energy Ltd - 544526 - Allocation Of Land By Saatvik Solar Industries Private Limited , Material Subsidiary Of The Company",
+        "category": "Subsidiary",
+        "ai_summary": "Saatvik Green Energy Ltd's material subsidiary, Saatvik Solar Industries Private Limited, has entered into a lease deed with M P Industrial Development Corporation Limited. This lease is for 185 acres of land, approximately 748,668 square meters, located in the Manufacturing Zone for Power and Renewable Energy Equipment in Narmadapuram. The lease agreement has a tenor of 99 years. This land acquisition by the subsidiary is a significant development for Saatvik Green Energy Ltd's operational expansion.",
+        "date": "2026-03-25T17:39:49.387",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e6309f37-f86f-43b5-9f20-7d6eff90e33f.pdf",
+        "added_on": "2026-03-26T10:09:43.615Z"
+      }
+    ]
+  },
+  "524226_BSE": {
+    "company": "Gujarat Ambuja Exports Ltd",
+    "symbol": "524226",
+    "exchange": "BSE",
+    "market_cap": 61007784486.6,
+    "market_cap_fmt": "6.10K Cr",
+    "notes": [
+      {
+        "subject": "Gujarat Ambuja Exports Ltd - 524226 - Commencement Of Commercial Production Of New Maltodextrin Facility At Hubli, Karnataka",
+        "category": "Business Expansion",
+        "ai_summary": "Gujarat Ambuja Exports Ltd. has successfully commenced commercial production at its new Maltodextrin facility in Hubli, Karnataka, effective March 28, 2026. This expansion increases the company's total installed capacity for Maltodextrin production at Hubli from 7,000 MTPA to 23,000 MTPA. This development is in line with the company's growth strategy and is expected to enhance its market presence in the Maltodextrin segment.",
+        "date": "2026-03-28T11:56:18.78",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fb0c77a3-c210-4fcf-bead-fd88f9107a33.pdf",
+        "added_on": "2026-03-28T07:43:51.044Z"
+      }
+    ],
+    "user_note": "Capex Completed."
+  },
+  "HILTON_NSE": {
+    "company": "Hilton Metal Forging Limited",
+    "symbol": "HILTON",
+    "exchange": "NSE",
+    "market_cap": 887798004.75,
+    "market_cap_fmt": "89 Cr",
+    "notes": [
+      {
+        "subject": "Bagging/Receiving of orders/contracts",
+        "category": "New Order",
+        "ai_summary": "Hilton Metal Forging Limited has secured a contract for the supply of 360,000 standard 155mm M107 empty bomb artillery shells. The order, valued at approximately Rs. 720.00 Crores, will be executed over 24 months with a supply rate of 15,000 units per month. The contract is subject to the approval of a sample batch of 10 pieces and receipt of advance payments based on prototype approval. This order has been awarded by a domestic entity.",
+        "date": "26-Mar-2026 19:51:58",
+        "attachment": "https://nsearchives.nseindia.com/corporate/HILTON_26032026195147_Intimation_of_Purchase_order.pdf",
+        "added_on": "2026-03-28T08:11:31.303Z"
+      },
+      {
+        "subject": "Press Release",
+        "category": "Press Release",
+        "ai_summary": "Hilton Metal Forging Limited has issued a press release on March 26, 2026, announcing an Interim Sales Agreement for the supply of 360,000 standard 155mm M107 empty bomb artillery shells. The approximate value of this order is Rs. 720.00 Crores. The agreement includes a structured delivery schedule of 15,000 units per month over a 24-month period. The payment terms involve a rolling advance equivalent to 50% of three months' supply, with monthly invoicing payable prior to dispatch. Supplies are expected to commence upon completion of requisite formalities and receipt of advance payments.",
+        "date": "26-Mar-2026 19:45:32",
+        "attachment": "https://nsearchives.nseindia.com/corporate/HILTON_26032026194520_Press_release1.pdf",
+        "added_on": "2026-03-28T08:11:33.238Z"
+      }
+    ]
+  },
+  "MUKANDLTD_NSE": {
+    "company": "Mukand Limited",
+    "symbol": "MUKANDLTD",
+    "exchange": "NSE",
+    "market_cap": 16761485308,
+    "market_cap_fmt": "1.68K Cr",
+    "notes": [
+      {
+        "subject": "Agreements",
+        "category": "Divestment",
+        "ai_summary": "Summary: Mukand Limited has executed two Conveyance Deeds for the sale of land parcels at Dighe. The first deed involves the sale of a 50% undivided share in land admeasuring approximately 9,871 sq. mtrs (2.44 acres) for a consideration of Rs. 43,98,02,405. The second deed is for the sale of a portion of land admeasuring approximately 57,386 sq. mtrs (14.18 acres) for a consideration of Rs. 511,36,66,460. The total consideration for both transactions is Rs. 555,34,68,865. After adjusting Rs. 110,00,00,000 paid earlier, the Company has received the balance consideration of Rs. 445,34,68,865. This follows an earlier intimation dated July 23, 2025.",
+        "date": "27-Mar-2026 18:37:27",
+        "attachment": "https://nsearchives.nseindia.com/corporate/MUKANDLTD_27032026183654_Dislcosure_to_SE_-_Completion_of_Land_Sale_SD.pdf",
+        "added_on": "2026-03-28T09:03:33.764Z"
+      }
+    ]
+  }
+}
