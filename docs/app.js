@@ -636,7 +636,65 @@ function isInWatchlist(a) {
 function addToWatchlistByIdx(idx) {
     const a = window._pageItems[idx];
     if (!a) return;
+    // Show inline note popup
+    showNotePopup(idx, a);
+}
+
+function showNotePopup(idx, a) {
+    // Remove any existing popup
+    const existing = document.getElementById("wlNotePopup");
+    if (existing) existing.remove();
+
+    // Find the "+" button to position near it
+    const btn = document.querySelectorAll("#annBody .wl-add-btn")[idx];
+    if (!btn) return;
+
+    const popup = document.createElement("div");
+    popup.id = "wlNotePopup";
+    popup.className = "wl-note-popup";
+    popup.innerHTML = `
+        <div class="wl-note-popup-header">Add to Watchlist</div>
+        <div class="wl-note-popup-company">${escapeHtml(a.company || "")}</div>
+        <textarea id="wlNoteInput" class="wl-note-popup-input" placeholder="Add your note (optional)..." rows="3"></textarea>
+        <div class="wl-note-popup-actions">
+            <button class="wl-note-popup-cancel" onclick="closeNotePopup()">Cancel</button>
+            <button class="wl-note-popup-save" onclick="confirmAddToWatchlist(${idx})">Save</button>
+        </div>
+    `;
+
+    // Position popup near the button
+    const rect = btn.getBoundingClientRect();
+    popup.style.position = "fixed";
+    popup.style.top = Math.min(rect.bottom + 5, window.innerHeight - 220) + "px";
+    popup.style.left = Math.max(rect.left, 10) + "px";
+    popup.style.zIndex = "1001";
+
+    document.body.appendChild(popup);
+
+    // Focus the textarea
+    setTimeout(() => document.getElementById("wlNoteInput").focus(), 50);
+
+    // Close on Escape
+    const onKey = (e) => {
+        if (e.key === "Escape") { closeNotePopup(); document.removeEventListener("keydown", onKey); }
+        if (e.key === "Enter" && e.ctrlKey) { confirmAddToWatchlist(idx); document.removeEventListener("keydown", onKey); }
+    };
+    document.addEventListener("keydown", onKey);
+}
+
+function closeNotePopup() {
+    const popup = document.getElementById("wlNotePopup");
+    if (popup) popup.remove();
+}
+
+function confirmAddToWatchlist(idx) {
+    const a = window._pageItems[idx];
+    if (!a) return;
     const key = getWatchlistKey(a);
+    const userNote = (document.getElementById("wlNoteInput")?.value || "").trim();
+
+    closeNotePopup();
+
     const note = {
         subject: a.subject || "",
         category: a.category || "",
@@ -644,14 +702,13 @@ function addToWatchlistByIdx(idx) {
         date: a.date || "",
         attachment: a.attachment || "",
         added_on: new Date().toISOString(),
+        user_note: userNote,
     };
     if (watchlist[key]) {
-        // Check for duplicate note (same date + subject)
         const isDupe = watchlist[key].notes.some(n => n.date === note.date && n.subject === note.subject);
         if (!isDupe) {
             watchlist[key].notes.push(note);
         }
-        // Update company-level fields to latest
         watchlist[key].market_cap_fmt = a.market_cap_fmt || watchlist[key].market_cap_fmt;
         watchlist[key].market_cap = a.market_cap || watchlist[key].market_cap;
     } else {
@@ -665,7 +722,7 @@ function addToWatchlistByIdx(idx) {
         };
     }
     saveWatchlist();
-    renderPage(); // Re-render to show checkmark
+    renderPage();
 }
 
 function removeFromWatchlist(key) {
@@ -738,9 +795,12 @@ function renderWatchlistModal() {
             const pdfLink = n.attachment ? `<a class="wl-note-pdf" href="${escapeAttr(n.attachment)}" target="_blank">PDF</a>` : "";
             const dateStr = formatDisplayDate(n.date);
 
+            const userNoteHtml = n.user_note ? `<div class="wl-user-note">${escapeHtml(n.user_note)}</div>` : "";
+
             return `<div class="wl-note">
                 <div class="wl-note-body">
                     ${catBadge}<span class="wl-note-subject">${subject}</span>
+                    ${userNoteHtml}
                     ${ai}
                 </div>
                 <div class="wl-note-meta">
