@@ -236,6 +236,10 @@ NOISE_PATTERNS = [
     r"updation of email",
     r"iepf",
     r"unclaimed dividend",
+    r"large corporate",
+    r"identified as a large corporate",
+    r"initial disclosure.*large corporate",
+    r"format of.*disclosure.*large corporate",
 ]
 
 _noise_re = re.compile("|".join(NOISE_PATTERNS), re.IGNORECASE)
@@ -1061,6 +1065,13 @@ def main():
     new_anns.sort(key=lambda a: a.get("date", ""))
     log(f"New announcements: {len(new_anns)}")
 
+    # Detect nighttime (IST 21:00–07:00) — no new announcements arrive,
+    # so we can use full Gemini quota for clearing the backlog
+    ist_hour = (datetime.utcnow().hour + 5) % 24  # rough IST (UTC+5:30)
+    is_night = ist_hour >= 21 or ist_hour < 7
+    if is_night:
+        log("Night mode: aggressive summary processing enabled")
+
     # Summarize new announcements with Gemini in batches of 10
     BATCH_SIZE = 5
     summarized = 0
@@ -1097,10 +1108,16 @@ def main():
         need_retry = [a for a in existing if a.get("ai_summary") is None]
         # Sort oldest first — yesterday's announcements get summarized before today's
         need_retry.sort(key=lambda a: a.get("date", ""))
+        # Night mode: aggressive processing — no new announcements to compete with
+        RETRY_BATCH = 10 if is_night else 5
+        MAX_RETRY = 500 if is_night else 100  # Night: clear entire backlog; Day: limit to avoid timeout
+        RETRY_WAIT = 1 if is_night else 2
+        need_retry = need_retry[:MAX_RETRY]
         if need_retry:
-            log(f"Retrying {len(need_retry)} existing announcements missing summaries...")
-            for batch_start in range(0, len(need_retry), BATCH_SIZE):
-                batch = need_retry[batch_start:batch_start + BATCH_SIZE]
+            log(f"Retrying {len(need_retry)} existing announcements missing summaries (batch={RETRY_BATCH}, night={is_night})...")
+            retry_ok = 0
+            for batch_start in range(0, len(need_retry), RETRY_BATCH):
+                batch = need_retry[batch_start:batch_start + RETRY_BATCH]
                 summaries = summarize_batch(batch)
                 if summaries == "RATE_LIMITED":
                     log("  Rate limited during retry — stopping")
@@ -1110,8 +1127,10 @@ def main():
                         a["ai_summary"] = result["summary"]
                         if result.get("category"):
                             a["category"] = result["category"]
-                if batch_start + BATCH_SIZE < len(need_retry):
-                    time.sleep(2)
+                        retry_ok += 1
+                log(f"  Retry batch {batch_start // RETRY_BATCH + 1}: {min(batch_start + RETRY_BATCH, len(need_retry))}/{len(need_retry)} done ({retry_ok} successful)")
+                if batch_start + RETRY_BATCH < len(need_retry):
+                    time.sleep(RETRY_WAIT)
 
     # Backfill market cap for existing cached NSE announcements still missing it
     nse_missing_mcap = [a for a in existing if a.get("exchange") == "NSE" and not a.get("market_cap") and a.get("symbol")]
