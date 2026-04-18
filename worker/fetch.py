@@ -1065,10 +1065,12 @@ def main():
     new_anns.sort(key=lambda a: a.get("date", ""))
     log(f"New announcements: {len(new_anns)}")
 
-    # Detect nighttime (IST 21:00–07:00) — no new announcements arrive,
+    # Detect nighttime (IST 22:00–07:00) — no new announcements arrive,
     # so we can use full Gemini quota for clearing the backlog
-    ist_hour = (datetime.utcnow().hour + 5) % 24  # rough IST (UTC+5:30)
-    is_night = ist_hour >= 21 or ist_hour < 7
+    ist_now = datetime.utcnow() + timedelta(hours=5, minutes=30)
+    ist_hour = ist_now.hour
+    is_night = ist_hour >= 22 or ist_hour < 7
+    log(f"IST time: {ist_now.strftime('%H:%M')} (night={is_night})")
     if is_night:
         log("Night mode: aggressive summary processing enabled")
 
