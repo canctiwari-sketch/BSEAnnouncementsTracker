@@ -890,28 +890,48 @@ function importWatchlist(event) {
 // ─── Company Lookup ───────────────────────────────────────────────────────────
 
 const REPO = "canctiwari-sketch/BSEAnnouncementsTracker";
-let lookupSelectedCompany = null;   // { name, scrip_code }
+let lookupSelectedCompany = null;   // { name, scrip_code, nse_symbol }
 let lookupPollTimer = null;
 let researchPollTimer = null;
 let lookupSuggestIdx = -1;
+let scripsData = null;  // Full BSE company list — loaded once on first Lookup open
 
-// Build a deduplicated company list from loaded announcements
-function buildCompanyList() {
-    const seen = new Map();
-    (allAnnouncements || []).forEach(a => {
-        const code = a.symbol || a.scrip_code || "";
-        if (!code || a.exchange !== "BSE") return;
-        const key = code;
-        if (!seen.has(key)) {
-            seen.set(key, { name: a.company || "", scrip_code: code });
+async function loadScrips() {
+    if (scripsData) return;  // Already loaded
+    try {
+        const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/scrips.json?v=${Date.now()}`);
+        if (r.ok) {
+            const raw = await r.json();
+            // Normalise to { name, scrip_code, nse_symbol }
+            scripsData = raw.map(s => ({
+                name: s.ScripName || s.IssuerName || "",
+                scrip_code: String(s.ScripCode || ""),
+                nse_symbol: s.NSESymbol || "",
+            })).filter(s => s.name && s.scrip_code)
+               .sort((a, b) => a.name.localeCompare(b.name));
         }
-    });
-    return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+    } catch {}
+    // Fallback: build from loaded announcements if fetch failed
+    if (!scripsData || !scripsData.length) {
+        const seen = new Map();
+        (allAnnouncements || []).forEach(a => {
+            const code = a.symbol || "";
+            if (!code || a.exchange !== "BSE") return;
+            if (!seen.has(code)) seen.set(code, { name: a.company || "", scrip_code: code, nse_symbol: "" });
+        });
+        scripsData = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+    }
 }
 
-function openLookup() {
+function buildCompanyList() {
+    return scripsData || [];
+}
+
+async function openLookup() {
     document.getElementById("lookupOverlay").style.display = "flex";
     document.getElementById("lookupInput").focus();
+    // Load full company list in background (first open only)
+    if (!scripsData) loadScrips();
     // Check if we already have cached results to show
     const cached = sessionStorage.getItem("lookup_result");
     if (cached) {
@@ -1166,12 +1186,8 @@ async function triggerResearch() {
 
     setLookupStatus(`⟳ Dispatching research workflow for ${lookupSelectedCompany.name}... This will take ~5-10 minutes.`, "loading");
 
-    // Find NSE symbol from our dataset
-    const nseEntry = (allAnnouncements || []).find(a =>
-        a.exchange === "NSE" && a.company &&
-        a.company.toLowerCase().includes(lookupSelectedCompany.name.toLowerCase().split(" ")[0].toLowerCase())
-    );
-    const nseSymbol = nseEntry ? (nseEntry.symbol || "") : "";
+    // Use NSE symbol from scrips.json (already stored in lookupSelectedCompany)
+    const nseSymbol = lookupSelectedCompany.nse_symbol || "";
 
     try {
         const resp = await fetch(
