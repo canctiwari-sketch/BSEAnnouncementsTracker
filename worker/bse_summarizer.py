@@ -80,7 +80,7 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 # Global variable to cache the working model name
-GEMINI_MODEL = "gemini-2.5-flash-lite"  # Use same model as main fetch worker
+GEMINI_MODEL = "gemini-2.0-flash"  # Higher RPM/RPD limits than flash-lite
 
 def call_gemini(prompt, max_tokens=8192, retries=5):
     """Call Gemini API directly via requests (no SDK dependency). Retries on 429."""
@@ -91,7 +91,7 @@ def call_gemini(prompt, max_tokens=8192, retries=5):
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.3},
     }
-    wait = 30  # seconds to wait on first 429
+    wait = 8  # seconds to wait on first 429 (RPM resets quickly)
     for attempt in range(retries):
         try:
             r = requests.post(url, json=payload, timeout=300)
