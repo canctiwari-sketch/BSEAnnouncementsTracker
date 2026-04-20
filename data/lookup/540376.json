@@ -1,0 +1,1753 @@
+{
+  "company": "Avenue Supermarts Ltd",
+  "scrip_code": "540376",
+  "from_date": "2023-04-21",
+  "to_date": "2026-04-20",
+  "fetched_at": "2026-04-20T09:04:09.748605",
+  "total": 249,
+  "announcements": [
+    {
+      "date": "2026-04-10T18:44:35.26",
+      "subject": "Allotment Of Commercial Paper",
+      "detail": "The Company has allotted Commercial Paper of Rs. 500 crores",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/863faaff-6524-47a6-9295-cd2f20356683.pdf"
+    },
+    {
+      "date": "2026-04-06T19:10:47.313",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": " Change in Senior Management Personnel of the Company",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a17d194e-3f24-4c06-a958-14f6ff65a302.pdf"
+    },
+    {
+      "date": "2026-04-03T16:56:01.667",
+      "subject": "Company Update",
+      "detail": "Company update at the end of Quarter (Q4) of Financial year 2025-26",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/69b11fa1-f416-4c85-a8a9-a0f32a68a289.pdf"
+    },
+    {
+      "date": "2026-03-31T19:11:45.92",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/04720036-553a-41c4-ad6a-d373eec32584.pdf"
+    },
+    {
+      "date": "2026-03-30T18:50:28.257",
+      "subject": "Intimation Of Repayment Of Commercial Paper",
+      "detail": "Redemption of Commercial Paper",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4fd08aef-76bf-4400-96fa-44648c52c5e5.pdf"
+    },
+    {
+      "date": "2026-03-30T18:40:40.23",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fbf335ee-1c5b-47f5-959b-ad3ba59a64bf.pdf"
+    },
+    {
+      "date": "2026-03-29T18:47:46.467",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/380c4d99-4519-42a5-9af7-a1fbc5ad37a5.pdf"
+    },
+    {
+      "date": "2026-03-28T20:59:27.533",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a38bf398-7848-4396-95aa-61cab870cbe1.pdf"
+    },
+    {
+      "date": "2026-03-27T19:03:04.32",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a59e323f-291d-4fe9-a011-2b0e37e51c69.pdf"
+    },
+    {
+      "date": "2026-03-26T17:45:38.153",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7f668ea1-637d-4d66-8589-d89f69943cc8.pdf"
+    },
+    {
+      "date": "2026-03-25T17:51:04.61",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/425c9f46-3834-4703-ac65-0a90340c139b.pdf"
+    },
+    {
+      "date": "2026-03-24T19:22:39.28",
+      "subject": "Intimation Of Repayment Of Commercial Paper",
+      "detail": "Redemption of Commercial Paper",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b6b0b186-f64e-4c5e-be1e-0852d7387da0.pdf"
+    },
+    {
+      "date": "2026-03-24T19:06:28.1",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eec65bb6-f0fb-471d-b2ad-353f352f924d.pdf"
+    },
+    {
+      "date": "2026-03-23T18:26:53.983",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e477c221-bdbd-4393-ab4f-0cd0d867070f.pdf"
+    },
+    {
+      "date": "2026-03-20T17:46:58.563",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3fd244d7-fbea-446b-a095-b4c281c798ac.pdf"
+    },
+    {
+      "date": "2026-03-19T18:11:05.86",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/63863efa-e454-44ca-9bba-d19561056210.pdf"
+    },
+    {
+      "date": "2026-03-14T19:46:28.46",
+      "subject": "Disclosure Under Regulation 30(5) Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "List of KMP''s authorised to determine materiality of an event or information and to make disclosure to stock exchanges",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb8cd176-cef2-43f6-b330-970f3abb66b2.pdf"
+    },
+    {
+      "date": "2026-03-14T19:18:32.75",
+      "subject": "Vesting Of Stock Options",
+      "detail": "Vesting of stock options under Avenue Supermarts Limited Employee Stock Option Scheme 2016",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4f789dc0-7133-4b01-9603-ae95f4a788c0.pdf"
+    },
+    {
+      "date": "2026-03-12T16:58:54.717",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c47b804c-542f-45d6-b22e-c7057776942d.pdf"
+    },
+    {
+      "date": "2026-03-11T11:07:08.7",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b92dc376-06e6-4965-b957-ee586d62136a.pdf"
+    },
+    {
+      "date": "2026-03-08T19:49:18.063",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fa64defe-13e6-4ff5-926b-981b59decd32.pdf"
+    },
+    {
+      "date": "2026-03-06T17:59:41.63",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/00402f24-ee16-4581-b86c-95612a6a3974.pdf"
+    },
+    {
+      "date": "2026-02-23T18:40:51.857",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/39df0ff3-c672-4793-88e1-dfc49e8648f0.pdf"
+    },
+    {
+      "date": "2026-02-19T19:42:40.92",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7ba9fb52-90ba-4a26-94b8-77cd09f3a0ff.pdf"
+    },
+    {
+      "date": "2026-02-19T19:32:50.507",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a309dd73-23bb-43f7-b7cd-cd209b612330.pdf"
+    },
+    {
+      "date": "2026-02-13T17:51:43.04",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/161c979b-3f18-4bb5-9ed5-39b20fe35603.pdf"
+    },
+    {
+      "date": "2026-02-05T18:35:30",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d2f5e101-b075-494b-8d2a-3de5c629a461.pdf"
+    },
+    {
+      "date": "2026-01-27T17:45:17.84",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c7624c0f-7dfb-4264-bd8c-1dd8c4d60e64.pdf"
+    },
+    {
+      "date": "2026-01-22T17:57:53.39",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/51b9afaf-e6d9-4cd9-a769-a1a138e306a4.pdf"
+    },
+    {
+      "date": "2026-01-20T18:03:17.41",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/50cb6762-abe9-41e0-9f85-4ae82a365975.pdf"
+    },
+    {
+      "date": "2026-01-10T17:45:23.24",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Change in management of the Company",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/07e8c7fb-7d99-47e7-b91a-b4d406455f46.pdf"
+    },
+    {
+      "date": "2026-01-10T17:21:48.17",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results of the Company for the quarter and nine months ended December 31, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cef88deb-299b-4931-9219-72d3390400a8.pdf"
+    },
+    {
+      "date": "2026-01-10T17:17:49.317",
+      "subject": "Financial Results For The Quarter And Nine Months Ended December 31, 2025",
+      "detail": "Financial Results for the quarter and nine months ended December 31, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/42d42a4b-a981-4c77-babc-893c98777442.pdf"
+    },
+    {
+      "date": "2026-01-10T17:13:59.46",
+      "subject": "Board Meeting Outcome for Meeting Held On January 10, 2026",
+      "detail": "Outcome of the Board Meeting held on January 10, 2026",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c0b0262a-ca1e-4dc1-a6d5-f4be592736b1.pdf"
+    },
+    {
+      "date": "2026-01-09T17:55:50.78",
+      "subject": " Issuance Of Commercial Paper",
+      "detail": "The Company has allotted Commercial Paper of Rs. 100 crores",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b185e1af-9136-45d6-be1e-1ed232c6434a.pdf"
+    },
+    {
+      "date": "2026-01-02T17:37:05.543",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 3 (Q3) of Financial Year 2025-26",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d51b3e65-dfb0-462d-a41f-4636a3886eee.pdf"
+    },
+    {
+      "date": "2025-12-29T18:34:02.43",
+      "subject": "Intimation of Repayment of Commercial Paper (CP)",
+      "detail": "Redemption of Commercial Paper (CP)",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/30687fe4-8979-427f-81a2-f95d24094655.pdf"
+    },
+    {
+      "date": "2025-12-26T16:44:39.563",
+      "subject": " Issuance Of Commercial Paper",
+      "detail": "The Company has allotted Commercial Paper of Rs.200 crores",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0d7293d5-7b1b-4096-89b1-43ee0039a424.pdf"
+    },
+    {
+      "date": "2025-12-24T17:34:54.67",
+      "subject": "Intimation of Repayment of Commercial Paper (CP)",
+      "detail": "Redemption of Commercial Paper (CP)",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4e4d735e-afa6-4f6c-9e5b-0ad5facf4184.pdf"
+    },
+    {
+      "date": "2025-12-14T18:54:21.827",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/572b888a-b512-4a39-aeb7-f0334834a8ad.pdf"
+    },
+    {
+      "date": "2025-12-12T17:21:18.863",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f6e86279-af26-43e9-b34d-655ec64df041.pdf"
+    },
+    {
+      "date": "2025-12-10T18:19:05.57",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d0be9b6e-d462-4082-82a0-35ea663e5df7.pdf"
+    },
+    {
+      "date": "2025-12-10T15:05:03.147",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015 - ESG Rating",
+      "detail": "ESG Rating by NSE Sustainability Ratings and Analytics Limited",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/330840bb-7872-4a1a-b2fd-48c000ce2111.pdf"
+    },
+    {
+      "date": "2025-11-28T17:19:58.19",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9857a815-3e1d-4d2e-b2e6-ac68f3d59ff0.pdf"
+    },
+    {
+      "date": "2025-11-14T17:38:56.783",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2d91c30d-1a13-454d-a8f7-fb0cc0f452ab.pdf"
+    },
+    {
+      "date": "2025-11-07T17:46:49.87",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f15dba40-01e2-458e-9f7c-62e3b5b3a368.pdf"
+    },
+    {
+      "date": "2025-11-04T18:19:42.683",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b4c1648a-5664-4862-aaf9-b9bb2177a38c.pdf"
+    },
+    {
+      "date": "2025-11-01T17:14:57.827",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4876b918-7667-4f0f-9b17-4ab6ba7863e9.pdf"
+    },
+    {
+      "date": "2025-10-29T13:38:04.707",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e3f51d09-f554-4f63-9c6f-f3c07d8d2193.pdf"
+    },
+    {
+      "date": "2025-10-15T17:49:40.663",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ffe258e4-426e-4b04-a86f-14d73fa8d513.pdf"
+    },
+    {
+      "date": "2025-10-14T17:54:31.863",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/83865f00-4e53-4029-a33d-331e084b15d7.pdf"
+    },
+    {
+      "date": "2025-10-11T15:41:55.64",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results of the Company for the quarter and half year ended 30th September, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cbae4509-b258-4033-8e2f-77feecd29e3f.pdf"
+    },
+    {
+      "date": "2025-10-11T15:35:15.103",
+      "subject": "Financial Results For The Quarter Ended 30Th September, 2025",
+      "detail": "Financial Results for the quarter ended 30th September, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5f5d2392-cb18-41f6-be4c-f573bb6d8138.pdf"
+    },
+    {
+      "date": "2025-10-11T15:28:31.563",
+      "subject": "Board Meeting Outcome for Meeting Held On October 11, 2025",
+      "detail": "Outcome of the Board Meeting held on October 11, 2025",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb272684-6367-4dd9-bbcb-8ebfaf5e3a5e.pdf"
+    },
+    {
+      "date": "2025-10-03T18:44:35.76",
+      "subject": "Company Update",
+      "detail": "Company update at the end of Quarter 2 (Q2) of financial year 2025-26",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a6c42258-3bed-4975-b0ee-101434a3eb45.pdf"
+    },
+    {
+      "date": "2025-10-03T18:31:35.113",
+      "subject": "Issuance Of Commercial Paper",
+      "detail": "The Company has allotted Commercial Paper of Rs. 200 crores",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/739ccbdc-ef64-4767-90b0-39add8e32078.pdf"
+    },
+    {
+      "date": "2025-09-30T17:56:49.79",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7f5b1fbd-e46d-4e14-81d5-6e5b5e2c8757.pdf"
+    },
+    {
+      "date": "2025-09-29T18:06:21.1",
+      "subject": "Store Opening Intimation",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/00cba666-3874-4d76-b6a7-e57fa357d358.pdf"
+    },
+    {
+      "date": "2025-09-29T17:56:09.653",
+      "subject": " Issuance Of Commercial Paper",
+      "detail": "The Company has allotted Commercial Paper of Rs. 100 crores",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e38f5bef-ff6b-4405-a818-e7580240ea73.pdf"
+    },
+    {
+      "date": "2025-09-25T17:01:36.257",
+      "subject": "Store Opening Intimation",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c39907ae-3372-4f6d-aad4-516145b8184b.pdf"
+    },
+    {
+      "date": "2025-08-21T18:50:37.597",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b820b2b3-f7db-4b13-8b41-af154341d670.pdf"
+    },
+    {
+      "date": "2025-08-13T17:31:31.213",
+      "subject": "Store Opening Intimation",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e42b9a2a-874d-4f72-a473-72635ca81f55.pdf"
+    },
+    {
+      "date": "2025-07-31T19:07:56.107",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17357289-79de-41bf-ac16-f3447c566efa.pdf"
+    },
+    {
+      "date": "2025-07-29T17:20:43.47",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3dc10119-f6f4-4b2e-a243-533167ef78dd.pdf"
+    },
+    {
+      "date": "2025-07-19T20:15:35.187",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report for the financial year ended 31st March, 2025",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4df65db1-f386-4271-abeb-6003afb1357a.pdf"
+    },
+    {
+      "date": "2025-07-17T18:28:23.987",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/921e61fe-84af-4238-b766-7eacde81ddc1.pdf"
+    },
+    {
+      "date": "2025-07-15T10:58:31.727",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3d87799e-90a9-477c-a64b-b5ca9518ee48.pdf"
+    },
+    {
+      "date": "2025-07-11T20:43:42.91",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Revised press release on financial results of the Company for the quarter ended 30th June, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a1df88b0-1e3c-4bf7-8336-51eabde7b953.pdf"
+    },
+    {
+      "date": "2025-07-11T18:43:00.4",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on Financial Results of the Company for the quarter ended 30th June, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0894e7d3-5a92-45ae-9b70-70677a20fb09.pdf"
+    },
+    {
+      "date": "2025-07-11T18:34:24.73",
+      "subject": "Financial Results For The Quarter Ended 30Th June, 2025",
+      "detail": "Financial Results for the quarter ended 30th June, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/89a52eba-1d7e-4551-a68c-cc39792835eb.pdf"
+    },
+    {
+      "date": "2025-07-11T18:24:59.017",
+      "subject": "Board Meeting Outcome for Meeting Held On July 11, 2025",
+      "detail": "Outcome of the Board Meeting held on July 11, 2025",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6c912692-1e8c-4804-b6f5-325d379b28e4.pdf"
+    },
+    {
+      "date": "2025-07-02T17:57:54.527",
+      "subject": "Company Update",
+      "detail": "Company update at the end of quarter 1 (Q1) of financial year 2025-26",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c69218fa-7c61-4150-b7b8-d70c83ad717e.pdf"
+    },
+    {
+      "date": "2025-07-01T19:07:00.61",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2fd62e44-27bd-4ead-8202-9d9b9c881dbd.pdf"
+    },
+    {
+      "date": "2025-06-30T18:07:43.603",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7ab06dc3-ac31-4269-9446-971a044e5567.pdf"
+    },
+    {
+      "date": "2025-06-24T17:43:11.147",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/29bd63cb-9237-4902-8169-70430cffdb6b.pdf"
+    },
+    {
+      "date": "2025-06-17T17:49:38.45",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/60a02024-eb47-41b6-b5b4-511eebecbeb6.pdf"
+    },
+    {
+      "date": "2025-05-13T16:52:08.51",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b3efb699-98ad-40ff-8baa-363a1ce17b7b.pdf"
+    },
+    {
+      "date": "2025-05-06T18:06:09.04",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6c894642-3324-432f-8269-c1e634f94ff5.pdf"
+    },
+    {
+      "date": "2025-05-03T17:02:06.647",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results of the Company for the quarter and year ended 31st March, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4e6f2c4d-2dcf-4cbd-a83c-630bc52e91b9.pdf"
+    },
+    {
+      "date": "2025-05-03T16:43:03.537",
+      "subject": "Financial Results For The Quarter And Year Ended 31St March, 2025",
+      "detail": "Financial Results for the quarter and year ended 31st March, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3ca9454e-7392-48fc-95c3-e43abbd5795e.pdf"
+    },
+    {
+      "date": "2025-05-03T16:31:57.64",
+      "subject": "Board Meeting Outcome for Meeting Held On May 03, 2025",
+      "detail": "Outcome of the Board Meeting held on May 03, 2025",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a1a49949-ef79-4b8f-b90d-1c7e9dabe6b8.pdf"
+    },
+    {
+      "date": "2025-04-28T17:05:25.43",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ea7c8f8a-0bbd-4a99-8450-57d2d178094a.pdf"
+    },
+    {
+      "date": "2025-04-26T16:15:08.533",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3635388f-ae64-4a34-a1a6-208ead4176f4.pdf"
+    },
+    {
+      "date": "2025-04-24T18:58:50.61",
+      "subject": "Board Meeting Intimation for Consideration Of Financial Results\r\n",
+      "detail": "Avenue Supermarts Ltdhas informed BSE that the meeting of the Board of Directors of the Company is scheduled on 03/05/2025 ,inter alia, to consider and approve the Standalone & Consolidated ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/77018d86-f254-4e8d-b401-003bf2f12fb6.pdf"
+    },
+    {
+      "date": "2025-04-09T17:32:36.78",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/14af9ec6-7c75-4de8-96ac-0c2f32223cae.pdf"
+    },
+    {
+      "date": "2025-04-03T17:20:39.503",
+      "subject": "Company Update",
+      "detail": "Company update at the end of Quarter 4 (Q4) of financial year 2024-25",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3b8dc835-746b-44a5-99cd-9393b0216e52.pdf"
+    },
+    {
+      "date": "2025-03-31T18:06:32",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a429ff7e-73b0-49c3-a7eb-856615ddc860.pdf"
+    },
+    {
+      "date": "2025-03-30T17:49:56.54",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3cf90085-39dc-40cf-bfb7-6ec671183cc8.pdf"
+    },
+    {
+      "date": "2025-03-28T18:05:11.133",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5b882da2-abd3-4fc9-b9df-40f696d8f1fb.pdf"
+    },
+    {
+      "date": "2025-03-27T18:37:58.927",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7a02e938-a548-408f-b510-9159a7aa21b2.pdf"
+    },
+    {
+      "date": "2025-03-21T17:22:34.833",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1cdf61d4-b83c-42b1-9536-ad0254611224.pdf"
+    },
+    {
+      "date": "2025-03-19T19:16:14.883",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under regulation 30 of SEBI (LODR) Regulations, 2015 - Investment in Subsidiary Company",
+      "category": "Subsidiary",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/731cf0a5-a0d7-4fbc-8dad-453b68eecead.pdf"
+    },
+    {
+      "date": "2025-03-18T17:15:31.003",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5125fb36-f916-4f9d-a51f-a87a47a6fe3d.pdf"
+    },
+    {
+      "date": "2025-03-06T18:44:52.72",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9d1ac339-95f7-4aa1-b395-aae0561dfb40.pdf"
+    },
+    {
+      "date": "2025-03-04T16:23:30.563",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0b589962-c948-4836-80a9-e9b484eae1e5.pdf"
+    },
+    {
+      "date": "2025-02-28T19:07:00.37",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (LODR) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (LODR) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c0279782-7b82-4f56-85b0-8b6aa123ebe0.pdf"
+    },
+    {
+      "date": "2025-02-22T19:39:00.41",
+      "subject": "Store Opening Intimation",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/85bb97cb-13e5-4192-bd30-1d27bda5a824.pdf"
+    },
+    {
+      "date": "2025-02-06T18:33:52.463",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (LODR) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1eec070f-ebf2-4d53-a74b-308f12fcbdcb.pdf"
+    },
+    {
+      "date": "2025-01-30T18:53:58.68",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6d42987f-5055-4ca3-81b3-dc248f34a7f5.pdf"
+    },
+    {
+      "date": "2025-01-28T17:14:04.383",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (LODR) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3d832b32-ef1b-42c6-82db-972531ea5427.pdf"
+    },
+    {
+      "date": "2025-01-22T19:14:16.52",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7aef0d44-2acf-4b29-8836-874f6885b573.pdf"
+    },
+    {
+      "date": "2025-01-22T19:10:22.297",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b7ab76c1-a724-4097-89cd-d8f5b55e2d05.pdf"
+    },
+    {
+      "date": "2025-01-20T18:28:08.527",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd5d78f4-7030-4ab5-ab60-083c66ffa543.pdf"
+    },
+    {
+      "date": "2025-01-11T20:50:15.81",
+      "subject": "Integrated Filing (Financial)",
+      "detail": "Integrated filling for the quarter and nine months ended December 31, 2024",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/291d74eb-da2d-4897-b4c2-075804dbe8d9.pdf"
+    },
+    {
+      "date": "2025-01-11T20:30:45.827",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Change in Senior Management of the Company",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a59b358f-16de-4a40-b1d9-5f9adadb4f3d.pdf"
+    },
+    {
+      "date": "2025-01-11T19:52:13.147",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release dated 11th January, 2025",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5511c7b8-37d2-4019-88e0-1a31d93fa140.pdf"
+    },
+    {
+      "date": "2025-01-11T19:49:53.473",
+      "subject": "Financial Results For The Quarter And Nine Months Ended December 31, 2024",
+      "detail": "Financial Results for the quarter and nine months ended December 31, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d9b7f1bd-d4d3-4cd2-ae93-2f1021fc8447.pdf"
+    },
+    {
+      "date": "2025-01-11T19:46:30.67",
+      "subject": "Board Meeting Outcome for Meeting Held On January 11, 2025",
+      "detail": "Outcome of the Board Meeting held on January 11, 2025",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7b1ee4fd-b5bf-4a89-b044-fbdd26a5ffa6.pdf"
+    },
+    {
+      "date": "2025-01-02T17:01:51.463",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 3 (Q3) of Financial Year 2024-25",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/350a0f24-a2f5-4018-a95a-b659afe997fc.pdf"
+    },
+    {
+      "date": "2025-01-01T15:19:03.61",
+      "subject": "Change In Name Of Registrar And Share Transfer Agent Of The Company",
+      "detail": "Intimation of change in name of Registrar and Share Transfer Agent",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3ca032fe-4648-40b6-b4b9-3084f5e29d7e.pdf"
+    },
+    {
+      "date": "2024-12-15T20:02:01.727",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c2320070-b7f9-4c4f-8be9-adb4efcbb7ea.pdf"
+    },
+    {
+      "date": "2024-12-03T18:03:21.657",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ace73d86-2068-4f03-a937-8127783a5d0c.pdf"
+    },
+    {
+      "date": "2024-11-27T17:47:10.86",
+      "subject": "Store Opening Intimation\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a1959921-dc3c-4f00-a277-9fa5f89b4d88.pdf"
+    },
+    {
+      "date": "2024-11-14T18:01:48.73",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/44595b68-c3db-4cec-a460-b11f81fa958f.pdf"
+    },
+    {
+      "date": "2024-10-26T12:33:36.5",
+      "subject": "Announcement under Regulation 30 (LODR)-Acquisition",
+      "detail": "Update on acquisition of stake in the equity share capital of FP Ampere Energy Private Limited",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b0805d86-bb4d-4bff-9090-57d69faf65b1.pdf"
+    },
+    {
+      "date": "2024-10-17T12:06:10.037",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/47814069-138c-49c1-82e8-d79e51528127.pdf"
+    },
+    {
+      "date": "2024-10-16T16:59:47.98",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Changes in Senior Management Personnel of the Company",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c88fcd11-dc49-4ad1-a898-3d31a936c386.pdf"
+    },
+    {
+      "date": "2024-10-12T14:25:37.357",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release on financial results of the Company for the quarter and half year ended September 30, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b5a16f11-cfd1-436c-be6f-c783fbf6268d.pdf"
+    },
+    {
+      "date": "2024-10-12T14:07:23.93",
+      "subject": "Financial Results For The Quarter And Half Year Ended September 30, 2024",
+      "detail": "Financial Results for the quarter and half year ended September 30, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8f6684cf-7137-4d13-aa6f-8739543f6e78.pdf"
+    },
+    {
+      "date": "2024-10-12T14:03:53.37",
+      "subject": "Board Meeting Outcome for Meeting Held On October 12, 2024",
+      "detail": "Outcome of the Board Meeting held on October 12, 2024",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b3c6a9f6-a887-482c-8990-b4851c2230bd.pdf"
+    },
+    {
+      "date": "2024-10-09T17:22:19.48",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/639ef173-0576-4a0c-a248-fad6d29db526.pdf"
+    },
+    {
+      "date": "2024-10-07T18:14:28.1",
+      "subject": "Announcement under Regulation 30 (LODR)-Updates on Acquisition",
+      "detail": "Update on acquisition of stake in the equity share capital of FP Ampere Energy Private Limited",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/65168be4-e611-4988-b21b-2d1359915bdc.pdf"
+    },
+    {
+      "date": "2024-10-04T18:47:30.62",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8f2a0e02-30f9-47e3-938f-52052f7c8d85.pdf"
+    },
+    {
+      "date": "2024-10-03T17:18:06.123",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 2 (Q2) of the Financial Year 2024-25",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a39366fa-0218-4946-9f3e-aafe8928634d.pdf"
+    },
+    {
+      "date": "2024-09-24T18:11:15.09",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dd9c5988-9967-42d7-a8b2-28ea3893d0ad.pdf"
+    },
+    {
+      "date": "2024-09-18T17:21:03.357",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cb34d4fd-4e20-4c2e-8eab-f418ef463419.pdf"
+    },
+    {
+      "date": "2024-09-14T13:20:15.693",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2b5b4a10-fc5f-42e6-8b41-7a1505786233.pdf"
+    },
+    {
+      "date": "2024-09-14T12:24:50.963",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fa006d05-c7a6-48de-9ac2-90f756f0b42c.pdf"
+    },
+    {
+      "date": "2024-09-05T11:49:36.2",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/42d5f008-1776-494e-a1d6-652caed9ada5.pdf"
+    },
+    {
+      "date": "2024-09-03T18:58:24.88",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f22c2e6b-1dd8-4c65-9dc2-be496f962d6c.pdf"
+    },
+    {
+      "date": "2024-09-03T15:17:07.563",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eeece90f-4fc0-40bd-8618-a1f9632b8971.pdf"
+    },
+    {
+      "date": "2024-09-02T15:28:59.157",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/743541de-ee21-4848-b873-f18a5f9db20c.pdf"
+    },
+    {
+      "date": "2024-08-29T17:57:28.67",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015 ",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d5734d83-3a4a-49c5-8d59-55c6dfdf6055.pdf"
+    },
+    {
+      "date": "2024-08-29T17:52:46.42",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c0e70bd2-01b8-48d5-ba4d-59549a7882d9.pdf"
+    },
+    {
+      "date": "2024-08-27T15:49:26.667",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0926169d-a8f7-4751-89e7-a1865aeae0d3.pdf"
+    },
+    {
+      "date": "2024-08-26T14:58:00.95",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ba51859a-c499-47b2-92e7-cea71750c7ba.pdf"
+    },
+    {
+      "date": "2024-08-24T16:25:46.13",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bd977a91-9550-4073-9e00-14a45a5f51df.pdf"
+    },
+    {
+      "date": "2024-08-08T17:57:48.847",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/865e2080-786c-4173-999d-177ca4c3a494.pdf"
+    },
+    {
+      "date": "2024-08-02T11:21:28.2",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/340e1946-a52a-4e26-a3c4-d8fe1f548610.pdf"
+    },
+    {
+      "date": "2024-07-26T18:46:42.35",
+      "subject": "Store Update",
+      "detail": "Store update",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/369ed8e0-6cc5-4f32-ae29-0d88ccbf6dcb.pdf"
+    },
+    {
+      "date": "2024-07-25T18:47:43.893",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report for the financial year ended 31st March, 2024",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5927977c-9751-40a4-94ac-d2dc5c2a1567.pdf"
+    },
+    {
+      "date": "2024-07-13T14:50:36.327",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on Financial results for the quarter ended 30th June, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7e162ebe-ebfd-4f58-bd43-e7c92512e5aa.pdf"
+    },
+    {
+      "date": "2024-07-13T14:32:20.003",
+      "subject": "Financial Results",
+      "detail": "Financial Results for the quarter ended June 30, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f965c5ba-0d55-4e0b-9fa1-f4cb1d14877e.pdf"
+    },
+    {
+      "date": "2024-07-13T14:27:04.813",
+      "subject": "Board Meeting Outcome for Outcome Of The Board Meeting Held On July 13, 2024",
+      "detail": "Outcome of the Board Meeting held on July 13, 2024",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fb26e48a-af4e-475e-be8c-002ed3d1afdc.pdf"
+    },
+    {
+      "date": "2024-07-06T17:58:21.093",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/20267911-8c69-4f88-966b-058453a9830c.pdf"
+    },
+    {
+      "date": "2024-07-04T18:21:53.75",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c3993f6f-43ab-42a0-bd6a-4ab0c115f768.pdf"
+    },
+    {
+      "date": "2024-07-02T18:07:57.683",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 1 (Q1) of Financial Year 2024-25",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/307512d8-d7b8-41ce-9b1b-a560a99a150c.pdf"
+    },
+    {
+      "date": "2024-06-26T22:42:31.58",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/04978d75-bb2a-4278-ad16-764432d4b09b.pdf"
+    },
+    {
+      "date": "2024-06-24T18:34:05.66",
+      "subject": "Store Opening Intimation ",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/31960fa7-0456-4444-bfc0-cb6e2d2efb71.pdf"
+    },
+    {
+      "date": "2024-06-22T15:48:51.11",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/49f5c9e1-593d-4878-b5af-ed45f3692aaa.pdf"
+    },
+    {
+      "date": "2024-06-22T12:35:22.73",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0605a168-86e1-4df4-8114-c69f50e70ebe.pdf"
+    },
+    {
+      "date": "2024-06-19T17:19:09.243",
+      "subject": "Store Opening Intimation ",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/71250dc1-4b01-4ee2-af8c-ebea0a980c1b.pdf"
+    },
+    {
+      "date": "2024-05-24T19:27:17.24",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/52812820-0e0c-4ec8-bd03-7806368be175.pdf"
+    },
+    {
+      "date": "2024-05-14T14:01:21.103",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2bdcc359-207f-4341-8169-f960e0a43785.pdf"
+    },
+    {
+      "date": "2024-05-08T15:57:17.413",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/50efffc4-0b30-4ed2-baee-80f928e76bf3.pdf"
+    },
+    {
+      "date": "2024-05-04T17:39:13.35",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e789440f-49d7-43d5-bb71-1d97e3b85b43.pdf"
+    },
+    {
+      "date": "2024-05-04T17:32:08.357",
+      "subject": "Statement Of NIL Deviation(S) Or Variation(S) Of QIP Utilization Proceeds",
+      "detail": "Statement of NIL deviation or variation of QIP utilisation proceeds for the quarter ended 31st March, 2024",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/093e6319-ff63-470f-9f2c-59213e2f5fa4.pdf"
+    },
+    {
+      "date": "2024-05-04T16:38:00.217",
+      "subject": "Announcement Under Regulation 30 (LODR)-Change In Management",
+      "detail": "Change in Senior Management Personeel of the Company",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6a0fe67e-48ef-46c1-801c-0a0cc9050b38.pdf"
+    },
+    {
+      "date": "2024-05-04T16:06:30.073",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release on financial results of the Company for the quarter and year ended 31st March, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8ec9fd72-4dc5-4f63-a848-5f82c91a07b6.pdf"
+    },
+    {
+      "date": "2024-05-04T15:54:53.99",
+      "subject": "Financial Results For The Quarter And Year Ended 31St March, 2024",
+      "detail": "Financial Results for the quarter and year ended 31st March, 2024",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9c0799c1-759b-42b3-b4bc-0f97d5ccd3dd.pdf"
+    },
+    {
+      "date": "2024-05-04T15:46:59.41",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting",
+      "detail": "Outcome of Board Meeting",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/159360dd-dfd3-422e-9846-f1be890e24fe.pdf"
+    },
+    {
+      "date": "2024-05-01T20:49:25.34",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9c3d2a01-61be-40f9-857a-22b78df0b6ac.pdf"
+    },
+    {
+      "date": "2024-04-30T16:40:16.453",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4b5560e2-6131-4cb5-9211-8ff471ff8f99.pdf"
+    },
+    {
+      "date": "2024-04-26T18:30:09.607",
+      "subject": "Disclosure Under Regulation 30 Of The SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/60f98c4f-c1d7-4953-b3ef-506d105adb8e.pdf"
+    },
+    {
+      "date": "2024-04-19T18:23:26.647",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015 ",
+      "detail": "Disclosure under Regulation 30 of the SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/98450bfc-3777-49ca-80e4-523cd6ccbbde.pdf"
+    },
+    {
+      "date": "2024-04-16T18:59:18.207",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3419e99c-af34-409a-86e8-c032129c6b76.pdf"
+    },
+    {
+      "date": "2024-04-09T16:13:56.903",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/307dc6d9-b0a3-424d-babc-f7c27809dcbb.pdf"
+    },
+    {
+      "date": "2024-04-09T16:07:41.81",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/19bedbdf-1d7d-42f8-af71-96dd127b7dcb.pdf"
+    },
+    {
+      "date": "2024-04-05T16:36:05.057",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4b96fb5a-e426-49fb-ada8-6ee2d3a9ea0c.pdf"
+    },
+    {
+      "date": "2024-04-03T16:59:39.107",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 4 of Financial Year 2023-24",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/033a0a41-d1ae-4777-b270-2192706ea1f3.pdf"
+    },
+    {
+      "date": "2024-04-02T12:59:54.793",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bf2c814a-66db-4da0-b908-bbd08e129863.pdf"
+    },
+    {
+      "date": "2024-03-31T21:06:47.423",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2cf7d080-b1a1-4c41-9dc5-6276da6910da.pdf"
+    },
+    {
+      "date": "2024-03-29T17:48:41.1",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/40545661-396c-47e4-b144-0377f867c882.pdf"
+    },
+    {
+      "date": "2024-03-29T17:25:57.71",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d0c9cbee-c872-4846-b172-b4f453562977.pdf"
+    },
+    {
+      "date": "2024-03-28T18:22:11.62",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4e0e470f-5363-4cf7-b2c6-e3b12a27cb74.pdf"
+    },
+    {
+      "date": "2024-03-27T16:15:57.043",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a265e17d-d1eb-4bd7-b38b-eb0238971165.pdf"
+    },
+    {
+      "date": "2024-03-26T18:24:15.56",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e2d205f7-f2e7-40f5-be41-abc6b0d68cda.pdf"
+    },
+    {
+      "date": "2024-03-21T18:20:56.603",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d5f3dc5c-22f9-40d0-aa77-20e868415dd9.pdf"
+    },
+    {
+      "date": "2024-03-18T18:19:03.673",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a1c891f7-022e-491e-bd27-0398d1ffb9d2.pdf"
+    },
+    {
+      "date": "2024-03-16T19:18:56.483",
+      "subject": "Store Opening Intimation",
+      "detail": "Store opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0a08c622-9d04-436c-ac94-2178c647c538.pdf"
+    },
+    {
+      "date": "2024-03-16T15:58:34.873",
+      "subject": "Announcement under Regulation 30 (LODR)-Acquisition",
+      "detail": "Acquisition of stake in the equity share capital of FP Ampere Energy Private Limited",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/40e4a22e-e8fb-4d75-9973-b968c339a227.pdf"
+    },
+    {
+      "date": "2024-03-14T18:45:46.043",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9f344bc0-c126-48a7-8f6c-1bbd43c916dc.pdf"
+    },
+    {
+      "date": "2024-03-12T18:33:03.307",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7bc1b21c-0218-4faf-a295-021af1f63191.pdf"
+    },
+    {
+      "date": "2024-03-07T18:24:22.333",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f967f6d3-30ff-4ab1-b9ab-e67fdc9a7160.pdf"
+    },
+    {
+      "date": "2024-03-07T18:06:36.463",
+      "subject": "Store Opening Intimation",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6e5cd68f-abc1-42fe-a98f-4ddcea9f5266.pdf"
+    },
+    {
+      "date": "2024-03-03T18:25:15.293",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e99e01c4-6775-4d5e-9e01-ca37b9f5ac6a.pdf"
+    },
+    {
+      "date": "2024-03-01T18:37:35.303",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ed984922-f921-4567-95d2-682d1a06c4b5.pdf"
+    },
+    {
+      "date": "2024-02-29T19:15:49.13",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4c333381-0f5a-457b-8d68-2a4bc796d27e.pdf"
+    },
+    {
+      "date": "2024-02-29T14:20:38.17",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/440291ad-3a31-4cd0-abfc-5a8284c613e1.pdf"
+    },
+    {
+      "date": "2024-02-25T09:59:49.6",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f9a9ba7f-119a-434d-9520-08a8ad06e355.pdf"
+    },
+    {
+      "date": "2024-02-17T15:39:00.387",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/82b66ef8-d83a-4fc4-93ff-e68d7b730ca7.pdf"
+    },
+    {
+      "date": "2024-02-14T19:40:26.91",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015 - investment in Subsidiary Company",
+      "category": "Subsidiary",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/77b0dedf-96e6-4611-8c83-2943df964e03.pdf"
+    },
+    {
+      "date": "2024-02-14T19:33:07.777",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/988ed654-8f4e-4b09-9f64-0f0c6922742a.pdf"
+    },
+    {
+      "date": "2024-02-13T17:55:46.1",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5dd8119d-5005-4e00-9e86-4d26e4e818a4.pdf"
+    },
+    {
+      "date": "2024-02-06T19:00:23.773",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/363b2e88-5a8e-4dc1-8844-937a1d47f793.pdf"
+    },
+    {
+      "date": "2024-02-03T15:42:50.087",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015\r\n\r\n",
+      "detail": "Disclosure under regulation  30 of SEBI (Listing Obligation and Disclosure Requirements), Regulations 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/04b12d15-6a8b-4b36-be4c-64836a183eb5.pdf"
+    },
+    {
+      "date": "2024-02-01T19:09:24.34",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015.\r\n",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/04135f4e-ca45-444e-b1cc-8f1fa290cd6f.pdf"
+    },
+    {
+      "date": "2024-01-23T17:48:31.653",
+      "subject": "Updates",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/92c315e2-892c-4fb0-b153-47abaeb615af.pdf"
+    },
+    {
+      "date": "2024-01-17T17:09:13.323",
+      "subject": "Updates",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/93ec4cdb-5fa9-4f0e-91d4-f5269924d081.pdf"
+    },
+    {
+      "date": "2024-01-14T15:14:45.423",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c8d824b3-94f3-4611-bd9c-d8bbd7de2bc0.pdf"
+    },
+    {
+      "date": "2024-01-13T17:06:55.49",
+      "subject": "Statement Of NIL Deviation(S) Or Variation(S) Of QIP Utilization Proceeds",
+      "detail": "Statement of Nil Deviation or variation of QIP utilisation proceeds for the quarter ended December 31, 2023",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/484eba65-a88f-4f56-b0e8-8c06e20c9698.pdf"
+    },
+    {
+      "date": "2024-01-13T16:36:29.737",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results Q3 FY2023-24",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e418918d-91ef-4922-9261-bba1029ea0cb.pdf"
+    },
+    {
+      "date": "2024-01-13T16:26:35.98",
+      "subject": "Financial Results",
+      "detail": "Financial Results for the quarter and nine months ended December 31, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3aa0883f-14f5-44f1-a6e3-0cc24c707619.pdf"
+    },
+    {
+      "date": "2024-01-13T16:21:47.853",
+      "subject": "Board Meeting Outcome for Board Meeting Outcome For Meeting Held On January 13, 2024",
+      "detail": "Outcome of the Board Meeting held on January 13, 2024",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c0be884c-3cdb-4f05-81bc-95cd2e95b0c8.pdf"
+    },
+    {
+      "date": "2024-01-07T18:06:42.99",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/afe20f97-cdcb-45cf-8d21-cad780f75c93.pdf"
+    },
+    {
+      "date": "2024-01-05T11:30:53.09",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Changes in Senior Management Personnel of the Company\r\n\r\n",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3c4864e0-cf46-431c-a172-4f2dc1c46e7d.pdf"
+    },
+    {
+      "date": "2024-01-02T18:27:35.86",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 3 of Financial Year 2023-24",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/130b9736-d006-49b3-9fb4-98ca5bf3de7e.pdf"
+    },
+    {
+      "date": "2023-12-31T18:05:30.62",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/945778f7-5e63-4b4c-b663-b69cdada7841.pdf"
+    },
+    {
+      "date": "2023-12-28T18:21:51.543",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c3525d56-d393-4e48-9490-d98ddca17900.pdf"
+    },
+    {
+      "date": "2023-12-21T11:09:19.733",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and disclosure requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/598e9baa-7759-4ba3-b161-1157a4601d0b.pdf"
+    },
+    {
+      "date": "2023-12-16T09:21:39.347",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b0107ac6-4b6e-4aaf-9451-1090cb9e4f31.pdf"
+    },
+    {
+      "date": "2023-12-14T14:53:13.56",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0b036cc6-75c0-4235-8d9f-884daf612eea.pdf"
+    },
+    {
+      "date": "2023-12-09T18:20:15.153",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/db87561d-8206-414f-93be-9ff52f4e91b4.pdf"
+    },
+    {
+      "date": "2023-12-08T12:43:26.15",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing obligation and disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2102e536-c35d-4d05-9a5b-1dfbc78e2a7d.pdf"
+    },
+    {
+      "date": "2023-11-25T19:05:32.037",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9372609e-0fdd-4aec-8145-7b718b85f448.pdf"
+    },
+    {
+      "date": "2023-11-13T22:49:26.13",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Diclosure under regulation 30 of SEBI (Listing obligation and disclosure requirements) regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0a4856e6-81cd-4b97-ac25-4ea509855e29.pdf"
+    },
+    {
+      "date": "2023-11-10T18:50:38.88",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing obligation and disclosure requirements) regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1557d5e5-4119-42fe-b5f5-6b73433679b3.pdf"
+    },
+    {
+      "date": "2023-11-03T17:39:34.133",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligation And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing obligation and disclosure requirements) regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d264bc33-091d-49c5-92c8-81acf752d04b.pdf"
+    },
+    {
+      "date": "2023-11-02T18:37:01.11",
+      "subject": " Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Changes in the Senior Management Personnel of the Company",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/218a6fab-3cc0-4844-89b0-d87781526dc5.pdf"
+    },
+    {
+      "date": "2023-11-02T18:14:51.197",
+      "subject": "Updates",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e1594594-90a9-46a9-9ec9-4ea8b5eb4d16.pdf"
+    },
+    {
+      "date": "2023-10-24T16:12:27.453",
+      "subject": "Updates",
+      "detail": "Store opening intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0f659994-afc8-41ac-a82b-d13da0205c77.pdf"
+    },
+    {
+      "date": "2023-10-17T17:29:26.66",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing obligation and disclosure requirements) regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6025ea14-9b68-4c8b-9955-cc3b38c55226.pdf"
+    },
+    {
+      "date": "2023-10-14T15:09:59.713",
+      "subject": "Statement Of NIL Deviation(S) Or Variation(S) Of QIP Utilization Proceeds",
+      "detail": "Statement of NIL deviation or variation of QIP Utilisation proceeds for the quarter ended September 30, 2023",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ad5109f6-843a-46d1-b012-54996d3828e3.pdf"
+    },
+    {
+      "date": "2023-10-14T12:53:33.457",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results of the Company for the quarter and half year ended September 30, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/877a957b-6188-49a9-89ad-c9ca0d9c52a5.pdf"
+    },
+    {
+      "date": "2023-10-14T12:47:37.127",
+      "subject": "Financial Results For The Quarter And Half Year Ended September 30, 2023",
+      "detail": "Financial Results for the quarter and half year ended September 30, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/302f8e90-2b60-45cf-a599-1eaf18070c7a.pdf"
+    },
+    {
+      "date": "2023-10-14T12:38:56.847",
+      "subject": "Board Meeting Outcome for Meeting Held On October 14, 2023",
+      "detail": "Outcome of the Board Meeting held on October 14, 2023",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/baf9d658-88f7-4cbf-aea0-7355a5b5d193.pdf"
+    },
+    {
+      "date": "2023-10-13T22:31:05.53",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a3017b40-dfbf-4c6a-8b0e-02f7e1e9d7d9.pdf"
+    },
+    {
+      "date": "2023-10-05T16:00:51.053",
+      "subject": "Company Update",
+      "detail": "Disclosure under Regulation 30 of SEBI (LODR) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1e09b2c-6243-48de-affa-2e1caa68275d.pdf"
+    },
+    {
+      "date": "2023-10-03T17:29:54.49",
+      "subject": "Company Update\r\n",
+      "detail": "Company Update at the end of Quarter 2 of Financial year 2023-24",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fd7062d2-907e-448a-99a1-6b96a78667a9.pdf"
+    },
+    {
+      "date": "2023-09-27T18:32:15.993",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f09bfbd5-987f-41a8-bb3d-ed85da489f72.pdf"
+    },
+    {
+      "date": "2023-09-18T18:14:32.773",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6e5319e5-119d-41e0-9e99-9641084c21de.pdf"
+    },
+    {
+      "date": "2023-09-12T18:39:10.717",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/67e9a1a9-1463-46b7-9329-814f4be66688.pdf"
+    },
+    {
+      "date": "2023-09-04T18:28:26.723",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6a3ac968-5ce6-4cb2-a44b-598d0717743e.pdf"
+    },
+    {
+      "date": "2023-08-12T20:02:38.687",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/702ece65-5455-4f78-a218-4fbf494ef257.pdf"
+    },
+    {
+      "date": "2023-08-05T15:23:17.407",
+      "subject": "Updates\r\n",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c47a0477-5ca4-4d55-8b2d-b8ee298064ab.pdf"
+    },
+    {
+      "date": "2023-08-03T21:35:21.61",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Disclosure under regulation 30 of SEBI (Listing Obligation and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a006b555-8069-42f3-b73a-a763c3888bda.pdf"
+    },
+    {
+      "date": "2023-07-28T17:47:01.003",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/04e55561-3139-4073-8448-add72aaf1e3b.pdf"
+    },
+    {
+      "date": "2023-07-26T19:00:18.827",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ec608a9d-c299-4061-b5c7-65857e529062.pdf"
+    },
+    {
+      "date": "2023-07-19T17:48:54.087",
+      "subject": "Updates",
+      "detail": "Store Opening Intimation",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c73a20d5-908f-42f0-a89e-ffe76340c53f.pdf"
+    },
+    {
+      "date": "2023-07-18T23:22:12.577",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report for the financial year ended 31st March, 2023",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f63315c4-0a2d-46bd-ba57-21b9d446180c.pdf"
+    },
+    {
+      "date": "2023-07-15T17:04:57.343",
+      "subject": "Statement Of NIL Deviation(S) Or Variation(S) Of QIP Utilization Proceeds",
+      "detail": "Statement of NIL deviation or variation of QIP Utilisation proceeds for the quarter ended June 30, 2023 is enclosed",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d8f6f8f9-5570-41f1-855a-c3735289b3f8.pdf"
+    },
+    {
+      "date": "2023-07-15T15:17:49.51",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release on financial results of the Company for the quarter ended June 30, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17ff8010-1481-4865-bbac-fc6da4ba4904.pdf"
+    },
+    {
+      "date": "2023-07-15T15:10:12.13",
+      "subject": "Financial Results For The Quarter Ended June 30, 2023",
+      "detail": "Financial Results for the quarter ended June 30, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/73528eef-6595-459e-b99e-ac964f942c45.pdf"
+    },
+    {
+      "date": "2023-07-15T15:06:43.95",
+      "subject": "Board Meeting Outcome for Meeting Held On July 15, 2023",
+      "detail": "Outcome of the Board Meeting held on July 15, 2023",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/90076806-3071-4a55-82bb-d766164d9406.pdf"
+    },
+    {
+      "date": "2023-07-03T16:29:47.837",
+      "subject": "Company Update",
+      "detail": "Company Update at the end of Quarter 1 of Financial Year 2023-24",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/546875a8-96cf-42ce-935d-44131e500d4b.pdf"
+    },
+    {
+      "date": "2023-05-13T16:54:12.087",
+      "subject": "Statement Of NIL Deviation(S) Or Variation(S) Of QIP Utilization Proceeds",
+      "detail": "In terms of SEBI Circular No. CIR/CFD/CMD1/162/2019 dated December 24, 2019, the Statement of NIL deviation(s) or variation(s) for the quarter ended 31st March, 2023 for utilization of ....",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a290fc92-1b69-4045-b997-752f97f3b14c.pdf"
+    },
+    {
+      "date": "2023-05-13T16:13:39.95",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release on financial results of the Company for the quarter and year ended 31st March, 2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/acb87f9b-63a5-4e95-b807-4d3bbf83db28.pdf"
+    },
+    {
+      "date": "2023-05-13T15:16:16.67",
+      "subject": "Financial Results For The Quarter And Year Ended 31.03.2023",
+      "detail": "Financial Results for the quarter and year ended 31.03.2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/205d954f-faeb-4270-8d1a-953f773131fd.pdf"
+    },
+    {
+      "date": "2023-05-13T15:09:04.103",
+      "subject": "Board Meeting Outcome for Meeting Held On 13.05.2023",
+      "detail": "Outcome of Board Meeting",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/70d689cc-32e0-4c3a-8d2f-b2eea2a2993c.pdf"
+    }
+  ]
+}
