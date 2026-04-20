@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import time
 from datetime import datetime, timedelta
 import PyPDF2
 import io
@@ -81,8 +82,8 @@ def extract_text_from_pdf(pdf_path):
 # Global variable to cache the working model name
 GEMINI_MODEL = "gemini-2.5-flash-lite"  # Use same model as main fetch worker
 
-def call_gemini(prompt, max_tokens=8192):
-    """Call Gemini API directly via requests (no SDK dependency)."""
+def call_gemini(prompt, max_tokens=8192, retries=5):
+    """Call Gemini API directly via requests (no SDK dependency). Retries on 429."""
     if not api_key:
         return None
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
@@ -90,14 +91,23 @@ def call_gemini(prompt, max_tokens=8192):
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.3},
     }
-    try:
-        r = requests.post(url, json=payload, timeout=300)
-        r.raise_for_status()
-        data = r.json()
-        return data["candidates"][0]["content"]["parts"][0]["text"]
-    except Exception as e:
-        print(f"Gemini API error: {e}")
-        return None
+    wait = 30  # seconds to wait on first 429
+    for attempt in range(retries):
+        try:
+            r = requests.post(url, json=payload, timeout=300)
+            if r.status_code == 429:
+                print(f"Gemini 429 rate limit (attempt {attempt+1}/{retries}), waiting {wait}s...")
+                time.sleep(wait)
+                wait = min(wait * 2, 120)  # exponential backoff, cap at 2 min
+                continue
+            r.raise_for_status()
+            data = r.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:
+            print(f"Gemini API error: {e}")
+            if attempt < retries - 1:
+                time.sleep(10)
+    return None
 
 def summarize_text(text):
     """Summarizes a single document using Gemini API."""
