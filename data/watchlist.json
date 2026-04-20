@@ -127,5 +127,23 @@
         "user_note": "Looks Attractive"
       }
     ]
+  },
+  "541400_BSE": {
+    "company": "Zim Laboratories Ltd",
+    "symbol": "541400",
+    "exchange": "BSE",
+    "market_cap": 3750906804.21,
+    "market_cap_fmt": "375 Cr",
+    "notes": [
+      {
+        "subject": "Zim Laboratories Ltd - 541400 - Announcement under Regulation 30 (LODR)-Updates on Acquisition",
+        "category": "Acquisition",
+        "ai_summary": "Zim Laboratories Ltd has made a further investment of Rs. 89,45,100 in the equity share capital of its subsidiary, ZIMTAS PTY LTD. This investment is part of an approved total investment of up to Rs. 2 crores. The amount invested is equivalent to AUD 1,35,000. Following this investment, Zim Laboratories Ltd now holds 99.96% of the total share capital of ZIMTAS PTY LTD. This move strengthens the company's control over its subsidiary. The company had previously disclosed intentions for this investment on May 13, 2024, and July 2, 2024.",
+        "date": "2026-04-09T15:14:35.463",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f716d7dc-49ef-4893-a0bb-dec01ee76c74.pdf",
+        "added_on": "2026-04-20T12:13:35.918Z",
+        "user_note": "Big CAPEX, plus cheap!"
+      }
+    ]
   }
 }
