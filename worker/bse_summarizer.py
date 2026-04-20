@@ -6,19 +6,13 @@ import PyPDF2
 import io
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-import google.generativeai as genai
 from web_search_utils import fetch_web_intel
 
 load_dotenv()
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Configure Gemini API
-# It will look for GEMINI_API_KEY in environment variables automatically if configured,
-# but we usually need to pass it explicitly or set `genai.configure(api_key=...)`
 api_key = os.getenv("GEMINI_API_KEY")
-if api_key:
-    genai.configure(api_key=api_key)
 
 # Configuration
 # You can get this URL by inspecting the network tab on bseindia.com -> Corporate Announcements
@@ -85,110 +79,39 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 # Global variable to cache the working model name
-CURRENT_MODEL_NAME = None
+GEMINI_MODEL = "gemini-2.5-flash-lite"  # Use same model as main fetch worker
 
-def get_best_model():
-    """
-    Dynamically selects the best available Gemini model.
-    """
-    global CURRENT_MODEL_NAME
-    if CURRENT_MODEL_NAME:
-        return CURRENT_MODEL_NAME
-
+def call_gemini(prompt, max_tokens=8192):
+    """Call Gemini API directly via requests (no SDK dependency)."""
+    if not api_key:
+        return None
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.3},
+    }
     try:
-        print("Checking available Gemini models...")
-        available_models = []
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                available_models.append(m.name)
-
-        # Priority list
-        priorities = [
-            'models/gemini-2.5-flash-lite',
-            'models/gemini-1.5-flash',
-            'models/gemini-1.5-flash-latest',
-            'models/gemini-1.5-flash-001',
-            'models/gemini-1.5-pro',
-            'models/gemini-1.5-pro-latest',
-            'models/gemini-pro'
-        ]
-
-        for p in priorities:
-            if p in available_models:
-                print(f"Selected Model: {p}")
-                CURRENT_MODEL_NAME = p
-                return p
-
-        # Fallback: just take the first one that looks like a gemini model
-        for m in available_models:
-            if 'gemini' in m:
-                print(f"Selected Fallback Model: {m}")
-                CURRENT_MODEL_NAME = m
-                return m
-
-        return 'gemini-pro' # Absolute fallback
+        r = requests.post(url, json=payload, timeout=300)
+        r.raise_for_status()
+        data = r.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"]
     except Exception as e:
-        print(f"Error listing models: {e}. Defaulting to gemini-1.5-flash")
-        return 'gemini-1.5-flash'
+        print(f"Gemini API error: {e}")
+        return None
 
 def summarize_text(text):
-    """
-    Summarizes the given text using Google Gemini API.
-    """
+    """Summarizes a single document using Gemini API."""
     if not text:
         return "No text to summarize."
+    if not api_key:
+        return "[MISSING CONFIG] GEMINI_API_KEY not set."
+    prompt = f"""You are an expert Equity Research Analyst. Analyze this corporate announcement document.
+Provide: 1) Executive Summary (2-3 sentences), 2) Key financial figures, 3) Future guidance/targets, 4) Risk factors.
 
-    if not os.getenv("GEMINI_API_KEY"):
-        return "[MISSING CONFIG] Please add GEMINI_API_KEY to your .env file to see the AI summary."
-
-    try:
-        model_name = get_best_model()
-        model = genai.GenerativeModel(model_name)
-
-        prompt = f"""
-        You are an expert Equity Research Analyst working for a top-tier investment firm.
-        Analyze the following corporate announcement document for HMA Agro Industries Ltd.
-
-        Your Goal: Determine the future earnings potential of the company based on this document.
-
-        Please structure your response exactly as follows:
-
-        ## 1. Executive Summary
-        (2-3 sentences max. Is this a positive, negative, or neutral development?)
-
-        ## 2. Future Guidance & Management Commentary
-        - What is the management saying about future growth?
-        - Are there any specific targets for Revenue or Margins?
-        - Any commentary on export demand or raw material prices?
-
-        ## 3. Capex & Expansion Summary
-        - List any new plants only if mentioned.
-        - Total Amount of Capex?
-        - Timeline for completion?
-        - Capacity addition details?
-
-        ## 4. Financial Impact Analysis (Critical)
-        - **Topline (Revenue):** How much additional revenue can this Capex/Announcement generate? (Estimate if not explicitly stated, based on asset turnover of ~4x for this industry).
-        - **Bottomline (Profit):** Will this improve margins (efficiency) or just volume?
-        - **Return on Capital:** Does this look like a good use of cash?
-
-        ## 5. Risk Assessment
-        - Governance risks (Related Party Transactions, unrelated diversification).
-        - Execution risks (Delays, regulatory issues).
-
-        Document Content:
-        {text[:50000]}
-        """
-
-        response = model.generate_content(prompt)
-        return response.text
-
-    except Exception as e:
-        return f"Error calling Gemini API ({e})"
-
-from fpdf import FPDF
-
-# ... imports ...
+Document:
+{text[:50000]}"""
+    result = call_gemini(prompt, max_tokens=2048)
+    return result or "Error calling Gemini API"
 
 def clean_text_for_pdf(text):
     """Replaces unsupported characters for standard PDF fonts."""
@@ -629,8 +552,6 @@ def get_collective_summary(stock_name, collected_texts):
     full_text = "\n\n".join(collected_texts)
 
     try:
-        model_name = get_best_model()
-        model = genai.GenerativeModel(model_name)
         current_date_str = datetime.now().strftime("%B %Y")
 
         prompt = f"""
@@ -834,8 +755,8 @@ List 6-10 specific items investors should track going forward.
 **Disclaimer:** This analysis is for informational purposes only and does not constitute investment advice. Please consult a registered financial advisor before making investment decisions.
 """
 
-        response = model.generate_content(prompt)
-        return response.text
+        result = call_gemini(prompt, max_tokens=16000)
+        return result or "Error creating deep dive: no response from Gemini"
     except Exception as e:
         return f"Error creating deep dive: {e}"
 
