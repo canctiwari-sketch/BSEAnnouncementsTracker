@@ -963,7 +963,7 @@ def add_cover_page(doc, stock_name):
     doc.add_page_break()
 
 
-def generate_word_report(stock_name, report_text):
+def generate_word_report(stock_name, report_text, scrip_code=""):
     """Generates a professional Word report with institutional-grade formatting."""
     doc = Document()
 
@@ -1091,7 +1091,7 @@ def generate_word_report(stock_name, report_text):
         section.left_margin = Cm(2.5)
         section.right_margin = Cm(2.5)
 
-    safe_filename = f"{stock_name.replace(' ', '_')}_Analysis_Report.docx"
+    safe_filename = f"{stock_name.replace(' ', '_')}_{scrip_code}_Analysis_Report.docx"
     output_file = os.path.join(ROOT, "data", "research", safe_filename)
 
     try:
@@ -1099,7 +1099,7 @@ def generate_word_report(stock_name, report_text):
         print(f"\n[SUCCESS] Word Report saved to: {output_file}")
     except PermissionError:
         print(f"\n[WARNING] Could not write to {output_file} (File might be open).")
-        base_filename = f"{stock_name.replace(' ', '_')}_Analysis_Report"
+        base_filename = f"{stock_name.replace(' ', '_')}_{scrip_code}_Analysis_Report"
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         safe_filename = f"{base_filename}_{timestamp}.docx"
         output_file = os.path.join(ROOT, "data", "research", safe_filename)
@@ -1242,7 +1242,7 @@ def analyze_single_stock(stock_name, scrip_code, deep_dive=True, nse_symbol=""):
                 report += screener_section
 
     # 4. Save as DOCX
-    docx_path = generate_word_report(stock_name, report)
+    docx_path = generate_word_report(stock_name, report, scrip_code=scrip_code)
 
     return docx_path, len(collected_texts)
 
