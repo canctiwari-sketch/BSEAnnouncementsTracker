@@ -80,7 +80,7 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 # Global variable to cache the working model name
-GEMINI_MODEL = "gemini-2.0-flash"  # Higher RPM/RPD limits than flash-lite
+GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 def call_gemini(prompt, max_tokens=8192, retries=5):
     """Call Gemini API directly via requests (no SDK dependency). Retries on 429."""
