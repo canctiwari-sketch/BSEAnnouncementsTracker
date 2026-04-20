@@ -1274,11 +1274,11 @@ async function triggerResearch() {
 async function pollResearchResult(scripCode, companyName) {
     // Search for any .docx file in data/research/ matching this scrip
     try {
-        const url = `https://api.github.com/repos/${REPO}/contents/data/research`;
+        const url = `https://api.github.com/repos/${REPO}/contents/data/research?t=${Date.now()}`;
         const token = localStorage.getItem(GH_TOKEN_KEY);
-        const r = await fetch(url, {
-            headers: token ? { Authorization: `token ${token}` } : {}
-        });
+        const headers = { 'Cache-Control': 'no-cache' };
+        if (token) headers['Authorization'] = `token ${token}`;
+        const r = await fetch(url, { headers });
         if (!r.ok) return false;
         const files = await r.json();
         const match = files.find(f => f.name.includes(scripCode) && f.name.endsWith(".docx"));
@@ -1305,8 +1305,8 @@ async function clearResearch(scripCode) {
     if (!token) return;
     try {
         // Find and delete the file
-        const url = `https://api.github.com/repos/${REPO}/contents/data/research`;
-        const r = await fetch(url, { headers: { Authorization: `token ${token}` } });
+        const url = `https://api.github.com/repos/${REPO}/contents/data/research?t=${Date.now()}`;
+        const r = await fetch(url, { headers: { Authorization: `token ${token}`, 'Cache-Control': 'no-cache' } });
         if (!r.ok) return;
         const files = await r.json();
         const match = files.find(f => f.name.includes(scripCode) && f.name.endsWith(".docx"));
