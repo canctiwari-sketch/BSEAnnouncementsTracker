@@ -145,5 +145,23 @@
         "user_note": "Big CAPEX, plus cheap!"
       }
     ]
+  },
+  "538715_BSE": {
+    "company": "Dhabriya Polywood Ltd",
+    "symbol": "538715",
+    "exchange": "BSE",
+    "market_cap": 3375000000,
+    "market_cap_fmt": "338 Cr",
+    "notes": [
+      {
+        "subject": "Dhabriya Polywood Ltd - 538715 - Intimation Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015 (The \"Listing Regulation') - Purchase Of Industrial Property.",
+        "category": "Regulatory",
+        "ai_summary": "Dhabriya Polywood Ltd has purchased an industrial property, including land and a building, for a total consideration of ₹22.46 crore. The property, measuring 2436 sq. meters, is located at Plot No. B-10(A,D,D1)A, Malviya Nagar Industrial Area, Jaipur - 302017, and is situated opposite the company's existing factory premises and registered office. This acquisition is intended to support the company's future expansion plans, including capacity enhancement for new and existing product lines. The purchase has been funded through internal accruals and partial bank funding. This intimation is made pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015.",
+        "date": "2026-04-07T17:14:14.153",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6b8520b2-1bdd-4be7-ab51-409c8647e0dc.pdf",
+        "added_on": "2026-04-20T12:40:49.112Z",
+        "user_note": ""
+      }
+    ]
   }
 }
