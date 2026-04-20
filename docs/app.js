@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     // Escape key closes watchlist modal
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeWatchlist();
+        if (e.key === "Escape") { closeWatchlist(); closeLookup(); }
     });
     loadWatchlist();
     restoreFilters();
@@ -885,4 +885,266 @@ function importWatchlist(event) {
     };
     reader.readAsText(file);
     event.target.value = ""; // Reset file input
+}
+
+// ─── Company Lookup ───────────────────────────────────────────────────────────
+
+const REPO = "canctiwari-sketch/BSEAnnouncementsTracker";
+let lookupSelectedCompany = null;   // { name, scrip_code }
+let lookupPollTimer = null;
+let lookupSuggestIdx = -1;
+
+// Build a deduplicated company list from loaded announcements
+function buildCompanyList() {
+    const seen = new Map();
+    (allAnnouncements || []).forEach(a => {
+        const code = a.symbol || a.scrip_code || "";
+        if (!code || a.exchange !== "BSE") return;
+        const key = code;
+        if (!seen.has(key)) {
+            seen.set(key, { name: a.company || "", scrip_code: code });
+        }
+    });
+    return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function openLookup() {
+    document.getElementById("lookupOverlay").style.display = "flex";
+    document.getElementById("lookupInput").focus();
+    // Check if we already have cached results to show
+    const cached = sessionStorage.getItem("lookup_result");
+    if (cached) {
+        try { renderLookupResults(JSON.parse(cached)); } catch {}
+    }
+}
+
+function closeLookup() {
+    document.getElementById("lookupOverlay").style.display = "none";
+    hideLookupSuggest();
+    clearInterval(lookupPollTimer);
+}
+
+function onLookupInput() {
+    const q = document.getElementById("lookupInput").value.trim().toLowerCase();
+    document.getElementById("lookupFetchBtn").disabled = true;
+    lookupSelectedCompany = null;
+    lookupSuggestIdx = -1;
+
+    if (q.length < 2) { hideLookupSuggest(); return; }
+
+    const companies = buildCompanyList();
+    const matches = companies.filter(c => c.name.toLowerCase().includes(q)).slice(0, 10);
+
+    if (!matches.length) { hideLookupSuggest(); return; }
+
+    const suggest = document.getElementById("lookupSuggest");
+    suggest.innerHTML = matches.map((c, i) =>
+        `<div class="lookup-suggest-item" data-idx="${i}"
+              onmousedown="selectLookupCompany(${i})"
+              onmouseover="lookupSuggestIdx=${i};highlightSuggest()">
+            <span class="lookup-suggest-name">${escapeHtml(c.name)}</span>
+            <span class="lookup-suggest-code">BSE ${escapeHtml(c.scrip_code)}</span>
+         </div>`
+    ).join("");
+    suggest._matches = matches;
+    suggest.style.display = "block";
+}
+
+function onLookupKeyDown(e) {
+    const suggest = document.getElementById("lookupSuggest");
+    if (suggest.style.display === "none") {
+        if (e.key === "Enter" && lookupSelectedCompany) triggerLookup();
+        return;
+    }
+    const items = suggest.querySelectorAll(".lookup-suggest-item");
+    if (e.key === "ArrowDown") {
+        e.preventDefault();
+        lookupSuggestIdx = Math.min(lookupSuggestIdx + 1, items.length - 1);
+        highlightSuggest();
+    } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        lookupSuggestIdx = Math.max(lookupSuggestIdx - 1, 0);
+        highlightSuggest();
+    } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (lookupSuggestIdx >= 0) selectLookupCompany(lookupSuggestIdx);
+        else if (lookupSelectedCompany) triggerLookup();
+    } else if (e.key === "Escape") {
+        hideLookupSuggest();
+    }
+}
+
+function highlightSuggest() {
+    const items = document.querySelectorAll(".lookup-suggest-item");
+    items.forEach((el, i) => el.classList.toggle("active", i === lookupSuggestIdx));
+}
+
+function selectLookupCompany(idx) {
+    const suggest = document.getElementById("lookupSuggest");
+    const matches = suggest._matches || [];
+    if (idx < 0 || idx >= matches.length) return;
+    lookupSelectedCompany = matches[idx];
+    document.getElementById("lookupInput").value = lookupSelectedCompany.name;
+    document.getElementById("lookupFetchBtn").disabled = false;
+    hideLookupSuggest();
+}
+
+function hideLookupSuggest() {
+    document.getElementById("lookupSuggest").style.display = "none";
+}
+
+async function triggerLookup() {
+    if (!lookupSelectedCompany) return;
+
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token) {
+        setLookupStatus("⚠️ GitHub token required. Set it via the Watchlist sync setup.", "error");
+        return;
+    }
+
+    // Clear any previous results
+    document.getElementById("lookupResults").style.display = "none";
+    sessionStorage.removeItem("lookup_result");
+
+    setLookupStatus(`⟳ Dispatching workflow for ${lookupSelectedCompany.name}...`, "loading");
+
+    try {
+        const resp = await fetch(
+            `https://api.github.com/repos/${REPO}/actions/workflows/company-lookup.yml/dispatches`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `token ${token}`,
+                    Accept: "application/vnd.github.v3+json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    ref: "main",
+                    inputs: {
+                        company_name: lookupSelectedCompany.name,
+                        scrip_code: lookupSelectedCompany.scrip_code,
+                    },
+                }),
+            }
+        );
+
+        if (resp.status === 422) {
+            setLookupStatus("⚠️ Token needs 'workflow' scope. Please regenerate your GitHub PAT with workflow permission.", "error");
+            return;
+        }
+        if (!resp.ok) {
+            setLookupStatus(`⚠️ Failed to trigger workflow (HTTP ${resp.status}). Check your GitHub token.`, "error");
+            return;
+        }
+    } catch (e) {
+        setLookupStatus(`⚠️ Network error: ${e.message}`, "error");
+        return;
+    }
+
+    // Poll for result file (appears after workflow completes in ~1-2 min)
+    const scrip = lookupSelectedCompany.scrip_code;
+    const name = lookupSelectedCompany.name;
+    let elapsed = 0;
+    clearInterval(lookupPollTimer);
+
+    setLookupStatus(`⟳ Workflow running... fetching 3 years of ${name} announcements. This takes about 1-2 minutes.`, "loading");
+
+    lookupPollTimer = setInterval(async () => {
+        elapsed += 10;
+        const mins = Math.floor(elapsed / 60);
+        const secs = elapsed % 60;
+        const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+        setLookupStatus(`⟳ Fetching ${name} history... (${timeStr} elapsed)`, "loading");
+
+        const data = await pollLookupResult(scrip);
+        if (data) {
+            clearInterval(lookupPollTimer);
+            sessionStorage.setItem("lookup_result", JSON.stringify(data));
+            renderLookupResults(data);
+        } else if (elapsed > 300) {
+            clearInterval(lookupPollTimer);
+            setLookupStatus("⚠️ Timed out after 5 minutes. Check GitHub Actions for errors.", "error");
+        }
+    }, 10000);
+}
+
+async function pollLookupResult(scripCode) {
+    try {
+        const url = `https://raw.githubusercontent.com/${REPO}/main/data/lookup/${scripCode}.json?v=${Date.now()}`;
+        const r = await fetch(url);
+        if (r.ok) return await r.json();
+    } catch {}
+    return null;
+}
+
+function renderLookupResults(data) {
+    document.getElementById("lookupStatus").style.display = "none";
+
+    const title = document.getElementById("lookupResultTitle");
+    const fromDate = data.from_date ? data.from_date.slice(0, 10) : "";
+    const toDate = data.to_date ? data.to_date.slice(0, 10) : "";
+    title.textContent = `${data.company} — ${data.total} announcements (${fromDate} to ${toDate})`;
+
+    const body = document.getElementById("lookupBody");
+    if (!data.announcements || !data.announcements.length) {
+        body.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#999">No important announcements found for this period.</td></tr>`;
+    } else {
+        body.innerHTML = data.announcements.map(a => {
+            const dateStr = formatDisplayDate(a.date);
+            const cat = a.category || "Other";
+            const catClass = `cat-badge cat-${cat.toLowerCase().replace(/[^a-z]+/g, '-')}`;
+            const subjectShort = a.subject && a.subject.length > 120
+                ? a.subject.slice(0, 117) + "..." : (a.subject || "");
+            const pdfLink = a.attachment
+                ? `<a href="${escapeAttr(a.attachment)}" target="_blank" class="lookup-pdf-link">PDF</a>` : "—";
+            return `<tr>
+                <td class="lookup-date">${escapeHtml(dateStr)}</td>
+                <td><span class="${catClass}">${escapeHtml(cat)}</span></td>
+                <td class="lookup-subject" title="${escapeAttr(a.subject || '')}">${escapeHtml(subjectShort)}</td>
+                <td>${pdfLink}</td>
+            </tr>`;
+        }).join("");
+    }
+
+    document.getElementById("lookupResults").style.display = "block";
+}
+
+function setLookupStatus(msg, type = "") {
+    const el = document.getElementById("lookupStatus");
+    el.style.display = "block";
+    el.textContent = msg;
+    el.className = `lookup-status ${type}`;
+}
+
+async function clearLookup() {
+    clearInterval(lookupPollTimer);
+    sessionStorage.removeItem("lookup_result");
+    document.getElementById("lookupResults").style.display = "none";
+    document.getElementById("lookupStatus").style.display = "none";
+    document.getElementById("lookupInput").value = "";
+    document.getElementById("lookupFetchBtn").disabled = true;
+    lookupSelectedCompany = null;
+
+    // Delete the file from GitHub if we have a token and a scrip code
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token || !lookupSelectedCompany) return;
+
+    try {
+        const scrip = lookupSelectedCompany?.scrip_code;
+        if (!scrip) return;
+        const infoResp = await fetch(
+            `https://api.github.com/repos/${REPO}/contents/data/lookup/${scrip}.json`,
+            { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } }
+        );
+        if (!infoResp.ok) return;
+        const info = await infoResp.json();
+        await fetch(
+            `https://api.github.com/repos/${REPO}/contents/data/lookup/${scrip}.json`,
+            {
+                method: "DELETE",
+                headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Remove lookup: ${scrip}`, sha: info.sha }),
+            }
+        );
+    } catch {}
 }

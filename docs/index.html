@@ -57,6 +57,7 @@
         <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
         <button class="export-btn" onclick="exportXLSX()" title="Export filtered results as Excel">Export Excel</button>
         <button class="watchlist-btn" onclick="openWatchlist()" title="View Watchlist">&#9734; Watchlist <span id="wlCount">(0)</span></button>
+        <button class="lookup-btn" onclick="openLookup()" title="Company History Lookup">&#128269; Lookup</button>
     </div>
 
     <div class="status-bar">
@@ -101,6 +102,48 @@
                 </div>
             </div>
             <div id="wlContent" class="wl-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Company Lookup Modal -->
+    <div id="lookupOverlay" class="lookup-overlay" style="display:none" onclick="if(event.target===this)closeLookup()">
+        <div class="lookup-modal">
+            <div class="lookup-modal-header">
+                <h2>&#128269; Company History Lookup</h2>
+                <button class="lookup-close-btn" onclick="closeLookup()">&times;</button>
+            </div>
+            <div class="lookup-modal-body">
+                <div class="lookup-search-row">
+                    <div class="lookup-input-wrap">
+                        <input type="text" id="lookupInput" class="lookup-input"
+                            placeholder="Type company name..."
+                            oninput="onLookupInput()" onkeydown="onLookupKeyDown(event)"
+                            autocomplete="off">
+                        <div id="lookupSuggest" class="lookup-suggest" style="display:none"></div>
+                    </div>
+                    <button id="lookupFetchBtn" class="lookup-fetch-btn" onclick="triggerLookup()" disabled>Fetch 3 Yrs</button>
+                </div>
+                <div id="lookupStatus" class="lookup-status" style="display:none"></div>
+                <div id="lookupResults" style="display:none">
+                    <div class="lookup-result-header">
+                        <span id="lookupResultTitle"></span>
+                        <button class="lookup-clear-btn" onclick="clearLookup()">&#128465; Clear Results</button>
+                    </div>
+                    <div class="lookup-table-wrap">
+                        <table class="lookup-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Subject</th>
+                                    <th>PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lookupBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

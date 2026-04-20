@@ -1,0 +1,49 @@
+name: Company Lookup
+
+on:
+  workflow_dispatch:
+    inputs:
+      company_name:
+        description: 'Company display name'
+        required: true
+        type: string
+      scrip_code:
+        description: 'BSE scrip code (6-digit number)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3
+
+      - name: Run lookup worker
+        env:
+          COMPANY_NAME: ${{ github.event.inputs.company_name }}
+          SCRIP_CODE: ${{ github.event.inputs.scrip_code }}
+        run: python worker/lookup.py
+
+      - name: Commit and push results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/lookup/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Lookup: ${{ github.event.inputs.company_name }} (${{ github.event.inputs.scrip_code }})"
+            git push
+          fi
