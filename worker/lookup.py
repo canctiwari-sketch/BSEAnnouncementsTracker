@@ -140,8 +140,9 @@ def fetch_company_announcements(scrip_code, from_date, to_date):
     seen_ids = set()
 
     for page in range(1, 50):  # up to ~2500 raw announcements
+        # AnnSubCategoryGetData works for company-specific scrip lookups (AnnGetData returns 0)
         url = (
-            f"https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
+            f"https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w"
             f"?strCat=-1&strPrevDate={str_from}&strScrip={scrip_code}"
             f"&strSearch=P&strToDate={str_to}&strType=C&pageno={page}"
         )
