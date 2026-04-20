@@ -1,0 +1,528 @@
+{
+  "company": "Petronet LNG Ltd",
+  "scrip_code": "532522",
+  "from_date": "2023-04-21",
+  "to_date": "2026-04-20",
+  "fetched_at": "2026-04-20T08:52:56.914517",
+  "total": 74,
+  "announcements": [
+    {
+      "date": "2026-04-20T11:31:05.55",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Newspaper clipping requesting shareholders for registration/ updation of their email address is attached herewith",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dea10984-0bad-451d-8ca5-bb5c15cc9aa8.pdf"
+    },
+    {
+      "date": "2026-04-17T17:57:18.6",
+      "subject": "Incorporation Of A Section 8, Limited By Guarantee, A Wholly-Owned Subsidiary Company Of Petronet LNG Limited",
+      "detail": "Disclosure regarding incorporation of MC2 Foundation, a wholly-owned subsidiary of PLL is enclosed herewith.",
+      "category": "Subsidiary",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5689d228-7846-41fc-bf21-2d6e1522fcfa.pdf"
+    },
+    {
+      "date": "2026-04-01T11:24:00.703",
+      "subject": "Commissioning Of Additional LNG Regasification Facilities At Dahej I.E. Expansion Of Dahej LNG Terminal From 17.5 MMTPA To 22.5 MMTPA",
+      "detail": "Corporate disclosure w.r.t. commissioning of additional LNG regasification facilities at Dahej is enclosed herewith",
+      "category": "Business Expansion",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fbeec86e-5367-4bd2-9535-ab122ae65b5e.pdf"
+    },
+    {
+      "date": "2026-03-21T22:02:08.11",
+      "subject": "Approval Of Proposal For Incorporation Of A Section 8, Limited By Guarantee, A Wholly-Owned Subsidiary Company Of Petronet LNG Limited",
+      "detail": "Disclosure regarding approval of proposal for incorporation of WOS is enclosed.",
+      "category": "Subsidiary",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5a702b07-a6d8-4f6a-9285-d166b15aae43.pdf"
+    },
+    {
+      "date": "2026-03-18T20:24:17.01",
+      "subject": "Updates On Non-Compliance With SEBI LODR Regulations, 2015",
+      "detail": "The updates on non-compliance with SEBI LODR Regulations, 2015 is attached herewith.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4df72d27-d7ea-4633-bc34-49cc7f322396.pdf"
+    },
+    {
+      "date": "2026-03-12T13:04:49.38",
+      "subject": "Notice For Non-Compliance With SEBI (LODR) Regulations, 2015 ('Listing Regulations')-Details Of Penalty Paid",
+      "detail": "Letter to Stock Exchange regarding details of penalty paid is enclosed herewith.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0a2928d8-f67b-4fdf-8643-58e33201b486.pdf"
+    },
+    {
+      "date": "2026-03-05T20:17:55.073",
+      "subject": "Intimation Under Regulation 30 Of SEBI LODR Regulations, 2015",
+      "detail": "Intimation under Regulation 30 of SEBI LODR regulations, 2015 in continuation of our intimation dated 03.03.2016 is enclosed herewith.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ee6187a8-5652-445e-aa71-a6fec8c5a472.pdf"
+    },
+    {
+      "date": "2026-03-03T21:46:06.4",
+      "subject": "Intimation Under Regulation 30 Of SEBI LODR Regulations, 2015",
+      "detail": "Intimation under Regulation 30 of SEBI LODR Regulations, 2015 is enclosed herewith.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5972633e-9b85-4943-8146-6ea0aa97ddd0.pdf"
+    },
+    {
+      "date": "2026-03-03T15:21:18.407",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Newspaper slipping w.r.t. postal ballot notice and matters incidental thereto are enclosed herewith.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5237db3b-e725-465c-ba47-456d550d0d3e.pdf"
+    },
+    {
+      "date": "2026-03-02T10:46:24.253",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Please find attached intimation regarding change in Nominee Director - GAIL on the Board of the Company.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cf9684fa-7915-43d3-827a-bbc7ccf5720c.pdf"
+    },
+    {
+      "date": "2026-02-27T20:40:10.303",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Newspaper clippings regarding advertisement given to Shareholders for opening of special window for transfer and dematerialization of physical shares.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/46f104e4-10b8-4271-8361-eae45ce56592.pdf"
+    },
+    {
+      "date": "2026-02-13T21:59:09.75",
+      "subject": "Intimation Of UDIN In Connection With Limited Review Reports For The Quarter And Nine Months Ended 31-12-2025",
+      "detail": "The letter received from the statutory auditors is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/63525dbb-d7c9-4d46-9ca7-fa0d681d50f8.pdf"
+    },
+    {
+      "date": "2026-02-12T17:43:55.783",
+      "subject": "Board Meeting Outcome for Unaudited Financial Results For The Quarter And Nine-Months Ended 31St December 2025",
+      "detail": "The Unaudited Financial Results (Standalone and Consolidated) of the Company for the quarter and nine-months ended 31st December 2025 along with Independent Auditors' Limited Review Report, ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5da951ba-8bcf-4171-80fd-81144453d953.pdf"
+    },
+    {
+      "date": "2026-01-27T21:01:15.48",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Please find attached press release being made to the press for signing of agreements between Petronet LNG Limited and Oil and Natural Gas Corporation Limited and between Petronet LNG Limited ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/aa589ea9-5373-4726-98de-ed1c418bb0b9.pdf"
+    },
+    {
+      "date": "2025-12-10T17:50:31.97",
+      "subject": "Announcement under Regulation 30 (LODR)-Memorandum of Understanding /Agreements",
+      "detail": "Please find attached intimation regarding execution of loan agreement with State Bank of India and Bank of Baroda for Rupee Term Loan (RTL) facility of Rs. 12,000 crore for Petrochemicals ....",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e801cc4c-1fdb-4624-9995-09f1eb918677.pdf"
+    },
+    {
+      "date": "2025-12-05T12:16:28.19",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Publication of notice of change in situation of registered office of the Company on 05.12.2025 in Hindustan Times (English) and Dainik Jagran (Hindi) is enclosed herewith.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7139bb3e-72da-4d3a-b774-dfea3e1d653f.pdf"
+    },
+    {
+      "date": "2025-12-03T17:06:15.687",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "We are sending herewith copy of the Press Release titled ''Oil and Natural Gas Corporation Limited (ONGC) execute 15-years Ethane Unloading, Storage and Handling (USH) Services Binding ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/20506cd8-55a7-45ce-855a-f1a53fd42aaf.pdf"
+    },
+    {
+      "date": "2025-11-27T17:13:10.293",
+      "subject": "Change Of Situation Of Registered Office Of The Company Within Local Limits Of New Delhi",
+      "detail": "The intimation regarding change in situation of registered office is attached herewith. The changed address is as under: Fourth Floor, Tower-I, World Trade Centre, Nauroji Nagar, New Delhi - 110029.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5ec8e698-1e7e-4cc9-8b08-429dcaf599cd.pdf"
+    },
+    {
+      "date": "2025-11-07T16:46:22.1",
+      "subject": "UFR 30.09.2025",
+      "detail": "UFR for the quarter and half-year ended 30.09.2025 are enclosed herewith. Standalone Networth Rs. 20,588.71 crore and consolidated networth Rs. 21,099.70 crore",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2c720f6f-a918-4765-9aca-5d5d7ec3e97a.pdf"
+    },
+    {
+      "date": "2025-11-07T16:11:25.01",
+      "subject": "Extension Of Tenure Of Shri Pramod Narang, (DIN: 07792813) Director (Technical)",
+      "detail": "The Board, in its Meeting held on 07.11.2025, has approved the extension of tenure of Shri Pramod Narang, (DIN: 07792813) Director (Technical), the letter of which is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7dc96427-b0d5-4b02-8959-d706345cf0da.pdf"
+    },
+    {
+      "date": "2025-11-07T16:08:33.73",
+      "subject": "Extension Of Tenure Of Shri Akshay Kumar Singh, (DIN: 03579974) MD & CEO",
+      "detail": "The Board, in its Meeting held on 07.11.2025, has approved the extension of Shri Akshay Kumar Singh (DIN: 03579974), the letter of which is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4a4ba1a8-d361-4b7a-81cd-22f2acea3aee.pdf"
+    },
+    {
+      "date": "2025-09-22T17:56:07.78",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Corporate Disclosure regarding joining of Shri Roopesh Kumar Tiwari as Executive Director (HR) (one level below Board of Directors) in the Company on 22.09.2025 is attached herewith.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7eea2595-f362-479d-a80d-1fde4c076964.pdf"
+    },
+    {
+      "date": "2025-08-29T19:49:24.61",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "The Business Responsibility and Sustainability Report for FY 2024-25 is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/be09bdf0-2e72-4eab-b077-110332bff996.pdf"
+    },
+    {
+      "date": "2025-08-20T19:18:32.08",
+      "subject": "Intimation Under Regulation 30 Of The SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015\r\n",
+      "detail": "Communication to Shareholders regarding 100 days campaign - Saksham Niveshak",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e02b32b8-c10b-4a42-87f3-09dcff0d7544.pdf"
+    },
+    {
+      "date": "2025-07-25T19:02:01.76",
+      "subject": "In-Principle Approval For Additional Investment For Setting Up Of Land-Based R-LNG Terminal Of 5 MMTPA Capacity At Gopalpur Port, Ganjam, Odisha From Earlier Approval Of 4 MMTPA FSRU Based LNG Terminal",
+      "detail": "Disclosure is attached herewith",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5c1e3e12-fe23-458c-b3fe-01e46533bbab.pdf"
+    },
+    {
+      "date": "2025-07-25T18:55:43.04",
+      "subject": "Board Meeting Outcome for Unaudited Financial Results For The Quarter Ended 30.06.2025",
+      "detail": "The unaudited financial results of the Company (standalone and consolidated) for the quarter ended 30.06.2025 are attached herewith.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/048c76c4-f7fb-421b-8136-0424ad7a97e7.pdf"
+    },
+    {
+      "date": "2025-07-10T14:56:00.16",
+      "subject": "Announcement under Regulation 30 (LODR)-Award_of_Order_Receipt_of_Order",
+      "detail": "Disclosure of execution of regasification agreement between Petronet LNG Limited and Performance Chemiserve Limited on 10.07.2025, as per Reg 30 is attached herewith.",
+      "category": "New Order",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4bcb7c20-4712-4945-95c8-f7995a60c86e.pdf"
+    },
+    {
+      "date": "2025-06-30T18:57:12.767",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Intimation regarding change in senior management personnel (one level below Board) is enclosed herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7481ba78-d4bc-4fa3-91d6-698dcfa20e26.pdf"
+    },
+    {
+      "date": "2025-05-27T11:15:08.673",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Notice in newspapers about postal ballot notice and other related details is attached herewith.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9a3e49b9-893a-4140-91f0-c5c4367cd6ba.pdf"
+    },
+    {
+      "date": "2025-05-19T17:33:41.037",
+      "subject": "Audited Financial Results (Standalone And Consolidated) Along With Independent Auditors' Report For The Quarter And Year Ended 31St March 2025",
+      "detail": "Audited financial results for the quarter and year ended on 31.03.2025 are enclosed herewith",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/089c2e2d-80c8-4a56-8b62-077444c7c290.pdf"
+    },
+    {
+      "date": "2025-04-29T12:16:36.937",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Notice published in Hindustan Times (English) and Amar Ujala (Hindi) on 29.04.2025 requesting shareholders to register/ update their email addresses to receive communications from the Company ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e68af444-9f7f-4298-974f-3086ee4927d2.pdf"
+    },
+    {
+      "date": "2025-04-22T10:24:02.407",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "This is in continuation of our earlier disclosure dated 16.04.2025.\r\n\r\nThe intimation regarding joining the Company and taking the charge as Director (Finance) & Chief Financial Officer ....",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/563e6e26-c774-4806-b8dd-f31271bfc96b.pdf"
+    },
+    {
+      "date": "2025-04-18T11:55:25.08",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Due to completion of tenure on 17.04.2025, Shri Vinod Kumar Mishra (DIN: 8125144) has ceased to be Director (Finance) & CFO of the Company w.e.f. 18.04.2025.\r\n",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c3f7a502-cdaa-4114-9845-e139b9edce75.pdf"
+    },
+    {
+      "date": "2025-04-16T17:47:59.323",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "The Board in its Meeting held on 16.04.2025 has appointed Shri Saurav Mitra (DIN: 07684414) as Director (Finance) & CFO from the date of his joining.\r\n\r\nOther details are in enclosed letter.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b4c15d49-fc3a-41c7-8432-6313afe39f2a.pdf"
+    },
+    {
+      "date": "2025-04-16T16:12:45.637",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "The Bord in its Meeting held on 16.04.2025 has appointed Shri Saurav Mitra (DIN: 07684414) as Director (Finance) and Chief Financial Officer of the Company. other details are in the enclosed letter.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fffbe93a-8d8f-46a3-8149-0427703970ab.pdf"
+    },
+    {
+      "date": "2025-03-25T14:51:43.233",
+      "subject": "Dissemination Of Letter From NSE Dated 24.03.2025",
+      "detail": "Letter received from NSE dated 24.03.2025 and corrective action taken by the Company in compliance of the advice from NSE is enclosed herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0c453619-4aca-4d05-8124-9e2096e7ee3f.pdf"
+    },
+    {
+      "date": "2025-02-10T12:14:11.64",
+      "subject": "Integrated Filing (Financial)",
+      "detail": "Please find attached Integrated Fling Report for the quarter and nine months period ended 31.12.2024.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/36b4b97a-830c-4f51-bb1a-38dd64126934.pdf"
+    },
+    {
+      "date": "2025-02-06T16:42:38.147",
+      "subject": "Announcement under Regulation 30 (LODR)-Award_of_Order_Receipt_of_Order",
+      "detail": "Corporate Disclosure on Execution of Definitive Agreements for sale and purchase of Propylene and Hydrogen between the Company and Deepak Phenolics Limited is attached herewith",
+      "category": "New Order",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8a2076f8-bfd9-4f92-a1fc-b6eb4d71d74f.pdf"
+    },
+    {
+      "date": "2025-01-27T17:02:53.33",
+      "subject": "Unaudited Financial Results For The Quarter And Nine Months Period Ended 31.12.2024",
+      "detail": "Unaudited financial results (standalone and consolidated) for the quarter and nine months ended 31.12.2024 alongwith Limited Review Report (without any qualification) are enclosed herewith.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/34f24d64-c1b4-4b39-bde3-9cc0e55eac3f.pdf"
+    },
+    {
+      "date": "2025-01-27T16:52:41.423",
+      "subject": "Announcement under Regulation 30 (LODR)-Award_of_Order_Receipt_of_Order",
+      "detail": "Corporate Disclosure for execution of Definitive Agreements for sale and purchase of Propylene and Hydrogen between the Company and Deepak Phenolics Limited is attached herewith",
+      "category": "New Order",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9d515a82-d0b7-4c92-9841-8f69fd48262a.pdf"
+    },
+    {
+      "date": "2025-01-02T13:58:43.65",
+      "subject": "Rumour verification - Regulation 30(11)",
+      "detail": "Clarification on the news/ information uploaded on Petroleum and Natural Gas Regulatory Board''s (PNGRB) website titled as ''Optimising LNG supplies from Terminals in India'' is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/73818cab-2084-4cd5-a1f2-86e8fabf1d80.pdf"
+    },
+    {
+      "date": "2024-12-10T12:27:58.387",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Publication of notice requesting shareholders to update/ register their email addresses for receiving communications from the Company.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/386c3654-d097-4276-b4a4-961815ab01f2.pdf"
+    },
+    {
+      "date": "2024-10-22T10:45:55.463",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Newspaper clipping for information regarding postal ballot and date of despatch is attached herewith.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/21a4b092-277a-4282-9786-56078539a221.pdf"
+    },
+    {
+      "date": "2024-10-01T17:40:18.61",
+      "subject": "Commissioning Of Two LNG Storage Tanks I.E. T-107 & T-108 At Dahej",
+      "detail": "Disclosure under Reg 30 of SEBI LODR Regulations, 2015 regarding the captioned subject is enclosed herewith.\r\n",
+      "category": "Business Expansion",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/edd0cfdc-367c-423c-b011-ecd9858e7135.pdf"
+    },
+    {
+      "date": "2024-09-20T18:05:29.253",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding Issue of Letter of Confirmation to the Shareholder under Regualation 39(3) of SEBI (LODR) 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a7e57525-4b1d-491b-851f-70fceb7153d5.pdf"
+    },
+    {
+      "date": "2024-09-09T15:59:04.427",
+      "subject": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report",
+      "detail": "Voting Results as per Reg 44 of SEBI LODR and Scrutinisers Report is attached.\r\n\r\n",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/80fc71f1-3795-4058-b1c7-9a3d6e4df015.pdf"
+    },
+    {
+      "date": "2024-09-09T15:18:17.97",
+      "subject": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report",
+      "detail": "Voting Results as per Reg 44 of SEBI LODR and Scrutinisers Report are attached herewith.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/624161ed-a54e-497b-94cd-0f0da4cf87d3.pdf"
+    },
+    {
+      "date": "2024-08-20T16:38:13.417",
+      "subject": "Signing Of An Mou With LTL Holdings Limited (LTL) Of Sri Lanka",
+      "detail": "Intimation regarding signing of an MOU with LTL holdings Limited (LTL) of Sri Lanka is enclosed herewith.",
+      "category": "Joint Venture",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b211edff-144b-4ca9-92ba-fbb45f30ebcf.pdf"
+    },
+    {
+      "date": "2024-08-14T17:34:19.75",
+      "subject": "Order From Department Of Goods And Service Tax, Office Of The Sales Tax Officer Class II, New Delhi",
+      "detail": "The information pursuant to Reg 30 of SEBI LODR Regulations, 2015 regarding order from Department of Goods and Service Tax, Office of the Sales Tax Officer Class II, New Delhi and is attached ....",
+      "category": "New Order",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cbf0d49f-c643-4926-9858-0977f8f2b3e0.pdf"
+    },
+    {
+      "date": "2024-08-10T16:10:19.463",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "The Business Responsibility and Sustainability report for FY 2023-24 is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f39a58f2-e0a1-4de6-9180-5b60b3ce6e38.pdf"
+    },
+    {
+      "date": "2024-07-24T14:08:35.973",
+      "subject": "Unaudited Financial Results Along With Limited Review Report For The Quarter Ended 30Th June 2024",
+      "detail": "The Board of Directors, in its Meeting held on 24.07.2024, has approved unaudited financial results of the Company (Standalone and Consolidated) for the quarter ended 30.06.2024, which ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a575bd9d-b8fc-4d57-8dce-f5ca453a9c27.pdf"
+    },
+    {
+      "date": "2024-07-01T11:13:52.99",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Shri Sanjay Kumar Rastogi, GGM & President (Technical & HSE) {Senior Management Personnel} has retired from the services of Petronet LNG Limited on 30.06.2024 due to attaining the age of ....",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c0599bb0-e337-4998-b25f-f0867ef22dd8.pdf"
+    },
+    {
+      "date": "2024-06-18T12:51:24.563",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press clipping for postal ballot notice and completion of despatch is attached herewith",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/933e08f2-5c2d-4055-b7cf-68529774ad57.pdf"
+    },
+    {
+      "date": "2024-06-10T11:34:31.15",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press clipping of notice published in newspaper for registering/updating email is enclosed herewith",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4763d52c-1cd8-46e9-ae3b-a90d03a9e162.pdf"
+    },
+    {
+      "date": "2024-05-23T16:49:18.02",
+      "subject": "Audio Recording Of Post-Results Conference Call Held On 23Rd May 2024",
+      "detail": "The audio recording intimation is attached herewith.\r\n\r\n",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9e69a070-80e0-45f2-aa0e-6b89158ff7d5.pdf"
+    },
+    {
+      "date": "2024-05-20T15:46:49.08",
+      "subject": "Intimation Regarding Post-Results Conference Call Pursuant To Regulation 30 Of Securities And Exchange Board Of India (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": " Post-results conference call of the company has been scheduled on Thursday, 23.05.2024 at 12:00 Hrs (IST). The invite is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3b9367be-cda7-4730-b13a-65dfcbec0561.pdf"
+    },
+    {
+      "date": "2024-02-06T15:04:59.097",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "A copy of press release titled ''Petronet LNG Limited executes Long term contract for purchase of 7.5 MMTPA LNG with QatarEnergy'' is enclosed herewith.",
+      "category": "New Order",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/45b1660a-88b4-4aa9-8740-5bd31fc7fe65.pdf"
+    },
+    {
+      "date": "2024-01-29T17:18:40.307",
+      "subject": "Unaudited Financial Results For The Quarter And Nine-Months Ended 31St December 2023\r\n",
+      "detail": "Unaudited financial results (standalone and consolidated) for the quarter and nine-months period ended 31.12.2023 are enclosed.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/60c32c26-b5b5-49af-aabd-3c6cbf60059d.pdf"
+    },
+    {
+      "date": "2024-01-15T19:02:25.017",
+      "subject": "Disclosures under Reg. 29(1) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 29(1) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for SBI Funds Management Ltd",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/F5ED6404_68CC_4C0E_8411_220810E754A1_190220.pdf"
+    },
+    {
+      "date": "2023-12-27T17:57:10.213",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Communication titled ''Petronet LNG Limited signs the binding Transaction documents with Gopalpur Ports Limited for setting up of LNG Terminal on the east cost of India, to be disseminated ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/42a69c1a-6c84-4aa0-8ab9-c47b85469e8b.pdf"
+    },
+    {
+      "date": "2023-12-01T23:18:19.657",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "The intimation for change in management is attached herewith.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4bc0792b-e3db-49f2-aa0e-77d286d1a248.pdf"
+    },
+    {
+      "date": "2023-11-09T14:30:19.353",
+      "subject": "Disclosures under Reg. 29(2) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for FMR LLC & FIL Ltd",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/F65F527E_03AA_4C3D_88EF_5C67EF6D6734_143016.pdf"
+    },
+    {
+      "date": "2023-11-08T21:12:45.547",
+      "subject": "Communication To Shareholders Regarding Intimation - Online Dispute Resolution (ODR) Mechanism & Extension Of KYC Updation Timeline",
+      "detail": "Communication to Shareholders regarding Intimation - Online Dispute Resolution (ODR) Mechanism & Extension of KYC updation timeline",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/df1fd4a6-639e-4f69-94b8-6aa7f915efa2.pdf"
+    },
+    {
+      "date": "2023-10-30T14:06:11.727",
+      "subject": "Announcement under Regulation 30 (LODR)-Diversification / Disinvestment",
+      "detail": "Investment approval of Petrochemicals plant and execution of term sheet. the intimation is enclosed",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4f043a91-6e0d-48a2-8ff5-d97f47d7d7f1.pdf"
+    },
+    {
+      "date": "2023-10-16T16:35:53.987",
+      "subject": "Intimation Of Amended Policy To Determine Materiality Of Events",
+      "detail": "Please find attached the amended ''Policy to determine Materiality of Events'' in line with amendments to Reg 30 of SEBI LODR Regulations, 2015.\r\nThe details of KMPs who shall determine ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/05d242ca-a576-4659-86d9-26cc2879578f.pdf"
+    },
+    {
+      "date": "2023-09-29T15:38:13.923",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "The BRSR for FY 2022-23 is attached.\r\n\r\n",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dfc42db9-76b2-4a5c-8981-98ea72087377.pdf"
+    },
+    {
+      "date": "2023-09-29T15:05:33.09",
+      "subject": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report",
+      "detail": "voting results and scrutiniser''s report are attached",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3a00ce2f-89bc-446c-b89f-9ac1c0513504.pdf"
+    },
+    {
+      "date": "2023-07-31T16:31:00.447",
+      "subject": "Unaudited Financial Results Along With Limited Review Report For The Quarter Ended 30Th June 2023",
+      "detail": "The Board of PLL, in its Meeting held on 31.07.2023 has approved the unaudited financial results of the Company (Standalone and Consolidated) for the quarter ended 30.06.2023, attached herewith. ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e26dd4bd-4595-427b-bc05-5a5ada510cde.pdf"
+    },
+    {
+      "date": "2023-07-31T16:25:30.137",
+      "subject": "Board Meeting Outcome for Unaudited Financial Results Along With Limited Review Report For The Quarter Ended 30Th June 2023",
+      "detail": "In terms of provisions of SEBI (LODR) Regulations, 2015, we hereby inform the following:<BR> <BR> i) The Board of Directors of the Company has, in its Meeting held on 31st July 2023, inter-alia, ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c39e0b80-233c-4d88-8eeb-67d0d4272657.pdf"
+    },
+    {
+      "date": "2023-05-25T12:58:03.837",
+      "subject": "Compliances-Reg.24(A)-Annual Secretarial Compliance",
+      "detail": "Pursuant to Regulation 24A of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 read with circulars issued by SEBI, please find attached herewith the Annual Secretarial ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d8648000-7535-428c-a258-06d79fef78c3.pdf"
+    },
+    {
+      "date": "2023-05-09T14:47:54.587",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Pursuant to Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, please find enclosed herewith copy of newspaper clipping with respect to information ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c8702e1b-1783-434f-b0bd-e5d3a16fedcf.pdf"
+    },
+    {
+      "date": "2023-05-04T16:41:49.887",
+      "subject": "Audio Recording Of Post-Results Conference Call Held On 03.05.2023",
+      "detail": "This is with reference to our intimation dated 28th April 2023 intimating holding Conference Call of the Company on Wednesday, 3rd May 2023 at 6:30 PM (IST) for Audited Financial Results ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0c1f6fab-0e35-4ef4-9e23-c38bbaeed300.pdf"
+    },
+    {
+      "date": "2023-05-03T16:53:13.65",
+      "subject": "Audited Financial Results (Standalone And Consolidated) Along With Independent Auditors' Report For The Quarter And Year Ended 31St March 2023 \r\n",
+      "detail": "Pursuant to the provisions of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, we hereby inform the following:\r\n\r\ni) The Board of Directors of the Company has, ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/77d6c271-c907-48a4-8bd9-2996d763f6d7.pdf"
+    },
+    {
+      "date": "2023-04-28T14:54:10.89",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Pursuant to Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, please find enclosed herewith copy of newspaper clipping requesting shareholders for ....",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f35c0ff1-b01b-4319-ae55-77d57d041ffd.pdf"
+    }
+  ]
+}
