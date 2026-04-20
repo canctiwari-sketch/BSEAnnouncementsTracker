@@ -1241,3 +1241,45 @@ a.company-name:hover {
     white-space: nowrap;
 }
 .lookup-pdf-link:hover { background: #f0ecf8; }
+
+/* ─── Research button & results ──────────────────────────────────────────── */
+.research-fetch-btn {
+    background: #1a5276;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 16px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+.research-fetch-btn:hover:not(:disabled) { background: #2471a3; }
+.research-fetch-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+.lookup-status.research-ready {
+    background: #eafaf1;
+    color: #1e8449;
+    font-size: 0.88rem;
+}
+.research-download-link {
+    font-weight: 700;
+    color: #1a5276;
+    text-decoration: none;
+    border: 1px solid #1a5276;
+    border-radius: 4px;
+    padding: 3px 10px;
+    margin: 0 8px;
+}
+.research-download-link:hover { background: #d6eaf8; }
+.research-clear-btn {
+    background: none;
+    border: 1px solid #e0e0e0;
+    color: #d32f2f;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 0.78rem;
+    cursor: pointer;
+}
+.research-clear-btn:hover { background: #fff0f0; }

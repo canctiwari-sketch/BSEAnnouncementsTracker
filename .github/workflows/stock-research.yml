@@ -1,0 +1,56 @@
+name: Stock Research Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      company_name:
+        description: 'Company display name'
+        required: true
+        type: string
+      scrip_code:
+        description: 'BSE scrip code'
+        required: true
+        type: string
+      nse_symbol:
+        description: 'NSE symbol (optional)'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3 google-generativeai python-docx duckduckgo-search pypdf2 beautifulsoup4 python-dotenv
+
+      - name: Run research worker
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          COMPANY_NAME: ${{ github.event.inputs.company_name }}
+          SCRIP_CODE: ${{ github.event.inputs.scrip_code }}
+          NSE_SYMBOL: ${{ github.event.inputs.nse_symbol }}
+        run: python worker/research.py
+
+      - name: Commit and push report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/research/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Research report: ${{ github.event.inputs.company_name }}"
+            git push
+          fi

@@ -892,6 +892,7 @@ function importWatchlist(event) {
 const REPO = "canctiwari-sketch/BSEAnnouncementsTracker";
 let lookupSelectedCompany = null;   // { name, scrip_code }
 let lookupPollTimer = null;
+let researchPollTimer = null;
 let lookupSuggestIdx = -1;
 
 // Build a deduplicated company list from loaded announcements
@@ -927,6 +928,7 @@ function closeLookup() {
 function onLookupInput() {
     const q = document.getElementById("lookupInput").value.trim().toLowerCase();
     document.getElementById("lookupFetchBtn").disabled = true;
+    document.getElementById("researchBtn").disabled = true;
     lookupSelectedCompany = null;
     lookupSuggestIdx = -1;
 
@@ -986,6 +988,7 @@ function selectLookupCompany(idx) {
     lookupSelectedCompany = matches[idx];
     document.getElementById("lookupInput").value = lookupSelectedCompany.name;
     document.getElementById("lookupFetchBtn").disabled = false;
+    document.getElementById("researchBtn").disabled = false;
     hideLookupSuggest();
 }
 
@@ -1123,6 +1126,7 @@ async function clearLookup() {
     document.getElementById("lookupStatus").style.display = "none";
     document.getElementById("lookupInput").value = "";
     document.getElementById("lookupFetchBtn").disabled = true;
+    document.getElementById("researchBtn").disabled = true;
     lookupSelectedCompany = null;
 
     // Delete the file from GitHub if we have a token and a scrip code
@@ -1147,4 +1151,132 @@ async function clearLookup() {
             }
         );
     } catch {}
+}
+
+// ─── Stock Research ───────────────────────────────────────────────────────────
+
+async function triggerResearch() {
+    if (!lookupSelectedCompany) return;
+
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token) {
+        setLookupStatus("⚠️ GitHub token required. Set it via the Watchlist sync setup.", "error");
+        return;
+    }
+
+    setLookupStatus(`⟳ Dispatching research workflow for ${lookupSelectedCompany.name}... This will take ~5-10 minutes.`, "loading");
+
+    // Find NSE symbol from our dataset
+    const nseEntry = (allAnnouncements || []).find(a =>
+        a.exchange === "NSE" && a.company &&
+        a.company.toLowerCase().includes(lookupSelectedCompany.name.toLowerCase().split(" ")[0].toLowerCase())
+    );
+    const nseSymbol = nseEntry ? (nseEntry.symbol || "") : "";
+
+    try {
+        const resp = await fetch(
+            `https://api.github.com/repos/${REPO}/actions/workflows/stock-research.yml/dispatches`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `token ${token}`,
+                    Accept: "application/vnd.github.v3+json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    ref: "main",
+                    inputs: {
+                        company_name: lookupSelectedCompany.name,
+                        scrip_code: lookupSelectedCompany.scrip_code,
+                        nse_symbol: nseSymbol,
+                    },
+                }),
+            }
+        );
+        if (resp.status === 422) {
+            setLookupStatus("⚠️ Token needs 'workflow' scope. Please regenerate your GitHub PAT.", "error");
+            return;
+        }
+        if (!resp.ok) {
+            setLookupStatus(`⚠️ Failed to trigger workflow (HTTP ${resp.status}).`, "error");
+            return;
+        }
+    } catch (e) {
+        setLookupStatus(`⚠️ Network error: ${e.message}`, "error");
+        return;
+    }
+
+    // Poll for .docx file
+    const scrip = lookupSelectedCompany.scrip_code;
+    const name = lookupSelectedCompany.name;
+    let elapsed = 0;
+    clearInterval(researchPollTimer);
+
+    researchPollTimer = setInterval(async () => {
+        elapsed += 15;
+        const mins = Math.floor(elapsed / 60);
+        const secs = elapsed % 60;
+        const timeStr = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+        setLookupStatus(`⟳ Generating deep research report for ${name}... (${timeStr} elapsed)`, "loading");
+
+        const found = await pollResearchResult(scrip, name);
+        if (found) {
+            clearInterval(researchPollTimer);
+        } else if (elapsed > 900) {
+            clearInterval(researchPollTimer);
+            setLookupStatus("⚠️ Timed out after 15 minutes. Check GitHub Actions for errors.", "error");
+        }
+    }, 15000);
+}
+
+async function pollResearchResult(scripCode, companyName) {
+    // Search for any .docx file in data/research/ matching this scrip
+    try {
+        const url = `https://api.github.com/repos/${REPO}/contents/data/research`;
+        const token = localStorage.getItem(GH_TOKEN_KEY);
+        const r = await fetch(url, {
+            headers: token ? { Authorization: `token ${token}` } : {}
+        });
+        if (!r.ok) return false;
+        const files = await r.json();
+        const match = files.find(f => f.name.includes(scripCode) && f.name.endsWith(".docx"));
+        if (match) {
+            showResearchDownload(match.download_url, companyName, match.name);
+            return true;
+        }
+    } catch {}
+    return false;
+}
+
+function showResearchDownload(downloadUrl, companyName, fileName) {
+    const statusEl = document.getElementById("lookupStatus");
+    statusEl.style.display = "block";
+    statusEl.className = "lookup-status research-ready";
+    statusEl.innerHTML = `✅ Research report ready for <strong>${escapeHtml(companyName)}</strong> —
+        <a href="${escapeAttr(downloadUrl)}" download="${escapeAttr(fileName)}" class="research-download-link">⬇ Download .docx</a>
+        <button class="research-clear-btn" onclick="clearResearch('${escapeAttr(fileName)}')">Remove</button>`;
+}
+
+async function clearResearch(scripCode) {
+    clearInterval(researchPollTimer);
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    if (!token) return;
+    try {
+        // Find and delete the file
+        const url = `https://api.github.com/repos/${REPO}/contents/data/research`;
+        const r = await fetch(url, { headers: { Authorization: `token ${token}` } });
+        if (!r.ok) return;
+        const files = await r.json();
+        const match = files.find(f => f.name.includes(scripCode) && f.name.endsWith(".docx"));
+        if (!match) return;
+        await fetch(
+            `https://api.github.com/repos/${REPO}/contents/data/research/${match.name}`,
+            {
+                method: "DELETE",
+                headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: `Remove research: ${match.name}`, sha: match.sha }),
+            }
+        );
+    } catch {}
+    document.getElementById("lookupStatus").style.display = "none";
 }
