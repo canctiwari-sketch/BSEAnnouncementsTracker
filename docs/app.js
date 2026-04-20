@@ -765,7 +765,7 @@ function renderWatchlistModal() {
 
     const hasToken = !!localStorage.getItem(GH_TOKEN_KEY);
     const syncStatus = hasToken
-        ? '<span class="wl-sync-status wl-synced" title="Syncing to GitHub">&#9679; Cloud synced</span>'
+        ? '<span class="wl-sync-status wl-synced">&#9679; Cloud synced &mdash; <a href="#" onclick="event.preventDefault();setupGitHubToken()" style="color:#5a3d8a;font-size:0.78rem">Update token</a></span>'
         : '<span class="wl-sync-status wl-not-synced" onclick="setupGitHubToken()" title="Click to connect">&#9679; Not synced — <a href="#" onclick="event.preventDefault();setupGitHubToken()">Connect GitHub</a></span>';
 
     if (!keys.length) {
