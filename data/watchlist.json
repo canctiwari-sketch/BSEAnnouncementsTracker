@@ -109,5 +109,23 @@
         "added_on": "2026-03-28T09:09:41.907Z"
       }
     ]
+  },
+  "506690_BSE": {
+    "company": "Unichem Laboratories Ltd",
+    "symbol": "506690",
+    "exchange": "BSE",
+    "market_cap": 24156212825,
+    "market_cap_fmt": "2.42K Cr",
+    "notes": [
+      {
+        "subject": "Unichem Laboratories Ltd - 506690 - Announcement Under Reg. 30 - Product Recall",
+        "category": "Regulatory",
+        "ai_summary": "Unichem Laboratories Ltd announced a voluntary product recall by its wholly-owned subsidiary, Unichem Pharmaceuticals (USA), Inc., for its Buspirone Hydrochloride Tablets, USP, 5 mg strength in 500 count bottles. The recall is due to an out-of-specification (OOS) assay result identified at the 12-month long-term stability time point. The company has not received any reports of adverse events related to this recall to date. Unichem Laboratories Ltd emphasizes its highest priority on patient safety and product quality. This disclosure is made under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015. The recall is effective from the date of the announcement.",
+        "date": "2026-04-12T18:54:27.617",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6ccfd91c-dcfb-4157-b98c-3a427056658a.pdf",
+        "added_on": "2026-04-20T10:22:18.486Z",
+        "user_note": "Looks Attractive"
+      }
+    ]
   }
 }
