@@ -1254,6 +1254,10 @@ async function triggerResearch() {
     let elapsed = 0;
     clearInterval(researchPollTimer);
 
+    // Immediate first check (in case file already exists from prior run)
+    const foundImmediate = await pollResearchResult(scrip, name);
+    if (foundImmediate) return;
+
     researchPollTimer = setInterval(async () => {
         elapsed += 15;
         const mins = Math.floor(elapsed / 60);
@@ -1272,15 +1276,27 @@ async function triggerResearch() {
 }
 
 async function pollResearchResult(scripCode, companyName) {
-    // Search for any .docx file in data/research/ matching this scrip
+    // Strategy 1: direct HEAD check on expected filename (no caching/rate-limit issues)
+    const expectedFilename = `${companyName.replace(/ /g, '_')}_${scripCode}_Analysis_Report.docx`;
+    const rawUrl = `https://raw.githubusercontent.com/${REPO}/main/data/research/${encodeURIComponent(expectedFilename)}`;
+    try {
+        const r = await fetch(`${rawUrl}?t=${Date.now()}`, { method: 'HEAD', cache: 'no-store' });
+        if (r.ok) {
+            showResearchDownload(rawUrl, companyName, expectedFilename);
+            return true;
+        }
+    } catch {}
+
+    // Strategy 2: fall back to directory listing with cache-bust
     try {
         const url = `https://api.github.com/repos/${REPO}/contents/data/research?t=${Date.now()}`;
         const token = localStorage.getItem(GH_TOKEN_KEY);
-        const headers = { 'Cache-Control': 'no-cache' };
+        const headers = { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' };
         if (token) headers['Authorization'] = `token ${token}`;
-        const r = await fetch(url, { headers });
+        const r = await fetch(url, { headers, cache: 'no-store' });
         if (!r.ok) return false;
         const files = await r.json();
+        if (!Array.isArray(files)) return false;
         const match = files.find(f => f.name.includes(scripCode) && f.name.endsWith(".docx"));
         if (match) {
             showResearchDownload(match.download_url, companyName, match.name);
