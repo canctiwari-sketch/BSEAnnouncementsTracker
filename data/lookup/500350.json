@@ -3,7 +3,960 @@
   "scrip_code": "500350",
   "from_date": "2023-04-21",
   "to_date": "2026-04-20",
-  "fetched_at": "2026-04-20T08:45:46.778228",
-  "total": 0,
-  "announcements": []
+  "fetched_at": "2026-04-20T08:52:13.766151",
+  "total": 136,
+  "announcements": [
+    {
+      "date": "2026-04-13T19:27:51.217",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/85b59c9b-f3e2-4cdf-a92d-6ed0e918838a.pdf"
+    },
+    {
+      "date": "2026-04-10T17:55:02.85",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/80c622b2-49e6-4350-9855-3a8da66b7422.pdf"
+    },
+    {
+      "date": "2026-04-09T16:51:58.583",
+      "subject": "Announcement under Regulation 30 (LODR)-Preferential Issue",
+      "detail": "Preferential Issue",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f202b513-99dc-4565-a702-ec08a8ac551f.pdf"
+    },
+    {
+      "date": "2026-04-09T16:17:25.7",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting",
+      "detail": "Outcome of Board Meeting",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9359259-8c6d-473a-873c-8c3f7777ad50.pdf"
+    },
+    {
+      "date": "2026-04-07T17:24:40.363",
+      "subject": "Re-Lodgement Of Transfer Requests Of Physical Shares For The Month Of March, 2026",
+      "detail": "Re-lodgment of transfer request of physhical shares for the Month of March, 2026",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4bb43e6c-06d2-460e-88d7-b7bc46855112.pdf"
+    },
+    {
+      "date": "2026-04-02T15:37:31.66",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulation, 2015\r\n",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/932d71cf-e0af-4305-aa34-fd9a4339b4f0.pdf"
+    },
+    {
+      "date": "2026-03-31T16:12:15.17",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Change in Senior Management Personnel",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ae2f57e7-92fb-4034-9576-555cc47faaee.pdf"
+    },
+    {
+      "date": "2026-03-27T17:51:23.337",
+      "subject": "Intimation Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b9dda0e6-2a8f-4dca-83c9-9e848cdb1ae4.pdf"
+    },
+    {
+      "date": "2026-03-26T17:57:55.813",
+      "subject": "Proceedings Of Postal Ballot 26-03-2026",
+      "detail": "Proceedings of Postal Ballot 26-03-2026",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3acbac6a-2887-47cb-84c2-ae62fab165da.pdf"
+    },
+    {
+      "date": "2026-03-13T14:35:58.52",
+      "subject": "Report On Re-Lodgement Of Transfer Requests Of Physical Shares",
+      "detail": "Report  on Re-lodgement of transfer requests of physical shares",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/36c379a2-b118-4211-8131-75e3578b27f0.pdf"
+    },
+    {
+      "date": "2026-02-24T18:14:29.077",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Change in Senior Management Personnel",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9cd43b37-b8b8-4601-a022-4b1ed14926d4.pdf"
+    },
+    {
+      "date": "2026-02-11T18:12:53.967",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release Q3 FY 2026",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bce08766-244a-44b8-9366-eefe034b4142.pdf"
+    },
+    {
+      "date": "2026-02-11T17:47:50.86",
+      "subject": "Outcome Of Board Meeting Held On 11Th February, 2026",
+      "detail": "Outcome of Board Meeting held on 11-02-2026",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9a3aa277-1820-46c8-80c2-14adc02860a3.pdf"
+    },
+    {
+      "date": "2026-02-11T17:45:31.407",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Outcome of Board Meeting held on 11-02-2026",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8b93375c-47ff-4df9-90d5-2654f950fe41.pdf"
+    },
+    {
+      "date": "2026-02-11T17:40:40.783",
+      "subject": "Board Meeting Outcome for Unaudited Financial Results For The Quarter And Nine Months Ended 31St December, 2025",
+      "detail": "Unaudited Financial Results for the quarter and nine months ended 31st December, 2025",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/98cb105e-89fe-4d81-8863-9e7adbe41043.pdf"
+    },
+    {
+      "date": "2026-02-11T17:29:24.81",
+      "subject": "Unaudited Financial Results For The Quarter And Nine Months Ended 31St December, 2025.",
+      "detail": "Unaudited Financial Results for the quarter and nine months ended 31st December, 2025.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/44271703-f644-41e5-9b07-fc720cb5cdd7.pdf"
+    },
+    {
+      "date": "2026-01-28T18:20:52.867",
+      "subject": "Environmental, Social And Governance Rating",
+      "detail": "Environmental, Social and Governance Rating",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a7d9df1a-32cb-4fd9-a4f6-79969ada87a4.pdf"
+    },
+    {
+      "date": "2026-01-27T18:36:03.533",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Intimation of Superannuation of Senior Management Personnel",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5e252f1f-e249-4497-beba-321663703bf7.pdf"
+    },
+    {
+      "date": "2026-01-22T11:35:42.487",
+      "subject": "Announcement under Regulation 30 (LODR)-Updates on Acquisition",
+      "detail": "Update on Corporate Announcement dated 6th November, 2025 and 21st January, 2026 regarding acquisition of LNJ Greenpet Private Limited.",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b682199a-3ca8-4d17-9efd-b12127c8f73b.pdf"
+    },
+    {
+      "date": "2026-01-21T18:30:24.59",
+      "subject": "Announcement under Regulation 30 (LODR)-Updates on Acquisition",
+      "detail": "Update on Corporate Announcement dated 06/11/2025.",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c858649b-84db-48e5-b94d-fd9476c6554c.pdf"
+    },
+    {
+      "date": "2026-01-07T17:20:40.4",
+      "subject": "Report On Re-Lodgement Of Transfer Requests Of Physical Shares.",
+      "detail": "Report on re-lodgement of transfer requests of physical shares.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1c101f5a-cc1f-4a3f-9c0c-25216641e40b.pdf"
+    },
+    {
+      "date": "2025-12-10T17:56:05.08",
+      "subject": "Re-Lodgement Of Transfer Requests Of Physical Shares.",
+      "detail": "Re-lodgement of Transfer Requests of Physical Shares.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/234a163e-570b-4bb5-b3dd-e531b0620e99.pdf"
+    },
+    {
+      "date": "2025-12-10T17:46:22.203",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Sale of redundant and non operational assets of Thermal Power Plant.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/82f81185-5bbf-4b8a-a565-df3f4408f787.pdf"
+    },
+    {
+      "date": "2025-11-18T14:51:37.02",
+      "subject": "Report Of Re-Lodgement Of Transfer Requests Of Physical Shares",
+      "detail": "Report of Re-lodgement of Transfer Requests of Physical shares.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4465ea76-0474-4f46-9594-df7665dc0ec3.pdf"
+    },
+    {
+      "date": "2025-11-06T19:18:06.187",
+      "subject": "Update On Closure Of Spinning Operations At Chhata Unit.",
+      "detail": "Update on Closure of Spinning Operations at Chhata Unit.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/488c0d08-86e5-4a1a-b4c7-7e445013eeaf.pdf"
+    },
+    {
+      "date": "2025-11-06T17:11:25.01",
+      "subject": "Announcement under Regulation 30 (LODR)-Acquisition",
+      "detail": "The Board has approved the purchase of 100% shareholding in M/s. LNJ Greenpet Private Limited.",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8ac09fa1-b70c-4bfc-92dc-a13279e2326a.pdf"
+    },
+    {
+      "date": "2025-11-06T17:03:39.967",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting 06-11-2025",
+      "detail": "Outcome of Board Meeting",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5bc4a74c-e334-4772-8008-d421a9e3854f.pdf"
+    },
+    {
+      "date": "2025-11-06T16:58:40.78",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dcf8dbf5-4961-4cce-9ca1-de1576027b42.pdf"
+    },
+    {
+      "date": "2025-11-06T16:35:06.017",
+      "subject": "Outcome Of Board Meeting Held On 6Th November, 2025",
+      "detail": "Outcome of Board Meeting.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/29a3659a-ed5c-4d12-b5a1-0ddf3c4a9813.pdf"
+    },
+    {
+      "date": "2025-11-05T12:22:31.477",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/10a9ae3e-cd37-4df0-88b3-07fea7e6c270.pdf"
+    },
+    {
+      "date": "2025-10-31T20:02:19.88",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015 .",
+      "detail": "Detailed disclosure attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a546017a-dcbc-45ff-9614-f4d658954c24.pdf"
+    },
+    {
+      "date": "2025-10-30T18:30:40.997",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting",
+      "detail": "Outcome of Board Meeting",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e6c0dda6-840e-41cb-9e7d-cf695ee887a7.pdf"
+    },
+    {
+      "date": "2025-10-14T12:14:27.927",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/86f24f58-00b7-4827-828d-37bd4020a6da.pdf"
+    },
+    {
+      "date": "2025-10-13T18:56:50.18",
+      "subject": "Intimation Under Regulation 30 Of The SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015.",
+      "detail": "Intimation under Regulation 30 of the SEBI (LODR) Regulations, 2015.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4579934e-5f38-4ce3-b54c-d93ad1cb7898.pdf"
+    },
+    {
+      "date": "2025-10-08T16:25:09.953",
+      "subject": "Re-Lodgement Of Transfer Requests Of Physical Shares",
+      "detail": "Re-lodgement of Transfer Requests of Physical shares.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ba0e816-8d6e-4334-accb-a71ca0d914f0.pdf"
+    },
+    {
+      "date": "2025-10-08T11:06:43.343",
+      "subject": "Intimation Under Regulation 30 Of SEBI (Listing Obligations And Disclosure  Requirements) Regulations, 2015 - Environmental, Social And Governance Rating",
+      "detail": "Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Environmental, Social and Governance Rating",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ad6dde84-7203-4e1f-9242-248a062eba28.pdf"
+    },
+    {
+      "date": "2025-09-30T14:08:44.513",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release titled \"RSWM charts bold sustainability Journey: Unveils Sustainability Report FY 2024-25 with record green milestones\".",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/90bfdb4e-6804-4104-81da-aecaa95e204c.pdf"
+    },
+    {
+      "date": "2025-09-11T17:05:30.22",
+      "subject": "Copy Of Communication - 100 Days Campaign - Saksham Niveshak.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b7562719-db72-4bc5-94c7-76a79c3923fa.pdf"
+    },
+    {
+      "date": "2025-09-11T17:00:59.84",
+      "subject": "Report Of Re-Lodgement Of Transfer Requests Of Physical Shares.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5eb1d6df-b4ba-4a1b-a02f-78c2f468cfc2.pdf"
+    },
+    {
+      "date": "2025-09-09T17:26:28.63",
+      "subject": "Updation Under Regulation 30 Of SEBI (LODR), Regulations, 2025.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/614f41ac-2f4d-495f-9488-8107e0d5525b.pdf"
+    },
+    {
+      "date": "2025-09-08T17:16:52.233",
+      "subject": "Disclosure Pertaining To Jammu Project.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d06393fc-d4d3-4759-96de-5ff8709e6a45.pdf"
+    },
+    {
+      "date": "2025-09-08T15:13:26.963",
+      "subject": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/05674ce4-68b5-4d3f-95cd-b7a318c37382.pdf"
+    },
+    {
+      "date": "2025-09-04T16:56:32.43",
+      "subject": "Power Supply And Management Agreement With Powerpulse Trading Solutions Limited.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d101b11f-7a5a-4e52-b36d-704607bdf2ac.pdf"
+    },
+    {
+      "date": "2025-08-12T16:00:17.127",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report for the financial year 2024-25.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b27b2c06-f9ba-4a9a-ba02-787eac47a0d5.pdf"
+    },
+    {
+      "date": "2025-08-05T18:44:36.613",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release attached.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd92db71-2f11-4d76-a563-0b03d42bac05.pdf"
+    },
+    {
+      "date": "2025-08-05T18:11:42.393",
+      "subject": "Board Comments On Penalty Imposed By The Exchange.",
+      "detail": "Attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f7a2bed7-3e95-45fc-9e04-4c0a25bd72e6.pdf"
+    },
+    {
+      "date": "2025-08-05T18:03:23.37",
+      "subject": "Capacity Addition.",
+      "detail": "Attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eaf5a6b9-2cef-4633-9131-a5118658de60.pdf"
+    },
+    {
+      "date": "2025-08-05T17:56:31.473",
+      "subject": "Financial Results For The Quarter Ended 30Th June, 2025.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b38611ea-1221-45ce-94d2-3b23ac370893.pdf"
+    },
+    {
+      "date": "2025-08-05T17:42:51.267",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 5Th August, 2025",
+      "detail": "Detailed disclosure is attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e0da8226-7111-48fc-974f-344641ea2304.pdf"
+    },
+    {
+      "date": "2025-07-25T16:24:21.55",
+      "subject": "Mandatory Furnishing Of PAN, KYC And Nomination By Holders Of Physical Shares.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/daffa98f-b985-4ab5-b9a5-43dd8745fc9d.pdf"
+    },
+    {
+      "date": "2025-07-02T14:46:17.57",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015.",
+      "detail": "Detailed letter attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f3e6d03d-e0e0-49e1-a815-d835a82a24ca.pdf"
+    },
+    {
+      "date": "2025-05-13T22:46:57.117",
+      "subject": "Update Under Regulation 30.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5a49d46d-9236-41b0-9556-f242938d8dd1.pdf"
+    },
+    {
+      "date": "2025-05-13T21:59:55.013",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Shri Manoj Kumar Bansal, Chief Transformation Officer has also been designated as Chief Risk Officer w.e.f. 13-05-2025. Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1f77529f-d59c-41e1-92a7-c99212a62fab.pdf"
+    },
+    {
+      "date": "2025-05-13T20:02:28.263",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release of the Company on the Audited Financial Results for the quarter and year ended 31-03-2025.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8a6c8cf6-d332-486b-8afd-709b2fbe2b3f.pdf"
+    },
+    {
+      "date": "2025-05-13T19:13:56.94",
+      "subject": "Audited Financial Results (Standalone And Consolidated) For The Quarter And Year Ended 31-03-2025.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/09476855-c48b-4fda-a541-ddc8d43b73b1.pdf"
+    },
+    {
+      "date": "2025-05-13T18:44:37.837",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 13Th May, 2025",
+      "detail": "The Board in its meeting held today inter-alia considered and approved the audited financial results (Standalone and Consolidated) for the quarter and year ended 31/03/2025 and appointment ....",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4802d3d8-ac84-4e74-9020-677ba2a48e2e.pdf"
+    },
+    {
+      "date": "2025-04-22T13:42:47.19",
+      "subject": "Announcement Under Regulation 30 Of SEBI (LODR) - Updates On Agreement.",
+      "detail": "Detailed disclosure is attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1a07f68-3680-4e71-a330-ccbade56da4d.pdf"
+    },
+    {
+      "date": "2025-04-02T15:11:43.53",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Re-designation of Senior Management Personnel. Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9515a8c0-7111-4990-b85d-524fe73d624a.pdf"
+    },
+    {
+      "date": "2025-03-12T15:38:47.98",
+      "subject": "Intimation Under Regulation 30 Of The SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/26aef5c0-d662-4c44-9e1c-9a76974e4458.pdf"
+    },
+    {
+      "date": "2025-03-10T18:47:47.587",
+      "subject": "Outcome Of Board Meeting Held On 10-03-2025",
+      "detail": "Outcome of Board meeting held on 10-03-2025. Detailed disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/37c22605-cc97-4662-8354-c8f1e4b6fb99.pdf"
+    },
+    {
+      "date": "2025-03-10T18:42:51.65",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 10-03-2025",
+      "detail": "Outcome of Board Meeting held on 10-03-2025. Detailed disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7429199e-5688-4e10-a8c7-9c66ee21f1a3.pdf"
+    },
+    {
+      "date": "2025-03-01T13:10:42.843",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (LODR) Regulations, 2015 - Waiver Of Fine",
+      "detail": "Detailed disclosure attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1ba9ab13-de3c-448b-b278-1240927ddf03.pdf"
+    },
+    {
+      "date": "2025-02-25T17:13:10.66",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Change in Management. Detailed disclosure attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a95e0f4c-91bb-4e9d-bf09-cbdac09b6e00.pdf"
+    },
+    {
+      "date": "2025-02-20T16:30:46.877",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015 - Postal Ballot Notice To Members.\r\n\r\n",
+      "detail": "Detailed disclosure attached.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/818400d8-aa4e-4f5c-bec9-a4b42881595a.pdf"
+    },
+    {
+      "date": "2025-02-19T15:19:35.443",
+      "subject": "Disclosures under Reg. 10(6) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 10(6) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Redrose Vanijya LLP",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/D7EDAB70_B2DB_441A_B4FE_B57073918CA3_151929.pdf"
+    },
+    {
+      "date": "2025-02-19T15:17:30.67",
+      "subject": "Disclosures under Reg. 29(2) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Redrose Vanijya LLP",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4D62EF35_DBC6_4E54_BF2C_4B3425BB3981_151724.pdf"
+    },
+    {
+      "date": "2025-02-19T15:15:11.963",
+      "subject": "Disclosures under Reg. 29(1) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 29(1) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Redrose Vanijya LLP",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/94684557_BB4E_41A4_BEEB_454D6D01EA15_151503.pdf"
+    },
+    {
+      "date": "2025-02-14T12:57:36.947",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7f3fcb64-26aa-46b6-843d-09b68e178fde.pdf"
+    },
+    {
+      "date": "2025-02-12T19:53:58.817",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press release attached.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3ace3ae6-9623-472f-806a-96eb0cc82916.pdf"
+    },
+    {
+      "date": "2025-02-12T19:03:20.557",
+      "subject": "Integrated Filing (Financial)",
+      "detail": "Integrated financial attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/72205e93-0db8-4f6f-8eb7-e26162e68df7.pdf"
+    },
+    {
+      "date": "2025-02-12T18:42:39.48",
+      "subject": "Key Managerial Personnel Authorized For The Purpose Of Determining Materiality Of An Event/Information",
+      "detail": "Refer Point No.5 of attached disclosure.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2e1591d4-4cfc-4473-be38-f18cbe47bcac.pdf"
+    },
+    {
+      "date": "2025-02-12T18:17:16.63",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 12Th February, 2025",
+      "detail": "Detailed disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/436d1f8f-693e-4da4-a829-8ff15aee794a.pdf"
+    },
+    {
+      "date": "2025-02-12T18:15:08",
+      "subject": "Unaudited Financial Results For The Quarter And Nine Months Ended 31/12/2024.",
+      "detail": "Detailed disclosure attached.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f3dba886-aa08-464d-a4d4-ab5176976f59.pdf"
+    },
+    {
+      "date": "2025-01-10T18:14:32.193",
+      "subject": "Intimation Regarding Change Of Delhi Branch Office Address Of Registrar And Share Transfer Agent (RTA) Of The Company.",
+      "detail": "Intimation regarding Change of Delhi Branch Office Address of Registrar and Share Transfer Agent of the Company with effect from 13/01/2025.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b58d5fa6-19e6-4642-97c2-ddd14eb08dff.pdf"
+    },
+    {
+      "date": "2024-12-23T17:15:59.243",
+      "subject": "Intimation Under Regulation 30 Of SEBI (LODR) Regulations, 2015 Pertaining To Continuation Of Directorship Of Shri Arun Kumar Churiwal.\r\n",
+      "detail": "Intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 pertaining to continuation of Directorship of Shri Arun Kumar Churiwal.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9fd06aa2-e385-48d2-a14f-2a05f2252fb3.pdf"
+    },
+    {
+      "date": "2024-12-05T17:06:11.603",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding issuance of Letter of confirmation in lieu of Share Certificates lost/misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0177d6b9-b8d3-4699-ae79-31eaa3618518.pdf"
+    },
+    {
+      "date": "2024-11-22T16:22:31.107",
+      "subject": "Intimation Under Regulation 30 Of The SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015.",
+      "detail": "The Company has received communication from Stock Exchanges regarding non-compliance under Regulation 17(1) & 17(1A) of SEBI (LODR).  The Company is in process of filing requisite reply. ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e51fb40b-aa20-4e4b-9c80-2fb76d39566a.pdf"
+    },
+    {
+      "date": "2024-11-21T16:42:46.107",
+      "subject": "Postal Ballot Notice To Members",
+      "detail": "Copy of Postal Ballot Notice sent to the Shareholders of the Company.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/50b29808-4f83-41d9-a76d-5cf4b232f302.pdf"
+    },
+    {
+      "date": "2024-11-14T16:00:28.743",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding loss/misplacement of share certificates.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/752b6e92-f687-41a8-97dc-a21b057fd98a.pdf"
+    },
+    {
+      "date": "2024-11-12T20:10:16.6",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding issuance of Letter of Confirmation in lieu of Share Certificates Lost/Misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/944b752c-b838-4732-a2c0-1ad2e933da95.pdf"
+    },
+    {
+      "date": "2024-11-12T18:29:57.027",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release for Unaudited Financial Results for Q2 FY 2024-25 is attached.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1d210062-11af-464f-9e98-3fd3d2039395.pdf"
+    },
+    {
+      "date": "2024-11-12T18:06:09.037",
+      "subject": "Announcement under Regulation 30 (LODR)-Amendments to Memorandum & Articles of Association",
+      "detail": "The Board of Directors in their meeting held on 12-11-2024 has approved the amendment in Articles of Association of the Company subject to the approval of the Shareholders. Disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/09be278d-db24-4c05-96ad-fb62c1308551.pdf"
+    },
+    {
+      "date": "2024-11-12T18:01:55.987",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Disclosure regarding appointment Senior Management Personnel is attached.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e84bd46e-087d-4fd5-aaa6-4993d34809d6.pdf"
+    },
+    {
+      "date": "2024-11-12T17:57:32.607",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 12-11-2024.",
+      "detail": "Outcome of Board Meeting held on 12-11-2024. Detailed disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c193c3c8-fa1f-4d80-a1ed-952431acd9e2.pdf"
+    },
+    {
+      "date": "2024-11-12T17:54:05.36",
+      "subject": "Financial Results For The Quarter And Half Year Ended 30-09-2024.",
+      "detail": "Financial Results for the quarter and half year ended 30-09-2024.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/023a1b82-4393-44ea-923d-a03574ac331b.pdf"
+    },
+    {
+      "date": "2024-11-07T16:36:27.16",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Additional Details required for corporate announcement.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e298482a-f6ae-4007-927f-83ebb23a8e9d.pdf"
+    },
+    {
+      "date": "2024-10-28T18:11:26.377",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Re-designation of Senior Management Personnel.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7763589e-faff-406a-9a7b-c97b30a35d31.pdf"
+    },
+    {
+      "date": "2024-08-14T18:37:49.87",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report 2023-24.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3a430966-7806-46c0-9928-c82f5c66f4df.pdf"
+    },
+    {
+      "date": "2024-08-09T19:31:32.29",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on Financial Results for the quarter ended 30-06-2024.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/30b1ea4b-8b8a-4ec4-905b-72e02cdd622c.pdf"
+    },
+    {
+      "date": "2024-08-09T18:40:07.957",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 09/08/2024",
+      "detail": "Outcome of Board Meeting held on 9th August, 2024.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e35152ba-6f25-408d-81ee-81cb331676da.pdf"
+    },
+    {
+      "date": "2024-08-09T18:33:54.49",
+      "subject": "Financial Results And Outcome Of Board Meeting Held On 09-08-2024",
+      "detail": "Financial Results for the quarter ended 30/06/2024.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6fb1be04-7f4d-45d4-86a7-7be04eb3e60b.pdf"
+    },
+    {
+      "date": "2024-08-09T15:10:02.633",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding Issuance of Letter of Confirmation in lieu of Share Certificates Lost/Misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9c2b5c4-fb00-491a-a499-33a9545898fd.pdf"
+    },
+    {
+      "date": "2024-07-25T11:45:37.57",
+      "subject": "Announcement under Regulation 30 (LODR)-Demise",
+      "detail": "Disclosure under Regulation 30 of SEBI (LODR) Regulations, 2015 regarding demise of Chief Financial Officer of the Company on 25-07-2024.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8431f369-5464-456c-bdc5-a99928b34ff0.pdf"
+    },
+    {
+      "date": "2024-07-17T15:37:16.57",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding lost/misplaced of share certificates.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fe4f62a3-8384-4808-ba3c-b04d7cd4553c.pdf"
+    },
+    {
+      "date": "2024-07-16T17:28:13.127",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding Lost/misplaced of Share Certificates.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ae998f97-e034-4b41-9dfc-ea0b128d2ea2.pdf"
+    },
+    {
+      "date": "2024-07-12T20:33:47.233",
+      "subject": "Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015 For Sale Of Thermal Power Plant.",
+      "detail": "Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 for Sale of Thermal Power Plant.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/553159ac-ade8-48c3-92af-2fcd70e2488c.pdf"
+    },
+    {
+      "date": "2024-07-05T16:06:28.477",
+      "subject": "Clarification On Choice Of Nomination By Shareholders And Reminder To Update PAN, KYC And Bank Details.",
+      "detail": "Clarification on Choice of Nomination by Shareholders and reminder to update PAN, KYC and Bank details.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/322c7eba-94dd-4a18-ab39-40e18018a1d5.pdf"
+    },
+    {
+      "date": "2024-05-24T21:06:58.393",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d2b101ae-0d08-4a3c-a499-a16c18ac6b95.pdf"
+    },
+    {
+      "date": "2024-05-24T19:54:40.29",
+      "subject": "Audited Financial Results For The Quarter And Year Ended 31/03/2024.",
+      "detail": "Audited Financial Results for the quarter and year ended 31/03/2024. Detailed disclosure attached.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/22272519-a0ab-459a-9b3e-9fac7ac71307.pdf"
+    },
+    {
+      "date": "2024-05-24T19:46:32.927",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting",
+      "detail": "Outcome of Board Meeting. Detailed disclosure attached.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0fde6343-5318-4f35-a958-b530689a0dd1.pdf"
+    },
+    {
+      "date": "2024-04-15T17:34:24.167",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding issuance of Letter of Confirmation in lieu of Share Certificates lost/misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1cfc91e3-0a5e-4abf-a847-871cb351d595.pdf"
+    },
+    {
+      "date": "2024-03-29T15:57:26.99",
+      "subject": "Intimation Under Regulation 30 Of The SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015.",
+      "detail": "Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015.",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5a5e9c1b-e532-45e5-b03c-7d31371d6a38.pdf"
+    },
+    {
+      "date": "2024-03-27T15:27:44.773",
+      "subject": "Mandatory Furnishing Of PAN, KYC And Nomination By Holders Of Physical Shares",
+      "detail": "Mandatory furnishing of PAN, KYC and Nomination by holders of Physical Shares.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/61c309c2-0968-484c-9b70-08fda59fcc16.pdf"
+    },
+    {
+      "date": "2024-02-17T15:49:03.05",
+      "subject": "Update And Disclosure Regarding Completion Of Acquisition Of Spinning, Knitting And Processing Undertaking Of Ginni Filaments Limited ('GFL').",
+      "detail": "Update and disclosure regarding completion of acquisition of Spinning, Knitting and Processing Undertaking situated at 110 KM Stone, Delhi-Mathura Road, Chhata, Kosi, Dist. Mathura (U.P) ....",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e0cd04ca-d0d1-4a40-8c2d-7e418e2320b7.pdf"
+    },
+    {
+      "date": "2024-02-09T18:09:29.393",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release on financial results of the Company for the quarter and nine months  ended 31/12/2023.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/be18fe9c-80f8-4ec6-a0b2-77d33c3a0bd3.pdf"
+    },
+    {
+      "date": "2024-02-09T17:02:55.507",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Dated 9Th February, 2024",
+      "detail": "Submission of Unaudited Financial Results for the Quarter and Nine Months ended 31st December, 2023.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2d8b75ff-2893-4fc1-a28a-6dfc986d4d2e.pdf"
+    },
+    {
+      "date": "2024-02-09T16:58:35.1",
+      "subject": "Outcome Of Board Meeting Dated 9Th February, 2024",
+      "detail": "Submission of unaudited financial results for the quarter and nine months ended 31st December, 2023.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ab606506-6104-4e7f-8fb8-0c62a6bc92af.pdf"
+    },
+    {
+      "date": "2024-01-24T16:21:29.757",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 24Th January, 2024",
+      "detail": "Outcome of Board Meeting held on 24th January, 2024.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/35a71b10-e5fd-4f9e-9d68-d89be5fb432f.pdf"
+    },
+    {
+      "date": "2024-01-12T18:18:45.35",
+      "subject": "Intimation About Conversion Of Status Of Firm Of Statutory Auditors Of The Company.",
+      "detail": "Intimation about conversion of status of Firm of Statutory Auditors of the Company.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ac469ff1-ddd9-4444-a4fe-b79f16216f15.pdf"
+    },
+    {
+      "date": "2023-12-01T18:28:03.007",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release of the Company",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fb75f4f0-df64-44bb-8199-f51753f06843.pdf"
+    },
+    {
+      "date": "2023-12-01T18:09:03.5",
+      "subject": "Approval Granted By The Board Of Directors Of The RSWM Limited In Relation To The Acquisition Of Spinning, Knitting And Processing Undertaking Of Ginni Filaments Limited As A Going Concern On A Slump Sale Basis.",
+      "detail": "Approval granted by the Board of Directors of the RSWM Limited in relation to the acquisition of Spinning, Knitting and Processing Undertaking of Ginni Filaments Limited as a going concern ....",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/94dc28bc-e265-4cad-bcab-0f3547ecde77.pdf"
+    },
+    {
+      "date": "2023-12-01T18:02:58.58",
+      "subject": "Announcement under Regulation 30 (LODR)-Acquisition",
+      "detail": "Approval granted by the Board of Directors of the RSWM Limited in relation to the signing of a binding term sheet with Ginni Filaments Limited for proposed acquisition of its Spinning, ....",
+      "category": "Acquisition",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7852d16b-7218-4e99-9375-f890ddfd9708.pdf"
+    },
+    {
+      "date": "2023-12-01T17:54:38.837",
+      "subject": "Board Meeting Outcome for Outcome",
+      "detail": "Intimation regarding approval granted by the board of directors of the RSWM Limited ('RSWM or Company') in relation to the signing of a binding term sheet with Ginni Filaments Limited for ....",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2873394-24b4-401b-8059-199ab1d2d8fc.pdf"
+    },
+    {
+      "date": "2023-11-09T17:54:11.01",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release of the Company.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2a2d61df-5a22-4007-954e-cf881d249f10.pdf"
+    },
+    {
+      "date": "2023-11-09T17:12:08.13",
+      "subject": "RSWM Unaudited Financial Results For The Quarter And Half Year Ended 30-09-2023.",
+      "detail": "RSWM Unaudited Financial Results for the quarter and half year ended 30-09-2023.",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/09689cca-41d3-4714-a2b6-88e0ca6ced47.pdf"
+    },
+    {
+      "date": "2023-11-09T17:09:13.117",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Dated 9Th November, 2023.",
+      "detail": "Outcome of Board Meeting dated 9th November, 2023.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b6a0f6b9-796b-4b2e-88a5-761cc9c59e19.pdf"
+    },
+    {
+      "date": "2023-09-25T19:41:08.647",
+      "subject": "Commencement Of Commercial Production - Compact Cotton Yarn Expansion At Lodha Unit, Banswara.",
+      "detail": "Commencement of Commercial Production - Compact Cotton Yarn Expansion at Lodha Unit, Banswara.",
+      "category": "Business Expansion",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ca3754f9-734d-4ce8-b39a-3aa22561b5cf.pdf"
+    },
+    {
+      "date": "2023-09-15T18:45:40.31",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "Completion of Term of Shri Priya Shankar Dasgupta as an Independent Director of the Company.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/976c09f1-a932-4684-a76d-e6159db82e57.pdf"
+    },
+    {
+      "date": "2023-08-22T18:14:16.033",
+      "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
+      "detail": "Business Responsibility and Sustainability Report of the Company for the financial year 2022-23.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5a32d95f-dfa8-4097-a8e8-43a2a216770c.pdf"
+    },
+    {
+      "date": "2023-08-10T20:10:55.023",
+      "subject": "Disclosure Under Regulation 30(5) Of SEBI (LODR) Regulations, 2015.",
+      "detail": "Pursuant to Regulation 30(5) of SEBI (LODR) Regulations, 2015, for the purpose of determining materiality of an event or information and for the purpose of making disclosures to Stock Exchanges ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/96b85873-e18f-445e-88f6-dfd07c13b8a5.pdf"
+    },
+    {
+      "date": "2023-08-10T19:14:46.957",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Press Release of the Company.",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb000778-6e3f-41cb-a8a2-2b47ea0b83da.pdf"
+    },
+    {
+      "date": "2023-08-10T17:33:55.933",
+      "subject": "Announcement under Regulation 30 (LODR)-Change in Management",
+      "detail": "The Company appointed Shri Surya Kant Gupta (DIN:00323759) as Additional Director (Independent) subject to the approval of Members in the General Meeting.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/90093653-df20-4e45-bc27-b4b60a28ff80.pdf"
+    },
+    {
+      "date": "2023-08-10T17:24:20.3",
+      "subject": "Outcome Of Board Meeting Held On 10/08/2023",
+      "detail": "The Board also approved the revised Materiality of Events Policy of the Company.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b700a7c5-1660-4895-9719-0c63635ab9f8.pdf"
+    },
+    {
+      "date": "2023-08-10T17:17:05.583",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 10/08/2023",
+      "detail": "Outcome of Board meeting held on 10/08/2023",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/647d9c8b-a5e7-4a2c-8535-5885c444eed7.pdf"
+    },
+    {
+      "date": "2023-08-10T17:14:27.887",
+      "subject": "Financial Results For The Quarter Ended 30/06/2023",
+      "detail": "Financial Results for the quarter ended 30/06/2023",
+      "category": "Results",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4c913051-660e-46f7-a4dc-48a4f35bdd58.pdf"
+    },
+    {
+      "date": "2023-08-02T11:39:40.727",
+      "subject": "Update On Expansion At Unit Located At Banswara, Rajasthan",
+      "detail": "Inauguration - Compact Cotton Yarn Expansion at Lodha Unit, Banswara, Rajasthan.",
+      "category": "Business Expansion",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/928748a8-9814-4277-9d2b-70c2b580b1a1.pdf"
+    },
+    {
+      "date": "2023-07-24T17:50:30.717",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding issuance of Letter(s) of Confirmation in lieu of Share Certificate(s) lost/misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b119ad73-2bd4-4103-9342-2bab3ae36a77.pdf"
+    },
+    {
+      "date": "2023-06-21T11:59:55.377",
+      "subject": "Disclosures under Reg. 29(2) of SEBI (SAST) Regulations, 2011",
+      "detail": "The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Dreamon Commercial Pvt Ltd",
+      "category": "Open Offer",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/71A5C089_A646_4233_8981_4231F163AA2E_115952.pdf"
+    },
+    {
+      "date": "2023-05-29T16:13:15.813",
+      "subject": "Statement On Deviation Or Variation Of Funds Raised Through Rights Issue Of Equity Shares",
+      "detail": "In accordance with the provisions of Regulation 32 of Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 ('Listing Regulations') ....",
+      "category": "Fund Raising",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/290c118e-f544-490e-82c7-9d903c28b1cd.pdf"
+    },
+    {
+      "date": "2023-05-26T19:28:56.843",
+      "subject": "Announcement under Regulation 30 (LODR)-Press Release / Media Release",
+      "detail": "Please find enclosed the press release being issued by the Company.\r\n\r\nThis will also be hosted on the Company's website at www.rswm.in \r\n",
+      "category": "Press Release",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c9361fad-8941-45dc-814d-2b41f6590ef0.pdf"
+    },
+    {
+      "date": "2023-05-26T19:14:43.387",
+      "subject": "Compliances-Reg.24(A)-Annual Secretarial Compliance",
+      "detail": "In compliance of Regulation 24A of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, read with SEBI Circular CIR/CFD/CMD1/27/2019 dated February 8, 2019 and NSE ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a645a115-5aa4-4ddd-8d69-b13d78ee61e4.pdf"
+    },
+    {
+      "date": "2023-05-26T18:14:19.36",
+      "subject": "Board Meeting Outcome for Outcome Of Board Meeting Held On 26Th May, 2023.",
+      "detail": "Outcome of Board Meeting held on 26th May, 2023.",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e64fbf44-850c-4b54-93ff-682d272d7b7d.pdf"
+    },
+    {
+      "date": "2023-05-26T17:56:14.39",
+      "subject": "Outcome Of Board Meeting Held On 26Th May, 2023",
+      "detail": "Outcome of Board Meeting held on 26th May, 2023",
+      "category": "Board Meeting",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d442c8df-825b-409f-a449-876f7940c693.pdf"
+    },
+    {
+      "date": "2023-05-19T16:45:15.18",
+      "subject": "Intimation Regarding Mandatory Furnishing Of PAN, KYC, And Nomination By Holders Of Physical Shares",
+      "detail": "This is to draw your attention that pursuant to SEBI Circular No. SEBI/HO/MIRSD/MIRSDPoD-1/P/CIR/2023/37 dated 16th March, 2023, the company is sending letter to its \r\n shareholders holding ....",
+      "category": "Regulatory",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dcffdfaa-3c80-4554-8fbd-074abdb27273.pdf"
+    },
+    {
+      "date": "2023-05-15T20:57:51.213",
+      "subject": "Announcement under Regulation 30 (LODR)-Monitoring Agency Report",
+      "detail": "Pursuant to Regulation 82(4) of SEBI (Issue of Capital and Disclosure Requirements) Regulations, 2018 and also Regulation 32(6) of SEBI (Listing Obligations and Disclosure Requirements) ....",
+      "category": "Capital Structure",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f9115006-d248-4efa-8116-347406df6081.pdf"
+    },
+    {
+      "date": "2023-05-12T16:22:36.967",
+      "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
+      "detail": "Intimation regarding Issuance of 'Letter(s) of Confirmation' in lieu of Share Certificate(s) lost/misplaced.",
+      "category": "Other",
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/61ac510b-6615-46bb-a112-3f3888544825.pdf"
+    }
+  ]
 }
