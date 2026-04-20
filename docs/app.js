@@ -896,31 +896,52 @@ let researchPollTimer = null;
 let lookupSuggestIdx = -1;
 let scripsData = null;  // Full BSE company list — loaded once on first Lookup open
 
+let scripsLoading = null;  // Promise while loading, so concurrent calls await the same fetch
+
 async function loadScrips() {
-    if (scripsData) return;  // Already loaded
-    try {
-        const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/scrips.json?v=${Date.now()}`);
-        if (r.ok) {
-            const raw = await r.json();
-            // Normalise to { name, scrip_code, nse_symbol }
-            scripsData = raw.map(s => ({
-                name: s.ScripName || s.IssuerName || "",
-                scrip_code: String(s.ScripCode || ""),
-                nse_symbol: s.NSESymbol || "",
-            })).filter(s => s.name && s.scrip_code)
-               .sort((a, b) => a.name.localeCompare(b.name));
+    if (scripsData) return;
+    if (scripsLoading) return scripsLoading;  // Already in-flight, wait for it
+    scripsLoading = (async () => {
+        try {
+            const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/data/scrips.json?v=${Date.now()}`);
+            if (r.ok) {
+                const raw = await r.json();
+                // Build BSE map keyed by ScripCode, merge NSE symbols from NSE-only entries
+                const bseMap = new Map();
+                const nseSymbolByName = new Map();
+                // First pass: collect NSE symbols from NSE-only entries (no ScripCode)
+                raw.forEach(s => {
+                    if (!s.ScripCode && s.NSESymbol && s.ScripName) {
+                        nseSymbolByName.set(s.ScripName.toLowerCase().trim(), s.NSESymbol);
+                        nseSymbolByName.set((s.IssuerName || "").toLowerCase().trim(), s.NSESymbol);
+                    }
+                });
+                // Second pass: build BSE entries, merging NSE symbol if missing
+                raw.forEach(s => {
+                    if (!s.ScripCode) return;
+                    const name = s.ScripName || s.IssuerName || "";
+                    const nse = s.NSESymbol ||
+                        nseSymbolByName.get(name.toLowerCase().trim()) ||
+                        nseSymbolByName.get((s.IssuerName || "").toLowerCase().trim()) || "";
+                    bseMap.set(String(s.ScripCode), { name, scrip_code: String(s.ScripCode), nse_symbol: nse });
+                });
+                scripsData = [...bseMap.values()]
+                    .filter(s => s.name)
+                    .sort((a, b) => a.name.localeCompare(b.name));
+            }
+        } catch {}
+        // Fallback: build from loaded announcements if fetch failed
+        if (!scripsData || !scripsData.length) {
+            const seen = new Map();
+            (allAnnouncements || []).forEach(a => {
+                const code = a.symbol || "";
+                if (!code || a.exchange !== "BSE") return;
+                if (!seen.has(code)) seen.set(code, { name: a.company || "", scrip_code: code, nse_symbol: "" });
+            });
+            scripsData = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
         }
-    } catch {}
-    // Fallback: build from loaded announcements if fetch failed
-    if (!scripsData || !scripsData.length) {
-        const seen = new Map();
-        (allAnnouncements || []).forEach(a => {
-            const code = a.symbol || "";
-            if (!code || a.exchange !== "BSE") return;
-            if (!seen.has(code)) seen.set(code, { name: a.company || "", scrip_code: code, nse_symbol: "" });
-        });
-        scripsData = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
-    }
+    })();
+    return scripsLoading;
 }
 
 function buildCompanyList() {
@@ -929,9 +950,14 @@ function buildCompanyList() {
 
 async function openLookup() {
     document.getElementById("lookupOverlay").style.display = "flex";
-    document.getElementById("lookupInput").focus();
-    // Load full company list in background (first open only)
-    if (!scripsData) loadScrips();
+    const input = document.getElementById("lookupInput");
+    input.placeholder = "Loading company list...";
+    input.disabled = true;
+    // Await scrips load so autocomplete works immediately on first keystroke
+    await loadScrips();
+    input.placeholder = "Type company name...";
+    input.disabled = false;
+    input.focus();
     // Check if we already have cached results to show
     const cached = sessionStorage.getItem("lookup_result");
     if (cached) {
