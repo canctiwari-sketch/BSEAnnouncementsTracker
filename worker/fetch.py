@@ -240,6 +240,18 @@ NOISE_PATTERNS = [
     r"identified as a large corporate",
     r"initial disclosure.*large corporate",
     r"format of.*disclosure.*large corporate",
+    # SAST Reg 31(4) — annual "no encumbrance" promoter declarations (routine, not Reg 29)
+    r"regulation 31\(4\)",
+    r"regulation 31\s*\(4\)",
+    r"no encumbrance",
+    r"not made any encumbrance",
+    r"have not created.*encumbrance",
+    r"have not.*encumber",
+    r"declaration.*encumbrance",
+    r"disclosure.*encumbrance.*promoter",
+    r"encumbrance.*promoter.*group",
+    r"yearly disclosure.*encumbrance",
+    r"annual disclosure.*encumbrance",
 ]
 
 _noise_re = re.compile("|".join(NOISE_PATTERNS), re.IGNORECASE)
