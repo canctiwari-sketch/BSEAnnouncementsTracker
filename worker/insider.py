@@ -262,6 +262,91 @@ def fetch_nse_insider(from_date, to_date):
     return trades
 
 
+# ─── Market Cap Enrichment ────────────────────────────────────────────────────
+
+def _format_mcap(raw):
+    cr = raw / 1e7
+    if cr >= 100000: return f"{cr/100000:.2f}L Cr"
+    if cr >= 1000:   return f"{cr/1000:.2f}K Cr"
+    return f"{cr:.0f} Cr"
+
+def fetch_mcap_bse(session, scrip_code):
+    try:
+        url = f"https://api.bseindia.com/BseIndiaAPI/api/StockTrading/w?flag=&scripcode={scrip_code}"
+        r = session.get(url, timeout=8)
+        if r.status_code != 200: return None
+        d = r.json()
+        mkt = str(d.get("MktCapFull") or d.get("MktCapFF") or "").replace(",", "").strip()
+        val = float(mkt) if mkt else 0
+        return {"value": val * 1e7, "formatted": _format_mcap(val * 1e7)} if val > 0 else None
+    except Exception:
+        return None
+
+def fetch_mcap_nse(client, symbol):
+    try:
+        from urllib.parse import quote
+        r = client.get(f"https://www.nseindia.com/api/quote-equity?symbol={quote(symbol, safe='')}")
+        if r.status_code != 200: return None
+        d = r.json()
+        price  = d.get("priceInfo", {}).get("lastPrice", 0)
+        issued = d.get("securityInfo", {}).get("issuedSize", 0)
+        if price and issued:
+            raw = price * issued
+            return {"value": raw, "formatted": _format_mcap(raw)}
+    except Exception:
+        pass
+    return None
+
+def enrich_market_caps(trades):
+    """Fetch market cap for each unique company and add to trades."""
+    log("Enriching market caps...")
+    bse_session = requests.Session()
+    bse_session.headers.update(BSE_HEADERS)
+    nse_client = _get_nse_client()
+
+    # Build unique lookup keys
+    scrip_map = {}   # scrip_code -> mcap
+    symbol_map = {}  # nse_symbol -> mcap
+
+    for t in trades:
+        if t.get("scrip_code") and t["scrip_code"] not in scrip_map:
+            scrip_map[t["scrip_code"]] = None
+        if t.get("nse_symbol") and t["nse_symbol"] not in symbol_map:
+            symbol_map[t["nse_symbol"]] = None
+
+    # Fetch BSE mcaps
+    for code in list(scrip_map.keys()):
+        result = fetch_mcap_bse(bse_session, code)
+        scrip_map[code] = result
+        time.sleep(0.05)
+
+    # Fetch NSE mcaps (only for symbols not covered by BSE)
+    if nse_client:
+        for sym in list(symbol_map.keys()):
+            result = fetch_mcap_nse(nse_client, sym)
+            symbol_map[sym] = result
+            time.sleep(0.05)
+        nse_client.close()
+
+    # Apply to trades
+    enriched = 0
+    for t in trades:
+        mcap = None
+        if t.get("scrip_code"):
+            mcap = scrip_map.get(t["scrip_code"])
+        if not mcap and t.get("nse_symbol"):
+            mcap = symbol_map.get(t["nse_symbol"])
+        if mcap:
+            t["market_cap"] = mcap["value"]
+            t["market_cap_fmt"] = mcap["formatted"]
+            enriched += 1
+        else:
+            t.setdefault("market_cap", None)
+            t.setdefault("market_cap_fmt", "N/A")
+    log(f"  Enriched {enriched}/{len(trades)} trades with market cap")
+    return trades
+
+
 # ─── Merge + Dedup ────────────────────────────────────────────────────────────
 
 def merge_trades(bse, nse, seen_keys_set):
@@ -322,6 +407,11 @@ def main():
 
     # Sort newest first
     existing_trades.sort(key=lambda x: x.get("date", ""), reverse=True)
+
+    # Enrich with market cap (only new trades lack it)
+    trades_needing_mcap = [t for t in existing_trades if t.get("market_cap") is None]
+    if trades_needing_mcap:
+        enrich_market_caps(trades_needing_mcap)
 
     out = {
         "trades": existing_trades,

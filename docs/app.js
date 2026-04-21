@@ -1376,10 +1376,22 @@ async function fetchInsiderData() {
         const d30 = new Date(today - 30 * 86400000);
         document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
         document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
+        populateInsiderModes();
         applyInsiderFilter();
     } catch (e) {
         setInsiderStatus("Error loading insider data: " + e.message, "error");
     }
+}
+
+function populateInsiderModes() {
+    const modes = [...new Set(allInsiderTrades.map(t => t.mode).filter(Boolean))].sort();
+    const sel = document.getElementById("insiderMode");
+    sel.innerHTML = "<option value=''>All</option>";
+    modes.forEach(m => {
+        const o = document.createElement("option");
+        o.value = m; o.textContent = m;
+        sel.appendChild(o);
+    });
 }
 
 function setInsiderStatus(msg, type) {
@@ -1393,9 +1405,13 @@ function applyInsiderFilter() {
     const to     = document.getElementById("insiderTo").value;
     const txn    = document.getElementById("insiderTxn").value;
     const cat    = document.getElementById("insiderCategory").value;
-    const minVal = parseFloat(document.getElementById("insiderMinVal").value) || 0;
-    const exch   = document.getElementById("insiderExchange").value;
-    const q      = document.getElementById("insiderSearch").value.trim().toLowerCase();
+    const minVal   = parseFloat(document.getElementById("insiderMinVal").value) || 0;
+    const mcapMin  = parseFloat(document.getElementById("insiderMcapMin").value) || 0;
+    const mcapMax  = parseFloat(document.getElementById("insiderMcapMax").value) || 0;
+    const inclNA   = document.getElementById("insiderIncludeNA").checked;
+    const mode     = document.getElementById("insiderMode").value;
+    const exch     = document.getElementById("insiderExchange").value;
+    const q        = document.getElementById("insiderSearch").value.trim().toLowerCase();
 
     insiderFiltered = allInsiderTrades.filter(t => {
         if (from && t.date < from) return false;
@@ -1403,7 +1419,17 @@ function applyInsiderFilter() {
         if (txn  && t.txn_type !== txn) return false;
         if (cat  && t.category !== cat) return false;
         if (minVal && (t.value_cr || 0) < minVal) return false;
+        if (mode && t.mode !== mode) return false;
         if (exch && t.exchange !== exch) return false;
+        // MCap filter
+        if (mcapMin || mcapMax) {
+            const mc = t.market_cap ? t.market_cap / 1e7 : null; // convert to Cr
+            if (mc === null) { if (!inclNA) return false; }
+            else {
+                if (mcapMin && mc < mcapMin) return false;
+                if (mcapMax && mc > mcapMax) return false;
+            }
+        }
         if (q) {
             const hay = ((t.company || "") + " " + (t.person || "") + " " + (t.nse_symbol || "") + " " + (t.scrip_code || "")).toLowerCase();
             if (!hay.includes(q)) return false;
@@ -1431,9 +1457,9 @@ function clearInsiderFilters() {
     const d30 = new Date(today - 30 * 86400000);
     document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
     document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
-    ["insiderTxn","insiderCategory","insiderExchange"].forEach(id => document.getElementById(id).value = "");
-    document.getElementById("insiderMinVal").value = "";
-    document.getElementById("insiderSearch").value = "";
+    ["insiderTxn","insiderCategory","insiderMode","insiderExchange"].forEach(id => document.getElementById(id).value = "");
+    ["insiderMinVal","insiderMcapMin","insiderMcapMax","insiderSearch"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("insiderIncludeNA").checked = false;
     applyInsiderFilter();
 }
 
@@ -1456,7 +1482,7 @@ function renderInsiderTable() {
     const items = insiderFiltered.slice(start, start + INSIDER_PAGE_SIZE);
 
     if (!items.length) {
-        tbody.innerHTML = "<tr><td colspan='11' style='text-align:center;padding:32px;color:#888'>No trades found</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='12' style='text-align:center;padding:32px;color:#888'>No trades found</td></tr>";
         document.getElementById("insiderPagination").style.display = "none";
         return;
     }
@@ -1472,9 +1498,13 @@ function renderInsiderTable() {
         const sym   = t.nse_symbol ? "<span class='ann-exch nse'>" + escapeHtml(t.nse_symbol) + "</span>"
                     : t.scrip_code ? "<span class='ann-exch bse'>" + escapeHtml(t.scrip_code) + "</span>" : "";
         const exBadge = "<span class='ann-exch " + t.exchange.toLowerCase() + "'>" + t.exchange + "</span>";
+        const mcapCr = t.market_cap ? t.market_cap / 1e7 : null;
+        const mcapCls = !mcapCr ? "mcap-na" : mcapCr >= 20000 ? "mcap-large" : mcapCr >= 5000 ? "mcap-mid" : "mcap-small";
+        const mcapTxt = t.market_cap_fmt || "N/A";
         return "<tr>"
             + "<td style='white-space:nowrap'>" + escapeHtml(t.date) + "</td>"
             + "<td><strong>" + escapeHtml(t.company) + "</strong><br><small>" + sym + exBadge + "</small></td>"
+            + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + mcapTxt + "</td>"
             + "<td>" + escapeHtml(t.person) + "</td>"
             + "<td><span class='it-badge " + catCls + "'>" + escapeHtml(t.category) + "</span></td>"
             + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(t.txn_type) + "</span></td>"
