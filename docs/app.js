@@ -1349,9 +1349,11 @@ let allInsiderTrades = [];
 let insiderFiltered = [];
 let insiderSort = { col: "date", dir: "desc" };
 let insiderPage = 1;
+let aggSort = { col: "total_value", dir: "desc" };
 const INSIDER_PAGE_SIZE = 100;
 let insiderLoaded = false;
 
+// ─── Tab ─────────────────────────────────────────────────────────────────────
 function showTab(tab) {
     const isInsider = tab === "insider";
     document.getElementById("annTab").style.display = isInsider ? "none" : "";
@@ -1361,6 +1363,7 @@ function showTab(tab) {
     if (isInsider && !insiderLoaded) fetchInsiderData();
 }
 
+// ─── Load ─────────────────────────────────────────────────────────────────────
 async function fetchInsiderData() {
     setInsiderStatus("Loading insider trades...", "loading");
     try {
@@ -1372,15 +1375,48 @@ async function fetchInsiderData() {
         const updated = data.last_updated ? new Date(data.last_updated + "Z") : null;
         const updStr = updated ? updated.toLocaleString("en-IN") : "unknown";
         setInsiderStatus(allInsiderTrades.length.toLocaleString() + " trades \u2014 Last updated: " + updStr);
+        populateInsiderPeriods();
+        populateInsiderModes();
+        // Default: last 30 days via custom range
         const today = new Date();
         const d30 = new Date(today - 30 * 86400000);
         document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
         document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
-        populateInsiderModes();
         applyInsiderFilter();
     } catch (e) {
         setInsiderStatus("Error loading insider data: " + e.message, "error");
     }
+}
+
+function populateInsiderPeriods() {
+    const sel = document.getElementById("insiderPeriod");
+    sel.innerHTML = "<option value='custom'>Custom Range</option>";
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const today = new Date();
+    // Add last 18 months
+    for (let i = 0; i < 18; i++) {
+        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        const val = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+        const label = months[d.getMonth()] + " " + d.getFullYear();
+        sel.innerHTML += "<option value='month:" + val + "'>" + label + "</option>";
+    }
+    // Add last 3 years
+    for (let y = today.getFullYear(); y >= today.getFullYear() - 2; y--) {
+        sel.innerHTML += "<option value='year:" + y + "'>Year " + y + "</option>";
+    }
+}
+
+function onInsiderPeriodChange() {
+    const val = document.getElementById("insiderPeriod").value;
+    const customRange = document.getElementById("insiderCustomRange");
+    if (val === "custom") {
+        customRange.style.display = "";
+    } else {
+        customRange.style.display = "none";
+        // Auto-switch to Aggregate when month/year selected
+        document.getElementById("insiderView").value = "aggregate";
+    }
+    applyInsiderFilter();
 }
 
 function populateInsiderModes() {
@@ -1389,8 +1425,7 @@ function populateInsiderModes() {
     sel.innerHTML = "<option value=''>All</option>";
     modes.forEach(m => {
         const o = document.createElement("option");
-        o.value = m; o.textContent = m;
-        sel.appendChild(o);
+        o.value = m; o.textContent = m; sel.appendChild(o);
     });
 }
 
@@ -1400,35 +1435,48 @@ function setInsiderStatus(msg, type) {
     el.className = "status" + (type ? " status-" + type : "");
 }
 
+// ─── Filter ───────────────────────────────────────────────────────────────────
 function applyInsiderFilter() {
-    const from   = document.getElementById("insiderFrom").value;
-    const to     = document.getElementById("insiderTo").value;
+    const period  = document.getElementById("insiderPeriod").value;
+    let from, to;
+    if (period === "custom") {
+        from = document.getElementById("insiderFrom").value;
+        to   = document.getElementById("insiderTo").value;
+    } else if (period.startsWith("month:")) {
+        const ym = period.slice(6); // "YYYY-MM"
+        const [y, m] = ym.split("-").map(Number);
+        from = ym + "-01";
+        const lastDay = new Date(y, m, 0).getDate();
+        to   = ym + "-" + String(lastDay).padStart(2, "0");
+    } else if (period.startsWith("year:")) {
+        const y = period.slice(5);
+        from = y + "-01-01";
+        to   = y + "-12-31";
+    }
+
     const txn    = document.getElementById("insiderTxn").value;
     const cat    = document.getElementById("insiderCategory").value;
-    const minVal   = parseFloat(document.getElementById("insiderMinVal").value) || 0;
-    const mcapMin  = parseFloat(document.getElementById("insiderMcapMin").value) || 0;
-    const mcapMax  = parseFloat(document.getElementById("insiderMcapMax").value) || 0;
-    const inclNA   = document.getElementById("insiderIncludeNA").checked;
-    const mode     = document.getElementById("insiderMode").value;
-    const exch     = document.getElementById("insiderExchange").value;
-    const q        = document.getElementById("insiderSearch").value.trim().toLowerCase();
+    const mode   = document.getElementById("insiderMode").value;
+    const minVal = parseFloat(document.getElementById("insiderMinVal").value) || 0;
+    const mcapMin = parseFloat(document.getElementById("insiderMcapMin").value) || 0;
+    const mcapMax = parseFloat(document.getElementById("insiderMcapMax").value) || 0;
+    const exch   = document.getElementById("insiderExchange").value;
+    const q      = document.getElementById("insiderSearch").value.trim().toLowerCase();
+    const view   = document.getElementById("insiderView").value;
 
     insiderFiltered = allInsiderTrades.filter(t => {
         if (from && t.date < from) return false;
         if (to   && t.date > to)   return false;
         if (txn  && t.txn_type !== txn) return false;
         if (cat  && t.category !== cat) return false;
-        if (minVal && (t.value_cr || 0) < minVal) return false;
         if (mode && t.mode !== mode) return false;
+        if (minVal && (t.value_cr || 0) < minVal) return false;
         if (exch && t.exchange !== exch) return false;
-        // MCap filter
         if (mcapMin || mcapMax) {
-            const mc = t.market_cap ? t.market_cap / 1e7 : null; // convert to Cr
-            if (mc === null) { if (!inclNA) return false; }
-            else {
-                if (mcapMin && mc < mcapMin) return false;
-                if (mcapMax && mc > mcapMax) return false;
-            }
+            const mc = t.market_cap ? t.market_cap / 1e7 : null;
+            if (mc === null) return false; // exclude N/A when mcap filter is active
+            if (mcapMin && mc < mcapMin) return false;
+            if (mcapMax && mc > mcapMax) return false;
         }
         if (q) {
             const hay = ((t.company || "") + " " + (t.person || "") + " " + (t.nse_symbol || "") + " " + (t.scrip_code || "")).toLowerCase();
@@ -1437,32 +1485,44 @@ function applyInsiderFilter() {
         return true;
     });
 
-    insiderFiltered.sort((a, b) => {
-        let av = a[insiderSort.col] != null ? a[insiderSort.col] : "";
-        let bv = b[insiderSort.col] != null ? b[insiderSort.col] : "";
-        if (typeof av === "string") av = av.toLowerCase();
-        if (typeof bv === "string") bv = bv.toLowerCase();
-        if (av < bv) return insiderSort.dir === "asc" ? -1 : 1;
-        if (av > bv) return insiderSort.dir === "asc" ? 1 : -1;
-        return 0;
-    });
-
-    insiderPage = 1;
-    renderInsiderTable();
-    setInsiderStatus(insiderFiltered.length.toLocaleString() + " trades shown");
+    if (view === "aggregate") {
+        document.getElementById("insiderResults").style.display = "none";
+        document.getElementById("insiderPagination").style.display = "none";
+        document.getElementById("insiderAggResults").style.display = "";
+        renderAggregateTable();
+        setInsiderStatus(insiderFiltered.length.toLocaleString() + " trades aggregated");
+    } else {
+        document.getElementById("insiderAggResults").style.display = "none";
+        document.getElementById("insiderResults").style.display = "";
+        insiderFiltered.sort((a, b) => {
+            let av = a[insiderSort.col] != null ? a[insiderSort.col] : "";
+            let bv = b[insiderSort.col] != null ? b[insiderSort.col] : "";
+            if (typeof av === "string") av = av.toLowerCase();
+            if (typeof bv === "string") bv = bv.toLowerCase();
+            if (av < bv) return insiderSort.dir === "asc" ? -1 : 1;
+            if (av > bv) return insiderSort.dir === "asc" ? 1 : -1;
+            return 0;
+        });
+        insiderPage = 1;
+        renderInsiderTable();
+        setInsiderStatus(insiderFiltered.length.toLocaleString() + " trades shown");
+    }
 }
 
 function clearInsiderFilters() {
+    document.getElementById("insiderPeriod").value = "custom";
+    document.getElementById("insiderCustomRange").style.display = "";
+    document.getElementById("insiderView").value = "trades";
     const today = new Date();
     const d30 = new Date(today - 30 * 86400000);
     document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
     document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
     ["insiderTxn","insiderCategory","insiderMode","insiderExchange"].forEach(id => document.getElementById(id).value = "");
     ["insiderMinVal","insiderMcapMin","insiderMcapMax","insiderSearch"].forEach(id => document.getElementById(id).value = "");
-    document.getElementById("insiderIncludeNA").checked = false;
     applyInsiderFilter();
 }
 
+// ─── Sort (Trades) ────────────────────────────────────────────────────────────
 function sortInsiderBy(col) {
     insiderSort.dir = insiderSort.col === col && insiderSort.dir === "desc" ? "asc" : "desc";
     insiderSort.col = col;
@@ -1473,6 +1533,17 @@ function sortInsiderBy(col) {
     applyInsiderFilter();
 }
 
+// ─── Sort (Aggregate) ─────────────────────────────────────────────────────────
+function sortAggBy(col) {
+    aggSort.dir = aggSort.col === col && aggSort.dir === "desc" ? "asc" : "desc";
+    aggSort.col = col;
+    document.querySelectorAll(".sort-arrow[data-acol]").forEach(el => {
+        el.textContent = el.dataset.acol === col ? (aggSort.dir === "asc" ? " \u25b2" : " \u25bc") : "";
+    });
+    renderAggregateTable();
+}
+
+// ─── Render Trades ────────────────────────────────────────────────────────────
 function renderInsiderTable() {
     const tbody = document.getElementById("insiderBody");
     const total = insiderFiltered.length;
@@ -1530,20 +1601,96 @@ function renderInsiderTable() {
     }
 }
 
+// ─── Render Aggregate ─────────────────────────────────────────────────────────
+function renderAggregateTable() {
+    // Group by company + mode + txn_type (each mode is kept separate)
+    const map = {};
+    insiderFiltered.forEach(t => {
+        const key = (t.company || "") + "|" + (t.mode || "") + "|" + (t.txn_type || "");
+        if (!map[key]) {
+            map[key] = {
+                company: t.company, mode: t.mode || "", txn_type: t.txn_type || "",
+                market_cap: t.market_cap || null, market_cap_fmt: t.market_cap_fmt || "N/A",
+                nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
+                trades: 0, total_qty: 0, total_value: 0,
+            };
+        }
+        map[key].trades++;
+        map[key].total_qty += t.qty || 0;
+        map[key].total_value += t.value_cr || 0;
+        // Keep latest mcap
+        if (t.market_cap && !map[key].market_cap) {
+            map[key].market_cap = t.market_cap;
+            map[key].market_cap_fmt = t.market_cap_fmt;
+        }
+    });
+
+    let rows = Object.values(map);
+    rows.sort((a, b) => {
+        let av = a[aggSort.col] != null ? a[aggSort.col] : 0;
+        let bv = b[aggSort.col] != null ? b[aggSort.col] : 0;
+        if (typeof av === "string") av = av.toLowerCase();
+        if (typeof bv === "string") bv = bv.toLowerCase();
+        if (av < bv) return aggSort.dir === "asc" ? -1 : 1;
+        if (av > bv) return aggSort.dir === "asc" ? 1 : -1;
+        return 0;
+    });
+
+    const tbody = document.getElementById("insiderAggBody");
+    if (!rows.length) {
+        tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;padding:32px;color:#888'>No data</td></tr>";
+        return;
+    }
+
+    tbody.innerHTML = rows.map(r => {
+        const txnCls = r.txn_type === "Buy" ? "it-buy" : r.txn_type === "Sell" ? "it-sell" : "it-other";
+        const mcapCr = r.market_cap ? r.market_cap / 1e7 : null;
+        const mcapCls = !mcapCr ? "mcap-na" : mcapCr >= 20000 ? "mcap-large" : mcapCr >= 5000 ? "mcap-mid" : "mcap-small";
+        const sym = r.nse_symbol ? "<span class='ann-exch nse'>" + escapeHtml(r.nse_symbol) + "</span>"
+                  : r.scrip_code ? "<span class='ann-exch bse'>" + escapeHtml(r.scrip_code) + "</span>" : "";
+        return "<tr>"
+            + "<td><strong>" + escapeHtml(r.company) + "</strong><br><small>" + sym + "</small></td>"
+            + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + (r.market_cap_fmt || "N/A") + "</td>"
+            + "<td><small>" + escapeHtml(r.mode) + "</small></td>"
+            + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(r.txn_type) + "</span></td>"
+            + "<td style='text-align:right'>" + r.trades + "</td>"
+            + "<td style='text-align:right'>" + r.total_qty.toLocaleString("en-IN") + "</td>"
+            + "<td style='text-align:right;font-weight:600'>" + r.total_value.toLocaleString("en-IN", {maximumFractionDigits:2}) + "</td>"
+            + "</tr>";
+    }).join("");
+}
+
 function insiderPrevPage() { if (insiderPage > 1) { insiderPage--; renderInsiderTable(); window.scrollTo(0,0); } }
 function insiderNextPage() { insiderPage++; renderInsiderTable(); window.scrollTo(0,0); }
 
+// ─── Export ───────────────────────────────────────────────────────────────────
 function exportInsiderXLSX() {
-    if (!insiderFiltered.length) return;
-    const rows = insiderFiltered.map(t => ({
-        Date: t.date, Company: t.company, "Scrip/Symbol": t.nse_symbol || t.scrip_code,
-        Exchange: t.exchange, Person: t.person, Category: t.category,
-        "Txn Type": t.txn_type, Mode: t.mode, Quantity: t.qty,
-        "Avg Price": t.price, "Value (Cr)": t.value_cr,
-        "Before %": t.before_pct, "After %": t.after_pct, Industry: t.industry,
-    }));
-    const ws = XLSX.utils.json_to_sheet(rows);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Insider Trades");
-    XLSX.writeFile(wb, "insider_trades_" + new Date().toISOString().slice(0,10) + ".xlsx");
+    const view = document.getElementById("insiderView").value;
+    if (view === "aggregate") {
+        // Export aggregate data
+        const map = {};
+        insiderFiltered.forEach(t => {
+            const key = (t.company || "") + "|" + (t.mode || "") + "|" + (t.txn_type || "");
+            if (!map[key]) map[key] = { Company: t.company, MCap: t.market_cap_fmt || "N/A", Mode: t.mode, "Txn Type": t.txn_type, Trades: 0, "Total Qty": 0, "Total Value (Cr)": 0 };
+            map[key].Trades++; map[key]["Total Qty"] += t.qty || 0; map[key]["Total Value (Cr)"] += t.value_cr || 0;
+        });
+        const rows = Object.values(map).map(r => ({ ...r, "Total Value (Cr)": Math.round(r["Total Value (Cr)"] * 100) / 100 }));
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Insider Aggregate");
+        XLSX.writeFile(wb, "insider_aggregate_" + new Date().toISOString().slice(0,10) + ".xlsx");
+    } else {
+        if (!insiderFiltered.length) return;
+        const rows = insiderFiltered.map(t => ({
+            Date: t.date, Company: t.company, MCap: t.market_cap_fmt, "Scrip/Symbol": t.nse_symbol || t.scrip_code,
+            Exchange: t.exchange, Person: t.person, Category: t.category,
+            "Txn Type": t.txn_type, Mode: t.mode, Quantity: t.qty,
+            "Avg Price": t.price, "Value (Cr)": t.value_cr,
+            "Before %": t.before_pct, "After %": t.after_pct,
+        }));
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Insider Trades");
+        XLSX.writeFile(wb, "insider_trades_" + new Date().toISOString().slice(0,10) + ".xlsx");
+    }
 }

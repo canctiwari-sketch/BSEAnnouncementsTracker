@@ -99,8 +99,21 @@
     <!-- ═══ Insider Trades Tab ═══════════════════════════════════════════════ -->
     <div id="insiderTab" style="display:none">
         <div class="controls">
-            <label>From<input type="date" id="insiderFrom" onchange="applyInsiderFilter()"></label>
-            <label>To<input type="date" id="insiderTo" onchange="applyInsiderFilter()"></label>
+            <label>Period
+                <select id="insiderPeriod" onchange="onInsiderPeriodChange()">
+                    <option value="custom">Custom Range</option>
+                </select>
+            </label>
+            <span id="insiderCustomRange">
+                <label>From<input type="date" id="insiderFrom" onchange="applyInsiderFilter()"></label>
+                <label>To<input type="date" id="insiderTo" onchange="applyInsiderFilter()"></label>
+            </span>
+            <label>View
+                <select id="insiderView" onchange="applyInsiderFilter()">
+                    <option value="trades">All Trades</option>
+                    <option value="aggregate">Aggregate</option>
+                </select>
+            </label>
             <label>Txn Type
                 <select id="insiderTxn" onchange="applyInsiderFilter()">
                     <option value="">All</option>
@@ -117,15 +130,14 @@
                     <option value="Other">Other</option>
                 </select>
             </label>
-            <label>Min Value (Cr)<input type="number" id="insiderMinVal" placeholder="e.g. 1" onchange="applyInsiderFilter()" min="0" step="0.1"></label>
-            <label>Min MCap (Cr)<input type="number" id="insiderMcapMin" placeholder="e.g. 500" onchange="applyInsiderFilter()" min="0"></label>
-            <label>Max MCap (Cr)<input type="number" id="insiderMcapMax" placeholder="e.g. 50000" onchange="applyInsiderFilter()" min="0"></label>
-            <label class="na-filter-label"><input type="checkbox" id="insiderIncludeNA" onchange="applyInsiderFilter()"> Include N/A MCap</label>
             <label>Mode
                 <select id="insiderMode" onchange="applyInsiderFilter()">
                     <option value="">All</option>
                 </select>
             </label>
+            <label>Min Value (Cr)<input type="number" id="insiderMinVal" placeholder="e.g. 1" onchange="applyInsiderFilter()" min="0" step="0.1"></label>
+            <label>Min MCap (Cr)<input type="number" id="insiderMcapMin" placeholder="e.g. 500" onchange="applyInsiderFilter()" min="0"></label>
+            <label>Max MCap (Cr)<input type="number" id="insiderMcapMax" placeholder="e.g. 50000" onchange="applyInsiderFilter()" min="0"></label>
             <label>Exchange
                 <select id="insiderExchange" onchange="applyInsiderFilter()">
                     <option value="">Both</option>
@@ -140,6 +152,8 @@
         <div class="status-bar">
             <div id="insiderStatus" class="status"></div>
         </div>
+
+        <!-- All Trades table -->
         <div id="insiderResults">
             <table id="insiderTable">
                 <thead><tr>
@@ -164,6 +178,22 @@
             <span id="insiderPageNum">Page 1 of 1</span>
             <button id="insiderNextBtn" onclick="insiderNextPage()">Next &raquo;</button>
             <span id="insiderPageInfo" class="page-info"></span>
+        </div>
+
+        <!-- Aggregate table -->
+        <div id="insiderAggResults" style="display:none">
+            <table id="insiderAggTable">
+                <thead><tr>
+                    <th class="sortable" onclick="sortAggBy('company')">Company <span class="sort-arrow" data-acol="company"></span></th>
+                    <th class="sortable" onclick="sortAggBy('market_cap')">MCap <span class="sort-arrow" data-acol="market_cap"></span></th>
+                    <th>Mode</th>
+                    <th>Txn</th>
+                    <th class="sortable" onclick="sortAggBy('trades')">Trades <span class="sort-arrow" data-acol="trades"></span></th>
+                    <th class="sortable" onclick="sortAggBy('total_qty')">Total Qty <span class="sort-arrow" data-acol="total_qty"></span></th>
+                    <th class="sortable" onclick="sortAggBy('total_value')">Total Value (Cr) <span class="sort-arrow" data-acol="total_value"></span></th>
+                </tr></thead>
+                <tbody id="insiderAggBody"></tbody>
+            </table>
         </div>
     </div><!-- /#insiderTab -->
 
