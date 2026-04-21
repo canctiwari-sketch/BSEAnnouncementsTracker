@@ -919,15 +919,22 @@ async function loadScrips() {
                     }
                 });
                 // Second pass: build BSE entries, merging NSE symbol if missing
+                const nseOnlyList = [];
                 raw.forEach(s => {
-                    if (!s.ScripCode) return;
                     const name = s.ScripName || s.IssuerName || "";
+                    if (!s.ScripCode) {
+                        // NSE-only / SME entries — include them directly
+                        if (s.NSESymbol && name) {
+                            nseOnlyList.push({ name, scrip_code: "", nse_symbol: s.NSESymbol });
+                        }
+                        return;
+                    }
                     const nse = s.NSESymbol ||
                         nseSymbolByName.get(name.toLowerCase().trim()) ||
                         nseSymbolByName.get((s.IssuerName || "").toLowerCase().trim()) || "";
                     bseMap.set(String(s.ScripCode), { name, scrip_code: String(s.ScripCode), nse_symbol: nse });
                 });
-                scripsData = [...bseMap.values()]
+                scripsData = [...bseMap.values(), ...nseOnlyList]
                     .filter(s => s.name)
                     .sort((a, b) => a.name.localeCompare(b.name));
             }
