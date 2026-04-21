@@ -31,8 +31,12 @@ def log(msg):
 def load_existing():
     if os.path.exists(OUTPUT_FILE):
         with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"trades": [], "last_updated": None, "seen_keys": []}
+            d = json.load(f)
+        # Ensure mcap_cache key exists
+        if "mcap_cache" not in d:
+            d["mcap_cache"] = {}
+        return d
+    return {"trades": [], "last_updated": None, "seen_keys": [], "mcap_cache": {}}
 
 
 def save_data(data):
@@ -297,52 +301,75 @@ def fetch_mcap_nse(client, symbol):
         pass
     return None
 
-def enrich_market_caps(trades):
-    """Fetch market cap for each unique company and add to trades."""
+def enrich_market_caps(trades, mcap_cache):
+    """Fetch market cap for each unique company and add to trades.
+    mcap_cache: persistent dict { 'BSE:scrip_code' | 'NSE:symbol' -> {value, formatted} }
+    Fetches only symbols not already in cache. Max 300 new lookups per run.
+    """
     log("Enriching market caps...")
+
+    # Find symbols we still need to fetch (not in cache yet)
+    need_bse = []
+    need_nse = []
+    for t in trades:
+        if t.get("scrip_code") and f"BSE:{t['scrip_code']}" not in mcap_cache:
+            if t["scrip_code"] not in need_bse:
+                need_bse.append(t["scrip_code"])
+        if t.get("nse_symbol") and f"NSE:{t['nse_symbol']}" not in mcap_cache:
+            if t["nse_symbol"] not in need_nse:
+                need_nse.append(t["nse_symbol"])
+
+    log(f"  Cache size: {len(mcap_cache)}, need BSE: {len(need_bse)}, need NSE: {len(need_nse)}")
+
+    # Cap at 300 new lookups per run to stay within timeout
+    MAX_PER_RUN = 300
+    need_bse = need_bse[:MAX_PER_RUN]
+    need_nse = need_nse[:max(0, MAX_PER_RUN - len(need_bse))]
+
     bse_session = requests.Session()
     bse_session.headers.update(BSE_HEADERS)
-    nse_client = _get_nse_client()
-
-    # Build unique lookup keys
-    scrip_map = {}   # scrip_code -> mcap
-    symbol_map = {}  # nse_symbol -> mcap
-
-    for t in trades:
-        if t.get("scrip_code") and t["scrip_code"] not in scrip_map:
-            scrip_map[t["scrip_code"]] = None
-        if t.get("nse_symbol") and t["nse_symbol"] not in symbol_map:
-            symbol_map[t["nse_symbol"]] = None
 
     # Fetch BSE mcaps
-    for code in list(scrip_map.keys()):
+    for code in need_bse:
         result = fetch_mcap_bse(bse_session, code)
-        scrip_map[code] = result
+        mcap_cache[f"BSE:{code}"] = result  # None = tried but failed
         time.sleep(0.05)
 
-    # Fetch NSE mcaps (only for symbols not covered by BSE)
+    # Fetch NSE mcaps — probe first to check if session works
+    nse_client = None
+    if need_nse:
+        nse_client = _get_nse_client()
+        # Quick probe: test one symbol before committing to all 300
+        if nse_client and need_nse:
+            probe = fetch_mcap_nse(nse_client, need_nse[0])
+            if probe is None:
+                # NSE API blocked today — skip, will retry next run
+                log("  NSE mcap probe returned None — skipping NSE enrichment today")
+                nse_client.close()
+                nse_client = None
+
     if nse_client:
-        for sym in list(symbol_map.keys()):
+        for sym in need_nse:
             result = fetch_mcap_nse(nse_client, sym)
-            symbol_map[sym] = result
+            mcap_cache[f"NSE:{sym}"] = result
             time.sleep(0.05)
         nse_client.close()
 
-    # Apply to trades
+    # Apply cache to trades
     enriched = 0
     for t in trades:
         mcap = None
         if t.get("scrip_code"):
-            mcap = scrip_map.get(t["scrip_code"])
+            mcap = mcap_cache.get(f"BSE:{t['scrip_code']}")
         if not mcap and t.get("nse_symbol"):
-            mcap = symbol_map.get(t["nse_symbol"])
+            mcap = mcap_cache.get(f"NSE:{t['nse_symbol']}")
         if mcap:
             t["market_cap"] = mcap["value"]
             t["market_cap_fmt"] = mcap["formatted"]
             enriched += 1
         else:
-            t.setdefault("market_cap", None)
-            t.setdefault("market_cap_fmt", "N/A")
+            t["market_cap"] = None
+            t["market_cap_fmt"] = "N/A"
     log(f"  Enriched {enriched}/{len(trades)} trades with market cap")
     return trades
 
@@ -408,15 +435,19 @@ def main():
     # Sort newest first
     existing_trades.sort(key=lambda x: x.get("date", ""), reverse=True)
 
-    # Enrich with market cap (only new trades lack it)
+    # Enrich with market cap using persistent cache
+    mcap_cache = existing_data.get("mcap_cache", {})
     trades_needing_mcap = [t for t in existing_trades if t.get("market_cap") is None]
     if trades_needing_mcap:
-        enrich_market_caps(trades_needing_mcap)
+        enrich_market_caps(trades_needing_mcap, mcap_cache)
+    else:
+        log("All trades already have market cap data.")
 
     out = {
         "trades": existing_trades,
         "last_updated": ist_now.strftime("%Y-%m-%dT%H:%M:%S"),
         "seen_keys": list(seen_keys)[:60000],
+        "mcap_cache": mcap_cache,
     }
     save_data(out)
     log(f"Done — {len(existing_trades)} trades saved.")
