@@ -18,6 +18,12 @@
         </div>
     </header>
 
+    <div class="tab-bar">
+        <button class="tab-btn tab-active" id="tabAnn" onclick="showTab('ann')">📢 Announcements</button>
+        <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
+    </div>
+
+    <div id="annTab">
     <div class="controls">
         <div class="multi-select-wrap">
             <span class="multi-label">Category</span>
@@ -87,6 +93,70 @@
         <button id="nextBtn" onclick="nextPage()">Next &raquo;</button>
         <span id="pageInfo" class="page-info">1–50 of 100</span>
     </div>
+
+    </div><!-- /#annTab -->
+
+    <!-- ═══ Insider Trades Tab ═══════════════════════════════════════════════ -->
+    <div id="insiderTab" style="display:none">
+        <div class="controls">
+            <label>From<input type="date" id="insiderFrom" onchange="applyInsiderFilter()"></label>
+            <label>To<input type="date" id="insiderTo" onchange="applyInsiderFilter()"></label>
+            <label>Txn Type
+                <select id="insiderTxn" onchange="applyInsiderFilter()">
+                    <option value="">All</option>
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>
+                </select>
+            </label>
+            <label>Category
+                <select id="insiderCategory" onchange="applyInsiderFilter()">
+                    <option value="">All</option>
+                    <option value="Promoter">Promoter</option>
+                    <option value="Director">Director</option>
+                    <option value="KMP">KMP</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+            <label>Min Value (Cr)<input type="number" id="insiderMinVal" placeholder="e.g. 1" onchange="applyInsiderFilter()" min="0" step="0.1"></label>
+            <label>Exchange
+                <select id="insiderExchange" onchange="applyInsiderFilter()">
+                    <option value="">Both</option>
+                    <option value="BSE">BSE</option>
+                    <option value="NSE">NSE</option>
+                </select>
+            </label>
+            <label>Search<input type="text" id="insiderSearch" placeholder="Company, person..."></label>
+            <button class="clear-btn" onclick="clearInsiderFilters()">Clear Filters</button>
+            <button class="export-btn" onclick="exportInsiderXLSX()">Export Excel</button>
+        </div>
+        <div class="status-bar">
+            <div id="insiderStatus" class="status"></div>
+        </div>
+        <div id="insiderResults">
+            <table id="insiderTable">
+                <thead><tr>
+                    <th class="sortable" onclick="sortInsiderBy('date')">Date <span class="sort-arrow" data-icol="date"></span></th>
+                    <th class="sortable" onclick="sortInsiderBy('company')">Company <span class="sort-arrow" data-icol="company"></span></th>
+                    <th>Person</th>
+                    <th>Category</th>
+                    <th>Txn</th>
+                    <th>Mode</th>
+                    <th class="sortable" onclick="sortInsiderBy('qty')">Qty <span class="sort-arrow" data-icol="qty"></span></th>
+                    <th class="sortable" onclick="sortInsiderBy('price')">Avg Price <span class="sort-arrow" data-icol="price"></span></th>
+                    <th class="sortable" onclick="sortInsiderBy('value_cr')">Value (Cr) <span class="sort-arrow" data-icol="value_cr"></span></th>
+                    <th>Before%</th>
+                    <th>After%</th>
+                </tr></thead>
+                <tbody id="insiderBody"></tbody>
+            </table>
+        </div>
+        <div id="insiderPagination" class="pagination" style="display:none">
+            <button id="insiderPrevBtn" onclick="insiderPrevPage()" disabled>&laquo; Previous</button>
+            <span id="insiderPageNum">Page 1 of 1</span>
+            <button id="insiderNextBtn" onclick="insiderNextPage()">Next &raquo;</button>
+            <span id="insiderPageInfo" class="page-info"></span>
+        </div>
+    </div><!-- /#insiderTab -->
 
     <div id="watchlistOverlay" class="wl-overlay" style="display:none" onclick="if(event.target===this)closeWatchlist()">
         <div class="wl-modal">

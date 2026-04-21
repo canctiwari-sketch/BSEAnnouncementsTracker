@@ -17,12 +17,14 @@ const STARRED_CATEGORIES = new Set([
 const STARRED_RE = /open.?offer|warrants?|buybacks?|buy.?backs?|delisting|delist|capex|capital expenditure|expansion/i;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Debounced search (300ms)
     document.getElementById("searchBox").addEventListener("input", () => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(applyFilter, 300);
     });
-    // Escape key closes watchlist modal
+    document.getElementById("insiderSearch").addEventListener("input", () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applyInsiderFilter, 300);
+    });
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") { closeWatchlist(); closeLookup(); }
     });
@@ -1337,4 +1339,181 @@ async function clearResearch(scripCode) {
         );
     } catch {}
     document.getElementById("lookupStatus").style.display = "none";
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INSIDER TRADES
+// ═══════════════════════════════════════════════════════════════════════════
+
+let allInsiderTrades = [];
+let insiderFiltered = [];
+let insiderSort = { col: "date", dir: "desc" };
+let insiderPage = 1;
+const INSIDER_PAGE_SIZE = 100;
+let insiderLoaded = false;
+
+function showTab(tab) {
+    const isInsider = tab === "insider";
+    document.getElementById("annTab").style.display = isInsider ? "none" : "";
+    document.getElementById("insiderTab").style.display = isInsider ? "" : "none";
+    document.getElementById("tabAnn").classList.toggle("tab-active", !isInsider);
+    document.getElementById("tabInsider").classList.toggle("tab-active", isInsider);
+    if (isInsider && !insiderLoaded) fetchInsiderData();
+}
+
+async function fetchInsiderData() {
+    setInsiderStatus("Loading insider trades...", "loading");
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/insider.json?t=" + Date.now());
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const data = await r.json();
+        allInsiderTrades = data.trades || [];
+        insiderLoaded = true;
+        const updated = data.last_updated ? new Date(data.last_updated + "Z") : null;
+        const updStr = updated ? updated.toLocaleString("en-IN") : "unknown";
+        setInsiderStatus(allInsiderTrades.length.toLocaleString() + " trades \u2014 Last updated: " + updStr);
+        const today = new Date();
+        const d30 = new Date(today - 30 * 86400000);
+        document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
+        document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
+        applyInsiderFilter();
+    } catch (e) {
+        setInsiderStatus("Error loading insider data: " + e.message, "error");
+    }
+}
+
+function setInsiderStatus(msg, type) {
+    const el = document.getElementById("insiderStatus");
+    el.textContent = msg;
+    el.className = "status" + (type ? " status-" + type : "");
+}
+
+function applyInsiderFilter() {
+    const from   = document.getElementById("insiderFrom").value;
+    const to     = document.getElementById("insiderTo").value;
+    const txn    = document.getElementById("insiderTxn").value;
+    const cat    = document.getElementById("insiderCategory").value;
+    const minVal = parseFloat(document.getElementById("insiderMinVal").value) || 0;
+    const exch   = document.getElementById("insiderExchange").value;
+    const q      = document.getElementById("insiderSearch").value.trim().toLowerCase();
+
+    insiderFiltered = allInsiderTrades.filter(t => {
+        if (from && t.date < from) return false;
+        if (to   && t.date > to)   return false;
+        if (txn  && t.txn_type !== txn) return false;
+        if (cat  && t.category !== cat) return false;
+        if (minVal && (t.value_cr || 0) < minVal) return false;
+        if (exch && t.exchange !== exch) return false;
+        if (q) {
+            const hay = ((t.company || "") + " " + (t.person || "") + " " + (t.nse_symbol || "") + " " + (t.scrip_code || "")).toLowerCase();
+            if (!hay.includes(q)) return false;
+        }
+        return true;
+    });
+
+    insiderFiltered.sort((a, b) => {
+        let av = a[insiderSort.col] != null ? a[insiderSort.col] : "";
+        let bv = b[insiderSort.col] != null ? b[insiderSort.col] : "";
+        if (typeof av === "string") av = av.toLowerCase();
+        if (typeof bv === "string") bv = bv.toLowerCase();
+        if (av < bv) return insiderSort.dir === "asc" ? -1 : 1;
+        if (av > bv) return insiderSort.dir === "asc" ? 1 : -1;
+        return 0;
+    });
+
+    insiderPage = 1;
+    renderInsiderTable();
+    setInsiderStatus(insiderFiltered.length.toLocaleString() + " trades shown");
+}
+
+function clearInsiderFilters() {
+    const today = new Date();
+    const d30 = new Date(today - 30 * 86400000);
+    document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
+    document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
+    ["insiderTxn","insiderCategory","insiderExchange"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("insiderMinVal").value = "";
+    document.getElementById("insiderSearch").value = "";
+    applyInsiderFilter();
+}
+
+function sortInsiderBy(col) {
+    insiderSort.dir = insiderSort.col === col && insiderSort.dir === "desc" ? "asc" : "desc";
+    insiderSort.col = col;
+    document.querySelectorAll(".sort-arrow[data-icol]").forEach(el => {
+        el.textContent = el.dataset.icol === col ? (insiderSort.dir === "asc" ? " \u25b2" : " \u25bc") : "";
+    });
+    insiderPage = 1;
+    applyInsiderFilter();
+}
+
+function renderInsiderTable() {
+    const tbody = document.getElementById("insiderBody");
+    const total = insiderFiltered.length;
+    const totalPages = Math.max(1, Math.ceil(total / INSIDER_PAGE_SIZE));
+    insiderPage = Math.min(insiderPage, totalPages);
+    const start = (insiderPage - 1) * INSIDER_PAGE_SIZE;
+    const items = insiderFiltered.slice(start, start + INSIDER_PAGE_SIZE);
+
+    if (!items.length) {
+        tbody.innerHTML = "<tr><td colspan='11' style='text-align:center;padding:32px;color:#888'>No trades found</td></tr>";
+        document.getElementById("insiderPagination").style.display = "none";
+        return;
+    }
+
+    tbody.innerHTML = items.map(t => {
+        const txnCls = t.txn_type === "Buy" ? "it-buy" : t.txn_type === "Sell" ? "it-sell" : "it-other";
+        const catCls = {Promoter:"it-promoter",Director:"it-director",KMP:"it-kmp"}[t.category] || "it-other-cat";
+        const qty   = t.qty   ? t.qty.toLocaleString("en-IN") : "\u2014";
+        const price = t.price ? "\u20b9" + t.price.toLocaleString("en-IN", {maximumFractionDigits:2}) : "\u2014";
+        const val   = t.value_cr ? t.value_cr.toLocaleString("en-IN", {maximumFractionDigits:2}) : "\u2014";
+        const bpct  = t.before_pct ? t.before_pct + "%" : "\u2014";
+        const apct  = t.after_pct  ? t.after_pct  + "%" : "\u2014";
+        const sym   = t.nse_symbol ? "<span class='ann-exch nse'>" + escapeHtml(t.nse_symbol) + "</span>"
+                    : t.scrip_code ? "<span class='ann-exch bse'>" + escapeHtml(t.scrip_code) + "</span>" : "";
+        const exBadge = "<span class='ann-exch " + t.exchange.toLowerCase() + "'>" + t.exchange + "</span>";
+        return "<tr>"
+            + "<td style='white-space:nowrap'>" + escapeHtml(t.date) + "</td>"
+            + "<td><strong>" + escapeHtml(t.company) + "</strong><br><small>" + sym + exBadge + "</small></td>"
+            + "<td>" + escapeHtml(t.person) + "</td>"
+            + "<td><span class='it-badge " + catCls + "'>" + escapeHtml(t.category) + "</span></td>"
+            + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(t.txn_type) + "</span></td>"
+            + "<td><small>" + escapeHtml(t.mode || "\u2014") + "</small></td>"
+            + "<td style='text-align:right'>" + qty + "</td>"
+            + "<td style='text-align:right'>" + price + "</td>"
+            + "<td style='text-align:right;font-weight:600'>" + val + "</td>"
+            + "<td style='text-align:right;color:#888'>" + bpct + "</td>"
+            + "<td style='text-align:right;color:#888'>" + apct + "</td>"
+            + "</tr>";
+    }).join("");
+
+    const pg = document.getElementById("insiderPagination");
+    if (totalPages > 1) {
+        pg.style.display = "flex";
+        document.getElementById("insiderPageNum").textContent = "Page " + insiderPage + " of " + totalPages;
+        document.getElementById("insiderPrevBtn").disabled = insiderPage <= 1;
+        document.getElementById("insiderNextBtn").disabled = insiderPage >= totalPages;
+        document.getElementById("insiderPageInfo").textContent =
+            (start + 1) + "\u2013" + Math.min(start + INSIDER_PAGE_SIZE, total) + " of " + total.toLocaleString();
+    } else {
+        pg.style.display = "none";
+    }
+}
+
+function insiderPrevPage() { if (insiderPage > 1) { insiderPage--; renderInsiderTable(); window.scrollTo(0,0); } }
+function insiderNextPage() { insiderPage++; renderInsiderTable(); window.scrollTo(0,0); }
+
+function exportInsiderXLSX() {
+    if (!insiderFiltered.length) return;
+    const rows = insiderFiltered.map(t => ({
+        Date: t.date, Company: t.company, "Scrip/Symbol": t.nse_symbol || t.scrip_code,
+        Exchange: t.exchange, Person: t.person, Category: t.category,
+        "Txn Type": t.txn_type, Mode: t.mode, Quantity: t.qty,
+        "Avg Price": t.price, "Value (Cr)": t.value_cr,
+        "Before %": t.before_pct, "After %": t.after_pct, Industry: t.industry,
+    }));
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Insider Trades");
+    XLSX.writeFile(wb, "insider_trades_" + new Date().toISOString().slice(0,10) + ".xlsx");
 }
