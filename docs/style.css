@@ -264,6 +264,13 @@ a.company-name:hover {
     color: #5a3d8a;
 }
 
+/* Company link in insider tables */
+a.company-link {
+    color: #333;
+    text-decoration: none;
+}
+a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
+
 .scrip-code {
     font-size: 0.7rem;
     color: #aaa;
@@ -1058,6 +1065,29 @@ a.company-name:hover {
 .lookup-btn:hover {
     background: #3d2c6e;
     color: #fff;
+}
+
+/* ─── Research Tab Panel ──────────────────────────────────────────────────── */
+.research-panel {
+    max-width: 960px;
+    margin: 36px auto;
+    padding: 0 28px 60px;
+}
+
+.research-panel-header {
+    margin-bottom: 28px;
+}
+
+.research-panel-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #3d2c6e;
+}
+
+.research-panel-sub {
+    margin-top: 5px;
+    color: #888;
+    font-size: 0.82rem;
 }
 
 /* ─── Lookup modal overlay ────────────────────────────────────────────────── */

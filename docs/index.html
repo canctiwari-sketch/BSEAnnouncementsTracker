@@ -21,6 +21,7 @@
     <div class="tab-bar">
         <button class="tab-btn tab-active" id="tabAnn" onclick="showTab('ann')">📢 Announcements</button>
         <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
+        <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
     </div>
 
     <div id="annTab">
@@ -63,7 +64,7 @@
         <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
         <button class="export-btn" onclick="exportXLSX()" title="Export filtered results as Excel">Export Excel</button>
         <button class="watchlist-btn" onclick="openWatchlist()" title="View Watchlist">&#9734; Watchlist <span id="wlCount">(0)</span></button>
-        <button class="lookup-btn" onclick="openLookup()" title="Company History Lookup">&#128269; Lookup</button>
+        <button class="lookup-btn" onclick="showTab('research')" title="Company History &amp; Research">&#128269; Research</button>
     </div>
 
     <div class="status-bar">
@@ -190,6 +191,7 @@
                     <th>Txn</th>
                     <th class="sortable" onclick="sortAggBy('trades')">Trades <span class="sort-arrow" data-acol="trades"></span></th>
                     <th class="sortable" onclick="sortAggBy('total_qty')">Total Qty <span class="sort-arrow" data-acol="total_qty"></span></th>
+                    <th class="sortable" onclick="sortAggBy('avg_price')">Avg Price <span class="sort-arrow" data-acol="avg_price"></span></th>
                     <th class="sortable" onclick="sortAggBy('total_value')">Total Value (Cr) <span class="sort-arrow" data-acol="total_value"></span></th>
                 </tr></thead>
                 <tbody id="insiderAggBody"></tbody>
@@ -214,44 +216,42 @@
         </div>
     </div>
 
-    <!-- Company Lookup Modal -->
-    <div id="lookupOverlay" class="lookup-overlay" style="display:none" onclick="if(event.target===this)closeLookup()">
-        <div class="lookup-modal">
-            <div class="lookup-modal-header">
-                <h2>&#128269; Company History Lookup</h2>
-                <button class="lookup-close-btn" onclick="closeLookup()">&times;</button>
+    <!-- Research Tab (inline, no modal) -->
+    <div id="researchTab" style="display:none">
+        <div class="research-panel">
+            <div class="research-panel-header">
+                <h2>&#128269; Company History &amp; Deep Research</h2>
+                <p class="research-panel-sub">Search BSE/NSE companies (including SME) &middot; Fetch 3 years of announcements &middot; Generate AI deep-dive reports</p>
             </div>
-            <div class="lookup-modal-body">
-                <div class="lookup-search-row">
-                    <div class="lookup-input-wrap">
-                        <input type="text" id="lookupInput" class="lookup-input"
-                            placeholder="Type company name..."
-                            oninput="onLookupInput()" onkeydown="onLookupKeyDown(event)"
-                            autocomplete="off">
-                        <div id="lookupSuggest" class="lookup-suggest" style="display:none"></div>
-                    </div>
-                    <button id="lookupFetchBtn" class="lookup-fetch-btn" onclick="triggerLookup()" disabled>Fetch 3 Yrs</button>
-                    <button id="researchBtn" class="research-fetch-btn" onclick="triggerResearch()" disabled title="Generate full 10-15 page deep-dive research report (~5-10 min)">🔬 Deep Research</button>
+            <div class="lookup-search-row">
+                <div class="lookup-input-wrap">
+                    <input type="text" id="lookupInput" class="lookup-input"
+                        placeholder="Type company name or symbol..."
+                        oninput="onLookupInput()" onkeydown="onLookupKeyDown(event)"
+                        autocomplete="off">
+                    <div id="lookupSuggest" class="lookup-suggest" style="display:none"></div>
                 </div>
-                <div id="lookupStatus" class="lookup-status" style="display:none"></div>
-                <div id="lookupResults" style="display:none">
-                    <div class="lookup-result-header">
-                        <span id="lookupResultTitle"></span>
-                        <button class="lookup-clear-btn" onclick="clearLookup()">&#128465; Clear Results</button>
-                    </div>
-                    <div class="lookup-table-wrap">
-                        <table class="lookup-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Category</th>
-                                    <th>Subject</th>
-                                    <th>PDF</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lookupBody"></tbody>
-                        </table>
-                    </div>
+                <button id="lookupFetchBtn" class="lookup-fetch-btn" onclick="triggerLookup()" disabled>Fetch 3 Yrs</button>
+                <button id="researchBtn" class="research-fetch-btn" onclick="triggerResearch()" disabled title="Generate full 10-15 page deep-dive research report (~5-10 min)">&#128302; Deep Research</button>
+            </div>
+            <div id="lookupStatus" class="lookup-status" style="display:none"></div>
+            <div id="lookupResults" style="display:none">
+                <div class="lookup-result-header">
+                    <span id="lookupResultTitle"></span>
+                    <button class="lookup-clear-btn" onclick="clearLookup()">&#128465; Clear Results</button>
+                </div>
+                <div class="lookup-table-wrap">
+                    <table class="lookup-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Subject</th>
+                                <th>PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lookupBody"></tbody>
+                    </table>
                 </div>
             </div>
         </div>

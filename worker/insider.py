@@ -233,9 +233,9 @@ def fetch_nse_insider(from_date, to_date):
         try:
             qty = safe_int(row.get("secAcq", 0))
             val_raw = safe_float(row.get("secVal", 0))
-            # NSE secVal sometimes in rupees, sometimes in crores — heuristic
-            value_cr = round(val_raw / 1e7, 2) if val_raw > 1e5 else round(val_raw, 2)
-            price = round((value_cr * 1e7) / qty, 2) if qty and value_cr else 0.0
+            # NSE secVal is always in rupees
+            value_cr = round(val_raw / 1e7, 2)
+            price = round(val_raw / qty, 2) if qty and val_raw else 0.0
 
             date_raw = row.get("acqfromDt") or row.get("tdpDt") or ""
 

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchTimeout = setTimeout(applyInsiderFilter, 300);
     });
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") { closeWatchlist(); closeLookup(); }
+        if (e.key === "Escape") { closeWatchlist(); hideLookupSuggest(); }
     });
     loadWatchlist();
     restoreFilters();
@@ -947,28 +947,26 @@ async function loadScrips() {
 }
 
 function buildCompanyList() {
-    return scripsData || [];
+    const list = scripsData ? [...scripsData] : [];
+    // Also include NSE-listed companies from insider trades (covers NSE-only + SME)
+    const seen = new Set(list.map(s => s.name.toLowerCase().trim()));
+    (allInsiderTrades || []).forEach(t => {
+        if (!t.nse_symbol || !t.company) return;
+        const key = t.company.toLowerCase().trim();
+        if (!seen.has(key)) {
+            list.push({ name: t.company, scrip_code: "", nse_symbol: t.nse_symbol });
+            seen.add(key);
+        }
+    });
+    list.sort((a, b) => a.name.localeCompare(b.name));
+    return list;
 }
 
 async function openLookup() {
-    document.getElementById("lookupOverlay").style.display = "flex";
-    const input = document.getElementById("lookupInput");
-    input.placeholder = "Loading company list...";
-    input.disabled = true;
-    // Await scrips load so autocomplete works immediately on first keystroke
-    await loadScrips();
-    input.placeholder = "Type company name...";
-    input.disabled = false;
-    input.focus();
-    // Check if we already have cached results to show
-    const cached = sessionStorage.getItem("lookup_result");
-    if (cached) {
-        try { renderLookupResults(JSON.parse(cached)); } catch {}
-    }
+    showTab('research');
 }
 
 function closeLookup() {
-    document.getElementById("lookupOverlay").style.display = "none";
     hideLookupSuggest();
     clearInterval(lookupPollTimer);
 }
@@ -988,14 +986,15 @@ function onLookupInput() {
     if (!matches.length) { hideLookupSuggest(); return; }
 
     const suggest = document.getElementById("lookupSuggest");
-    suggest.innerHTML = matches.map((c, i) =>
-        `<div class="lookup-suggest-item" data-idx="${i}"
+    suggest.innerHTML = matches.map((c, i) => {
+        const codeLabel = c.scrip_code ? `BSE ${c.scrip_code}` : (c.nse_symbol ? `NSE ${c.nse_symbol}` : "");
+        return `<div class="lookup-suggest-item" data-idx="${i}"
               onmousedown="selectLookupCompany(${i})"
               onmouseover="lookupSuggestIdx=${i};highlightSuggest()">
             <span class="lookup-suggest-name">${escapeHtml(c.name)}</span>
-            <span class="lookup-suggest-code">BSE ${escapeHtml(c.scrip_code)}</span>
-         </div>`
-    ).join("");
+            <span class="lookup-suggest-code">${escapeHtml(codeLabel)}</span>
+         </div>`;
+    }).join("");
     suggest._matches = matches;
     suggest.style.display = "block";
 }
@@ -1046,6 +1045,11 @@ function hideLookupSuggest() {
 
 async function triggerLookup() {
     if (!lookupSelectedCompany) return;
+
+    if (!lookupSelectedCompany.scrip_code) {
+        setLookupStatus("⚠️ This company has no BSE listing — history lookup requires a BSE scrip code. You can still use 🔬 Deep Research.", "error");
+        return;
+    }
 
     const token = localStorage.getItem(GH_TOKEN_KEY);
     if (!token) {
@@ -1355,12 +1359,22 @@ let insiderLoaded = false;
 
 // ─── Tab ─────────────────────────────────────────────────────────────────────
 function showTab(tab) {
-    const isInsider = tab === "insider";
-    document.getElementById("annTab").style.display = isInsider ? "none" : "";
-    document.getElementById("insiderTab").style.display = isInsider ? "" : "none";
-    document.getElementById("tabAnn").classList.toggle("tab-active", !isInsider);
-    document.getElementById("tabInsider").classList.toggle("tab-active", isInsider);
-    if (isInsider && !insiderLoaded) fetchInsiderData();
+    const TABS = { ann: "annTab", insider: "insiderTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", research: "tabResearch" };
+    Object.keys(TABS).forEach(t => {
+        document.getElementById(TABS[t]).style.display = t === tab ? "" : "none";
+        document.getElementById(BTNS[t]).classList.toggle("tab-active", t === tab);
+    });
+    if (tab === "insider" && !insiderLoaded) fetchInsiderData();
+    if (tab === "research") {
+        loadScrips();
+        setTimeout(() => {
+            const inp = document.getElementById("lookupInput");
+            if (inp && !inp.disabled) inp.focus();
+        }, 80);
+        const cached = sessionStorage.getItem("lookup_result");
+        if (cached) { try { renderLookupResults(JSON.parse(cached)); } catch {} }
+    }
 }
 
 // ─── Load ─────────────────────────────────────────────────────────────────────
@@ -1574,7 +1588,7 @@ function renderInsiderTable() {
         const mcapTxt = t.market_cap_fmt || "N/A";
         return "<tr>"
             + "<td style='white-space:nowrap'>" + escapeHtml(t.date) + "</td>"
-            + "<td><strong>" + escapeHtml(t.company) + "</strong><br><small>" + sym + exBadge + "</small></td>"
+            + "<td><a href='" + screenerLink(t.company) + "' target='_blank' class='company-link'><strong>" + escapeHtml(t.company) + "</strong></a><br><small>" + sym + exBadge + "</small></td>"
             + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + mcapTxt + "</td>"
             + "<td>" + escapeHtml(t.person) + "</td>"
             + "<td><span class='it-badge " + catCls + "'>" + escapeHtml(t.category) + "</span></td>"
@@ -1612,12 +1626,13 @@ function renderAggregateTable() {
                 company: t.company, mode: t.mode || "", txn_type: t.txn_type || "",
                 market_cap: t.market_cap || null, market_cap_fmt: t.market_cap_fmt || "N/A",
                 nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
-                trades: 0, total_qty: 0, total_value: 0,
+                trades: 0, total_qty: 0, total_value: 0, total_value_rs: 0,
             };
         }
         map[key].trades++;
         map[key].total_qty += t.qty || 0;
         map[key].total_value += t.value_cr || 0;
+        map[key].total_value_rs += (t.price || 0) * (t.qty || 0);
         // Keep latest mcap
         if (t.market_cap && !map[key].market_cap) {
             map[key].market_cap = t.market_cap;
@@ -1636,9 +1651,14 @@ function renderAggregateTable() {
         return 0;
     });
 
+    // Compute avg_price for each row (used for sorting too)
+    rows.forEach(r => {
+        r.avg_price = r.total_qty > 0 ? Math.round(r.total_value_rs / r.total_qty) : 0;
+    });
+
     const tbody = document.getElementById("insiderAggBody");
     if (!rows.length) {
-        tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;padding:32px;color:#888'>No data</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;padding:32px;color:#888'>No data</td></tr>";
         return;
     }
 
@@ -1648,13 +1668,15 @@ function renderAggregateTable() {
         const mcapCls = !mcapCr ? "mcap-na" : mcapCr >= 20000 ? "mcap-large" : mcapCr >= 5000 ? "mcap-mid" : "mcap-small";
         const sym = r.nse_symbol ? "<span class='ann-exch nse'>" + escapeHtml(r.nse_symbol) + "</span>"
                   : r.scrip_code ? "<span class='ann-exch bse'>" + escapeHtml(r.scrip_code) + "</span>" : "";
+        const avgPriceStr = r.avg_price > 0 ? "\u20b9" + r.avg_price.toLocaleString("en-IN") : "\u2014";
         return "<tr>"
-            + "<td><strong>" + escapeHtml(r.company) + "</strong><br><small>" + sym + "</small></td>"
+            + "<td><a href='" + screenerLink(r.company) + "' target='_blank' class='company-link'><strong>" + escapeHtml(r.company) + "</strong></a><br><small>" + sym + "</small></td>"
             + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + (r.market_cap_fmt || "N/A") + "</td>"
             + "<td><small>" + escapeHtml(r.mode) + "</small></td>"
             + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(r.txn_type) + "</span></td>"
             + "<td style='text-align:right'>" + r.trades + "</td>"
             + "<td style='text-align:right'>" + r.total_qty.toLocaleString("en-IN") + "</td>"
+            + "<td style='text-align:right;font-weight:500'>" + avgPriceStr + "</td>"
             + "<td style='text-align:right;font-weight:600'>" + r.total_value.toLocaleString("en-IN", {maximumFractionDigits:2}) + "</td>"
             + "</tr>";
     }).join("");
@@ -1671,10 +1693,13 @@ function exportInsiderXLSX() {
         const map = {};
         insiderFiltered.forEach(t => {
             const key = (t.company || "") + "|" + (t.mode || "") + "|" + (t.txn_type || "");
-            if (!map[key]) map[key] = { Company: t.company, MCap: t.market_cap_fmt || "N/A", Mode: t.mode, "Txn Type": t.txn_type, Trades: 0, "Total Qty": 0, "Total Value (Cr)": 0 };
-            map[key].Trades++; map[key]["Total Qty"] += t.qty || 0; map[key]["Total Value (Cr)"] += t.value_cr || 0;
+            if (!map[key]) map[key] = { Company: t.company, MCap: t.market_cap_fmt || "N/A", Mode: t.mode, "Txn Type": t.txn_type, Trades: 0, "Total Qty": 0, _total_rs: 0, "Avg Price": 0, "Total Value (Cr)": 0 };
+            map[key].Trades++; map[key]["Total Qty"] += t.qty || 0; map[key]["Total Value (Cr)"] += t.value_cr || 0; map[key]._total_rs += (t.price || 0) * (t.qty || 0);
         });
-        const rows = Object.values(map).map(r => ({ ...r, "Total Value (Cr)": Math.round(r["Total Value (Cr)"] * 100) / 100 }));
+        const rows = Object.values(map).map(r => {
+            const avg = r["Total Qty"] > 0 ? Math.round(r._total_rs / r["Total Qty"]) : 0;
+            return { Company: r.Company, MCap: r.MCap, Mode: r.Mode, "Txn Type": r["Txn Type"], Trades: r.Trades, "Total Qty": r["Total Qty"], "Avg Price": avg, "Total Value (Cr)": Math.round(r["Total Value (Cr)"] * 100) / 100 };
+        });
         const ws = XLSX.utils.json_to_sheet(rows);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Insider Aggregate");
