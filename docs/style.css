@@ -1067,6 +1067,46 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
     color: #fff;
 }
 
+/* ─── Aggregate Two-Section Layout ───────────────────────────────────────── */
+.agg-section {
+    margin: 0 0 32px;
+}
+.agg-section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #3d2c6e;
+    padding: 12px 16px;
+    background: #f4f1fb;
+    border-left: 3px solid #7c4dcc;
+    border-bottom: 1px solid #e0d8f0;
+}
+.agg-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.agg-table thead th {
+    padding: 7px 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #888;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+    white-space: nowrap;
+}
+.agg-table tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f3f3f5;
+    font-size: 0.84rem;
+    vertical-align: middle;
+}
+.agg-table tbody tr:hover { background: #faf9fe; }
+.agg-pos { color: #065f46 !important; }
+.agg-neg { color: #991b1b !important; }
+
 /* ─── Research Tab Panel ──────────────────────────────────────────────────── */
 .research-panel {
     max-width: 960px;

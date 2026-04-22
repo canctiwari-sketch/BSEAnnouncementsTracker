@@ -1558,9 +1558,6 @@ function sortInsiderBy(col) {
 function sortAggBy(col) {
     aggSort.dir = aggSort.col === col && aggSort.dir === "desc" ? "asc" : "desc";
     aggSort.col = col;
-    document.querySelectorAll(".sort-arrow[data-acol]").forEach(el => {
-        el.textContent = el.dataset.acol === col ? (aggSort.dir === "asc" ? " \u25b2" : " \u25bc") : "";
-    });
     renderAggregateTable();
 }
 
@@ -1622,71 +1619,160 @@ function renderInsiderTable() {
     }
 }
 
-// ─── Render Aggregate ─────────────────────────────────────────────────────────
-function renderAggregateTable() {
-    // Group by company + mode + txn_type (each mode is kept separate)
-    const map = {};
-    insiderFiltered.forEach(t => {
-        const key = (t.company || "") + "|" + (t.mode || "") + "|" + (t.txn_type || "");
-        if (!map[key]) {
-            map[key] = {
-                company: t.company, mode: t.mode || "", txn_type: t.txn_type || "",
-                market_cap: t.market_cap || null, market_cap_fmt: t.market_cap_fmt || "N/A",
-                nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
-                trades: 0, total_qty: 0, total_value: 0, total_value_rs: 0,
-            };
-        }
-        map[key].trades++;
-        map[key].total_qty += t.qty || 0;
-        map[key].total_value += t.value_cr || 0;
-        map[key].total_value_rs += (t.price || 0) * (t.qty || 0);
-        // Keep latest mcap
-        if (t.market_cap && !map[key].market_cap) {
-            map[key].market_cap = t.market_cap;
-            map[key].market_cap_fmt = t.market_cap_fmt;
-        }
-    });
-
-    let rows = Object.values(map);
-    rows.sort((a, b) => {
-        let av = a[aggSort.col] != null ? a[aggSort.col] : 0;
-        let bv = b[aggSort.col] != null ? b[aggSort.col] : 0;
-        if (typeof av === "string") av = av.toLowerCase();
-        if (typeof bv === "string") bv = bv.toLowerCase();
-        if (av < bv) return aggSort.dir === "asc" ? -1 : 1;
-        if (av > bv) return aggSort.dir === "asc" ? 1 : -1;
+// ─── Aggregate helpers ────────────────────────────────────────────────────────
+function _aggSort(rows) {
+    const col = aggSort.col;
+    const dir = aggSort.dir;
+    return rows.sort((a, b) => {
+        let av = a[col] != null ? a[col] : (typeof a[col] === "string" ? "" : 0);
+        let bv = b[col] != null ? b[col] : (typeof b[col] === "string" ? "" : 0);
+        if (typeof av === "string") { av = av.toLowerCase(); bv = (bv + "").toLowerCase(); }
+        if (av < bv) return dir === "asc" ? -1 : 1;
+        if (av > bv) return dir === "asc" ? 1 : -1;
         return 0;
     });
+}
 
-    // Compute avg_price for each row (used for sorting too)
-    rows.forEach(r => {
-        r.avg_price = r.total_qty > 0 ? Math.round(r.total_value_rs / r.total_qty) : 0;
+function _aggTh(col, label, align) {
+    const arrow = aggSort.col === col ? (aggSort.dir === "asc" ? " \u25b2" : " \u25bc") : "";
+    const st = align ? ` style="text-align:${align}"` : "";
+    return `<th class="sortable"${st} onclick="sortAggBy('${col}')">${label}${arrow}</th>`;
+}
+
+function _aggCompanyCell(r) {
+    const sym = r.nse_symbol ? `<span class='ann-exch nse'>${escapeHtml(r.nse_symbol)}</span>`
+              : r.scrip_code ? `<span class='ann-exch bse'>${escapeHtml(r.scrip_code)}</span>` : "";
+    return `<td><a href='${screenerLink(r.company)}' target='_blank' class='company-link'><strong>${escapeHtml(r.company)}</strong></a><br><small>${sym}</small></td>`;
+}
+
+function _aggMcapCell(r) {
+    const cr = r.market_cap ? r.market_cap / 1e7 : null;
+    const cls = !cr ? "mcap-na" : cr >= 20000 ? "mcap-large" : cr >= 5000 ? "mcap-mid" : "mcap-small";
+    return `<td class="${cls}" style="text-align:right;font-weight:500">${r.market_cap_fmt || "N/A"}</td>`;
+}
+
+// ─── Render Aggregate ─────────────────────────────────────────────────────────
+function renderAggregateTable() {
+    const isMarket = t => /^market/i.test(t.mode || "");
+    const isPref   = t => /preferential|allotment/i.test(t.mode || "");
+
+    // ── Section 1: Market Net (buy - sell per company) ──
+    const mMap = {};
+    insiderFiltered.filter(isMarket).forEach(t => {
+        const k = t.company || "";
+        if (!mMap[k]) mMap[k] = {
+            company: t.company, market_cap: null, market_cap_fmt: "N/A",
+            nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
+            buy_qty: 0, sell_qty: 0, buy_value: 0, sell_value: 0,
+            buy_rs: 0, buy_trades: 0, sell_trades: 0,
+        };
+        const r = mMap[k];
+        if (t.market_cap && !r.market_cap) { r.market_cap = t.market_cap; r.market_cap_fmt = t.market_cap_fmt; }
+        if ((t.txn_type || "").toLowerCase() === "sell") {
+            r.sell_qty += t.qty || 0; r.sell_value += t.value_cr || 0; r.sell_trades++;
+        } else {
+            r.buy_qty += t.qty || 0; r.buy_value += t.value_cr || 0;
+            r.buy_rs += (t.price || 0) * (t.qty || 0); r.buy_trades++;
+        }
     });
+    let mRows = _aggSort(Object.values(mMap).map(r => ({
+        ...r,
+        net_qty:   r.buy_qty - r.sell_qty,
+        net_value: +((r.buy_value - r.sell_value).toFixed(2)),
+        avg_price: r.buy_qty > 0 ? Math.round(r.buy_rs / r.buy_qty) : 0,
+        trades:    r.buy_trades + r.sell_trades,
+        // expose for sort keys used by agg
+        total_value: +((r.buy_value - r.sell_value).toFixed(2)),
+        total_qty:   r.buy_qty - r.sell_qty,
+        market_cap:  r.market_cap || 0,
+    })));
 
-    const tbody = document.getElementById("insiderAggBody");
+    // ── Section 2: Preferential per company ──
+    const pMap = {};
+    insiderFiltered.filter(isPref).forEach(t => {
+        const k = t.company || "";
+        if (!pMap[k]) pMap[k] = {
+            company: t.company, market_cap: null, market_cap_fmt: "N/A",
+            nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
+            trades: 0, total_qty: 0, total_value: 0, total_rs: 0,
+        };
+        const r = pMap[k];
+        if (t.market_cap && !r.market_cap) { r.market_cap = t.market_cap; r.market_cap_fmt = t.market_cap_fmt; }
+        r.trades++; r.total_qty += t.qty || 0; r.total_value += t.value_cr || 0;
+        r.total_rs += (t.price || 0) * (t.qty || 0);
+    });
+    let pRows = _aggSort(Object.values(pMap).map(r => ({
+        ...r,
+        avg_price: r.total_qty > 0 ? Math.round(r.total_rs / r.total_qty) : 0,
+        market_cap: r.market_cap || 0,
+    })));
+
+    const container = document.getElementById("insiderAggResults");
+    container.innerHTML = _buildMarketSection(mRows) + _buildPrefSection(pRows);
+}
+
+function _buildMarketSection(rows) {
+    let html = `<div class="agg-section">
+        <div class="agg-section-title">📈 Market Transactions &mdash; Net Position</div>
+        <table class="agg-table"><thead><tr>
+            ${_aggTh("company","Company")}
+            ${_aggTh("market_cap","MCap","right")}
+            <th style="text-align:right">Buy Qty</th>
+            <th style="text-align:right">Sell Qty</th>
+            ${_aggTh("net_qty","Net Qty","right")}
+            ${_aggTh("avg_price","Avg Buy Price","right")}
+            ${_aggTh("net_value","Net Value (Cr)","right")}
+        </tr></thead><tbody>`;
+
     if (!rows.length) {
-        tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;padding:32px;color:#888'>No data</td></tr>";
-        return;
+        html += `<tr><td colspan="7" style="text-align:center;padding:24px;color:#aaa">No market transactions in this period</td></tr>`;
+    } else {
+        rows.forEach(r => {
+            const nqCls = r.net_qty >= 0 ? "agg-pos" : "agg-neg";
+            const nvCls = r.net_value >= 0 ? "agg-pos" : "agg-neg";
+            const nqStr = (r.net_qty >= 0 ? "+" : "") + r.net_qty.toLocaleString("en-IN");
+            const nvStr = (r.net_value >= 0 ? "+" : "") + r.net_value.toLocaleString("en-IN", {maximumFractionDigits:2});
+            const avgStr = r.avg_price > 0 ? "\u20b9" + r.avg_price.toLocaleString("en-IN") : "\u2014";
+            html += "<tr>"
+                + _aggCompanyCell(r) + _aggMcapCell(r)
+                + `<td style="text-align:right;color:#555">${r.buy_qty.toLocaleString("en-IN")}</td>`
+                + `<td style="text-align:right;color:#555">${r.sell_qty.toLocaleString("en-IN")}</td>`
+                + `<td class="${nqCls}" style="text-align:right;font-weight:600">${nqStr}</td>`
+                + `<td style="text-align:right">${avgStr}</td>`
+                + `<td class="${nvCls}" style="text-align:right;font-weight:700">${nvStr}</td>`
+                + "</tr>";
+        });
     }
+    return html + "</tbody></table></div>";
+}
 
-    tbody.innerHTML = rows.map(r => {
-        const txnCls = r.txn_type === "Buy" ? "it-buy" : r.txn_type === "Sell" ? "it-sell" : "it-other";
-        const mcapCr = r.market_cap ? r.market_cap / 1e7 : null;
-        const mcapCls = !mcapCr ? "mcap-na" : mcapCr >= 20000 ? "mcap-large" : mcapCr >= 5000 ? "mcap-mid" : "mcap-small";
-        const sym = r.nse_symbol ? "<span class='ann-exch nse'>" + escapeHtml(r.nse_symbol) + "</span>"
-                  : r.scrip_code ? "<span class='ann-exch bse'>" + escapeHtml(r.scrip_code) + "</span>" : "";
-        const avgPriceStr = r.avg_price > 0 ? "\u20b9" + r.avg_price.toLocaleString("en-IN") : "\u2014";
-        return "<tr>"
-            + "<td><a href='" + screenerLink(r.company) + "' target='_blank' class='company-link'><strong>" + escapeHtml(r.company) + "</strong></a><br><small>" + sym + "</small></td>"
-            + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + (r.market_cap_fmt || "N/A") + "</td>"
-            + "<td><small>" + escapeHtml(r.mode) + "</small></td>"
-            + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(r.txn_type) + "</span></td>"
-            + "<td style='text-align:right'>" + r.trades + "</td>"
-            + "<td style='text-align:right'>" + r.total_qty.toLocaleString("en-IN") + "</td>"
-            + "<td style='text-align:right;font-weight:500'>" + avgPriceStr + "</td>"
-            + "<td style='text-align:right;font-weight:600'>" + r.total_value.toLocaleString("en-IN", {maximumFractionDigits:2}) + "</td>"
-            + "</tr>";
-    }).join("");
+function _buildPrefSection(rows) {
+    let html = `<div class="agg-section">
+        <div class="agg-section-title">🏦 Preferential Allotments</div>
+        <table class="agg-table"><thead><tr>
+            ${_aggTh("company","Company")}
+            ${_aggTh("market_cap","MCap","right")}
+            <th style="text-align:right">Trades</th>
+            ${_aggTh("total_qty","Total Qty","right")}
+            ${_aggTh("avg_price","Avg Price","right")}
+            ${_aggTh("total_value","Total Value (Cr)","right")}
+        </tr></thead><tbody>`;
+
+    if (!rows.length) {
+        html += `<tr><td colspan="6" style="text-align:center;padding:24px;color:#aaa">No preferential allotments in this period</td></tr>`;
+    } else {
+        rows.forEach(r => {
+            const avgStr = r.avg_price > 0 ? "\u20b9" + r.avg_price.toLocaleString("en-IN") : "\u2014";
+            html += "<tr>"
+                + _aggCompanyCell(r) + _aggMcapCell(r)
+                + `<td style="text-align:right">${r.trades}</td>`
+                + `<td style="text-align:right">${r.total_qty.toLocaleString("en-IN")}</td>`
+                + `<td style="text-align:right">${avgStr}</td>`
+                + `<td style="text-align:right;font-weight:700">${r.total_value.toLocaleString("en-IN", {maximumFractionDigits:2})}</td>`
+                + "</tr>";
+        });
+    }
+    return html + "</tbody></table></div>";
 }
 
 function insiderPrevPage() { if (insiderPage > 1) { insiderPage--; renderInsiderTable(); window.scrollTo(0,0); } }
@@ -1696,20 +1782,41 @@ function insiderNextPage() { insiderPage++; renderInsiderTable(); window.scrollT
 function exportInsiderXLSX() {
     const view = document.getElementById("insiderView").value;
     if (view === "aggregate") {
-        // Export aggregate data
-        const map = {};
-        insiderFiltered.forEach(t => {
-            const key = (t.company || "") + "|" + (t.mode || "") + "|" + (t.txn_type || "");
-            if (!map[key]) map[key] = { Company: t.company, MCap: t.market_cap_fmt || "N/A", Mode: t.mode, "Txn Type": t.txn_type, Trades: 0, "Total Qty": 0, _total_rs: 0, "Avg Price": 0, "Total Value (Cr)": 0 };
-            map[key].Trades++; map[key]["Total Qty"] += t.qty || 0; map[key]["Total Value (Cr)"] += t.value_cr || 0; map[key]._total_rs += (t.price || 0) * (t.qty || 0);
+        const isMarket = t => /^market/i.test(t.mode || "");
+        const isPref   = t => /preferential|allotment/i.test(t.mode || "");
+
+        // Market Net sheet
+        const mMap = {};
+        insiderFiltered.filter(isMarket).forEach(t => {
+            const k = t.company || "";
+            if (!mMap[k]) mMap[k] = { Company: t.company, MCap: t.market_cap_fmt||"N/A", "Buy Qty":0, "Sell Qty":0, "Net Qty":0, "Avg Buy Price":0, _buy_rs:0, "Net Value (Cr)":0 };
+            const r = mMap[k];
+            if ((t.txn_type||"").toLowerCase()==="sell") { r["Sell Qty"]+=t.qty||0; r["Net Value (Cr)"]-=t.value_cr||0; }
+            else { r["Buy Qty"]+=t.qty||0; r["Net Value (Cr)"]+=t.value_cr||0; r._buy_rs+=(t.price||0)*(t.qty||0); }
         });
-        const rows = Object.values(map).map(r => {
-            const avg = r["Total Qty"] > 0 ? Math.round(r._total_rs / r["Total Qty"]) : 0;
-            return { Company: r.Company, MCap: r.MCap, Mode: r.Mode, "Txn Type": r["Txn Type"], Trades: r.Trades, "Total Qty": r["Total Qty"], "Avg Price": avg, "Total Value (Cr)": Math.round(r["Total Value (Cr)"] * 100) / 100 };
+        const mRows = Object.values(mMap).map(r => {
+            r["Net Qty"] = r["Buy Qty"] - r["Sell Qty"];
+            r["Avg Buy Price"] = r["Buy Qty"] > 0 ? Math.round(r._buy_rs / r["Buy Qty"]) : 0;
+            r["Net Value (Cr)"] = Math.round(r["Net Value (Cr)"] * 100) / 100;
+            delete r._buy_rs; return r;
         });
-        const ws = XLSX.utils.json_to_sheet(rows);
+
+        // Preferential sheet
+        const pMap = {};
+        insiderFiltered.filter(isPref).forEach(t => {
+            const k = t.company || "";
+            if (!pMap[k]) pMap[k] = { Company: t.company, MCap: t.market_cap_fmt||"N/A", Trades:0, "Total Qty":0, "Avg Price":0, _rs:0, "Total Value (Cr)":0 };
+            const r = pMap[k]; r.Trades++; r["Total Qty"]+=t.qty||0; r["Total Value (Cr)"]+=t.value_cr||0; r._rs+=(t.price||0)*(t.qty||0);
+        });
+        const pRows = Object.values(pMap).map(r => {
+            r["Avg Price"] = r["Total Qty"]>0 ? Math.round(r._rs/r["Total Qty"]) : 0;
+            r["Total Value (Cr)"] = Math.round(r["Total Value (Cr)"]*100)/100;
+            delete r._rs; return r;
+        });
+
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Insider Aggregate");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(mRows), "Market Net");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(pRows), "Preferential");
         XLSX.writeFile(wb, "insider_aggregate_" + new Date().toISOString().slice(0,10) + ".xlsx");
     } else {
         if (!insiderFiltered.length) return;

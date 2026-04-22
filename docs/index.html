@@ -181,22 +181,8 @@
             <span id="insiderPageInfo" class="page-info"></span>
         </div>
 
-        <!-- Aggregate table -->
-        <div id="insiderAggResults" style="display:none">
-            <table id="insiderAggTable">
-                <thead><tr>
-                    <th class="sortable" onclick="sortAggBy('company')">Company <span class="sort-arrow" data-acol="company"></span></th>
-                    <th class="sortable" onclick="sortAggBy('market_cap')">MCap <span class="sort-arrow" data-acol="market_cap"></span></th>
-                    <th>Mode</th>
-                    <th>Txn</th>
-                    <th class="sortable" onclick="sortAggBy('trades')">Trades <span class="sort-arrow" data-acol="trades"></span></th>
-                    <th class="sortable" onclick="sortAggBy('total_qty')">Total Qty <span class="sort-arrow" data-acol="total_qty"></span></th>
-                    <th class="sortable" onclick="sortAggBy('avg_price')">Avg Price <span class="sort-arrow" data-acol="avg_price"></span></th>
-                    <th class="sortable" onclick="sortAggBy('total_value')">Total Value (Cr) <span class="sort-arrow" data-acol="total_value"></span></th>
-                </tr></thead>
-                <tbody id="insiderAggBody"></tbody>
-            </table>
-        </div>
+        <!-- Aggregate tables (rendered dynamically) -->
+        <div id="insiderAggResults" style="display:none"></div>
     </div><!-- /#insiderTab -->
 
     <div id="watchlistOverlay" class="wl-overlay" style="display:none" onclick="if(event.target===this)closeWatchlist()">
