@@ -104,9 +104,26 @@ def safe_int(v):
 
 # ─── BSE ─────────────────────────────────────────────────────────────────────
 
-def fetch_bse_insider(from_date, to_date):
+def _get_bse_session():
+    """Warm BSE session (get homepage cookies) like we do for NSE."""
     session = requests.Session()
     session.headers.update(BSE_HEADERS)
+    try:
+        r = session.get("https://www.bseindia.com/", timeout=15)
+        log(f"  BSE session: {r.status_code}, cookies: {len(r.cookies)}")
+    except Exception as e:
+        log(f"  BSE session error: {e}")
+    # Update to JSON-focused headers after cookie warmup
+    session.headers.update({
+        "Accept": "application/json, text/plain, */*",
+        "Referer": "https://www.bseindia.com/corporates/Insider_Trading_new.html",
+        "X-Requested-With": "XMLHttpRequest",
+    })
+    return session
+
+
+def fetch_bse_insider(from_date, to_date):
+    session = _get_bse_session()
     from_bse = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
     to_bse = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
 
@@ -123,6 +140,11 @@ def fetch_bse_insider(from_date, to_date):
             r = session.get(url, timeout=20)
             if r.status_code != 200:
                 log(f"BSE insider p{page}: {r.status_code}")
+                break
+            # Guard against HTML error pages
+            ct = r.headers.get("Content-Type", "")
+            if "html" in ct or not r.text.strip().startswith("{"):
+                log(f"BSE insider p{page}: non-JSON response ({ct[:40]}), body[:80]: {r.text[:80]}")
                 break
             data = r.json()
             rows = data.get("Table", []) if isinstance(data, dict) else []
@@ -279,6 +301,8 @@ def fetch_mcap_bse(session, scrip_code):
         url = f"https://api.bseindia.com/BseIndiaAPI/api/StockTrading/w?flag=&scripcode={scrip_code}"
         r = session.get(url, timeout=8)
         if r.status_code != 200: return None
+        ct = r.headers.get("Content-Type", "")
+        if "html" in ct or not r.text.strip().startswith("{"): return None
         d = r.json()
         mkt = str(d.get("MktCapFull") or d.get("MktCapFF") or "").replace(",", "").strip()
         val = float(mkt) if mkt else 0
@@ -326,8 +350,7 @@ def enrich_market_caps(trades, mcap_cache):
     need_bse = need_bse[:MAX_PER_RUN]
     need_nse = need_nse[:max(0, MAX_PER_RUN - len(need_bse))]
 
-    bse_session = requests.Session()
-    bse_session.headers.update(BSE_HEADERS)
+    bse_session = _get_bse_session()
 
     # Fetch BSE mcaps
     for code in need_bse:
