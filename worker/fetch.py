@@ -1185,6 +1185,47 @@ def main():
                 if batch_start + RETRY_BATCH < len(need_retry):
                     time.sleep(RETRY_WAIT)
 
+    # Drop empty Board Meeting announcements — those where the PDF had no material content.
+    # After the new prompt, these get "No material financial details disclosed" summaries.
+    # We keep Board Meetings that mention results, dividend, order, acquisition, etc.
+    _board_keep_re = re.compile(
+        r"result|revenue|profit|loss|turnover|dividend|order|contract|acquisition|"
+        r"merger|demerger|preferential|warrant|buyback|buy.?back|expansion|capex|"
+        r"joint venture|fund.?rais|qip|rights|ipo|delisting|allotment|subsidiary|"
+        r"divestment|open.?offer|bonus|split|ncd|debenture",
+        re.IGNORECASE,
+    )
+    before_empty_bm = len(new_anns)
+    new_anns = [
+        a for a in new_anns
+        if not (
+            a.get("category") == "Board Meeting"
+            and a.get("ai_summary")
+            and "no material financial details disclosed" in a["ai_summary"].lower()
+            and not _board_keep_re.search(
+                f"{a.get('subject','')} {a.get('detail','')} {a.get('ai_summary','')}"
+            )
+        )
+    ]
+    if before_empty_bm != len(new_anns):
+        log(f"Dropped {before_empty_bm - len(new_anns)} empty Board Meeting announcements")
+
+    # Same pass for existing cached announcements
+    before_empty_bm_ex = len(existing)
+    existing = [
+        a for a in existing
+        if not (
+            a.get("category") == "Board Meeting"
+            and a.get("ai_summary")
+            and "no material financial details disclosed" in a["ai_summary"].lower()
+            and not _board_keep_re.search(
+                f"{a.get('subject','')} {a.get('detail','')} {a.get('ai_summary','')}"
+            )
+        )
+    ]
+    if before_empty_bm_ex != len(existing):
+        log(f"Dropped {before_empty_bm_ex - len(existing)} empty Board Meeting entries from cache")
+
     # Backfill market cap for existing cached NSE announcements still missing it
     nse_missing_mcap = [a for a in existing if a.get("exchange") == "NSE" and not a.get("market_cap") and a.get("symbol")]
     if nse_missing_mcap:
