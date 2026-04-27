@@ -808,18 +808,20 @@ Details: {a.get('detail', '')}"""
 
     prompt = f"""For each stock exchange announcement below, provide:
 1. A CATEGORY from this list: {categories_list}
-2. A SUMMARY of 5-6 detailed sentences for an investor.
+2. A SUMMARY of 3-6 sentences for an investor, based STRICTLY on the actual content provided.
 
 MANDATORY rules for the summary:
-- Always extract exact NUMBERS from the PDF/text: rupee amounts, share counts, percentages, face value, premium, price per share
-- For share transactions: state whether shares were ACQUIRED, SOLD, GIFTED, PLEDGED, or ALLOTTED. Include exact share count and percentage of total voting capital before and after.
-- Always include specific NAMES: buyer/seller/acquirer/promoter names, counterparties, subsidiaries
-- Always include specific DATES: board meeting date, transaction date, record date, effective date
-- Always mention WHAT HAPPENS NEXT: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings
-- Extract actual TERMS: price per share, premium amount, total consideration, valuation, interest rate, tenure
-- For orders: mention exact order value, client name, delivery timeline
-- Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure" — extract the actual details
-- If the PDF contains a table with numbers, extract the key figures from it
+- Use ONLY facts that are explicitly present in the Subject, Details, or PDF Content provided. Do NOT invent or assume any information.
+- NEVER use bracketed placeholders like [Date of Meeting], [Amount], [Company Name], [TBD], [X], [...], or any text inside square brackets that stands in for missing data. If a fact is not present in the source, simply omit it.
+- NEVER write generic boilerplate such as "investors should review the detailed outcome" or "this announcement is crucial for understanding the company's forward-looking plans" — these are filler and add no value.
+- If the PDF/text contains insufficient specific information (e.g. only a notice that a meeting was held with no outcome details), write a SHORT 1-2 sentence summary stating exactly what was disclosed and end with: "No material financial details disclosed in this filing." Do NOT pad with speculation.
+- Extract exact NUMBERS when present: rupee amounts, share counts, percentages, face value, premium, price per share.
+- For share transactions: state whether shares were ACQUIRED, SOLD, GIFTED, PLEDGED, or ALLOTTED. Include exact share count and percentage of total voting capital before and after — only if disclosed.
+- Include specific NAMES when present: buyer/seller/acquirer/promoter names, counterparties, subsidiaries.
+- Include specific DATES when present: board meeting date, transaction date, record date, effective date.
+- Mention WHAT HAPPENS NEXT only if disclosed: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings.
+- For orders: mention order value, client name, delivery timeline — only if disclosed.
+- Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure".
 
 Format each response EXACTLY as:
 [N] Category: <category>
@@ -906,6 +908,24 @@ def _parse_batch_response(text, expected_count, company_names=None):
                                         category = None
                                         summary = None
                                         break
+
+                # Reject summaries containing bracketed placeholders or known boilerplate
+                if summary:
+                    bad_placeholder = _re.search(
+                        r'\[(?:date of meeting|amount|company name|tbd|x|\.\.\.|insert|placeholder|number|value|name|details)\]',
+                        summary, _re.IGNORECASE
+                    )
+                    # Also catch generic [Capitalized Phrase] patterns (likely a placeholder)
+                    generic_placeholder = _re.search(r'\[[A-Z][A-Za-z ]{2,40}\]', summary)
+                    boilerplate_phrases = [
+                        "investors should review the detailed outcome",
+                        "this announcement is crucial for understanding",
+                        "provides an update on the company's strategic decisions",
+                    ]
+                    has_boilerplate = any(p.lower() in summary.lower() for p in boilerplate_phrases)
+                    if bad_placeholder or generic_placeholder or has_boilerplate:
+                        log(f"  WARNING: Summary [{idx+1}] contains placeholder/boilerplate — skipping for retry")
+                        summary = None
 
                 if summary:
                     results[idx] = {"category": category, "summary": summary}
@@ -1117,8 +1137,27 @@ def main():
 
     log(f"Summarized {summarized} announcements with Gemini")
 
-    # Retry summaries for existing announcements missing ai_summary
+    # Retry summaries for existing announcements missing ai_summary OR containing placeholder/boilerplate
     if GEMINI_KEY:  # always retry unsummarized announcements
+        def _is_bad_summary(s):
+            if not s:
+                return True
+            if re.search(r'\[(?:date of meeting|amount|company name|tbd|insert|placeholder)\]', s, re.IGNORECASE):
+                return True
+            if re.search(r'\[[A-Z][A-Za-z ]{2,40}\]', s):
+                return True
+            for phrase in ("investors should review the detailed outcome",
+                           "this announcement is crucial for understanding",
+                           "provides an update on the company's strategic decisions"):
+                if phrase.lower() in s.lower():
+                    return True
+            return False
+
+        # Mark bad existing summaries as None so they enter the retry queue
+        for a in existing:
+            if _is_bad_summary(a.get("ai_summary")) and a.get("ai_summary") is not None:
+                a["ai_summary"] = None
+
         need_retry = [a for a in existing if a.get("ai_summary") is None]
         # Sort oldest first — yesterday's announcements get summarized before today's
         need_retry.sort(key=lambda a: a.get("date", ""))
