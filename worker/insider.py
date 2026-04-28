@@ -116,83 +116,83 @@ def _get_bse_session():
     # Update to JSON-focused headers after cookie warmup
     session.headers.update({
         "Accept": "application/json, text/plain, */*",
-        "Referer": "https://www.bseindia.com/corporates/Insider_Trading_new.html",
+        "Referer": "https://www.bseindia.com/corporates/insider_trading_new",
         "X-Requested-With": "XMLHttpRequest",
     })
     return session
 
 
 def fetch_bse_insider(from_date, to_date):
+    """
+    Fetch BSE insider trades using the new getCorp_Regulation_ng endpoint.
+    Date range must be ≤ ~2 weeks or the API times out — caller should chunk.
+    """
     session = _get_bse_session()
-    from_bse = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
-    to_bse = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+    # New endpoint uses YYYY-MM-DD format
+    url = "https://api.bseindia.com/BseIndiaAPI/api/getCorp_Regulation_ng/w"
+    params = {
+        "scripCode": "",
+        "Regulation": "",
+        "fromDT": from_date,   # YYYY-MM-DD
+        "ToDate": to_date,     # YYYY-MM-DD
+        "Isdefault": "0",
+    }
 
     trades = []
-    page = 1
+    try:
+        r = session.get(url, params=params, timeout=25)
+        if r.status_code != 200:
+            log(f"  BSE insider: HTTP {r.status_code}")
+            return trades
+        ct = r.headers.get("Content-Type", "")
+        if "html" in ct or not r.text.strip().startswith("{"):
+            log(f"  BSE insider: non-JSON ({ct[:40]})")
+            return trades
 
-    while True:
-        url = (
-            f"https://api.bseindia.com/BseIndiaAPI/api/InsiderTrading1/w"
-            f"?pageno={page}&strdate={from_bse}&enddate={to_bse}"
-            f"&ddlindustry=&scripcode=&txntype=&ddlcategory="
-        )
-        try:
-            r = session.get(url, timeout=20)
-            if r.status_code != 200:
-                log(f"BSE insider p{page}: {r.status_code}")
-                break
-            # Guard against HTML error pages
-            ct = r.headers.get("Content-Type", "")
-            if "html" in ct or not r.text.strip().startswith("{"):
-                log(f"BSE insider p{page}: non-JSON response ({ct[:40]}), body[:80]: {r.text[:80]}")
-                break
-            data = r.json()
-            rows = data.get("Table", []) if isinstance(data, dict) else []
-            if not rows:
-                break
+        data = r.json()
+        rows = data.get("Table", []) if isinstance(data, dict) else []
 
-            for row in rows:
-                try:
-                    qty = safe_int(row.get("NoOfSecurities", 0))
-                    price = safe_float(row.get("Price", 0))
-                    value_rs = safe_float(row.get("Value", 0))
-                    value_cr = round(value_rs / 1e7, 2) if value_rs else round(qty * price / 1e7, 2)
+        for row in rows:
+            try:
+                # Fld_SecurityNo = shares in THIS transaction (traded qty)
+                # Fld_SecurityNoPrior = holding before, Fld_SecurityNoPost = holding after
+                qty_traded = safe_int(row.get("Fld_SecurityNo", 0))
 
-                    t = {
-                        "date": normalize_date(row.get("DtBuySell", "")),
-                        "company": (row.get("CompanyName") or "").strip(),
-                        "scrip_code": str(row.get("ScripCode", "") or ""),
-                        "nse_symbol": "",
-                        "exchange": "BSE",
-                        "txn_type": normalize_txn(row.get("TxnType", "")),
-                        "mode": (row.get("AcqMode") or "").strip(),
-                        "person": (row.get("PersonName") or "").strip(),
-                        "category": normalize_category(row.get("Category", "")),
-                        "qty": qty,
-                        "price": price,
-                        "value_cr": value_cr,
-                        "security_type": (row.get("TypeofSecurity") or "Equity Shares").strip(),
-                        "before_pct": safe_float(row.get("BeforeTransactionHoldingPct", 0)),
-                        "after_pct": safe_float(row.get("AfterTransactionHoldingPct", 0)),
-                        "industry": (row.get("Industry") or "").strip(),
-                    }
-                    if t["company"] and t["date"]:
-                        trades.append(t)
-                except Exception as e:
-                    log(f"BSE row error: {e}")
+                value_rs = safe_float(row.get("Fld_SecurityValue", 0))
+                value_cr = round(value_rs / 1e7, 2) if value_rs else 0.0
+                price = round(value_rs / qty_traded, 2) if qty_traded and value_rs else 0.0
 
-            total_rows = data.get("Table1", [{}])
-            total = safe_int(total_rows[0].get("TotalCount", 0)) if total_rows else 0
-            if not total or page * 50 >= total or len(rows) < 50:
-                break
-            page += 1
-            time.sleep(0.5)
+                txn_raw = (row.get("ModeOfAquisation") or row.get("Fld_TransactionType") or "").strip()
+                mode_raw = txn_raw  # e.g. "Market Sale", "Market Purchase", "Preferential Allotment"
 
-        except Exception as e:
-            log(f"BSE insider fetch error: {e}")
-            break
+                t = {
+                    "date": normalize_date(row.get("Fld_FromDate", "") or row.get("Fld_StampDate", "")),
+                    "company": (row.get("Companyname") or "").strip(),
+                    "scrip_code": str(row.get("Fld_ScripCode", "") or ""),
+                    "nse_symbol": (row.get("Fld_TradeExchange") or "").strip()
+                                  if (row.get("Fld_TradeExchange") or "") not in ("BSE", "NSE", "") else "",
+                    "exchange": "BSE",
+                    "txn_type": normalize_txn(txn_raw),
+                    "mode": mode_raw,
+                    "person": (row.get("Fld_PromoterName") or "").strip(),
+                    "category": normalize_category(row.get("Fld_PersonCatgName", "")),
+                    "qty": qty_traded,
+                    "price": price,
+                    "value_cr": value_cr,
+                    "security_type": (row.get("Fld_SecurityTypeName") or "Equity Shares").strip(),
+                    "before_pct": safe_float(row.get("Fld_PercentofShareholdingPre", 0)),
+                    "after_pct": safe_float(row.get("Fld_PercentofShareholdingPost", 0)),
+                    "industry": "",
+                }
+                if t["company"] and t["date"]:
+                    trades.append(t)
+            except Exception as e:
+                log(f"  BSE row error: {e}")
 
-    log(f"  BSE: {len(trades)} insider trades")
+    except Exception as e:
+        log(f"  BSE insider fetch error: {e}")
+
+    log(f"  BSE chunk {from_date} to {to_date}: {len(trades)} trades")
     return trades
 
 
