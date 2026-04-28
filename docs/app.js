@@ -1652,6 +1652,17 @@ function _aggMcapCell(r) {
 }
 
 // ─── Render Aggregate ─────────────────────────────────────────────────────────
+function _normCompany(name) {
+    // Group "Limited"/"Ltd"/"Pvt" etc as same company across exchanges
+    return (name || "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .replace(/[.,]/g, "")
+        .replace(/\b(limited|ltd|pvt|private|corporation|corp|inc|co)\b/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 function renderAggregateTable() {
     const isMarket = t => /^market/i.test(t.mode || "");
     const isPref   = t => /preferential|allotment/i.test(t.mode || "");
@@ -1659,7 +1670,7 @@ function renderAggregateTable() {
     // ── Section 1: Market Net (buy - sell per company) ──
     const mMap = {};
     insiderFiltered.filter(isMarket).forEach(t => {
-        const k = t.company || "";
+        const k = _normCompany(t.company);
         if (!mMap[k]) mMap[k] = {
             company: t.company, market_cap: null, market_cap_fmt: "N/A",
             nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
@@ -1667,7 +1678,14 @@ function renderAggregateTable() {
             buy_rs: 0, buy_trades: 0, sell_trades: 0,
         };
         const r = mMap[k];
-        if (t.market_cap && !r.market_cap) { r.market_cap = t.market_cap; r.market_cap_fmt = t.market_cap_fmt; }
+        // Prefer the version with market cap (NSE often has it, BSE sometimes doesn't)
+        if (t.market_cap && !r.market_cap) {
+            r.market_cap = t.market_cap;
+            r.market_cap_fmt = t.market_cap_fmt;
+            r.company = t.company;  // also use the better-named version
+            r.nse_symbol = t.nse_symbol || r.nse_symbol;
+            r.scrip_code = t.scrip_code || r.scrip_code;
+        }
         if ((t.txn_type || "").toLowerCase() === "sell") {
             r.sell_qty += t.qty || 0; r.sell_value += t.value_cr || 0; r.sell_trades++;
         } else {
@@ -1690,14 +1708,20 @@ function renderAggregateTable() {
     // ── Section 2: Preferential per company ──
     const pMap = {};
     insiderFiltered.filter(isPref).forEach(t => {
-        const k = t.company || "";
+        const k = _normCompany(t.company);
         if (!pMap[k]) pMap[k] = {
             company: t.company, market_cap: null, market_cap_fmt: "N/A",
             nse_symbol: t.nse_symbol, scrip_code: t.scrip_code,
             trades: 0, total_qty: 0, total_value: 0, total_rs: 0,
         };
         const r = pMap[k];
-        if (t.market_cap && !r.market_cap) { r.market_cap = t.market_cap; r.market_cap_fmt = t.market_cap_fmt; }
+        if (t.market_cap && !r.market_cap) {
+            r.market_cap = t.market_cap;
+            r.market_cap_fmt = t.market_cap_fmt;
+            r.company = t.company;
+            r.nse_symbol = t.nse_symbol || r.nse_symbol;
+            r.scrip_code = t.scrip_code || r.scrip_code;
+        }
         r.trades++; r.total_qty += t.qty || 0; r.total_value += t.value_cr || 0;
         r.total_rs += (t.price || 0) * (t.qty || 0);
     });
