@@ -424,6 +424,8 @@ def main():
 
     if not existing_trades or force_backfill:
         log(f"Full backfill mode (force={force_backfill}) — fetching 1 year")
+        # Clear seen_keys so freshly fetched trades aren't dropped as dupes
+        seen_keys = set()
         # NSE: one call (no cap)
         nse_from = (ist_now - timedelta(days=365)).date().strftime("%Y-%m-%d")
         nse_to = ist_now.date().strftime("%Y-%m-%d")
