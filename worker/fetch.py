@@ -240,6 +240,23 @@ NOISE_PATTERNS = [
     r"identified as a large corporate",
     r"initial disclosure.*large corporate",
     r"format of.*disclosure.*large corporate",
+    # Physical shares / transfer / demat noise
+    r"physical.*share",
+    r"shares? held in physical",
+    r"demat.*physical",
+    r"physical.*demat",
+    r"re.?mater",
+    r"sub.?division.*physical",
+    r"split.*physical",
+    r"consolidation.*physical",
+    r"transposition",
+    r"transmission of physical",
+    r"transfer.*physical",
+    r"issue.*physical.*certificate",
+    r"physical.*certificate",
+    r"request.*physical",
+    r"conversion.*physical",
+    r"demateriali[sz]ation.*request",
     # SAST Reg 31(4) — annual "no encumbrance" promoter declarations (routine, not Reg 29)
     r"regulation 31\(4\)",
     r"regulation 31\s*\(4\)",
@@ -750,7 +767,7 @@ def dedup(all_anns):
 
 # ─── PDF Text Extraction ─────────────────────────────────────────────────────
 def extract_pdf_text(url, max_chars=3000):
-    """Download PDF and extract first ~max_chars of text."""
+    """Download PDF and extract first ~max_chars of text using pdfplumber (table-aware)."""
     if not url:
         return ""
     try:
@@ -760,18 +777,24 @@ def extract_pdf_text(url, max_chars=3000):
         if r.status_code != 200:
             return ""
         import io
-        try:
-            import PyPDF2
-            reader = PyPDF2.PdfReader(io.BytesIO(r.content))
-        except ImportError:
-            import pypdf
-            reader = pypdf.PdfReader(io.BytesIO(r.content))
-        text = ""
-        for page in reader.pages[:5]:  # First 5 pages — annexures often on page 2-3
-            text += page.extract_text() or ""
-            if len(text) >= max_chars:
-                break
-        # Clean up
+        import pdfplumber
+        text_parts = []
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            for page in pdf.pages[:5]:  # First 5 pages
+                # Extract tables first — pdfplumber parses them as structured rows
+                for table in page.extract_tables():
+                    for row in table:
+                        cells = [str(c).strip() if c else "" for c in row]
+                        row_text = " | ".join(c for c in cells if c)
+                        if row_text:
+                            text_parts.append(row_text)
+                # Then regular text
+                page_text = page.extract_text() or ""
+                if page_text:
+                    text_parts.append(page_text)
+                if sum(len(p) for p in text_parts) >= max_chars:
+                    break
+        text = "\n".join(text_parts)
         text = re.sub(r'\s+', ' ', text).strip()
         return text[:max_chars]
     except Exception as e:
