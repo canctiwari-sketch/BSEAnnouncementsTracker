@@ -419,34 +419,68 @@ def main():
     existing_trades = existing_data.get("trades", [])
     seen_keys = set(existing_data.get("seen_keys", []))
 
-    if not existing_trades:
-        log("No existing data — backfilling 1 year in monthly chunks...")
+    # Allow forcing a full backfill via env var (used by workflow_dispatch)
+    force_backfill = os.environ.get("INSIDER_BACKFILL", "").lower() in ("1", "true", "yes")
+
+    if not existing_trades or force_backfill:
+        log(f"Full backfill mode (force={force_backfill}) — fetching 1 year")
+        # NSE: one call (no cap)
+        nse_from = (ist_now - timedelta(days=365)).date().strftime("%Y-%m-%d")
+        nse_to = ist_now.date().strftime("%Y-%m-%d")
+        log(f"NSE: {nse_from} to {nse_to} (single call)")
+        # NSE works in monthly chunks for safety
         all_new = []
         end_date = ist_now.date()
         for i in range(12):
             chunk_end = end_date - timedelta(days=30 * i)
             chunk_start = chunk_end - timedelta(days=30)
-            from_str = chunk_start.strftime("%Y-%m-%d")
-            to_str = chunk_end.strftime("%Y-%m-%d")
-            log(f"Chunk {i+1}/12: {from_str} → {to_str}")
-            bse = fetch_bse_insider(from_str, to_str)
-            nse = fetch_nse_insider(from_str, to_str)
-            new_t = merge_trades(bse, nse, seen_keys)
+            nse_f = chunk_start.strftime("%Y-%m-%d")
+            nse_t = chunk_end.strftime("%Y-%m-%d")
+            nse = fetch_nse_insider(nse_f, nse_t)
+            new_t = merge_trades([], nse, seen_keys)
             all_new.extend(new_t)
-            log(f"  +{len(new_t)} new (total so far: {len(all_new)})")
             time.sleep(2)
-        existing_trades = all_new
+        log(f"NSE backfill: {len(all_new)} trades")
+
+        # BSE: daily chunks (25-record cap per response)
+        log("BSE: daily chunks (1 year = 366 calls)...")
+        bse_count = 0
+        capped_days = []
+        for i in range(366):
+            day = end_date - timedelta(days=i)
+            d_str = day.strftime("%Y-%m-%d")
+            bse = fetch_bse_insider(d_str, d_str)
+            if len(bse) >= 25:
+                capped_days.append(d_str)
+            new_t = merge_trades(bse, [], seen_keys)
+            all_new.extend(new_t)
+            bse_count += len(new_t)
+            if (i + 1) % 50 == 0:
+                log(f"  BSE progress: {i+1}/366 days, +{bse_count} new BSE trades")
+            time.sleep(0.4)
+        log(f"BSE backfill: {bse_count} trades")
+        if capped_days:
+            log(f"  WARN: {len(capped_days)} days hit 25-cap")
+
+        if force_backfill:
+            # Replace existing data with fresh backfill
+            existing_trades = all_new
+        else:
+            existing_trades = all_new
     else:
-        # Incremental: yesterday + today
+        # Incremental: yesterday + today as separate daily calls (BSE cap)
         today = ist_now.date()
         yesterday = today - timedelta(days=1)
-        from_str = yesterday.strftime("%Y-%m-%d")
-        to_str = today.strftime("%Y-%m-%d")
-        log(f"Incremental: {from_str} → {to_str}")
-        bse = fetch_bse_insider(from_str, to_str)
-        nse = fetch_nse_insider(from_str, to_str)
-        new_t = merge_trades(bse, nse, seen_keys)
-        log(f"New trades: {len(new_t)}")
+
+        bse_all = []
+        for d in (yesterday, today):
+            bse_all.extend(fetch_bse_insider(d.strftime("%Y-%m-%d"), d.strftime("%Y-%m-%d")))
+
+        # NSE handles range fine
+        nse = fetch_nse_insider(yesterday.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+
+        new_t = merge_trades(bse_all, nse, seen_keys)
+        log(f"Incremental: BSE={len(bse_all)} NSE={len(nse)} | new={len(new_t)}")
         existing_trades = new_t + existing_trades
 
     # Trim to 1 year
