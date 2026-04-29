@@ -3,109 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtered Out Announcements</title>
+    <title>Filtered Out — Time Wheel Capital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; padding: 20px; }
-        h1 { color: #f0f6fc; margin-bottom: 4px; font-size: 1.4em; }
-        .subtitle { color: #8b949e; margin-bottom: 16px; font-size: 0.9em; }
-        .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-        label { color: #8b949e; font-size: 0.85em; }
-        input[type="date"] { background: #161b22; color: #c9d1d9; border: 1px solid #30363d; padding: 6px 10px; border-radius: 6px; font-size: 0.85em; }
-        button { background: #238636; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; }
-        button:hover { background: #2ea043; }
-        .count { color: #8b949e; margin-bottom: 8px; font-size: 0.85em; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
-        th { text-align: left; color: #8b949e; padding: 8px 10px; border-bottom: 1px solid #21262d; font-weight: 600; text-transform: uppercase; font-size: 0.75em; }
-        td { padding: 10px; border-bottom: 1px solid #21262d; vertical-align: top; }
-        tr:hover { background: #161b22; }
-        .company { font-weight: 600; color: #f0f6fc; }
-        .exchange { font-size: 0.7em; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
-        .exchange.BSE { background: #d29922; color: #000; }
-        .exchange.NSE { background: #1f6feb; color: #fff; }
-        .subject { color: #c9d1d9; }
-        .date { color: #8b949e; white-space: nowrap; }
-        a.pdf { color: #f78166; text-decoration: none; font-weight: 600; }
-        a.pdf:hover { text-decoration: underline; }
-        .back { color: #58a6ff; text-decoration: none; margin-bottom: 16px; display: inline-block; }
-        .back:hover { text-decoration: underline; }
+        body { overflow: auto; height: auto; }
+        .page-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 28px 60px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-secondary); text-decoration: none; margin-bottom: 20px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); transition: all 0.15s; }
+        .back-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+        .page-title { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px; margin-bottom: 4px; }
+        .page-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+        .filter-bar { display: flex; gap: 12px; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-bar label { font-size: 10.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: flex; flex-direction: column; gap: 5px; }
+        .filter-bar input[type="date"] { padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); font-size: 12px; font-family: inherit; color: var(--text-primary); outline: none; transition: border-color 0.15s; }
+        .filter-bar input[type="date"]:focus { border-color: var(--accent); background: #fff; }
+        .count-line { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+        .card-table { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+        .card-table table { font-size: 13px; }
+        .card-table thead th { background: var(--surface); }
+        .card-table tbody tr:last-child { border-bottom: none; }
     </style>
 </head>
 <body>
-    <a href="/" class="back">&larr; Back to main</a>
-    <h1>Filtered Out Announcements</h1>
-    <p class="subtitle">These were excluded by noise filters. Review to ensure nothing important is missed.</p>
+<div class="page-wrap">
+    <a href="/" class="back-link">← Back to Announcements</a>
+    <h1 class="page-title">Filtered Out Announcements</h1>
+    <p class="page-subtitle">These were excluded by noise filters. Review to ensure nothing important was missed.</p>
 
-    <div class="controls">
-        <div><label>FROM</label><br><input type="date" id="fromDate"></div>
-        <div><label>TO</label><br><input type="date" id="toDate"></div>
-        <div style="align-self:flex-end;"><button onclick="fetchFiltered()">Fetch</button></div>
+    <div class="filter-bar">
+        <label>From <input type="date" id="fromDate"></label>
+        <label>To <input type="date" id="toDate"></label>
+        <button class="btn-apply" onclick="fetchFiltered()" style="padding: 8px 18px; align-self: flex-end;">Fetch</button>
     </div>
 
-    <p class="count" id="count"></p>
-    <table>
-        <thead><tr><th>Company</th><th>Subject</th><th>Date</th><th>PDF</th></tr></thead>
-        <tbody id="tbody"></tbody>
-    </table>
+    <p class="count-line" id="count"></p>
 
-    <script>
-        const today = new Date().toISOString().slice(0, 10);
-        document.getElementById('fromDate').value = today;
-        document.getElementById('toDate').value = today;
+    <div class="card-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>PDF</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+</div>
 
-        async function fetchFiltered() {
-            const from = document.getElementById('fromDate').value;
-            const to = document.getElementById('toDate').value;
-            const tbody = document.getElementById('tbody');
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#8b949e;">Loading...</td></tr>';
+<script>
+    const today = new Date().toISOString().slice(0, 10);
+    document.getElementById('fromDate').value = today;
+    document.getElementById('toDate').value = today;
 
-            try {
-                const r = await fetch(`/api/filtered-out?from_date=${from}&to_date=${to}`);
-                const data = await r.json();
-                document.getElementById('count').textContent = `${data.count} announcements filtered out`;
+    async function fetchFiltered() {
+        const from = document.getElementById('fromDate').value;
+        const to = document.getElementById('toDate').value;
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text-muted);">Loading…</td></tr>';
 
-                if (!data.filtered_out.length) {
-                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#8b949e;">No filtered announcements</td></tr>';
-                    return;
-                }
+        try {
+            const r = await fetch(`/api/filtered-out?from_date=${from}&to_date=${to}`);
+            const data = await r.json();
+            document.getElementById('count').textContent = `${data.count} announcements filtered out`;
 
-                tbody.innerHTML = data.filtered_out.map(a => {
-                    const date = formatDate(a.date);
-                    const pdf = a.attachment
-                        ? `<a class="pdf" href="${a.attachment}" target="_blank">PDF</a>`
-                        : '-';
-                    return `<tr>
-                        <td>
-                            <div class="company">${esc(a.company)}</div>
-                            <span class="exchange ${a.exchange}">${a.exchange}</span> ${esc(a.symbol)}
-                        </td>
-                        <td class="subject">${esc(a.subject)}</td>
-                        <td class="date">${date}</td>
-                        <td>${pdf}</td>
-                    </tr>`;
-                }).join('');
-            } catch (e) {
-                tbody.innerHTML = `<tr><td colspan="4" style="color:#f85149;">Error: ${e.message}</td></tr>`;
+            if (!data.filtered_out.length) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text-muted);">No filtered announcements for this period.</td></tr>';
+                return;
             }
-        }
 
-        function formatDate(d) {
-            if (!d) return '';
-            try {
-                const dt = new Date(d);
-                if (isNaN(dt)) return d;
-                return dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) + ' ' +
-                       dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-            } catch { return d; }
+            tbody.innerHTML = data.filtered_out.map(a => {
+                const date = formatDate(a.date);
+                const pdf = a.attachment
+                    ? `<a class="attachment-link" href="${a.attachment}" target="_blank">PDF ↗</a>`
+                    : '—';
+                const exchange = (a.exchange || '').toLowerCase();
+                return `<tr>
+                    <td class="company-cell">
+                        <div style="font-weight:600;font-size:13px;color:var(--text-primary);">${esc(a.company)}</div>
+                        <div class="scrip-code">
+                            <span class="exchange-badge ${exchange}">${a.exchange || ''}</span>
+                            ${esc(a.symbol || '')}
+                        </div>
+                    </td>
+                    <td class="subject-cell" style="color:var(--text-secondary);font-size:12.5px;line-height:1.45;">${esc(a.subject)}</td>
+                    <td class="date-cell">${date}</td>
+                    <td>${pdf}</td>
+                </tr>`;
+            }).join('');
+        } catch (e) {
+            tbody.innerHTML = `<tr><td colspan="4" style="color:var(--negative);padding:20px;">Error: ${e.message}</td></tr>`;
         }
+    }
 
-        function esc(s) {
-            const d = document.createElement('div');
-            d.textContent = s || '';
-            return d.innerHTML;
-        }
+    function formatDate(d) {
+        if (!d) return '';
+        try {
+            const dt = new Date(d);
+            if (isNaN(dt)) return d;
+            return dt.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }) + ' ' +
+                   dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+        } catch { return d; }
+    }
 
-        fetchFiltered();
-    </script>
+    function esc(s) {
+        const d = document.createElement('div');
+        d.textContent = s || '';
+        return d.innerHTML;
+    }
+
+    fetchFiltered();
+</script>
 </body>
 </html>

@@ -3,91 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Wheel Capital - Announcements</title>
+    <title>Time Wheel Capital — Announcements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-row">
-            <img src="logo.png" alt="Time Wheel" class="header-logo">
-            <div>
-                <h1>Time Wheel Capital Announcements</h1>
-                <p class="subtitle">BSE + NSE corporate announcements</p>
-            </div>
-        </div>
-    </header>
 
-    <div class="controls">
-        <label>
-            Source
-            <select id="source">
-                <option value="both" selected>Both (BSE + NSE)</option>
-                <option value="bse">BSE Only</option>
-                <option value="nse">NSE Only</option>
-            </select>
-        </label>
-        <label>
-            From
-            <input type="date" id="fromDate">
-        </label>
-        <label>
-            To
-            <input type="date" id="toDate">
-        </label>
-        <div class="multi-select-wrap">
-            <span class="multi-label">Category</span>
-            <div class="multi-select" id="categoryFilter" tabindex="0">
-                <span class="multi-select-text">All</span>
-                <div class="multi-select-dropdown" id="categoryDropdown">
+<div class="app">
+
+    <!-- ── Sidebar ─────────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="logo.png" alt="Time Wheel Capital" class="sidebar-logo" onerror="this.style.display='none'">
+            <span class="sidebar-brand-name">Time Wheel <span>Capital</span></span>
+        </div>
+
+        <div class="sidebar-section-title">Filters</div>
+
+        <div class="sidebar-body">
+
+            <div class="filter-group">
+                <label class="filter-label" for="source">Source</label>
+                <select id="source" class="filter-select">
+                    <option value="both" selected>BSE + NSE</option>
+                    <option value="bse">BSE Only</option>
+                    <option value="nse">NSE Only</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Date Range</label>
+                <input type="date" id="fromDate" class="filter-input" placeholder="From">
+                <input type="date" id="toDate" class="filter-input" style="margin-top:6px;" placeholder="To">
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Category</span>
+                <div class="multi-select-wrap">
+                    <div class="multi-select" id="categoryFilter" tabindex="0">
+                        <span class="multi-select-text">All</span>
+                        <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="multi-select-dropdown" id="categoryDropdown"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="multi-select-wrap">
-            <span class="multi-label">Market Cap</span>
-            <div class="multi-select" id="mcapFilter" tabindex="0">
-                <span class="multi-select-text">All</span>
-                <div class="multi-select-dropdown">
-                    <label class="check-item"><input type="checkbox" value="large" checked onchange="onMcapChange()"> Large Cap (20K+ Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="mid" checked onchange="onMcapChange()"> Mid Cap (5K-20K Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="small" checked onchange="onMcapChange()"> Small Cap (&lt;5K Cr)</label>
-                    <label class="check-item"><input type="checkbox" value="na" checked onchange="onMcapChange()"> N/A</label>
+
+            <div class="filter-group">
+                <span class="filter-label">Market Cap</span>
+                <div class="multi-select-wrap">
+                    <div class="multi-select" id="mcapFilter" tabindex="0">
+                        <span class="multi-select-text">All</span>
+                        <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="multi-select-dropdown">
+                            <label class="check-item"><input type="checkbox" value="large" checked onchange="onMcapChange()"> Large Cap (20K+ Cr)</label>
+                            <label class="check-item"><input type="checkbox" value="mid" checked onchange="onMcapChange()"> Mid Cap (5K–20K Cr)</label>
+                            <label class="check-item"><input type="checkbox" value="small" checked onchange="onMcapChange()"> Small Cap (&lt;5K Cr)</label>
+                            <label class="check-item"><input type="checkbox" value="na" checked onchange="onMcapChange()"> N/A</label>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="filter-group">
+                <label class="star-filter-label">
+                    <input type="checkbox" id="starFilter" onchange="applyFilter()">
+                    <span>★ Starred Only</span>
+                </label>
+            </div>
+
+        </div><!-- /sidebar-body -->
+
+        <div class="sidebar-footer">
+            <button class="btn-clear" onclick="clearFilters()">Clear</button>
+            <button class="btn-apply" id="fetchBtn" onclick="fetchAnnouncements()">Fetch</button>
         </div>
-        <label class="star-filter-label">
-            <input type="checkbox" id="starFilter" onchange="applyFilter()">
-            &#9733; Starred Only
-        </label>
-        <label>
-            Search
-            <input type="text" id="searchBox" placeholder="Company, symbol, subject...">
-        </label>
-        <button id="fetchBtn" onclick="fetchAnnouncements()">Fetch</button>
-    </div>
+    </aside>
 
-    <div id="status" class="status"></div>
+    <!-- ── Main ───────────────────────────────────────────── -->
+    <div class="main">
 
-    <div id="results">
-        <table id="annTable">
-            <thead>
-                <tr>
-                    <th>Company</th>
-                    <th>Market Cap</th>
-                    <th>Subject</th>
-                    <th>Date</th>
-                    <th>PDF</th>
-                </tr>
-            </thead>
-            <tbody id="annBody"></tbody>
-        </table>
-    </div>
+        <!-- Header -->
+        <header class="header">
+            <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Toggle filters">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect y="2.5" width="16" height="1.5" rx="0.75" fill="currentColor"/><rect y="7.25" width="16" height="1.5" rx="0.75" fill="currentColor"/><rect y="12" width="16" height="1.5" rx="0.75" fill="currentColor"/></svg>
+            </button>
+            <div class="header-title">Announcements</div>
+            <div class="header-right">
+                <a href="filtered.html" class="btn-ghost">Filtered Out</a>
+            </div>
+        </header>
 
-    <div class="pagination">
-        <button id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
-        <span id="pageInfo"></span>
-        <button id="nextBtn" onclick="changePage(1)">Next</button>
-    </div>
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="search-wrap">
+                <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input type="text" id="searchBox" class="search-input" placeholder="Search company, subject, category…">
+            </div>
+            <div class="toolbar-right">
+                <div id="status" class="status"></div>
+            </div>
+        </div>
 
-    <script src="app.js"></script>
+        <!-- Table -->
+        <div id="results" class="table-wrap">
+            <table id="annTable">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Market Cap</th>
+                        <th>Subject &amp; Summary</th>
+                        <th>Date</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody id="annBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span id="pageInfo" class="page-info"></span>
+            <div class="page-btns">
+                <button id="prevBtn" class="page-btn" onclick="changePage(-1)" disabled>‹</button>
+                <button id="nextBtn" class="page-btn" onclick="changePage(1)">›</button>
+            </div>
+        </div>
+
+    </div><!-- /main -->
+</div><!-- /app -->
+
+<script src="app.js"></script>
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+    function clearFilters() {
+        document.getElementById('searchBox').value = '';
+        document.getElementById('starFilter').checked = false;
+        document.querySelectorAll('#categoryDropdown input').forEach(cb => cb.checked = true);
+        document.querySelectorAll('#mcapFilter .check-item input').forEach(cb => cb.checked = true);
+        updateMultiSelectText('categoryFilter', 'categoryDropdown');
+        onMcapChange();
+        applyFilter();
+    }
+</script>
 </body>
 </html>

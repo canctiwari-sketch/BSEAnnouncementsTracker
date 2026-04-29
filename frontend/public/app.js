@@ -267,7 +267,7 @@ function renderUnifiedRow(a) {
     const displayDate = formatDisplayDate(date);
 
     const categoryBadge = category
-        ? `<span class="category-badge">${escapeHtml(category)}</span>`
+        ? `<span class="category-badge" data-cat="${escapeAttr(category)}">${escapeHtml(category)}</span>`
         : "";
 
     const summaryHtml = summary
@@ -322,7 +322,7 @@ function renderBseRow(a) {
         </td>
         <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
         <td class="subject-cell">
-            ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ""}
+            ${category ? `<span class="category-badge" data-cat="${escapeAttr(category)}">${escapeHtml(category)}</span>` : ""}
             ${summary ? `<div class="summary-text">${escapeHtml(summary)}</div>` : ""}
         </td>
         <td class="date-cell">${escapeHtml(displayDate)}</td>
@@ -356,7 +356,7 @@ function renderNseRow(a) {
         </td>
         <td class="mcap-cell ${mcapClass}">${mcapFmt}</td>
         <td class="subject-cell">
-            ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ""}
+            ${category ? `<span class="category-badge" data-cat="${escapeAttr(category)}">${escapeHtml(category)}</span>` : ""}
             ${summary ? `<div class="summary-text">${escapeHtml(summary)}</div>` : ""}
         </td>
         <td class="date-cell">${escapeHtml(dateStr)}</td>
