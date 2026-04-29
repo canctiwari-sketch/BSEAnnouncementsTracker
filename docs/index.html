@@ -16,7 +16,7 @@
     <!-- ── Sidebar (Announcement filters) ──────────────────── -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <img src="logo.png" alt="Time Wheel Capital" class="sidebar-logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Time Wheel Capital" class="sidebar-logo" onerror="this.src='logo.jpg'">
             <span class="sidebar-brand-name">Time Wheel <span>Capital</span></span>
         </div>
         <div class="sidebar-section-title">Filters</div>
@@ -86,16 +86,17 @@
             </div>
         </header>
 
-        <!-- Toolbar (search + status) -->
+        <!-- Toolbar (search) -->
         <div class="toolbar" id="mainToolbar">
             <div class="search-wrap">
                 <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 <input type="text" id="searchBox" class="search-input" placeholder="Search company, subject, category…">
             </div>
-            <div class="toolbar-right">
-                <div id="status" class="status"></div>
-                <div id="refreshInfo" class="refresh-info"></div>
-            </div>
+        </div>
+        <!-- Status strip -->
+        <div class="status-strip" id="statusStrip">
+            <div id="status" class="status"></div>
+            <div id="refreshInfo" class="refresh-info"></div>
         </div>
 
         <!-- ═══ Announcements Tab ════════════════════════════ -->
@@ -284,9 +285,10 @@
             origShow(tab);
             if (tab === 'ann') sidebar.classList.remove('force-hide');
             else sidebar.classList.add('force-hide');
-            // Show/hide toolbar search
             const toolbar = document.getElementById('mainToolbar');
+            const strip = document.getElementById('statusStrip');
             toolbar.style.display = (tab === 'ann') ? '' : 'none';
+            if (strip) strip.style.display = (tab === 'ann') ? '' : 'none';
         };
     });
 </script>
