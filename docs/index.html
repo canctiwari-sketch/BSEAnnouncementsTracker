@@ -3,246 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Wheel Capital - Announcements</title>
+    <title>Time Wheel Capital — Announcements</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-    <header>
-        <div class="header-row">
-            <img src="logo.png" alt="Time Wheel" class="header-logo" onerror="this.style.display='none'">
-            <div>
-                <h1>Time Wheel Capital Announcements</h1>
-                <p class="subtitle">BSE + NSE corporate announcements &middot; Updated hourly</p>
+<div class="app">
+
+    <!-- ── Sidebar (Announcement filters) ──────────────────── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="logo.png" alt="Time Wheel Capital" class="sidebar-logo" onerror="this.style.display='none'">
+            <span class="sidebar-brand-name">Time Wheel <span>Capital</span></span>
+        </div>
+        <div class="sidebar-section-title">Filters</div>
+        <div class="sidebar-body">
+
+            <div class="filter-group">
+                <span class="filter-label">Category</span>
+                <div class="multi-select-wrap">
+                    <div class="multi-select" id="categoryFilter" tabindex="0">
+                        <span class="multi-select-text">All</span>
+                        <svg class="select-chevron" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="multi-select-dropdown" id="categoryDropdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Market Cap (Cr)</span>
+                <div class="filter-row">
+                    <input type="number" id="mcapMin" class="filter-input" placeholder="Min" onchange="applyFilter()">
+                    <span class="filter-sep">–</span>
+                    <input type="number" id="mcapMax" class="filter-input" placeholder="Max" onchange="applyFilter()">
+                </div>
+                <label class="na-filter-label" style="margin-top:8px;">
+                    <input type="checkbox" id="includeNA" onchange="applyFilter()" checked>
+                    <span>Include N/A MCap</span>
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <span class="filter-label">Date Range</span>
+                <input type="date" id="dateFrom" class="filter-input" onchange="applyFilter()">
+                <input type="date" id="dateTo" class="filter-input" style="margin-top:6px;" onchange="applyFilter()">
+            </div>
+
+            <div class="filter-group">
+                <label class="star-filter-label">
+                    <input type="checkbox" id="starFilter" onchange="applyFilter()">
+                    <span>★ Starred Only</span>
+                </label>
+            </div>
+
+        </div>
+        <div class="sidebar-footer">
+            <button class="btn-clear" onclick="clearAllFilters()">Clear</button>
+        </div>
+    </aside>
+
+    <!-- ── Main ─────────────────────────────────────────────── -->
+    <div class="main">
+
+        <!-- Header -->
+        <header class="header">
+            <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle filters">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect y="2" width="15" height="1.5" rx="0.75" fill="currentColor"/><rect y="6.75" width="15" height="1.5" rx="0.75" fill="currentColor"/><rect y="11.5" width="15" height="1.5" rx="0.75" fill="currentColor"/></svg>
+            </button>
+
+            <div class="tab-bar">
+                <button class="tab-btn tab-active" id="tabAnn" onclick="showTab('ann')">📢 Announcements</button>
+                <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
+                <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
+            </div>
+
+            <div class="header-right">
+                <button class="btn-ghost watchlist-btn" onclick="openWatchlist()">☆ Watchlist <span id="wlCount">(0)</span></button>
+                <button class="btn-ghost export-btn" onclick="exportXLSX()">Export Excel</button>
+            </div>
+        </header>
+
+        <!-- Toolbar (search + status) -->
+        <div class="toolbar" id="mainToolbar">
+            <div class="search-wrap">
+                <svg class="search-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input type="text" id="searchBox" class="search-input" placeholder="Search company, subject, category…">
+            </div>
+            <div class="toolbar-right">
+                <div id="status" class="status"></div>
+                <div id="refreshInfo" class="refresh-info"></div>
             </div>
         </div>
-    </header>
 
-    <div class="tab-bar">
-        <button class="tab-btn tab-active" id="tabAnn" onclick="showTab('ann')">📢 Announcements</button>
-        <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
-        <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
-    </div>
-
-    <div id="annTab">
-    <div class="controls">
-        <div class="multi-select-wrap">
-            <span class="multi-label">Category</span>
-            <div class="multi-select" id="categoryFilter" tabindex="0">
-                <span class="multi-select-text">All</span>
-                <div class="multi-select-dropdown" id="categoryDropdown"></div>
+        <!-- ═══ Announcements Tab ════════════════════════════ -->
+        <div id="annTab" class="tab-content">
+            <div id="results" class="table-wrap">
+                <table id="annTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortBy('company')">Company <span class="sort-arrow" data-col="company"></span></th>
+                            <th class="sortable" onclick="sortBy('market_cap')">Market Cap <span class="sort-arrow" data-col="market_cap"></span></th>
+                            <th>Subject</th>
+                            <th>AI Summary</th>
+                            <th class="sortable" onclick="sortBy('date')">Date <span class="sort-arrow" data-col="date"></span></th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="annBody"></tbody>
+                </table>
+            </div>
+            <div id="pagination" class="pagination" style="display:none">
+                <button id="prevBtn" onclick="prevPage()" disabled>‹ Prev</button>
+                <span id="pageNum">Page 1 of 1</span>
+                <button id="nextBtn" onclick="nextPage()">Next ›</button>
+                <span id="pageInfo" class="page-info"></span>
             </div>
         </div>
-        <label>
-            Min MCap (Cr)
-            <input type="number" id="mcapMin" placeholder="e.g. 500" onchange="applyFilter()" min="0">
-        </label>
-        <label>
-            Max MCap (Cr)
-            <input type="number" id="mcapMax" placeholder="e.g. 50000" onchange="applyFilter()" min="0">
-        </label>
-        <label class="na-filter-label">
-            <input type="checkbox" id="includeNA" onchange="applyFilter()">
-            Include N/A MCap
-        </label>
-        <label class="star-filter-label">
-            <input type="checkbox" id="starFilter" onchange="applyFilter()">
-            &#9733; Starred Only
-        </label>
-        <label>
-            From
-            <input type="date" id="dateFrom" onchange="applyFilter()">
-        </label>
-        <label>
-            To
-            <input type="date" id="dateTo" onchange="applyFilter()">
-        </label>
-        <label>
-            Search
-            <input type="text" id="searchBox" placeholder="Company, symbol, subject...">
-        </label>
-        <button class="clear-btn" onclick="clearAllFilters()" title="Clear all filters">Clear Filters</button>
-        <button class="export-btn" onclick="exportXLSX()" title="Export filtered results as Excel">Export Excel</button>
-        <button class="watchlist-btn" onclick="openWatchlist()" title="View Watchlist">&#9734; Watchlist <span id="wlCount">(0)</span></button>
-        <button class="lookup-btn" onclick="showTab('research')" title="Company History &amp; Research">&#128269; Research</button>
-    </div>
 
-    <div class="status-bar">
-        <div id="status" class="status"></div>
-        <div id="refreshInfo" class="refresh-info"></div>
-    </div>
-
-    <div id="results">
-        <table id="annTable">
-            <thead>
-                <tr>
-                    <th class="sortable" onclick="sortBy('company')">Company <span class="sort-arrow" data-col="company"></span></th>
-                    <th class="sortable" onclick="sortBy('market_cap')">Market Cap <span class="sort-arrow" data-col="market_cap"></span></th>
-                    <th>Subject</th>
-                    <th>AI Summary</th>
-                    <th class="sortable" onclick="sortBy('date')">Date <span class="sort-arrow" data-col="date"></span></th>
-                    <th>PDF</th>
-                </tr>
-            </thead>
-            <tbody id="annBody"></tbody>
-        </table>
-    </div>
-
-    <div id="pagination" class="pagination" style="display:none">
-        <button id="prevBtn" onclick="prevPage()" disabled>&laquo; Previous</button>
-        <span id="pageNum">Page 1 of 1</span>
-        <button id="nextBtn" onclick="nextPage()">Next &raquo;</button>
-        <span id="pageInfo" class="page-info">1–50 of 100</span>
-    </div>
-
-    </div><!-- /#annTab -->
-
-    <!-- ═══ Insider Trades Tab ═══════════════════════════════════════════════ -->
-    <div id="insiderTab" style="display:none">
-        <div class="controls">
-            <label>Period
-                <select id="insiderPeriod" onchange="onInsiderPeriodChange()">
-                    <option value="custom">Custom Range</option>
-                </select>
-            </label>
-            <span id="insiderCustomRange">
-                <label>From<input type="date" id="insiderFrom" onchange="applyInsiderFilter()"></label>
-                <label>To<input type="date" id="insiderTo" onchange="applyInsiderFilter()"></label>
-            </span>
-            <label>View
-                <select id="insiderView" onchange="applyInsiderFilter()">
-                    <option value="trades">All Trades</option>
-                    <option value="aggregate">Aggregate</option>
-                </select>
-            </label>
-            <label>Txn Type
-                <select id="insiderTxn" onchange="applyInsiderFilter()">
-                    <option value="">All</option>
-                    <option value="Buy">Buy</option>
-                    <option value="Sell">Sell</option>
-                </select>
-            </label>
-            <label>Category
-                <select id="insiderCategory" onchange="applyInsiderFilter()">
-                    <option value="">All</option>
-                    <option value="Promoter">Promoter</option>
-                    <option value="Director">Director</option>
-                    <option value="KMP">KMP</option>
-                    <option value="Other">Other</option>
-                </select>
-            </label>
-            <label>Mode
-                <select id="insiderMode" onchange="applyInsiderFilter()">
-                    <option value="">All</option>
-                </select>
-            </label>
-            <label>Min Value (Cr)<input type="number" id="insiderMinVal" placeholder="e.g. 1" onchange="applyInsiderFilter()" min="0" step="0.1"></label>
-            <label>Min MCap (Cr)<input type="number" id="insiderMcapMin" placeholder="e.g. 500" onchange="applyInsiderFilter()" min="0"></label>
-            <label>Max MCap (Cr)<input type="number" id="insiderMcapMax" placeholder="e.g. 50000" onchange="applyInsiderFilter()" min="0"></label>
-            <label>Exchange
-                <select id="insiderExchange" onchange="applyInsiderFilter()">
-                    <option value="">Both</option>
-                    <option value="BSE">BSE</option>
-                    <option value="NSE">NSE</option>
-                </select>
-            </label>
-            <label>Search<input type="text" id="insiderSearch" placeholder="Company, person..."></label>
-            <button class="clear-btn" onclick="clearInsiderFilters()">Clear Filters</button>
-            <button class="export-btn" onclick="exportInsiderXLSX()">Export Excel</button>
-        </div>
-        <div class="status-bar">
-            <div id="insiderStatus" class="status"></div>
+        <!-- ═══ Insider Trades Tab ═══════════════════════════ -->
+        <div id="insiderTab" class="tab-content" style="display:none">
+            <div class="controls insider-controls">
+                <label>Period
+                    <select id="insiderPeriod" onchange="onInsiderPeriodChange()">
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </label>
+                <span id="insiderCustomRange">
+                    <label>From<input type="date" id="insiderFrom" onchange="applyInsiderFilter()"></label>
+                    <label>To<input type="date" id="insiderTo" onchange="applyInsiderFilter()"></label>
+                </span>
+                <label>View
+                    <select id="insiderView" onchange="applyInsiderFilter()">
+                        <option value="trades">All Trades</option>
+                        <option value="aggregate">Aggregate</option>
+                    </select>
+                </label>
+                <label>Txn Type
+                    <select id="insiderTxn" onchange="applyInsiderFilter()">
+                        <option value="">All</option>
+                        <option value="Buy">Buy</option>
+                        <option value="Sell">Sell</option>
+                    </select>
+                </label>
+                <label>Category
+                    <select id="insiderCategory" onchange="applyInsiderFilter()">
+                        <option value="">All</option>
+                        <option value="Promoter">Promoter</option>
+                        <option value="Director">Director</option>
+                        <option value="KMP">KMP</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <label>Mode
+                    <select id="insiderMode" onchange="applyInsiderFilter()">
+                        <option value="">All</option>
+                    </select>
+                </label>
+                <label>Min Value (Cr)<input type="number" id="insiderMinVal" placeholder="e.g. 1" onchange="applyInsiderFilter()" min="0" step="0.1"></label>
+                <label>Min MCap (Cr)<input type="number" id="insiderMcapMin" placeholder="e.g. 500" onchange="applyInsiderFilter()" min="0"></label>
+                <label>Max MCap (Cr)<input type="number" id="insiderMcapMax" placeholder="e.g. 50000" onchange="applyInsiderFilter()" min="0"></label>
+                <label>Exchange
+                    <select id="insiderExchange" onchange="applyInsiderFilter()">
+                        <option value="">Both</option>
+                        <option value="BSE">BSE</option>
+                        <option value="NSE">NSE</option>
+                    </select>
+                </label>
+                <label>Search<input type="text" id="insiderSearch" placeholder="Company, person..."></label>
+                <button class="btn-clear" onclick="clearInsiderFilters()">Clear Filters</button>
+                <button class="btn-ghost export-btn" onclick="exportInsiderXLSX()">Export Excel</button>
+            </div>
+            <div class="status-bar">
+                <div id="insiderStatus" class="status"></div>
+            </div>
+            <div id="insiderResults" class="table-wrap">
+                <table id="insiderTable">
+                    <thead><tr>
+                        <th class="sortable" onclick="sortInsiderBy('date')">Date <span class="sort-arrow" data-icol="date"></span></th>
+                        <th class="sortable" onclick="sortInsiderBy('company')">Company <span class="sort-arrow" data-icol="company"></span></th>
+                        <th class="sortable" onclick="sortInsiderBy('market_cap')">MCap <span class="sort-arrow" data-icol="market_cap"></span></th>
+                        <th>Person</th>
+                        <th>Category</th>
+                        <th>Txn</th>
+                        <th>Mode</th>
+                        <th class="sortable" onclick="sortInsiderBy('qty')">Qty <span class="sort-arrow" data-icol="qty"></span></th>
+                        <th class="sortable" onclick="sortInsiderBy('price')">Avg Price <span class="sort-arrow" data-icol="price"></span></th>
+                        <th class="sortable" onclick="sortInsiderBy('value_cr')">Value (Cr) <span class="sort-arrow" data-icol="value_cr"></span></th>
+                        <th>Before%</th>
+                        <th>After%</th>
+                    </tr></thead>
+                    <tbody id="insiderBody"></tbody>
+                </table>
+            </div>
+            <div id="insiderPagination" class="pagination" style="display:none">
+                <button id="insiderPrevBtn" onclick="insiderPrevPage()" disabled>‹ Prev</button>
+                <span id="insiderPageNum">Page 1 of 1</span>
+                <button id="insiderNextBtn" onclick="insiderNextPage()">Next ›</button>
+                <span id="insiderPageInfo" class="page-info"></span>
+            </div>
+            <div id="insiderAggResults" style="display:none"></div>
         </div>
 
-        <!-- All Trades table -->
-        <div id="insiderResults">
-            <table id="insiderTable">
-                <thead><tr>
-                    <th class="sortable" onclick="sortInsiderBy('date')">Date <span class="sort-arrow" data-icol="date"></span></th>
-                    <th class="sortable" onclick="sortInsiderBy('company')">Company <span class="sort-arrow" data-icol="company"></span></th>
-                    <th class="sortable" onclick="sortInsiderBy('market_cap')">MCap <span class="sort-arrow" data-icol="market_cap"></span></th>
-                    <th>Person</th>
-                    <th>Category</th>
-                    <th>Txn</th>
-                    <th>Mode</th>
-                    <th class="sortable" onclick="sortInsiderBy('qty')">Qty <span class="sort-arrow" data-icol="qty"></span></th>
-                    <th class="sortable" onclick="sortInsiderBy('price')">Avg Price <span class="sort-arrow" data-icol="price"></span></th>
-                    <th class="sortable" onclick="sortInsiderBy('value_cr')">Value (Cr) <span class="sort-arrow" data-icol="value_cr"></span></th>
-                    <th>Before%</th>
-                    <th>After%</th>
-                </tr></thead>
-                <tbody id="insiderBody"></tbody>
-            </table>
-        </div>
-        <div id="insiderPagination" class="pagination" style="display:none">
-            <button id="insiderPrevBtn" onclick="insiderPrevPage()" disabled>&laquo; Previous</button>
-            <span id="insiderPageNum">Page 1 of 1</span>
-            <button id="insiderNextBtn" onclick="insiderNextPage()">Next &raquo;</button>
-            <span id="insiderPageInfo" class="page-info"></span>
+        <!-- ═══ Research Tab ════════════════════════════════ -->
+        <div id="researchTab" class="tab-content" style="display:none">
+            <div class="research-panel">
+                <div class="research-panel-header">
+                    <h2>🔍 Company History &amp; Deep Research</h2>
+                    <p class="research-panel-sub">Search BSE/NSE companies (including SME) · Fetch 3 years of announcements · Generate AI deep-dive reports</p>
+                </div>
+                <div class="lookup-search-row">
+                    <div class="lookup-input-wrap">
+                        <input type="text" id="lookupInput" class="lookup-input"
+                            placeholder="Type company name or symbol…"
+                            oninput="onLookupInput()" onkeydown="onLookupKeyDown(event)"
+                            autocomplete="off">
+                        <div id="lookupSuggest" class="lookup-suggest" style="display:none"></div>
+                    </div>
+                    <button id="lookupFetchBtn" class="lookup-fetch-btn" onclick="triggerLookup()" disabled>Fetch 3 Yrs</button>
+                    <button id="researchBtn" class="research-fetch-btn" onclick="triggerResearch()" disabled>🔮 Deep Research</button>
+                </div>
+                <div id="lookupStatus" class="lookup-status" style="display:none"></div>
+                <div id="lookupResults" style="display:none">
+                    <div class="lookup-result-header">
+                        <span id="lookupResultTitle"></span>
+                        <button class="lookup-clear-btn" onclick="clearLookup()">🗑 Clear Results</button>
+                    </div>
+                    <div class="lookup-table-wrap">
+                        <table class="lookup-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Subject</th>
+                                    <th>PDF</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lookupBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Aggregate tables (rendered dynamically) -->
-        <div id="insiderAggResults" style="display:none"></div>
-    </div><!-- /#insiderTab -->
+    </div><!-- /main -->
 
+    <!-- ═══ Watchlist Modal ══════════════════════════════════ -->
     <div id="watchlistOverlay" class="wl-overlay" style="display:none" onclick="if(event.target===this)closeWatchlist()">
         <div class="wl-modal">
             <div class="wl-modal-header">
-                <h2>&#9734; Watchlist</h2>
+                <h2>☆ Watchlist</h2>
                 <div class="wl-header-actions">
-                    <button class="wl-export-btn" onclick="exportWatchlist()" title="Backup watchlist">Export</button>
-                    <label class="wl-import-btn" title="Restore watchlist">
+                    <button class="wl-export-btn" onclick="exportWatchlist()">Export</button>
+                    <label class="wl-import-btn">
                         Import
                         <input type="file" id="wlImportFile" accept=".json" onchange="importWatchlist(event)" style="display:none">
                     </label>
-                    <button class="wl-close-btn" onclick="closeWatchlist()">&times;</button>
+                    <button class="wl-close-btn" onclick="closeWatchlist()">×</button>
                 </div>
             </div>
             <div id="wlContent" class="wl-modal-body"></div>
         </div>
     </div>
 
-    <!-- Research Tab (inline, no modal) -->
-    <div id="researchTab" style="display:none">
-        <div class="research-panel">
-            <div class="research-panel-header">
-                <h2>&#128269; Company History &amp; Deep Research</h2>
-                <p class="research-panel-sub">Search BSE/NSE companies (including SME) &middot; Fetch 3 years of announcements &middot; Generate AI deep-dive reports</p>
-            </div>
-            <div class="lookup-search-row">
-                <div class="lookup-input-wrap">
-                    <input type="text" id="lookupInput" class="lookup-input"
-                        placeholder="Type company name or symbol..."
-                        oninput="onLookupInput()" onkeydown="onLookupKeyDown(event)"
-                        autocomplete="off">
-                    <div id="lookupSuggest" class="lookup-suggest" style="display:none"></div>
-                </div>
-                <button id="lookupFetchBtn" class="lookup-fetch-btn" onclick="triggerLookup()" disabled>Fetch 3 Yrs</button>
-                <button id="researchBtn" class="research-fetch-btn" onclick="triggerResearch()" disabled title="Generate full 10-15 page deep-dive research report (~5-10 min)">&#128302; Deep Research</button>
-            </div>
-            <div id="lookupStatus" class="lookup-status" style="display:none"></div>
-            <div id="lookupResults" style="display:none">
-                <div class="lookup-result-header">
-                    <span id="lookupResultTitle"></span>
-                    <button class="lookup-clear-btn" onclick="clearLookup()">&#128465; Clear Results</button>
-                </div>
-                <div class="lookup-table-wrap">
-                    <table class="lookup-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Subject</th>
-                                <th>PDF</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lookupBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+</div><!-- /app -->
 
-    <script src="app.js"></script>
+<script src="app.js"></script>
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+    // Hide sidebar when switching to insider/research tabs; show for ann tab
+    const _origShowTab = window.showTab;
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebar = document.getElementById('sidebar');
+        const origShow = window.showTab;
+        window.showTab = function(tab) {
+            origShow(tab);
+            if (tab === 'ann') sidebar.classList.remove('force-hide');
+            else sidebar.classList.add('force-hide');
+            // Show/hide toolbar search
+            const toolbar = document.getElementById('mainToolbar');
+            toolbar.style.display = (tab === 'ann') ? '' : 'none';
+        };
+    });
+</script>
 </body>
 </html>

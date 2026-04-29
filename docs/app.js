@@ -407,7 +407,7 @@ function renderRow(a, idx) {
     const attachmentLink = attachment
         ? `<a class="attachment-link" href="${escapeAttr(attachment)}" target="_blank" rel="noopener">PDF</a>`
         : "-";
-    const categoryBadge = category ? `<span class="category-badge">${escapeHtml(category)}</span>` : "";
+    const categoryBadge = category ? `<span class="category-badge" data-cat="${escapeAttr(category)}">${escapeHtml(category)}</span>` : "";
 
     const detail = a.detail || "";
     let detailHtml = "";
