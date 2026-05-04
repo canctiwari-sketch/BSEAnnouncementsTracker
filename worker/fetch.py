@@ -831,17 +831,21 @@ Details: {a.get('detail', '')}"""
 
     prompt = f"""For each stock exchange announcement below, provide:
 1. A CATEGORY from this list: {categories_list}
-2. A SUMMARY of 3-6 sentences for an investor, based STRICTLY on the actual content provided.
+2. A SUMMARY for an investor, based STRICTLY on the actual content provided.
 
-MANDATORY rules for the summary:
-- Use ONLY facts that are explicitly present in the Subject, Details, or PDF Content provided. Do NOT invent or assume any information.
-- NEVER use bracketed placeholders like [Date of Meeting], [Amount], [Company Name], [TBD], [X], [...], or any text inside square brackets that stands in for missing data. If a fact is not present in the source, simply omit it.
-- NEVER write generic boilerplate such as "investors should review the detailed outcome" or "this announcement is crucial for understanding the company's forward-looking plans" — these are filler and add no value.
-- If the PDF/text contains insufficient specific information (e.g. only a notice that a meeting was held with no outcome details), write a SHORT 1-2 sentence summary stating exactly what was disclosed and end with: "No material financial details disclosed in this filing." Do NOT pad with speculation.
-- Extract exact NUMBERS when present: rupee amounts, share counts, percentages, face value, premium, price per share.
-- For share transactions: state whether shares were ACQUIRED, SOLD, GIFTED, PLEDGED, or ALLOTTED. Include exact share count and percentage of total voting capital before and after — only if disclosed.
-- Include specific NAMES when present: buyer/seller/acquirer/promoter names, counterparties, subsidiaries.
-- Include specific DATES when present: board meeting date, transaction date, record date, effective date.
+LENGTH RULE (very important):
+- DEFAULT: write 5-6 detailed sentences extracting ALL specific facts, numbers, names, and dates from the PDF Content. This is the expected length for most filings.
+- SHORT FALLBACK: only when the PDF Content is genuinely empty/missing OR contains nothing beyond "the board met" with zero details, write 1-2 sentences ending with "No material financial details disclosed in this filing." Do NOT use this fallback if the PDF has any numbers, names, or specifics — extract them instead.
+- Quarterly result filings, order announcements, acquisitions, fund-raises, presentations — these ALWAYS have material content; produce 5-6 sentences with the actual numbers.
+
+CONTENT RULES:
+- Use ONLY facts explicitly present in the Subject, Details, or PDF Content. Do NOT invent.
+- NEVER use bracketed placeholders like [Date of Meeting], [Amount], [TBD], [X]. If a fact is not present, omit it.
+- NEVER write filler like "investors should review the detailed outcome" or "crucial for understanding the company's plans".
+- For Results announcements: extract revenue, EBITDA, PAT, EPS, YoY/QoQ growth %, margin %, dividend (with exact numbers from the PDF tables).
+- For Order/Contract announcements: extract order value (Rs / Cr / Lakhs), client name, execution timeline, scope.
+- For share transactions: state ACQUIRED/SOLD/GIFTED/PLEDGED/ALLOTTED, exact share count, % of voting capital before AND after.
+- Include specific NAMES (buyer/seller/promoter/counterparty/subsidiary) and DATES (board meeting, transaction, record, effective).
 - Mention WHAT HAPPENS NEXT only if disclosed: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings.
 - For orders: mention order value, client name, delivery timeline — only if disclosed.
 - Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure".
@@ -1174,6 +1178,10 @@ def main():
                            "provides an update on the company's strategic decisions"):
                 if phrase.lower() in s.lower():
                     return True
+            # Too-short summary that doesn't acknowledge missing details
+            # (genuine "no material details" summaries say so explicitly)
+            if len(s) < 120 and "no material financial details disclosed" not in s.lower():
+                return True
             return False
 
         # Mark bad existing summaries as None so they enter the retry queue
