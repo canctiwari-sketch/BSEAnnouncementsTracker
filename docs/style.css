@@ -302,6 +302,7 @@ body {
 /* ── Table ───────────────────────────────────────────────────── */
 #results, .table-wrap { flex: 1; overflow: auto; background: var(--surface); }
 #insiderResults { flex: 1; overflow: auto; background: var(--surface); }
+#insiderAggResults { flex: 1; overflow: auto; background: var(--surface); padding: 16px 20px; }
 
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
