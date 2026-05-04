@@ -329,10 +329,13 @@ a.company-name:hover {
     gap: 12px;
     align-items: center;
     justify-content: center;
+    border-top: 1px solid #30363d;
+    background: #161b22;
 }
 
 .pagination button {
     background: #21262d;
+    border: 1px solid #30363d;
 }
 
 .pagination button:hover:not(:disabled) {
@@ -341,7 +344,7 @@ a.company-name:hover {
 
 #pageInfo {
     font-size: 0.8rem;
-    color: #8b949e;
+    color: #c9d1d9;
 }
 
 /* Starred / high-priority rows */
@@ -538,13 +541,33 @@ a.company-name:hover {
     }
 
     .pagination {
-        padding: 10px 14px;
+        padding: 12px 14px;
+        gap: 16px;
     }
 
     .pagination button {
-        padding: 9px 16px;
-        font-size: 0.85rem;
+        padding: 10px 20px;
+        font-size: 0.9rem;
         min-height: 44px;
+        background: #238636;
+        border-color: #238636;
+        color: #fff;
+    }
+
+    .pagination button:hover:not(:disabled) {
+        background: #2ea043;
+        border-color: #2ea043;
+    }
+
+    .pagination button:disabled {
+        background: #21262d;
+        border-color: #30363d;
+        color: #484f58;
+    }
+
+    #pageInfo {
+        font-size: 0.85rem;
+        color: #e1e4e8;
     }
 
     /* Dropdown opens upward if near bottom of screen */
