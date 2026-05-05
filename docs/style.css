@@ -557,15 +557,21 @@ a.company-link:hover { color: var(--accent); }
 
 /* ── Insider controls bar ────────────────────────────────────── */
 .insider-controls {
-    padding: 10px 18px;
+    padding: 8px 14px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 7px 9px;
     align-items: flex-end;
     flex-shrink: 0;
+    max-height: 38vh;
+    overflow-y: auto;
 }
+.insider-controls label { gap: 2px; }
+.insider-controls input[type="text"] { min-width: 130px; }
+.insider-controls input[type="number"] { width: 78px; }
+.insider-controls input[type="date"], .insider-controls select { font-size: 11.5px; padding: 5px 8px; }
 label {
     display: flex;
     flex-direction: column;
@@ -885,10 +891,45 @@ input[type="number"] { -moz-appearance: textfield; }
 .research-clear-btn { background: none; border: 1px solid var(--border); color: var(--negative); border-radius: 4px; padding: 3px 8px; font-size: 12px; cursor: pointer; font-family: inherit; }
 .research-clear-btn:hover { background: var(--negative-light); }
 
-/* ── Mobile responsive ───────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ── Tablet responsive (≤1024px) ─────────────────────────────── */
+@media (max-width: 1024px) {
+    /* Hide sidebar by default on tablet — toggle via menu icon */
     .sidebar { width: 0; }
-    .insider-controls { padding: 8px 12px; }
+    .sidebar.open { width: var(--sidebar-w); position: absolute; z-index: 100; height: 100vh; box-shadow: 4px 0 12px rgba(0,0,0,0.08); }
+
+    /* Compact insider controls */
+    .insider-controls {
+        padding: 7px 12px;
+        gap: 6px 8px;
+        max-height: 32vh;
+    }
+    .insider-controls label { font-size: 9.5px; }
+    .insider-controls input[type="text"] { min-width: 110px; }
+    .insider-controls input[type="number"] { width: 70px; }
+    .insider-controls input, .insider-controls select { font-size: 11px; padding: 4px 7px; }
+    .insider-controls button { padding: 5px 10px; font-size: 11px; }
+
+    /* Pagination always visible */
+    .pagination { padding: 8px 12px; flex-wrap: wrap; }
+    .pagination button { padding: 5px 12px; }
+}
+
+/* ── Mobile responsive (≤768px) ──────────────────────────────── */
+@media (max-width: 768px) {
+    .insider-controls {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        padding: 8px 10px;
+        max-height: 28vh;
+    }
+    .insider-controls label { font-size: 9px; min-width: 0; }
+    .insider-controls input, .insider-controls select { width: 100%; min-width: 0; font-size: 11px; }
+    .insider-controls input[type="number"] { width: 100%; }
+    .insider-controls input[type="text"] { min-width: 0; }
+    .insider-controls button { grid-column: span 2; padding: 7px; font-size: 11.5px; }
+    #insiderCustomRange { display: contents; }
+
     #results { padding: 0; }
     .status-bar { padding: 0 12px; }
     .subject-cell { max-width: 180px; }
@@ -900,4 +941,8 @@ input[type="number"] { -moz-appearance: textfield; }
     .wl-modal { width: 96%; max-height: 92vh; }
     .tab-btn { padding: 6px 10px; font-size: 12px; }
     .header { padding: 0 10px; }
+
+    .pagination { padding: 6px 8px; gap: 5px; font-size: 11px; }
+    .pagination button { padding: 5px 10px; font-size: 11px; }
+    .page-info { display: none; }
 }
