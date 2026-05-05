@@ -893,9 +893,15 @@ input[type="number"] { -moz-appearance: textfield; }
 
 /* ── Tablet responsive (≤1024px) ─────────────────────────────── */
 @media (max-width: 1024px) {
-    /* Hide sidebar by default on tablet — toggle via menu icon */
-    .sidebar { width: 0; }
-    .sidebar.open { width: var(--sidebar-w); position: absolute; z-index: 100; height: 100vh; box-shadow: 4px 0 12px rgba(0,0,0,0.08); }
+    /* Sidebar starts collapsed via JS; when opened it overlays the content */
+    .sidebar:not(.collapsed) {
+        position: absolute;
+        left: 0; top: 0;
+        height: 100vh;
+        z-index: 100;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.18);
+        width: var(--sidebar-w);
+    }
 
     /* Compact insider controls */
     .insider-controls {

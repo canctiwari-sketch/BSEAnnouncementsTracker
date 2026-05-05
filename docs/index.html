@@ -280,6 +280,15 @@
     const _origShowTab = window.showTab;
     document.addEventListener('DOMContentLoaded', () => {
         const sidebar = document.getElementById('sidebar');
+        // Auto-collapse sidebar on tablet/mobile by default
+        if (window.matchMedia('(max-width: 1024px)').matches) {
+            sidebar.classList.add('collapsed');
+        }
+        // Re-evaluate on resize
+        window.matchMedia('(max-width: 1024px)').addEventListener('change', e => {
+            if (e.matches) sidebar.classList.add('collapsed');
+            else sidebar.classList.remove('collapsed');
+        });
         const origShow = window.showTab;
         window.showTab = function(tab) {
             origShow(tab);
