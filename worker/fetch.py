@@ -767,7 +767,7 @@ def dedup(all_anns):
 
 # ─── PDF Text Extraction ─────────────────────────────────────────────────────
 def extract_pdf_text(url, max_chars=3000):
-    """Download PDF and extract first ~max_chars of text using pdfplumber (table-aware)."""
+    """Download PDF and extract first ~max_chars of text."""
     if not url:
         return ""
     try:
@@ -777,30 +777,23 @@ def extract_pdf_text(url, max_chars=3000):
         if r.status_code != 200:
             return ""
         import io
-        import pdfplumber
-        text_parts = []
-        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
-            for page in pdf.pages[:5]:  # First 5 pages
-                # Extract tables first — pdfplumber parses them as structured rows
-                for table in page.extract_tables():
-                    for row in table:
-                        cells = [str(c).strip() if c else "" for c in row]
-                        row_text = " | ".join(c for c in cells if c)
-                        if row_text:
-                            text_parts.append(row_text)
-                # Then regular text
-                page_text = page.extract_text() or ""
-                if page_text:
-                    text_parts.append(page_text)
-                if sum(len(p) for p in text_parts) >= max_chars:
-                    break
-        text = "\n".join(text_parts)
+        try:
+            import PyPDF2
+            reader = PyPDF2.PdfReader(io.BytesIO(r.content))
+        except ImportError:
+            import pypdf
+            reader = pypdf.PdfReader(io.BytesIO(r.content))
+        text = ""
+        for page in reader.pages[:5]:  # First 5 pages — annexures often on page 2-3
+            text += page.extract_text() or ""
+            if len(text) >= max_chars:
+                break
+        # Clean up
         text = re.sub(r'\s+', ' ', text).strip()
         return text[:max_chars]
     except Exception as e:
         log(f"  PDF extract error for {url[:60]}: {e}")
         return ""
-
 
 # ─── Gemini Batch Summarizer ──────────────────────────────────────────────────
 def summarize_batch(announcements_batch):
@@ -831,21 +824,18 @@ Details: {a.get('detail', '')}"""
 
     prompt = f"""For each stock exchange announcement below, provide:
 1. A CATEGORY from this list: {categories_list}
-2. A SUMMARY for an investor, based STRICTLY on the actual content provided.
+2. A SUMMARY of 5-6 detailed sentences for an investor.
 
-LENGTH RULE (very important):
-- DEFAULT: write 5-6 detailed sentences extracting ALL specific facts, numbers, names, and dates from the PDF Content. This is the expected length for most filings.
-- SHORT FALLBACK: only when the PDF Content is genuinely empty/missing OR contains nothing beyond "the board met" with zero details, write 1-2 sentences ending with "No material financial details disclosed in this filing." Do NOT use this fallback if the PDF has any numbers, names, or specifics — extract them instead.
-- Quarterly result filings, order announcements, acquisitions, fund-raises, presentations — these ALWAYS have material content; produce 5-6 sentences with the actual numbers.
-
-CONTENT RULES:
-- Use ONLY facts explicitly present in the Subject, Details, or PDF Content. Do NOT invent.
-- NEVER use bracketed placeholders like [Date of Meeting], [Amount], [TBD], [X]. If a fact is not present, omit it.
-- NEVER write filler like "investors should review the detailed outcome" or "crucial for understanding the company's plans".
-- For Results announcements: extract revenue, EBITDA, PAT, EPS, YoY/QoQ growth %, margin %, dividend (with exact numbers from the PDF tables).
-- For Order/Contract announcements: extract order value (Rs / Cr / Lakhs), client name, execution timeline, scope.
-- For share transactions: state ACQUIRED/SOLD/GIFTED/PLEDGED/ALLOTTED, exact share count, % of voting capital before AND after.
-- Include specific NAMES (buyer/seller/promoter/counterparty/subsidiary) and DATES (board meeting, transaction, record, effective).
+MANDATORY rules for the summary:
+- Always extract exact NUMBERS from the PDF/text: rupee amounts, share counts, percentages, face value, premium, price per share
+- For share transactions: state whether shares were ACQUIRED, SOLD, GIFTED, PLEDGED, or ALLOTTED. Include exact share count and percentage of total voting capital before and after.
+- Always include specific NAMES: buyer/seller/acquirer/promoter names, counterparties, subsidiaries
+- Always include specific DATES: board meeting date, transaction date, record date, effective date
+- Always mention WHAT HAPPENS NEXT: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings
+- Extract actual TERMS: price per share, premium amount, total consideration, valuation, interest rate, tenure
+- For orders: mention exact order value, client name, delivery timeline
+- Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure" — extract the actual details
+- If the PDF contains a table with numbers, extract the key figures from it
 - Mention WHAT HAPPENS NEXT only if disclosed: pending approvals, EGM/AGM votes, NCLT hearings, SEBI filings.
 - For orders: mention order value, client name, delivery timeline — only if disclosed.
 - Do NOT use vague phrases like "potentially impacting growth" or "details are in the annexure".
@@ -935,24 +925,6 @@ def _parse_batch_response(text, expected_count, company_names=None):
                                         category = None
                                         summary = None
                                         break
-
-                # Reject summaries containing bracketed placeholders or known boilerplate
-                if summary:
-                    bad_placeholder = _re.search(
-                        r'\[(?:date of meeting|amount|company name|tbd|x|\.\.\.|insert|placeholder|number|value|name|details)\]',
-                        summary, _re.IGNORECASE
-                    )
-                    # Also catch generic [Capitalized Phrase] patterns (likely a placeholder)
-                    generic_placeholder = _re.search(r'\[[A-Z][A-Za-z ]{2,40}\]', summary)
-                    boilerplate_phrases = [
-                        "investors should review the detailed outcome",
-                        "this announcement is crucial for understanding",
-                        "provides an update on the company's strategic decisions",
-                    ]
-                    has_boilerplate = any(p.lower() in summary.lower() for p in boilerplate_phrases)
-                    if bad_placeholder or generic_placeholder or has_boilerplate:
-                        log(f"  WARNING: Summary [{idx+1}] contains placeholder/boilerplate — skipping for retry")
-                        summary = None
 
                 if summary:
                     results[idx] = {"category": category, "summary": summary}
@@ -1164,41 +1136,18 @@ def main():
 
     log(f"Summarized {summarized} announcements with Gemini")
 
-    # Retry summaries for existing announcements missing ai_summary OR containing placeholder/boilerplate
-    if GEMINI_KEY:  # always retry unsummarized announcements
-        def _is_bad_summary(s):
-            if not s:
-                return True
-            if re.search(r'\[(?:date of meeting|amount|company name|tbd|insert|placeholder)\]', s, re.IGNORECASE):
-                return True
-            if re.search(r'\[[A-Z][A-Za-z ]{2,40}\]', s):
-                return True
-            for phrase in ("investors should review the detailed outcome",
-                           "this announcement is crucial for understanding",
-                           "provides an update on the company's strategic decisions"):
-                if phrase.lower() in s.lower():
-                    return True
-            # Too-short summary that doesn't acknowledge missing details
-            # (genuine "no material details" summaries say so explicitly)
-            if len(s) < 120 and "no material financial details disclosed" not in s.lower():
-                return True
-            return False
-
-        # Mark bad existing summaries as None so they enter the retry queue
-        for a in existing:
-            if _is_bad_summary(a.get("ai_summary")) and a.get("ai_summary") is not None:
-                a["ai_summary"] = None
-
+    # Retry summaries ONLY for existing announcements that are still completely missing
+    # ai_summary (e.g. previous Gemini call was rate-limited). We do NOT retroactively
+    # re-summarize old announcements — prior summaries stay as-is.
+    if GEMINI_KEY:
         need_retry = [a for a in existing if a.get("ai_summary") is None]
-        # Sort oldest first — yesterday's announcements get summarized before today's
         need_retry.sort(key=lambda a: a.get("date", ""))
-        # Night mode: aggressive processing — no new announcements to compete with
         RETRY_BATCH = 10 if is_night else 5
-        MAX_RETRY = 500 if is_night else 100  # Night: clear entire backlog; Day: limit to avoid timeout
+        MAX_RETRY = 500 if is_night else 100
         RETRY_WAIT = 1 if is_night else 2
         need_retry = need_retry[:MAX_RETRY]
         if need_retry:
-            log(f"Retrying {len(need_retry)} existing announcements missing summaries (batch={RETRY_BATCH}, night={is_night})...")
+            log(f"Retrying {len(need_retry)} unsummarized announcements (batch={RETRY_BATCH}, night={is_night})...")
             retry_ok = 0
             for batch_start in range(0, len(need_retry), RETRY_BATCH):
                 batch = need_retry[batch_start:batch_start + RETRY_BATCH]
@@ -1215,47 +1164,6 @@ def main():
                 log(f"  Retry batch {batch_start // RETRY_BATCH + 1}: {min(batch_start + RETRY_BATCH, len(need_retry))}/{len(need_retry)} done ({retry_ok} successful)")
                 if batch_start + RETRY_BATCH < len(need_retry):
                     time.sleep(RETRY_WAIT)
-
-    # Drop empty Board Meeting announcements — those where the PDF had no material content.
-    # After the new prompt, these get "No material financial details disclosed" summaries.
-    # We keep Board Meetings that mention results, dividend, order, acquisition, etc.
-    _board_keep_re = re.compile(
-        r"result|revenue|profit|loss|turnover|dividend|order|contract|acquisition|"
-        r"merger|demerger|preferential|warrant|buyback|buy.?back|expansion|capex|"
-        r"joint venture|fund.?rais|qip|rights|ipo|delisting|allotment|subsidiary|"
-        r"divestment|open.?offer|bonus|split|ncd|debenture",
-        re.IGNORECASE,
-    )
-    before_empty_bm = len(new_anns)
-    new_anns = [
-        a for a in new_anns
-        if not (
-            a.get("category") == "Board Meeting"
-            and a.get("ai_summary")
-            and "no material financial details disclosed" in a["ai_summary"].lower()
-            and not _board_keep_re.search(
-                f"{a.get('subject','')} {a.get('detail','')} {a.get('ai_summary','')}"
-            )
-        )
-    ]
-    if before_empty_bm != len(new_anns):
-        log(f"Dropped {before_empty_bm - len(new_anns)} empty Board Meeting announcements")
-
-    # Same pass for existing cached announcements
-    before_empty_bm_ex = len(existing)
-    existing = [
-        a for a in existing
-        if not (
-            a.get("category") == "Board Meeting"
-            and a.get("ai_summary")
-            and "no material financial details disclosed" in a["ai_summary"].lower()
-            and not _board_keep_re.search(
-                f"{a.get('subject','')} {a.get('detail','')} {a.get('ai_summary','')}"
-            )
-        )
-    ]
-    if before_empty_bm_ex != len(existing):
-        log(f"Dropped {before_empty_bm_ex - len(existing)} empty Board Meeting entries from cache")
 
     # Backfill market cap for existing cached NSE announcements still missing it
     nse_missing_mcap = [a for a in existing if a.get("exchange") == "NSE" and not a.get("market_cap") and a.get("symbol")]
