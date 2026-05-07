@@ -357,8 +357,25 @@ function updatePagination(totalPages, start, end, total) {
     el.style.display = "flex";
     document.getElementById("pageInfo").textContent = `${start + 1}–${end} of ${total}`;
     document.getElementById("prevBtn").disabled = currentPage <= 1;
+    document.getElementById("firstBtn").disabled = currentPage <= 1;
     document.getElementById("nextBtn").disabled = currentPage >= totalPages;
+    document.getElementById("lastBtn").disabled = currentPage >= totalPages;
     document.getElementById("pageNum").textContent = `Page ${currentPage} of ${totalPages}`;
+    const jump = document.getElementById("pageJump");
+    if (jump) { jump.max = totalPages; jump.placeholder = totalPages; }
+}
+
+function firstPage() {
+    if (currentPage !== 1) { currentPage = 1; renderPage(); window.scrollTo({top:0, behavior:"smooth"}); }
+}
+function lastPage() {
+    const totalPages = Math.max(1, Math.ceil(currentFiltered.length / PAGE_SIZE));
+    if (currentPage !== totalPages) { currentPage = totalPages; renderPage(); window.scrollTo({top:0, behavior:"smooth"}); }
+}
+function goToPage(n) {
+    n = parseInt(n, 10);
+    const totalPages = Math.max(1, Math.ceil(currentFiltered.length / PAGE_SIZE));
+    if (n >= 1 && n <= totalPages) { currentPage = n; renderPage(); window.scrollTo({top:0, behavior:"smooth"}); }
 }
 
 function prevPage() {
@@ -1611,7 +1628,11 @@ function renderInsiderTable() {
         pg.style.display = "flex";
         document.getElementById("insiderPageNum").textContent = "Page " + insiderPage + " of " + totalPages;
         document.getElementById("insiderPrevBtn").disabled = insiderPage <= 1;
+        document.getElementById("insiderFirstBtn").disabled = insiderPage <= 1;
         document.getElementById("insiderNextBtn").disabled = insiderPage >= totalPages;
+        document.getElementById("insiderLastBtn").disabled = insiderPage >= totalPages;
+        const jump = document.getElementById("insiderPageJump");
+        jump.max = totalPages; jump.placeholder = totalPages;
         document.getElementById("insiderPageInfo").textContent =
             (start + 1) + "\u2013" + Math.min(start + INSIDER_PAGE_SIZE, total) + " of " + total.toLocaleString();
     } else {
@@ -1801,6 +1822,18 @@ function _buildPrefSection(rows) {
 
 function insiderPrevPage() { if (insiderPage > 1) { insiderPage--; renderInsiderTable(); window.scrollTo(0,0); } }
 function insiderNextPage() { insiderPage++; renderInsiderTable(); window.scrollTo(0,0); }
+function insiderFirstPage() { insiderPage = 1; renderInsiderTable(); window.scrollTo(0,0); }
+function insiderLastPage() {
+    const total = (window.insiderFiltered || []).length;
+    insiderPage = Math.max(1, Math.ceil(total / INSIDER_PAGE_SIZE));
+    renderInsiderTable(); window.scrollTo(0,0);
+}
+function insiderGoToPage(n) {
+    n = parseInt(n, 10);
+    const total = (window.insiderFiltered || []).length;
+    const totalPages = Math.max(1, Math.ceil(total / INSIDER_PAGE_SIZE));
+    if (n >= 1 && n <= totalPages) { insiderPage = n; renderInsiderTable(); window.scrollTo(0,0); }
+}
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 function exportInsiderXLSX() {

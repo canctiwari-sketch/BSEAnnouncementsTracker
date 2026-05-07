@@ -89,9 +89,12 @@
     </div>
 
     <div id="pagination" class="pagination" style="display:none">
+        <button id="firstBtn" onclick="firstPage()" disabled title="First page">&laquo;&laquo;</button>
         <button id="prevBtn" onclick="prevPage()" disabled>&laquo; Previous</button>
         <span id="pageNum">Page 1 of 1</span>
+        Go to <input type="number" id="pageJump" min="1" style="width:60px" onchange="goToPage(this.value)" onkeydown="if(event.key==='Enter')goToPage(this.value)">
         <button id="nextBtn" onclick="nextPage()">Next &raquo;</button>
+        <button id="lastBtn" onclick="lastPage()" title="Last page">&raquo;&raquo;</button>
         <span id="pageInfo" class="page-info">1–50 of 100</span>
     </div>
 
@@ -175,9 +178,12 @@
             </table>
         </div>
         <div id="insiderPagination" class="pagination" style="display:none">
+            <button id="insiderFirstBtn" onclick="insiderFirstPage()" disabled title="First page">&laquo;&laquo;</button>
             <button id="insiderPrevBtn" onclick="insiderPrevPage()" disabled>&laquo; Previous</button>
             <span id="insiderPageNum">Page 1 of 1</span>
+            Go to <input type="number" id="insiderPageJump" min="1" style="width:60px" onchange="insiderGoToPage(this.value)" onkeydown="if(event.key==='Enter')insiderGoToPage(this.value)">
             <button id="insiderNextBtn" onclick="insiderNextPage()">Next &raquo;</button>
+            <button id="insiderLastBtn" onclick="insiderLastPage()" title="Last page">&raquo;&raquo;</button>
             <span id="insiderPageInfo" class="page-info"></span>
         </div>
 
