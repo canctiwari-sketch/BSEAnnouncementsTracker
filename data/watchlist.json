@@ -163,5 +163,23 @@
         "user_note": ""
       }
     ]
+  },
+  "544418_BSE": {
+    "company": "Oswal Pumps Ltd",
+    "symbol": "544418",
+    "exchange": "BSE",
+    "market_cap": 47790729690.200005,
+    "market_cap_fmt": "4.78K Cr",
+    "notes": [
+      {
+        "subject": "Oswal Pumps Ltd - 544418 - Intimation Letter Dated May 06, 2026 For Disclosure Under Regulation 30 Of SEBI (Listing Obligations And Disclosure Requirements) Regulations, 2015 ('Listing Regulations') - Awarding Of Order",
+        "category": "New Order",
+        "ai_summary": "Oswal Pumps Limited has received a Letter of Empanelment (LOE) from Maharashtra State Electricity Distribution Company Limited for the supply of 6,869 Off-Grid DC Solar Photovoltaic Water Pumping Systems (SPWPS). These systems are to be executed within one year under the PM Kusum B Scheme, also known as the \"Magel Tyala Saur Krishi Pump\" Yojna. This award signifies a significant new order for the company, contributing to the expansion of solar pumping solutions in the state.",
+        "date": "2026-05-06T10:54:52.3",
+        "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/12ca5ae6-d8a8-456f-890f-719aaf12f4c9.pdf",
+        "added_on": "2026-05-11T10:19:18.320Z",
+        "user_note": "Reasonably Cheap!"
+      }
+    ]
   }
 }
