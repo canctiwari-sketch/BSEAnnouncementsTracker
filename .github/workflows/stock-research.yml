@@ -8,8 +8,9 @@ on:
         required: true
         type: string
       scrip_code:
-        description: 'BSE scrip code'
-        required: true
+        description: 'BSE scrip code (blank if NSE-only)'
+        required: false
+        default: ''
         type: string
       nse_symbol:
         description: 'NSE symbol (optional)'

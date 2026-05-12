@@ -1101,18 +1101,20 @@ async function triggerLookup() {
                     ref: "main",
                     inputs: {
                         company_name: lookupSelectedCompany.name,
-                        scrip_code: lookupSelectedCompany.scrip_code,
+                        scrip_code: lookupSelectedCompany.scrip_code || "",
+                        nse_symbol: lookupSelectedCompany.nse_symbol || lookupSelectedCompany.symbol || "",
                     },
                 }),
             }
         );
 
-        if (resp.status === 422) {
-            setLookupStatus("⚠️ Token needs 'workflow' scope. Please regenerate your GitHub PAT with workflow permission.", "error");
-            return;
-        }
         if (!resp.ok) {
-            setLookupStatus(`⚠️ Failed to trigger workflow (HTTP ${resp.status}). Check your GitHub token.`, "error");
+            let detail = "";
+            try {
+                const j = await resp.json();
+                detail = j.message || JSON.stringify(j);
+            } catch {}
+            setLookupStatus(`⚠️ GitHub API ${resp.status}: ${detail || "workflow dispatch failed"}`, "error");
             return;
         }
     } catch (e) {
@@ -1259,18 +1261,19 @@ async function triggerResearch() {
                     ref: "main",
                     inputs: {
                         company_name: lookupSelectedCompany.name,
-                        scrip_code: lookupSelectedCompany.scrip_code,
+                        scrip_code: lookupSelectedCompany.scrip_code || "",
                         nse_symbol: nseSymbol,
                     },
                 }),
             }
         );
-        if (resp.status === 422) {
-            setLookupStatus("⚠️ Token needs 'workflow' scope. Please regenerate your GitHub PAT.", "error");
-            return;
-        }
         if (!resp.ok) {
-            setLookupStatus(`⚠️ Failed to trigger workflow (HTTP ${resp.status}).`, "error");
+            let detail = "";
+            try {
+                const j = await resp.json();
+                detail = j.message || JSON.stringify(j);
+            } catch {}
+            setLookupStatus(`⚠️ GitHub API ${resp.status}: ${detail || "workflow dispatch failed"}`, "error");
             return;
         }
     } catch (e) {

@@ -8,8 +8,14 @@ on:
         required: true
         type: string
       scrip_code:
-        description: 'BSE scrip code (6-digit number)'
-        required: true
+        description: 'BSE scrip code (6-digit number), blank if NSE-only'
+        required: false
+        default: ''
+        type: string
+      nse_symbol:
+        description: 'NSE symbol (optional)'
+        required: false
+        default: ''
         type: string
 
 permissions:
@@ -34,6 +40,7 @@ jobs:
         env:
           COMPANY_NAME: ${{ github.event.inputs.company_name }}
           SCRIP_CODE: ${{ github.event.inputs.scrip_code }}
+          NSE_SYMBOL: ${{ github.event.inputs.nse_symbol }}
         run: python worker/lookup.py
 
       - name: Commit and push results
