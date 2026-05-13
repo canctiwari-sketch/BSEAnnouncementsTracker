@@ -46,5 +46,13 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Insider trades: $(date +'%Y-%m-%d')"
-            git push
+            for i in 1 2 3; do
+              if git push; then
+                echo "Push succeeded on attempt $i"
+                break
+              fi
+              echo "Push attempt $i failed — rebasing and retrying"
+              git pull --rebase origin main
+              sleep 3
+            done
           fi

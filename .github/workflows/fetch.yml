@@ -39,7 +39,17 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update announcements $(date -u +%Y-%m-%dT%H:%M)"
-            git push
+            # Retry push up to 3 times; rebase on remote between attempts
+            # to handle race conditions with other workflows/manual pushes.
+            for i in 1 2 3; do
+              if git push; then
+                echo "Push succeeded on attempt $i"
+                break
+              fi
+              echo "Push attempt $i failed — rebasing on remote and retrying"
+              git pull --rebase origin main
+              sleep 3
+            done
           fi
 
       - name: Notify on failure
