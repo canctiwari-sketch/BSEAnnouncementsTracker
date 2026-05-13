@@ -21,6 +21,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
 CACHE_FILE = os.path.join(DATA_DIR, "announcements.json")
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_KEY_2 = os.environ.get("GEMINI_API_KEY_2", "")
+GEMINI_KEYS = [k for k in (GEMINI_KEY, GEMINI_KEY_2) if k]
 
 # ─── Noise Patterns (same as bse_api.py) ─────────────────────────────────────
 NOISE_PATTERNS = [
@@ -882,26 +884,36 @@ Format each response EXACTLY as:
 
 {chr(10).join(parts)}"""
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={GEMINI_KEY}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": 700 * len(announcements_batch), "temperature": 0.3},
     }
 
-    # Single attempt — if rate limited, skip and let next hourly run handle it
-    try:
-        r = requests.post(url, json=payload, timeout=90)
-        if r.status_code == 429:
-            log("  Gemini 429 rate limited — skipping, will retry next hour")
-            return "RATE_LIMITED"
-        r.raise_for_status()
-        data = r.json()
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        company_names = [a.get("company", "") for a in announcements_batch]
-        return _parse_batch_response(text, len(announcements_batch), company_names)
-    except Exception as e:
-        log(f"  Gemini batch error: {e}")
-        return [None] * len(announcements_batch)
+    # Try each Gemini key in turn; on 429, fall through to the next key
+    last_status = None
+    for key_idx, gkey in enumerate(GEMINI_KEYS):
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={gkey}"
+        try:
+            r = requests.post(url, json=payload, timeout=90)
+            last_status = r.status_code
+            if r.status_code == 429:
+                log(f"  Gemini key #{key_idx+1} hit 429 — trying next key")
+                continue
+            r.raise_for_status()
+            data = r.json()
+            text = data["candidates"][0]["content"]["parts"][0]["text"]
+            company_names = [a.get("company", "") for a in announcements_batch]
+            return _parse_batch_response(text, len(announcements_batch), company_names)
+        except Exception as e:
+            log(f"  Gemini key #{key_idx+1} error: {e}")
+            continue
+
+    # All keys exhausted
+    if last_status == 429:
+        log("  All Gemini keys rate-limited — will retry next run")
+        return "RATE_LIMITED"
+    log("  All Gemini keys failed")
+    return [None] * len(announcements_batch)
 
 
 VALID_CATEGORIES = {

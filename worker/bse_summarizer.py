@@ -14,6 +14,8 @@ load_dotenv()
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 api_key = os.getenv("GEMINI_API_KEY")
+api_key_2 = os.getenv("GEMINI_API_KEY_2", "")
+GEMINI_KEYS = [k for k in (api_key, api_key_2) if k]
 
 # Configuration
 # You can get this URL by inspecting the network tab on bseindia.com -> Corporate Announcements
@@ -83,37 +85,42 @@ def extract_text_from_pdf(pdf_path):
 GEMINI_MODEL = "gemini-2.5-pro"  # Deep research — quality over speed
 
 def call_gemini(prompt, max_tokens=8192, retries=5):
-    """Call Gemini API directly via requests (no SDK dependency). Retries on 429."""
-    if not api_key:
+    """Call Gemini API. Rotates through all available keys on 429; retries with backoff."""
+    if not GEMINI_KEYS:
         return None
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0.3},
     }
-    wait = 8  # seconds to wait on first 429 (RPM resets quickly)
+    wait = 8
     for attempt in range(retries):
-        try:
-            r = requests.post(url, json=payload, timeout=300)
-            if r.status_code == 429:
-                print(f"Gemini 429 rate limit (attempt {attempt+1}/{retries}), waiting {wait}s...")
-                time.sleep(wait)
-                wait = min(wait * 2, 120)  # exponential backoff, cap at 2 min
+        all_429 = True
+        for key_idx, gkey in enumerate(GEMINI_KEYS):
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={gkey}"
+            try:
+                r = requests.post(url, json=payload, timeout=300)
+                if r.status_code == 429:
+                    print(f"Gemini key #{key_idx+1} hit 429 (attempt {attempt+1}/{retries}) — trying next key")
+                    continue
+                r.raise_for_status()
+                data = r.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception as e:
+                print(f"Gemini key #{key_idx+1} error: {e}")
+                all_429 = False
                 continue
-            r.raise_for_status()
-            data = r.json()
-            return data["candidates"][0]["content"]["parts"][0]["text"]
-        except Exception as e:
-            print(f"Gemini API error: {e}")
-            if attempt < retries - 1:
-                time.sleep(10)
+        # All keys exhausted for this attempt
+        if attempt < retries - 1:
+            print(f"All keys exhausted; waiting {wait}s before retry...")
+            time.sleep(wait)
+            wait = min(wait * 2, 120)
     return None
 
 def summarize_text(text):
     """Summarizes a single document using Gemini API."""
     if not text:
         return "No text to summarize."
-    if not api_key:
+    if not GEMINI_KEYS:
         return "[MISSING CONFIG] GEMINI_API_KEY not set."
     prompt = f"""You are an expert Equity Research Analyst. Analyze this corporate announcement document.
 Provide: 1) Executive Summary (2-3 sentences), 2) Key financial figures, 3) Future guidance/targets, 4) Risk factors.

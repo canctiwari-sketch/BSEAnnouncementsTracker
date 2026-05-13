@@ -39,6 +39,7 @@ jobs:
       - name: Run research worker
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
           COMPANY_NAME: ${{ github.event.inputs.company_name }}
           SCRIP_CODE: ${{ github.event.inputs.scrip_code }}
           NSE_SYMBOL: ${{ github.event.inputs.nse_symbol }}
