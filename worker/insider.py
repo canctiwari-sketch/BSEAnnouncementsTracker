@@ -470,19 +470,25 @@ def main():
         else:
             existing_trades = all_new
     else:
-        # Incremental: yesterday + today as separate daily calls (BSE cap)
+        # Incremental: last 7 days as daily BSE calls + one NSE range call.
+        # 7-day window handles weekend filings (BSE often files Sat/Sun) and
+        # any single missed cron run. Dedup catches anything we've already saved.
         today = ist_now.date()
-        yesterday = today - timedelta(days=1)
+        LOOKBACK_DAYS = 7
 
         bse_all = []
-        for d in (yesterday, today):
-            bse_all.extend(fetch_bse_insider(d.strftime("%Y-%m-%d"), d.strftime("%Y-%m-%d")))
+        for i in range(LOOKBACK_DAYS + 1):  # 0..7 inclusive
+            d = today - timedelta(days=i)
+            d_str = d.strftime("%Y-%m-%d")
+            bse_all.extend(fetch_bse_insider(d_str, d_str))
+            time.sleep(0.4)
 
-        # NSE handles range fine
-        nse = fetch_nse_insider(yesterday.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+        nse_from = (today - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%d")
+        nse_to = today.strftime("%Y-%m-%d")
+        nse = fetch_nse_insider(nse_from, nse_to)
 
         new_t = merge_trades(bse_all, nse, seen_keys)
-        log(f"Incremental: BSE={len(bse_all)} NSE={len(nse)} | new={len(new_t)}")
+        log(f"Incremental ({LOOKBACK_DAYS}d): BSE={len(bse_all)} NSE={len(nse)} | new={len(new_t)}")
         existing_trades = new_t + existing_trades
 
     # Trim to 1 year
