@@ -889,30 +889,40 @@ Format each response EXACTLY as:
         "generationConfig": {"maxOutputTokens": 700 * len(announcements_batch), "temperature": 0.3},
     }
 
-    # Try each Gemini key in turn; on 429, fall through to the next key
-    last_status = None
-    for key_idx, gkey in enumerate(GEMINI_KEYS):
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key={gkey}"
-        try:
-            r = requests.post(url, json=payload, timeout=90)
-            last_status = r.status_code
-            if r.status_code == 429:
-                log(f"  Gemini key #{key_idx+1} hit 429 — trying next key")
-                continue
-            r.raise_for_status()
-            data = r.json()
-            text = data["candidates"][0]["content"]["parts"][0]["text"]
-            company_names = [a.get("company", "") for a in announcements_batch]
-            return _parse_batch_response(text, len(announcements_batch), company_names)
-        except Exception as e:
-            log(f"  Gemini key #{key_idx+1} error: {e}")
-            continue
+    # Model cascade — each model has its own free-tier quota pool.
+    # Order: cheapest → slightly smarter → fallback. 1.5-flash skipped (quality drop).
+    MODEL_CHAIN = [
+        "gemini-2.5-flash-lite",
+        "gemini-2.5-flash",
+        "gemini-2.0-flash",
+        "gemini-2.0-flash-lite",
+    ]
 
-    # All keys exhausted
+    last_status = None
+    for model_name in MODEL_CHAIN:
+        for key_idx, gkey in enumerate(GEMINI_KEYS):
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={gkey}"
+            try:
+                r = requests.post(url, json=payload, timeout=90)
+                last_status = r.status_code
+                if r.status_code == 429:
+                    log(f"  {model_name} key #{key_idx+1} hit 429")
+                    continue
+                r.raise_for_status()
+                data = r.json()
+                text = data["candidates"][0]["content"]["parts"][0]["text"]
+                company_names = [a.get("company", "") for a in announcements_batch]
+                if model_name != MODEL_CHAIN[0]:
+                    log(f"  Used fallback model {model_name} (key #{key_idx+1})")
+                return _parse_batch_response(text, len(announcements_batch), company_names)
+            except Exception as e:
+                log(f"  {model_name} key #{key_idx+1} error: {e}")
+                continue
+
     if last_status == 429:
-        log("  All Gemini keys rate-limited — will retry next run")
+        log("  All Gemini model+key combos rate-limited — will retry next run")
         return "RATE_LIMITED"
-    log("  All Gemini keys failed")
+    log("  All Gemini model+key combos failed")
     return [None] * len(announcements_batch)
 
 
