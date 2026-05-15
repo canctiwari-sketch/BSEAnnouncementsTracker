@@ -462,7 +462,11 @@ def fetch_bse(from_date, to_date):
 
     all_raw = []
     seen_ids = set()
-    for page in range(1, 6):
+    # BSE returns 50 items/page newest first; on busy days we need many pages
+    # to reach a day-old filing. Keep paginating until we either run out of
+    # results, hit items older than from_date, or hit a hard safety cap.
+    MAX_PAGES = 80  # 80 * 50 = 4000 announcements ≈ 2-3 days of busy market
+    for page in range(1, MAX_PAGES + 1):
         url = (
             f"https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
             f"?strCat=-1&strPrevDate={str_from}&strScrip=&strSearch=P"
@@ -480,6 +484,13 @@ def fetch_bse(from_date, to_date):
                 if nid and nid not in seen_ids:
                     seen_ids.add(nid)
                     all_raw.append(item)
+            # Stop once the oldest item on this page is before our from_date
+            try:
+                last_dt = items[-1].get("NEWS_DT", "")
+                if last_dt and last_dt[:10] < from_date:
+                    break
+            except Exception:
+                pass
         except Exception as e:
             print(f"BSE page {page} error: {e}")
             break
