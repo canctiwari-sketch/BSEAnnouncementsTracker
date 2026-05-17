@@ -1272,6 +1272,7 @@ def main():
                     a["ai_summary"] = result["summary"]
                     if result.get("category"):
                         a["category"] = result["category"]
+                    a.pop("pdf_text", None)  # cache no longer needed
                     summarized += 1
                 else:
                     a["ai_summary"] = None
@@ -1306,6 +1307,7 @@ def main():
                         a["ai_summary"] = result["summary"]
                         if result.get("category"):
                             a["category"] = result["category"]
+                        a.pop("pdf_text", None)  # cache no longer needed
                         retry_ok += 1
                 log(f"  Retry batch {batch_start // RETRY_BATCH + 1}: {min(batch_start + RETRY_BATCH, len(need_retry))}/{len(need_retry)} done ({retry_ok} successful)")
                 if batch_start + RETRY_BATCH < len(need_retry):
