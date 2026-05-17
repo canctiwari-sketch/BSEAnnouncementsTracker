@@ -814,6 +814,40 @@ def dedup(all_anns):
     return final
 
 
+# ─── PDF helpers ────────────────────────────────────────────────────────────
+# Result-specific markers found on the first page of SEBI-mandated result filings.
+# Acquisition / order / presentation PDFs use different language and won't match.
+_RESULT_MARKERS = re.compile(
+    r"audited financial results|unaudited financial results|"
+    r"statement of profit and loss|standalone (?:financial )?results|"
+    r"consolidated (?:financial )?results|for the quarter ended|"
+    r"for the year ended|revenue from operations|earnings per (?:equity )?share|"
+    r"profit before tax|profit after tax",
+    re.IGNORECASE,
+)
+
+
+def looks_like_results(pdf_bytes):
+    """Return True if PDF is >7 pages AND first page has result-specific markers.
+    Distinguishes 'Outcome of Board Meeting' that's actually quarterly results
+    from acquisitions/orders/presentations that are also long.
+    """
+    try:
+        import io
+        try:
+            import PyPDF2
+            reader = PyPDF2.PdfReader(io.BytesIO(pdf_bytes))
+        except ImportError:
+            import pypdf
+            reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+        if len(reader.pages) <= 7:
+            return False
+        first_page = reader.pages[0].extract_text() or ""
+        return bool(_RESULT_MARKERS.search(first_page))
+    except Exception:
+        return False
+
+
 # ─── PDF Text Extraction ─────────────────────────────────────────────────────
 def extract_pdf_text(url, max_chars=3000):
     """Download PDF and extract first ~max_chars of text."""
@@ -1164,6 +1198,32 @@ def main():
     # Sort oldest first so yesterday's announcements get summarized before today's
     new_anns.sort(key=lambda a: a.get("date", ""))
     log(f"New announcements: {len(new_anns)}")
+
+    # Pre-filter: download PDFs once, drop ones that look like Results (long + result markers).
+    # Cheap: just a PyPDF2 page-count + first-page text scan. Zero Gemini calls.
+    if new_anns:
+        log(f"Pre-filtering PDFs for hidden Results...")
+        kept = []
+        dropped = 0
+        for a in new_anns:
+            url = a.get("attachment", "")
+            if not url:
+                kept.append(a)
+                continue
+            try:
+                r = requests.get(url, timeout=15, headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                })
+                if r.status_code == 200 and looks_like_results(r.content):
+                    dropped += 1
+                    seen_keys.discard(a["_key"])  # don't lock the key, so future runs can re-evaluate
+                    continue
+            except Exception:
+                pass
+            kept.append(a)
+        new_anns = kept
+        if dropped:
+            log(f"Dropped {dropped} hidden Results filings (>7 pages + result markers)")
 
     # Detect nighttime (IST 22:00–07:00) — no new announcements arrive,
     # so we can use full Gemini quota for clearing the backlog
