@@ -826,11 +826,32 @@ _RESULT_MARKERS = re.compile(
     re.IGNORECASE,
 )
 
+# CapEx / expansion markers that, if present in the first 2 pages of an
+# otherwise result-looking PDF, override the drop decision. These are
+# language used in announcement contexts, not balance-sheet line items.
+_CAPEX_MARKERS = re.compile(
+    r"capex(?:\s+plan|\s+of|\s+announce|\s+approve)?|"
+    r"capital expenditure(?:\s+plan|\s+of)?|"
+    r"capacity expansion|capacity addition|capacity enhancement|"
+    r"greenfield|brownfield|"
+    r"new plant|new facility|new unit|new factory|"
+    r"to set up|setting up.*(?:plant|facility|unit)|"
+    r"approves?.*capex|approved.*capital expenditure|"
+    r"approves?.*expansion|approved.*expansion|"
+    r"announce(?:s|d)?.*(?:capex|expansion|new plant|new facility)|"
+    r"investment of (?:rs\.?|inr|₹)\s*[\d,]+(?:\.\d+)?\s*(?:cr|crore|lakh)|"
+    r"plans? to invest (?:rs\.?|inr|₹)\s*[\d,]+",
+    re.IGNORECASE,
+)
+
 
 def looks_like_results(pdf_bytes):
-    """Return True if PDF is >7 pages AND first page has result-specific markers.
-    Distinguishes 'Outcome of Board Meeting' that's actually quarterly results
-    from acquisitions/orders/presentations that are also long.
+    """Return True if PDF is >7 pages AND first page has result-specific markers
+    AND no CapEx / expansion announcement appears in first 2 pages.
+
+    The CapEx check is the escape hatch: companies sometimes bury big
+    expansion / capex announcements inside a results PDF. If we detect those,
+    we keep the announcement so Gemini can surface them.
     """
     try:
         import io
@@ -843,7 +864,15 @@ def looks_like_results(pdf_bytes):
         if len(reader.pages) <= 7:
             return False
         first_page = reader.pages[0].extract_text() or ""
-        return bool(_RESULT_MARKERS.search(first_page))
+        if not _RESULT_MARKERS.search(first_page):
+            return False
+        # It looks like a result — but check first 2 pages for CapEx escape
+        page2 = ""
+        if len(reader.pages) > 1:
+            page2 = reader.pages[1].extract_text() or ""
+        if _CAPEX_MARKERS.search(first_page + " " + page2):
+            return False  # keep it — has CapEx/expansion info
+        return True
     except Exception:
         return False
 
