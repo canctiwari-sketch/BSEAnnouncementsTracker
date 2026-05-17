@@ -884,12 +884,21 @@ def summarize_batch(announcements_batch):
     if not GEMINI_KEY or not announcements_batch:
         return [None] * len(announcements_batch)
 
-    # Extract PDF text for each announcement
-    log(f"  Downloading {len(announcements_batch)} PDFs...")
+    # Extract PDF text for each announcement (use cached text if available)
     pdf_texts = []
+    downloads = 0
     for a in announcements_batch:
-        pdf_text = extract_pdf_text(a.get("attachment", ""))
-        pdf_texts.append(pdf_text)
+        cached = a.get("pdf_text")
+        if cached:
+            pdf_texts.append(cached)
+        else:
+            text = extract_pdf_text(a.get("attachment", ""))
+            pdf_texts.append(text)
+            if text:
+                a["pdf_text"] = text  # cache for future retries
+                downloads += 1
+    if downloads:
+        log(f"  Downloaded {downloads} new PDFs (cached the rest)")
 
     # Build batch prompt with PDF content
     parts = []
@@ -1048,6 +1057,14 @@ def save_cache(cache):
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(cache, f, ensure_ascii=False, indent=2)
+    # Size monitoring — alert if file grows beyond 30 MB
+    try:
+        size_mb = os.path.getsize(CACHE_FILE) / 1024 / 1024
+        print(f"announcements.json size: {size_mb:.2f} MB", flush=True)
+        if size_mb > 30:
+            print(f"::warning::announcements.json exceeded 30 MB ({size_mb:.2f} MB) — consider trimming pdf_text cache", flush=True)
+    except Exception:
+        pass
 
 
 def log(msg):
