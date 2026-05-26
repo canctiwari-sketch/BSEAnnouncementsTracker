@@ -21,6 +21,7 @@
     <div class="tab-bar">
         <button class="tab-btn tab-active" id="tabAnn" onclick="showTab('ann')">📢 Announcements</button>
         <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
+        <button class="tab-btn" id="tabInterviews" onclick="showTab('interviews')">🎙️ Interviews</button>
         <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
     </div>
 
@@ -208,6 +209,43 @@
         </div>
     </div>
 
+    <!-- Interviews Tab -->
+    <div id="interviewsTab" style="display:none">
+        <div class="controls">
+            <label>
+                Search
+                <input type="text" id="ivSearch" placeholder="Company, person, channel..." oninput="renderInterviews()">
+            </label>
+            <label>
+                Channel
+                <select id="ivChannel" onchange="renderInterviews()">
+                    <option value="">All</option>
+                </select>
+            </label>
+            <label>
+                Language
+                <select id="ivLang" onchange="renderInterviews()">
+                    <option value="">All</option>
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+            </label>
+            <label>
+                From <input type="date" id="ivFrom" onchange="renderInterviews()">
+            </label>
+            <label>
+                To <input type="date" id="ivTo" onchange="renderInterviews()">
+            </label>
+            <button class="clear-btn" onclick="clearInterviewFilters()">Clear</button>
+        </div>
+        <div class="status-bar">
+            <div id="ivStatus" class="status"></div>
+        </div>
+        <div id="ivResults">
+            <div id="ivList" class="iv-list"></div>
+        </div>
+    </div>
+
     <!-- Research Tab (inline, no modal) -->
     <div id="researchTab" style="display:none">
         <div class="research-panel">
@@ -249,6 +287,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260508"></script>
+    <script src="app.js?v=20260517"></script>
 </body>
 </html>

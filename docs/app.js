@@ -1385,14 +1385,20 @@ const INSIDER_PAGE_SIZE = 100;
 let insiderLoaded = false;
 
 // ─── Tab ─────────────────────────────────────────────────────────────────────
+let interviewsLoaded = false;
+let allInterviews = [];
+
 function showTab(tab) {
-    const TABS = { ann: "annTab", insider: "insiderTab", research: "researchTab" };
-    const BTNS = { ann: "tabAnn", insider: "tabInsider", research: "tabResearch" };
+    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", research: "tabResearch" };
     Object.keys(TABS).forEach(t => {
-        document.getElementById(TABS[t]).style.display = t === tab ? "" : "none";
-        document.getElementById(BTNS[t]).classList.toggle("tab-active", t === tab);
+        const el = document.getElementById(TABS[t]);
+        if (el) el.style.display = t === tab ? "" : "none";
+        const btn = document.getElementById(BTNS[t]);
+        if (btn) btn.classList.toggle("tab-active", t === tab);
     });
     if (tab === "insider" && !insiderLoaded) fetchInsiderData();
+    if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
     if (tab === "research") {
         loadScrips();
         setTimeout(() => {
@@ -1402,6 +1408,87 @@ function showTab(tab) {
         const cached = sessionStorage.getItem("lookup_result");
         if (cached) { try { renderLookupResults(JSON.parse(cached)); } catch {} }
     }
+}
+
+// ─── Interviews ──────────────────────────────────────────────────────────────
+async function fetchInterviews() {
+    const status = document.getElementById("ivStatus");
+    if (status) { status.textContent = "Loading interviews..."; status.className = "status loading"; }
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/interviews.json?t=" + Date.now());
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const data = await r.json();
+        allInterviews = data.interviews || [];
+        interviewsLoaded = true;
+        // Populate channel filter
+        const channels = [...new Set(allInterviews.map(i => i.channel))].sort();
+        const sel = document.getElementById("ivChannel");
+        if (sel) {
+            sel.innerHTML = '<option value="">All</option>' + channels.map(c => `<option value="${c}">${c}</option>`).join("");
+        }
+        renderInterviews();
+    } catch (e) {
+        if (status) { status.textContent = "Failed to load interviews: " + e.message; status.className = "status error"; }
+    }
+}
+
+function renderInterviews() {
+    const list = document.getElementById("ivList");
+    const status = document.getElementById("ivStatus");
+    if (!list) return;
+    const q = (document.getElementById("ivSearch")?.value || "").toLowerCase();
+    const ch = document.getElementById("ivChannel")?.value || "";
+    const lang = document.getElementById("ivLang")?.value || "";
+    const from = document.getElementById("ivFrom")?.value || "";
+    const to = document.getElementById("ivTo")?.value || "";
+
+    const filtered = allInterviews.filter(iv => {
+        if (ch && iv.channel !== ch) return false;
+        if (lang && iv.language !== lang) return false;
+        if (q) {
+            const hay = `${iv.title} ${iv.company} ${iv.channel}`.toLowerCase();
+            if (!hay.includes(q)) return false;
+        }
+        if (from || to) {
+            const d = (iv.published || "").slice(0, 10);
+            if (from && d < from) return false;
+            if (to && d > to) return false;
+        }
+        return true;
+    });
+
+    if (status) {
+        status.textContent = `Showing ${filtered.length} of ${allInterviews.length} interviews`;
+        status.className = "status";
+    }
+    if (!filtered.length) {
+        list.innerHTML = '<div style="padding:32px;text-align:center;color:#888">No interviews match the filters.</div>';
+        return;
+    }
+    list.innerHTML = filtered.slice(0, 200).map(iv => {
+        const date = (iv.published || "").slice(0, 10);
+        const screenerHref = `https://www.google.com/search?q=${encodeURIComponent(iv.company + " screener.in")}`;
+        return `<a class="iv-card" href="${iv.url}" target="_blank" rel="noopener">
+            <img class="iv-thumb" src="${iv.thumbnail}" alt="" loading="lazy">
+            <div class="iv-meta">
+                <div class="iv-title">${iv.title}</div>
+                <div class="iv-sub">
+                    <a class="iv-company" href="${screenerHref}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${iv.company}</a>
+                    <span class="iv-channel">${iv.channel}</span>
+                    <span class="iv-lang">${iv.language}</span>
+                    <span class="iv-date">${date}</span>
+                </div>
+            </div>
+        </a>`;
+    }).join("");
+}
+
+function clearInterviewFilters() {
+    ["ivSearch", "ivChannel", "ivLang", "ivFrom", "ivTo"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+    renderInterviews();
 }
 
 // ─── Load ─────────────────────────────────────────────────────────────────────

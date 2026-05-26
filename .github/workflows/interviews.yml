@@ -1,0 +1,47 @@
+name: Management Interviews
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 9:30 AM IST daily (04:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3
+
+      - name: Fetch interviews
+        run: python worker/interviews.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/interviews.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Interviews: $(date +'%Y-%m-%d')"
+            for i in 1 2 3; do
+              if git push; then
+                echo "Push OK on attempt $i"
+                break
+              fi
+              echo "Retry $i"
+              git pull --rebase origin main
+              sleep 3
+            done
+          fi
