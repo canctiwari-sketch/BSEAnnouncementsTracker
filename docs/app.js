@@ -1465,21 +1465,29 @@ function renderInterviews() {
         list.innerHTML = '<div style="padding:32px;text-align:center;color:#888">No interviews match the filters.</div>';
         return;
     }
+    const fmtDate = (s) => {
+        const d = new Date(s);
+        if (isNaN(d)) return (s || "").slice(0, 10);
+        return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+    };
     list.innerHTML = filtered.slice(0, 200).map(iv => {
-        const date = (iv.published || "").slice(0, 10);
         const screenerHref = `https://www.google.com/search?q=${encodeURIComponent(iv.company + " screener.in")}`;
-        return `<a class="iv-card" href="${iv.url}" target="_blank" rel="noopener">
-            <img class="iv-thumb" src="${iv.thumbnail}" alt="" loading="lazy">
-            <div class="iv-meta">
-                <div class="iv-title">${iv.title}</div>
-                <div class="iv-sub">
-                    <a class="iv-company" href="${screenerHref}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${iv.company}</a>
+        const langCls = iv.language === "Hindi" ? "iv-lang-hi" : "iv-lang-en";
+        return `<div class="iv-card">
+            <a class="iv-thumb-wrap" href="${iv.url}" target="_blank" rel="noopener" title="${iv.title.replace(/"/g, '&quot;')}">
+                <img class="iv-thumb" src="${iv.thumbnail}" alt="" loading="lazy">
+                <span class="iv-play">▶</span>
+                <span class="iv-lang-badge ${langCls}">${iv.language}</span>
+            </a>
+            <div class="iv-body">
+                <a class="iv-company" href="${screenerHref}" target="_blank" rel="noopener">${iv.company}</a>
+                <a class="iv-title" href="${iv.url}" target="_blank" rel="noopener">${iv.title}</a>
+                <div class="iv-foot">
                     <span class="iv-channel">${iv.channel}</span>
-                    <span class="iv-lang">${iv.language}</span>
-                    <span class="iv-date">${date}</span>
+                    <span class="iv-date">${fmtDate(iv.published)}</span>
                 </div>
             </div>
-        </a>`;
+        </div>`;
     }).join("");
 }
 

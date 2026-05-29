@@ -1051,81 +1051,115 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
 
 /* ─── Interviews tab ──────────────────────────────────────────────────────── */
 .iv-list {
-    padding: 18px 24px;
+    padding: 20px 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 18px;
-    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 20px;
 }
 .iv-card {
     display: flex;
     flex-direction: column;
     background: #fff;
-    border: 1px solid #e8e8eb;
-    border-radius: 10px;
+    border: 1px solid #ececf0;
+    border-radius: 12px;
     overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
-    height: 100%;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 .iv-card:hover {
-    box-shadow: 0 6px 18px rgba(90,61,138,0.12);
-    transform: translateY(-2px);
-    border-color: #d6c9ef;
+    box-shadow: 0 8px 24px rgba(90,61,138,0.15);
+    transform: translateY(-3px);
+}
+/* Thumbnail */
+.iv-thumb-wrap {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: #1a1a2e;
+    overflow: hidden;
 }
 .iv-thumb {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
-    background: #eee;
     display: block;
+    transition: transform 0.3s ease;
 }
-.iv-meta {
-    padding: 11px 13px 12px;
+.iv-thumb-wrap:hover .iv-thumb { transform: scale(1.04); }
+.iv-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px; height: 46px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; padding-left: 3px;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+}
+.iv-thumb-wrap:hover .iv-play { opacity: 1; }
+.iv-lang-badge {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 0.64rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+}
+.iv-lang-hi { background: rgba(217,119,6,0.92); color: #fff; }
+.iv-lang-en { background: rgba(37,99,168,0.92); color: #fff; }
+/* Body */
+.iv-body {
+    padding: 12px 14px 13px;
     display: flex;
     flex-direction: column;
     flex: 1;
-}
-.iv-title {
-    font-size: 0.86rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    line-height: 1.35;
-    margin-bottom: 10px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 2.4em;     /* reserve 2 lines so cards align */
-}
-.iv-sub {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px 8px;
-    font-size: 0.7rem;
-    color: #666;
-    align-items: center;
-    margin-top: auto;       /* pin metadata to bottom */
+    gap: 6px;
 }
 .iv-company {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
     color: #5a3d8a;
-    font-weight: 600;
     text-decoration: none;
-    width: 100%;
-    margin-bottom: 4px;
-    font-size: 0.78rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 .iv-company:hover { text-decoration: underline; }
-.iv-channel { background: #f3eeff; color: #5a3d8a; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
-.iv-lang { background: #eef6ff; color: #2563a8; padding: 2px 8px; border-radius: 10px; }
-.iv-date { margin-left: auto; color: #999; }
+.iv-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    line-height: 1.36;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.4em;
+}
+.iv-title:hover { color: #5a3d8a; }
+.iv-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid #f2f2f5;
+    font-size: 0.7rem;
+}
+.iv-channel { color: #5a3d8a; font-weight: 600; background: #f4f1fb; padding: 2px 8px; border-radius: 8px; }
+.iv-date { color: #98a2b3; }
 
 @media (max-width: 600px) {
-    .iv-list { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+    .iv-list { grid-template-columns: 1fr; padding: 14px; gap: 14px; }
 }
 
 /* ─── Lookup button ───────────────────────────────────────────────────────── */
