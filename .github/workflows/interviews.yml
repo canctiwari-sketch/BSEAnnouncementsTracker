@@ -24,6 +24,8 @@ jobs:
         run: pip install requests==2.32.3
 
       - name: Fetch interviews
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python worker/interviews.py
 
       - name: Commit and push

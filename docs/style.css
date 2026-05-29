@@ -1051,64 +1051,81 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
 
 /* ─── Interviews tab ──────────────────────────────────────────────────────── */
 .iv-list {
-    padding: 16px 24px;
+    padding: 18px 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+    align-items: start;
 }
 .iv-card {
     display: flex;
     flex-direction: column;
     background: #fff;
     border: 1px solid #e8e8eb;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: box-shadow 0.15s, transform 0.15s;
+    transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+    height: 100%;
 }
 .iv-card:hover {
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(90,61,138,0.12);
+    transform: translateY(-2px);
+    border-color: #d6c9ef;
 }
 .iv-thumb {
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    background: #ddd;
+    background: #eee;
+    display: block;
 }
-.iv-meta { padding: 10px 12px; }
+.iv-meta {
+    padding: 11px 13px 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 .iv-title {
     font-size: 0.86rem;
     font-weight: 600;
-    color: #222;
-    line-height: 1.3;
-    margin-bottom: 6px;
+    color: #1a1a2e;
+    line-height: 1.35;
+    margin-bottom: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: 2.4em;     /* reserve 2 lines so cards align */
 }
 .iv-sub {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px 10px;
-    font-size: 0.72rem;
+    gap: 5px 8px;
+    font-size: 0.7rem;
     color: #666;
     align-items: center;
+    margin-top: auto;       /* pin metadata to bottom */
 }
 .iv-company {
     color: #5a3d8a;
     font-weight: 600;
     text-decoration: none;
+    width: 100%;
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .iv-company:hover { text-decoration: underline; }
-.iv-channel { background: #f3eeff; color: #5a3d8a; padding: 1px 7px; border-radius: 10px; font-weight: 500; }
-.iv-lang { color: #888; }
+.iv-channel { background: #f3eeff; color: #5a3d8a; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.iv-lang { background: #eef6ff; color: #2563a8; padding: 2px 8px; border-radius: 10px; }
 .iv-date { margin-left: auto; color: #999; }
 
 @media (max-width: 600px) {
-    .iv-list { grid-template-columns: 1fr; padding: 10px 12px; }
+    .iv-list { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
 }
 
 /* ─── Lookup button ───────────────────────────────────────────────────────── */
