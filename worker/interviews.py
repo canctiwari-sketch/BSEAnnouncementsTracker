@@ -163,18 +163,35 @@ def parse_atom_feed(xml_text):
     return out
 
 
-# Title MUST contain at least one of these to qualify as management content.
-# Tuned to catch real management interviews/commentary while excluding generic news.
-INTERVIEW_MARKERS = re.compile(
+# A genuine management interview names a company EXECUTIVE in the title.
+# This is the strongest signal that the company's own leadership is speaking
+# (vs. an analyst/anchor commenting on the stock).
+MANAGEMENT_TITLE = re.compile(
     r"\b("
-    r"interview|exclusive|in\s+conversation|q\s*&\s*a|q\s*and\s*a|"
-    r"speaks?|talks?|comments?|discusses?|explains?|reveals?|answers?|"
-    r"shares?\s+(?:views|outlook|plans|strategy|insights)|"
-    r"guidance|outlook|plans|strategy|expansion\s+plans|"
-    r"reaction|management\s+(?:meet|view|commentary)|"
-    r"ceo|managing\s+director|md\b|cfo|cmd\b|chairman|chairwoman|founder|"
-    r"earnings\s+call|concall|results?\s+(?:talk|chat|reaction|preview)|"
-    r"q[1-4]\s*fy|fy2[0-9]|outlook\s+for|on\s+(?:results|guidance|strategy|expansion)"
+    r"c\.?e\.?o|c\.?f\.?o|c\.?m\.?d|c\.?o\.?o|c\.?t\.?o|c\.?i\.?o|"
+    r"managing\s+director|whole[\s-]?time\s+director|executive\s+director|"
+    r"joint\s+m\.?d|deputy\s+m\.?d|dy\.?\s*m\.?d|md\s*&\s*ceo|"
+    r"chairman|chairperson|chairwoman|vice[\s-]?chairman|"
+    r"co[\s-]?founder|founder|promoter|"
+    r"president\s*(?:&|and)\s*ceo|group\s+ceo|"
+    r"\bmd\b|\bcmd\b"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# If the title looks like analyst/anchor commentary, reject even if a
+# designation word slips in (e.g. "MD of XYZ Broking gives a Buy call").
+COMMENTARY_BLOCK = re.compile(
+    r"\b("
+    r"buy\s+or\s+sell|buy,?\s+sell|stocks?\s+to\s+buy|top\s+picks?|stock\s+of\s+the\s+day|"
+    r"trading\s+strateg|f\s*&\s*o|futures?\s+(?:&|and)\s+options|"
+    r"technical\s+(?:pick|chart|view|analysis|call)|chart\s+(?:check|attack)|"
+    r"decoded\s+by|analyst|brokerage|broking|expert(?:'?s)?\s+(?:view|take|call)|"
+    r"editor'?s\s+take|market\s+guru|anil\s+singhvi|share\s+bazaar|"
+    r"nifty\s+(?:prediction|outlook|target|view|strategy)|sensex|"
+    r"what\s+to\s+do\s+with|research\s+(?:call|report)|portfolio\s+(?:strategy|doctor)|"
+    r"\bsip\b|mutual\s+fund|smallcase|stock\s+radar|f&o\s+|options\s+strategy|"
+    r"results?\s+decoded|earnings?\s+decoded|q[1-4]\s+results?\s+decoded"
     r")\b",
     re.IGNORECASE,
 )
@@ -189,7 +206,11 @@ def match_companies(title, companies):
     - For single-word companies: require min 6 chars (avoid 'shah'/'atul' matches)
     - Prefer most-specific match (longest token count)
     """
-    if not INTERVIEW_MARKERS.search(title):
+    # Gate 1: must name a company executive (CEO/MD/CFO/Chairman/Founder/etc.)
+    if not MANAGEMENT_TITLE.search(title):
+        return []
+    # Gate 2: reject analyst/anchor commentary even if a designation appears
+    if COMMENTARY_BLOCK.search(title):
         return []
 
     t = re.sub(r"[\-,.\$&|]+", " ", title.lower())
@@ -209,15 +230,19 @@ def match_companies(title, companies):
             continue
 
         if len(distinctive) == 1:
-            # Single-word company: standalone token, >=6 chars, and NOT a
-            # common finance/English word (those collide with market videos).
+            # Single distinctive word (e.g. "Mphasis", "Asian Paints", "Cummins
+            # India"): require the FULL normalized name as a contiguous phrase,
+            # not just the lone word. This keeps real single-name companies
+            # while killing geo/generic collisions ("Tourism Finance" matching a
+            # tourism-sector video, "Gujarat Industries" matching "...Gujarat...").
             w = distinctive[0]
-            if len(w) >= 6 and w not in FINANCE_BLOCKLIST and w in title_tokens:
-                matches.append((c, len(w) * 2, "single"))
+            if w in FINANCE_BLOCKLIST:
+                continue
+            if len(nm) >= 6 and nm in t:
+                matches.append((c, len(nm) * 2, "single"))
         else:
             # Multi-word: require the full normalized name as a contiguous
-            # substring (catches "Ashok Leyland", "Bajaj Auto", "Inox Wind"),
-            # not just scattered tokens.
+            # substring (catches "Ashok Leyland", "Bajaj Auto", "Inox Wind").
             if nm in t and len(nm) >= 8:
                 matches.append((c, len(nm) * 3, "full"))
         # NOTE: symbol/ticker matching removed — tickers like MARCO, ATUL,
