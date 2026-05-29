@@ -1,5 +1,91 @@
 {
-  "interviews": [],
-  "last_updated": "2026-05-26T11:43:51.344824",
-  "seen_ids": []
+  "interviews": [
+    {
+      "video_id": "3cD9P8Z1FNo",
+      "title": "Inox Wind के Q4 Results, आय, मुनाफा, EBITDA और मार्जिन पर CEO Deepak Acharya का Outlook | ETNS",
+      "url": "https://www.youtube.com/watch?v=3cD9P8Z1FNo",
+      "thumbnail": "https://i.ytimg.com/vi/3cD9P8Z1FNo/mqdefault.jpg",
+      "published": "2026-05-29T09:18:07+00:00",
+      "channel": "ET NOW Swadesh",
+      "language": "Hindi",
+      "company": "Inox Wind Ltd",
+      "symbol": "INOXWIND",
+      "scrip_code": "539083",
+      "exchange": "BSE"
+    },
+    {
+      "video_id": "2YDIhdfXSyM",
+      "title": "Continue To See Pressure In FY27 Due To Rising Commodity Prices: Bajel Projects | CNBC TV18",
+      "url": "https://www.youtube.com/watch?v=2YDIhdfXSyM",
+      "thumbnail": "https://i.ytimg.com/vi/2YDIhdfXSyM/mqdefault.jpg",
+      "published": "2026-05-29T08:47:41+00:00",
+      "channel": "CNBC-TV18",
+      "language": "English",
+      "company": "Bajel Projects Ltd",
+      "symbol": "BAJEL",
+      "scrip_code": "544042",
+      "exchange": "BSE"
+    },
+    {
+      "video_id": "Ecy8ewB7Ffw",
+      "title": "IRCTC Q4 Results Analysis | नतीजों और आने वाले ग्रोथ प्लान को लेकर CMD Sanjay Kumar Jain से बातचीत",
+      "url": "https://www.youtube.com/watch?v=Ecy8ewB7Ffw",
+      "thumbnail": "https://i.ytimg.com/vi/Ecy8ewB7Ffw/mqdefault.jpg",
+      "published": "2026-05-29T08:31:42+00:00",
+      "channel": "CNBC Awaaz",
+      "language": "Hindi",
+      "company": "Indian Railway Catering And Tourism Corporation Limited",
+      "symbol": "IRCTC",
+      "scrip_code": "",
+      "exchange": "NSE"
+    },
+    {
+      "video_id": "cuI5mfG_fMQ",
+      "title": "Mphasis Launches Tria | CEO Nitin Rakesh On Enterprise AI, Agentic AI & The Future Of IT Services",
+      "url": "https://www.youtube.com/watch?v=cuI5mfG_fMQ",
+      "thumbnail": "https://i.ytimg.com/vi/cuI5mfG_fMQ/mqdefault.jpg",
+      "published": "2026-05-29T08:28:56+00:00",
+      "channel": "Bloomberg Quint",
+      "language": "English",
+      "company": "Mphasis Ltd",
+      "symbol": "SIS",
+      "scrip_code": "526299",
+      "exchange": "BSE"
+    },
+    {
+      "video_id": "txAjUXl12l8",
+      "title": "Cummins India Q4FY26 Earnings: Bets Big On Railways, Mining & Data Centre Boom | FY27 Outlook",
+      "url": "https://www.youtube.com/watch?v=txAjUXl12l8",
+      "thumbnail": "https://i.ytimg.com/vi/txAjUXl12l8/mqdefault.jpg",
+      "published": "2026-05-29T07:40:46+00:00",
+      "channel": "Business Today",
+      "language": "English",
+      "company": "Cummins India Ltd",
+      "symbol": "",
+      "scrip_code": "500480",
+      "exchange": "BSE"
+    },
+    {
+      "video_id": "qRYufgDtjlM",
+      "title": "Ashok Leyland Q4 Results: Revenue Rises By 17.4% To ₹17,246 crore | MD & CEO Outline Future Outlook",
+      "url": "https://www.youtube.com/watch?v=qRYufgDtjlM",
+      "thumbnail": "https://i.ytimg.com/vi/qRYufgDtjlM/mqdefault.jpg",
+      "published": "2026-05-29T07:39:06+00:00",
+      "channel": "Bloomberg Quint",
+      "language": "English",
+      "company": "Ashok Leyland Ltd",
+      "symbol": "",
+      "scrip_code": "500477",
+      "exchange": "BSE"
+    }
+  ],
+  "last_updated": "2026-05-29T09:35:01.236478",
+  "seen_ids": [
+    "2YDIhdfXSyM",
+    "qRYufgDtjlM",
+    "txAjUXl12l8",
+    "3cD9P8Z1FNo",
+    "Ecy8ewB7Ffw",
+    "cuI5mfG_fMQ"
+  ]
 }

@@ -17,30 +17,38 @@ DATA_DIR = os.path.join(ROOT, "data")
 SCRIPS_FILE = os.path.join(DATA_DIR, "scrips.json")
 OUT_FILE = os.path.join(DATA_DIR, "interviews.json")
 
-# YouTube channel IDs of major Indian business / market news channels.
-# (Mix of Hindi + English.)
+# Verified YouTube channel IDs of major Indian business / market news channels.
 CHANNELS = [
-    {"name": "CNBC-TV18", "lang": "English", "id": "UCH4cz9KqVCDhTI98yMxAjpw"},
-    {"name": "ET NOW", "lang": "English", "id": "UC-f7r46JhYv78q5pGrO6ivA"},
-    {"name": "NDTV Profit", "lang": "English", "id": "UCu5dwfFmDPCQqHo_FFI4Vmw"},
-    {"name": "Bloomberg Quint", "lang": "English", "id": "UCb2O5Uo4a26CdTE7_2QA-jA"},
-    {"name": "Moneycontrol", "lang": "English", "id": "UCYU3WdYUmaThbpdr7zCqMrA"},
-    {"name": "Mint", "lang": "English", "id": "UCpio0bX7TJDPHEoVfQfFNOg"},
-    {"name": "Business Today", "lang": "English", "id": "UCwqusr8YDwM-3mEYTDeJHzw"},
-    {"name": "CNBC Awaaz", "lang": "Hindi", "id": "UCywAQwoFOyL3M-Nco6FaLug"},
-    {"name": "ET NOW Swadesh", "lang": "Hindi", "id": "UCxNyDIb8MIQUIIPaszKkJEg"},
-    {"name": "Zee Business", "lang": "Hindi", "id": "UC8NcXMG3A3f2aFQyGTpSNww"},
-    {"name": "BQ Prime", "lang": "English", "id": "UCfWQ3wfaJ3jsoa2W-Cwy_AA"},
-    {"name": "Inc42", "lang": "English", "id": "UCgyJ4Pe-0HqxQRq2hkr_C6A"},
+    {"name": "CNBC-TV18", "lang": "English", "id": "UCmRbHAgG2k2vDUvb3xsEunQ"},
+    {"name": "ET NOW", "lang": "English", "id": "UCI_mwTKUhicNzFrhm33MzBQ"},
+    {"name": "NDTV Profit", "lang": "English", "id": "UCZFMm1mMw0F81Z37aaEzTUA"},
+    {"name": "Moneycontrol", "lang": "English", "id": "UCnhUiJ_-DRTP6w51LCQgJRQ"},
+    {"name": "Mint", "lang": "English", "id": "UCUI9vm69ZbAqRK3q3vKLWCQ"},
+    {"name": "Business Today", "lang": "English", "id": "UCaPHWiExfUWaKsUtENLCv5w"},
+    {"name": "Bloomberg Quint", "lang": "English", "id": "UC3uJIdRFTGgLWrUziaHbzrg"},
+    {"name": "Inc42", "lang": "English", "id": "UCQpk4isGpLvfE_riTJc9jHA"},
+    {"name": "CNBC Awaaz", "lang": "Hindi", "id": "UCQIycDaLsBpMKjOCeaKUYVg"},
+    {"name": "ET NOW Swadesh", "lang": "Hindi", "id": "UCD3CdwT8lTCe5ZGHbUBxmWA"},
+    {"name": "Zee Business", "lang": "Hindi", "id": "UCkXopQ3ubd-rnXnStZqCl2w"},
 ]
 
-# Words to ignore when extracting company names from titles.
+# Words to ignore when extracting distinctive company tokens from titles.
+# Adds generic English words that produce false matches when they appear in
+# news headlines (Enterprise AI, Education Minister, Global Crisis, etc.).
 STOPWORDS = {
     "ltd", "limited", "ltd.", "private", "pvt", "industries", "india", "corp",
     "corporation", "co", "company", "the", "and", "of", "for", "to", "&",
     "group", "holdings", "enterprises", "services", "international", "global",
     "ceo", "cfo", "md", "chairman", "managing", "director", "founder",
     "interview", "speaks", "talks", "explains", "share", "shares",
+    # Generic words that appear in many news headlines
+    "enterprise", "education", "national", "premier", "elite", "general",
+    "universal", "consolidated", "united", "modern", "central", "eastern",
+    "western", "northern", "southern", "asian", "indian", "trade", "trades",
+    "technologies", "technology", "tech", "solutions", "systems", "products",
+    "power", "energy", "finance", "financial", "capital", "investments",
+    "infrastructure", "infra", "developers", "ventures",
+    "limited.", "co.", "inc", "plc", "the.",
 }
 
 ATOM_NS = {"a": "http://www.w3.org/2005/Atom",
@@ -134,16 +142,19 @@ def parse_atom_feed(xml_text):
     return out
 
 
-# Title MUST contain at least one of these to qualify as a management interview.
-# Pure news headlines don't usually contain these.
+# Title MUST contain at least one of these to qualify as management content.
+# Tuned to catch real management interviews/commentary while excluding generic news.
 INTERVIEW_MARKERS = re.compile(
-    r"\b(interview|exclusive|speaks?\s+(?:to|with|on)|in\s+conversation|"
-    r"q&a|q\s*and\s*a|chat\s+with|panel\s+discussion|earnings\s+call|"
-    r"results?\s+(?:talk|chat|reaction)|guidance|outlook|"
-    r"ceo\s+speaks?|md\s+speaks?|cfo\s+speaks?|chairman\s+speaks?|"
-    r"managing\s+director|founder\s+(?:speaks|interview)|"
-    r"talks?\s+(?:to|with|about|on)\s+(?!the\s|a\s|an\s)|"
-    r"explains|reveals|on\s+(?:q[1-4]|results|guidance|outlook|strategy|expansion))\b",
+    r"\b("
+    r"interview|exclusive|in\s+conversation|q\s*&\s*a|q\s*and\s*a|"
+    r"speaks?|talks?|comments?|discusses?|explains?|reveals?|answers?|"
+    r"shares?\s+(?:views|outlook|plans|strategy|insights)|"
+    r"guidance|outlook|plans|strategy|expansion\s+plans|"
+    r"reaction|management\s+(?:meet|view|commentary)|"
+    r"ceo|managing\s+director|md\b|cfo|cmd\b|chairman|chairwoman|founder|"
+    r"earnings\s+call|concall|results?\s+(?:talk|chat|reaction|preview)|"
+    r"q[1-4]\s*fy|fy2[0-9]|outlook\s+for|on\s+(?:results|guidance|strategy|expansion)"
+    r")\b",
     re.IGNORECASE,
 )
 
@@ -177,21 +188,22 @@ def match_companies(title, companies):
             continue
 
         if len(distinctive) == 1:
-            # Single-word company: must be standalone token AND at least 6 chars
+            # Single-word company: must be standalone token AND at least 7 chars
+            # (anything shorter is too easily a generic English word)
             w = distinctive[0]
-            if len(w) >= 6 and w in title_tokens:
+            if len(w) >= 7 and w in title_tokens:
                 matches.append((c, len(w) * 2, "single"))
         else:
-            # Multi-word: require all distinctive tokens present in title
-            if all(w in title_tokens for w in distinctive):
-                score = sum(len(w) for w in distinctive) * len(distinctive)
-                matches.append((c, score, "multi"))
-            # OR full normalized name appears verbatim (handles compound names)
-            elif nm in t and len(nm) >= 8:
-                matches.append((c, len(nm), "full"))
+            # Multi-word: require the full normalized name to appear as a
+            # contiguous substring (catches "Ashok Leyland", "Inox Wind").
+            # This avoids "Global" + "Education" matching when those words
+            # appear far apart in unrelated news.
+            if nm in t and len(nm) >= 8:
+                matches.append((c, len(nm) * 3, "full"))
 
-        # Symbol match: ticker must be a standalone token >= 4 chars
-        if sym and len(sym) >= 4 and sym in title_tokens:
+        # Symbol match: ticker must be standalone token >= 5 chars to avoid
+        # matching common 3-4 letter English words (CEO, AI, NSE, etc.)
+        if sym and len(sym) >= 5 and sym in title_tokens:
             matches.append((c, len(sym) * 2, "symbol"))
 
     if not matches:
