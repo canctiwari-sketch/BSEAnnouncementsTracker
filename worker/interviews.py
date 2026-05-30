@@ -264,6 +264,33 @@ def load_existing():
         return {"interviews": [], "last_updated": None, "seen_ids": []}
 
 
+NEAR_DUP_DAYS = 3  # same company + channel within this window = duplicate
+
+
+def dedup_near(interviews):
+    """Collapse near-duplicates: same company + same channel posted within
+    NEAR_DUP_DAYS (segments/re-cuts of one interview). Keeps the newest."""
+    from datetime import date
+    def pdate(s):
+        s = (s or "")[:10]
+        try:
+            return date.fromisoformat(s)
+        except Exception:
+            return date.min
+    items = sorted(interviews, key=lambda x: x.get("published", ""), reverse=True)
+    kept, anchors = [], []
+    for iv in items:
+        comp = (iv.get("company") or "").strip().lower()
+        ch = iv.get("channel") or ""
+        d = pdate(iv.get("published", ""))
+        if any(c2 == comp and ch2 == ch and abs((d - d2).days) <= NEAR_DUP_DAYS
+               for (c2, ch2, d2) in anchors):
+            continue
+        kept.append(iv)
+        anchors.append((comp, ch, d))
+    return kept
+
+
 def save(data):
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(OUT_FILE, "w", encoding="utf-8") as f:
@@ -376,6 +403,11 @@ def main():
     before = len(all_interviews)
     all_interviews = [i for i in all_interviews if i.get("published", "") >= retain_cutoff]
     dropped = before - len(all_interviews)
+
+    # Collapse near-duplicate segments (same company+channel within a few days)
+    pre_dd = len(all_interviews)
+    all_interviews = dedup_near(all_interviews)
+    log(f"Near-dup collapse: {pre_dd} -> {len(all_interviews)}")
 
     # Sort newest first
     all_interviews.sort(key=lambda x: x.get("published", ""), reverse=True)
