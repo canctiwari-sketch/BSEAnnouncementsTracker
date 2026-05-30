@@ -66,6 +66,7 @@ def fetch_uploads(channel_id, cutoff_iso):
                 "video_id": vid,
                 "title": sn.get("title", ""),
                 "published": published,
+                "description": sn.get("description", ""),
                 "thumbnail": f"https://i.ytimg.com/vi/{vid}/mqdefault.jpg",
                 "url": f"https://www.youtube.com/watch?v={vid}",
             })
@@ -101,7 +102,7 @@ def main():
         for v in vids:
             if v["video_id"] in seen_ids:
                 continue
-            matched = match_companies(v["title"], companies)
+            matched = match_companies(v["title"], companies, v.get("description", ""))
             if not matched:
                 continue
             for company in matched:

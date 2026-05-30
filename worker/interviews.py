@@ -152,11 +152,19 @@ def parse_atom_feed(xml_text):
         vid_id = vid_id_el.text
         title = title_el.text or ""
         published = pub_el.text if pub_el is not None else ""
+        # media:group/media:description holds the video description in the feed
+        desc = ""
+        grp = entry.find("media:group", ATOM_NS)
+        if grp is not None:
+            de = grp.find("media:description", ATOM_NS)
+            if de is not None and de.text:
+                desc = de.text
         thumb = f"https://i.ytimg.com/vi/{vid_id}/mqdefault.jpg"
         out.append({
             "video_id": vid_id,
             "title": title,
             "published": published,
+            "description": desc,
             "thumbnail": thumb,
             "url": f"https://www.youtube.com/watch?v={vid_id}",
         })
@@ -197,56 +205,57 @@ COMMENTARY_BLOCK = re.compile(
 )
 
 
-def match_companies(title, companies):
-    """Return list of company dicts that match this video title.
+def _norm_text(s):
+    s = re.sub(r"[\-,.\$&|]+", " ", (s or "").lower())
+    return re.sub(r"\s+", " ", s).strip()
 
-    Tightened strategy to reduce false positives:
-    - Title must contain interview/exec-speaks markers
-    - For multi-word companies: require all distinctive words present
-    - For single-word companies: require min 6 chars (avoid 'shah'/'atul' matches)
-    - Prefer most-specific match (longest token count)
+
+def match_companies(title, companies, description=""):
+    """Return the best-matching company for a video, using title + description.
+
+    Why description: YouTube titles are often creative ("India's recycling
+    giant") and omit the company name or the speaker's designation. The
+    description almost always names "Mr X, CEO/MD of <Company>, speaks to...".
+    We therefore:
+      - reject analyst/anchor COMMENTARY based on the TITLE only (descriptions
+        contain disclaimers that would cause false rejects),
+      - require a management designation in title OR description-head,
+      - match the company name across title + description-head.
+    Only the first ~600 chars of the description are used (the real summary),
+    to skip the "subscribe / also watch / links" boilerplate that lists many
+    unrelated companies.
     """
-    # Gate 1: must name a company executive (CEO/MD/CFO/Chairman/Founder/etc.)
-    if not MANAGEMENT_TITLE.search(title):
-        return []
-    # Gate 2: reject analyst/anchor commentary even if a designation appears
+    # Commentary gate — title only
     if COMMENTARY_BLOCK.search(title):
         return []
 
-    t = re.sub(r"[\-,.\$&|]+", " ", title.lower())
-    t = re.sub(r"\s+", " ", t).strip()
-    title_tokens = set(t.split())
+    desc_head = (description or "")[:600]
+    combined = title + " . " + desc_head
+
+    # Designation gate — accept if exec title appears anywhere in title+desc-head
+    if not MANAGEMENT_TITLE.search(combined):
+        return []
+
+    t = _norm_text(combined)
 
     matches = []
     for c in companies:
         nm = c["norm"]
-        sym = (c["symbol"] or "").lower()
         if len(nm) < 4:
             continue
-        name_tokens = nm.split()
-        # Strip generic stopwords from match consideration
-        distinctive = [w for w in name_tokens if w not in STOPWORDS]
+        distinctive = [w for w in nm.split() if w not in STOPWORDS]
         if not distinctive:
             continue
 
         if len(distinctive) == 1:
-            # Single distinctive word (e.g. "Mphasis", "Asian Paints", "Cummins
-            # India"): require the FULL normalized name as a contiguous phrase,
-            # not just the lone word. This keeps real single-name companies
-            # while killing geo/generic collisions ("Tourism Finance" matching a
-            # tourism-sector video, "Gujarat Industries" matching "...Gujarat...").
             w = distinctive[0]
             if w in FINANCE_BLOCKLIST:
                 continue
             if len(nm) >= 6 and nm in t:
-                matches.append((c, len(nm) * 2, "single"))
+                matches.append((c, len(nm) * 2))
         else:
-            # Multi-word: require the full normalized name as a contiguous
-            # substring (catches "Ashok Leyland", "Bajaj Auto", "Inox Wind").
             if nm in t and len(nm) >= 8:
-                matches.append((c, len(nm) * 3, "full"))
-        # NOTE: symbol/ticker matching removed — tickers like MARCO, ATUL,
-        # WEALTH collide with unrelated proper nouns / English words.
+                matches.append((c, len(nm) * 3))
 
     if not matches:
         return []
@@ -339,6 +348,7 @@ def fetch_channel_api(channel_id, cutoff_iso):
                 continue
             videos.append({
                 "video_id": vid, "title": sn.get("title", ""), "published": pub,
+                "description": sn.get("description", ""),
                 "thumbnail": f"https://i.ytimg.com/vi/{vid}/mqdefault.jpg",
                 "url": f"https://www.youtube.com/watch?v={vid}",
             })
@@ -376,7 +386,7 @@ def main():
         for v in videos:
             if v["video_id"] in seen_ids:
                 continue
-            matched = match_companies(v["title"], companies)
+            matched = match_companies(v["title"], companies, v.get("description", ""))
             if not matched:
                 continue
             for company in matched:
