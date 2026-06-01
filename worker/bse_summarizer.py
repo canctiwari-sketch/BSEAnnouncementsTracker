@@ -81,20 +81,14 @@ def extract_text_from_pdf(pdf_path):
         print(f"Error extracting text from {pdf_path}: {e}")
         return ""
 
-# Global variable to cache the working model name
-# Model cascade — Pro has very tight free-tier limits (2 RPM, ~25 RPD).
-# When Pro is rate-limited, fall back through Flash variants for quality close
-# to Pro at much higher quota. 1.5-flash skipped (quality drop).
-MODEL_CHAIN = [
-    "gemini-2.5-pro",
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-]
-GEMINI_MODEL = MODEL_CHAIN[0]  # kept for backward-compat references
+# Deep research uses gemini-2.5-pro ONLY — never downgrade to a weaker model,
+# because report quality matters far more than speed here. We rotate across
+# available API keys on 429 and back off, but always stay on Pro.
+GEMINI_MODEL = "gemini-2.5-pro"
 
-def call_gemini(prompt, max_tokens=8192, retries=3):
-    """Call Gemini API. Cascades through models + keys on 429; backoff on full exhaustion."""
+def call_gemini(prompt, max_tokens=8192, retries=6):
+    """Call gemini-2.5-pro. Rotates keys on 429 and backs off; never falls back
+    to a lower-quality model."""
     if not GEMINI_KEYS:
         return None
     payload = {
@@ -103,25 +97,22 @@ def call_gemini(prompt, max_tokens=8192, retries=3):
     }
     wait = 15
     for attempt in range(retries):
-        for model_name in MODEL_CHAIN:
-            for key_idx, gkey in enumerate(GEMINI_KEYS):
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={gkey}"
-                try:
-                    r = requests.post(url, json=payload, timeout=300)
-                    if r.status_code == 429:
-                        print(f"  {model_name} key #{key_idx+1} hit 429")
-                        continue
-                    r.raise_for_status()
-                    data = r.json()
-                    if model_name != MODEL_CHAIN[0]:
-                        print(f"  Deep research using fallback model {model_name}")
-                    return data["candidates"][0]["content"]["parts"][0]["text"]
-                except Exception as e:
-                    print(f"  {model_name} key #{key_idx+1} error: {e}")
+        for key_idx, gkey in enumerate(GEMINI_KEYS):
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={gkey}"
+            try:
+                r = requests.post(url, json=payload, timeout=300)
+                if r.status_code == 429:
+                    print(f"  Pro key #{key_idx+1} hit 429 (attempt {attempt+1}/{retries})")
                     continue
-        # All model+key combos exhausted
+                r.raise_for_status()
+                data = r.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception as e:
+                print(f"  Pro key #{key_idx+1} error: {e}")
+                continue
+        # All keys rate-limited this round — wait for the per-minute window to reset
         if attempt < retries - 1:
-            print(f"All model+key combos exhausted; waiting {wait}s before retry...")
+            print(f"All keys rate-limited; waiting {wait}s before retry (staying on Pro)...")
             time.sleep(wait)
             wait = min(wait * 2, 120)
     return None
