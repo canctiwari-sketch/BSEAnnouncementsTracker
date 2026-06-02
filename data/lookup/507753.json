@@ -3,393 +3,344 @@
   "scrip_code": "507753",
   "from_date": "2023-06-03",
   "to_date": "2026-06-02",
-  "fetched_at": "2026-06-02T09:41:56.624207",
-  "total": 55,
+  "fetched_at": "2026-06-02T09:55:44.185022",
+  "total": 42,
   "announcements": [
-    {
-      "date": "2026-05-21T18:31:18.97",
-      "subject": "Board Meeting Outcome for Outcome Of Board Meeting",
-      "detail": "Outcome of Board Meeting - Submission of Audited Financial Results for the quarter and year ended 31st March, 2026.  The Board further on consideration of Audit Committee recommendation ....",
-      "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8c36f9e6-ecea-46c6-a345-f8cbd3992192.pdf"
-    },
-    {
-      "date": "2026-04-13T16:01:14.987",
-      "subject": "Announcement Under Reg. 30 - Report On Relodgement Of Transfer Requests Of Physical Shares",
-      "detail": "Submission of report on relodgment of transfer requests of physical shares under special window for the month of March, 2026 vide SEBI Circular dtd.30.01.2026.",
-      "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/1c8fd7a5-4c2f-4145-8c5f-b8451a7dc934.pdf"
-    },
     {
       "date": "2026-04-10T16:50:03.233",
       "subject": "Announcement Under Reg. 30 - Intimation Of Capacity Addition With Respect To Chloromethanes And Other Products.",
       "detail": "As a result of steps taken by the company for increase in productiion capacities of various products of the company.  The company has submitted the required details to the concerned authorities ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/48375078-77d2-4aaf-b3fc-d8a0767e1a07.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/48375078-77d2-4aaf-b3fc-d8a0767e1a07.pdf",
+      "ai_summary": "TGV Sraac Ltd has announced capacity additions for its Chloromethanes and other products, indicating a strategic move to increase production. The company has submitted the necessary details to the relevant authorities, signalling progress in its expansion plans. This development suggests a focus on enhancing operational output and potentially increasing market supply."
     },
     {
       "date": "2026-03-30T16:32:01.257",
       "subject": "Announcement Under Reg.30 - Intimation Regarding Addition Of 2.5 Mwp Solar Power Capacity Addition",
       "detail": "Kindly note that the solar power capacity addtion of the company will be increased from the existing 55.40 Mwp to 57.90 MWp.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4b17e360-6a92-4611-aa6f-214c05946a30.pdf"
-    },
-    {
-      "date": "2026-03-18T16:03:45.267",
-      "subject": "Announcement Under Reg.30 - Report On Relodgement Of Transfer Requests.",
-      "detail": "Submission of report on relodgment of transfer requests of physical shares under special window for the month of February, 2026 as per SEBI Circular dtd.30.01.2026.",
-      "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dddd1458-0c51-45af-bdbd-765b2f7b814a.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4b17e360-6a92-4611-aa6f-214c05946a30.pdf",
+      "ai_summary": "TGV Sraac Ltd is increasing its solar power capacity by 2.5 MWp, bringing the total capacity from 55.40 MWp to 57.90 MWp. This expansion in renewable energy generation demonstrates the company's commitment to sustainable operations and potentially lower energy costs. The addition of this solar capacity will contribute to the company's overall energy independence and environmental footprint."
     },
     {
       "date": "2026-02-09T19:46:48.637",
       "subject": "Outcome Of Board Meeting-Un-Audited Fin. Results For Qtr And Nine Months Ended 31.12.2025",
       "detail": "Submission of unaudited financial results for the third quarter and nine months ended 31.12.2025 along with Limited Review Report issued by Statutory Auditors.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/50d7f6b0-ced7-497d-8ed5-0f02c53dc523.pdf"
-    },
-    {
-      "date": "2026-01-17T18:40:16.35",
-      "subject": "Announcement Under Reg.30-Report On Relodgement Of  Transfer Requests.",
-      "detail": "Submision of Report on re-lodgement of Transfer Requets of Physical Shares under Special Window for the period from 01.12.2025 to 06.01.2026.",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6a0c6766-ffda-4c3e-8894-62d384996740.pdf"
-    },
-    {
-      "date": "2025-12-19T16:15:59.593",
-      "subject": "Regulation 30 - Update - Necessary Arrangements Made To Stop Production Loss.",
-      "detail": "In continuation to our intimation dtd.26.10.2025, we bring to your kind notice that the company has made necessary arrangements and kept the transformer in service to stop production loss.",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5fa93032-d3b1-425e-b120-61a92f4e53e9.pdf"
-    },
-    {
-      "date": "2025-12-08T16:57:58.857",
-      "subject": "Reg. 30 - Report On Relodgment Of Transfer Requests",
-      "detail": "Submission of report on relodgement of transfer requests of physical shares under special window as of November, 2025.",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7c0df293-e78f-4fc1-b188-880b71ca3896.pdf"
-    },
-    {
-      "date": "2025-11-12T16:09:10.617",
-      "subject": "Announcement Reg.30 - Sanction Of Financial Assistance From Bank.",
-      "detail": "It is to submit that the company has received sanction letter for availing financial assistance for its working capital needs from Bank.  The Board in its meeting held on 12/11/2025 has ....",
-      "category": "Capital Structure",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/0eef1774-691a-45cf-b85c-6c1f311dc4ad.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/50d7f6b0-ced7-497d-8ed5-0f02c53dc523.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors has approved the unaudited financial results for the quarter and nine months ended December 31, 2025. These results, along with the Limited Review Report from the Statutory Auditors, have been submitted. Investors can now review the company's financial performance for this period."
     },
     {
       "date": "2025-11-12T15:16:01.937",
       "subject": "Outcome Of Board Meeting - Un-Audited Financial Results For The II Quarter And Half Year Ended 30.09.2025",
       "detail": "Submission of  un-audited financial results for the second quarter and half year ended 30.09.2025 approved by the Board in its meeting held on 12/11/2025.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/01624498-9c8d-486c-a355-8a1d985e42b3.pdf"
-    },
-    {
-      "date": "2025-11-08T16:12:42.947",
-      "subject": "Regulation 30 - Clarification Regarding Earlier Submission To BSE Dtd.26.10.2025",
-      "detail": "It is submitted that in the earlier communication to BSE regarding failure of transformer, the name of the supplier was mentioned inadvertently.  Hence, this clarificatory submission to ....",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/3f612ab4-5a8e-44ae-8ad4-b6b326c4966c.pdf"
-    },
-    {
-      "date": "2025-11-05T16:34:26.223",
-      "subject": "Reg. 30 - Report On Relodgement Of Transfer Requests",
-      "detail": "Submission of report on relodgement of transfer requests of physical shares under special window as of October, 2025.",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/773413a0-99f1-4008-9288-432f767457a3.pdf"
-    },
-    {
-      "date": "2025-10-31T17:32:38.843",
-      "subject": "Reg. 30 - Report On Re-Lodgement Of Transfer Requests",
-      "detail": "Submission of report on re-lodgement of transfer request of physical shares under special window as of 30.09.2025.",
-      "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7b44eb08-24b9-4b8f-a77c-a306291703e7.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/01624498-9c8d-486c-a355-8a1d985e42b3.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors, in a meeting held on November 12, 2025, approved the unaudited financial results for the second quarter and half-year ended September 30, 2025. These results provide insight into the company's financial performance during the specified periods. Investors can now access this updated financial information."
     },
     {
       "date": "2025-10-26T15:58:05.03",
       "subject": "Intimation Regarding Failure Of Transformer - Estimated Loss Of Production.",
       "detail": "In view of the failure of winding in transformer supplied by M/s. Transformers and Rectifiers India Ltd., the company is expecting estimated loss of production of Caustic Soda 120 TPD per ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5b0dcac1-5958-4968-8587-7a0807c1044b.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5b0dcac1-5958-4968-8587-7a0807c1044b.pdf",
+      "ai_summary": "TGV Sraac Ltd is experiencing an estimated production loss of 120 Tonnes Per Day (TPD) of Caustic Soda due to a transformer winding failure. The faulty transformer was supplied by M/s. Transformers and Rectifiers India Ltd. This incident will likely impact the company's short-term output and revenue from Caustic Soda production."
     },
     {
       "date": "2025-09-29T18:01:06.777",
       "subject": "Announcemnet Reg. 30 (Updates) Intimation Regarding Addition Of 5.0 Mwp Solar Power Capacity And Commissioning Of 10 MW Back Pressure Steam Turbo Generator",
       "detail": "Kindly note that the Solar Power generating capacity of the company will be increased from the existing 50.40 MWp to 55.40 MWp. \r\n\r\nFurther submitted that the company has commissioned 10 ....",
       "category": "Business Expansion",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a7b7e8b3-0a55-4ceb-a446-d5bef5643717.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a7b7e8b3-0a55-4ceb-a446-d5bef5643717.pdf",
+      "ai_summary": "TGV Sraac Ltd has expanded its solar power generating capacity by adding 5.0 MWp, bringing the total to 55.40 MWp. Additionally, the company has commissioned a 10 MW Back Pressure Steam Turbo Generator. These expansions indicate a strategic move to increase renewable energy generation and operational efficiency."
     },
     {
       "date": "2025-09-24T16:24:31.013",
       "subject": "Announcement Under Reg. 30 (Updates) Intimation Regarding Addition Of  5.0 Mwp Solar Power Capacity",
       "detail": "In continuation to our earlier submission to the BSE dtd.08.09.2025, we bring to your kind notice that the Company has made 5.0 MWp Solar Power Capacity addition.  It may further be noted ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb4e43e7-3a97-459a-92b3-ea5efe76e613.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb4e43e7-3a97-459a-92b3-ea5efe76e613.pdf",
+      "ai_summary": "TGV Sraac Ltd has successfully added 5.0 MWp of Solar Power Capacity, as previously intimated on 08.09.2025. This expansion further bolsters the company's renewable energy portfolio."
     },
     {
       "date": "2025-09-08T17:51:06.09",
       "subject": "Intimation Regarding Addition Of 2.5 Mwp Solar Power Capacity",
       "detail": "It is hereby informed that the Company has made 2.5 MWp Solar Power Capacity addition by purchasing Solar Power Plant from M/s Sree Rayalaseema Hi-Strength Hypo Limited, SRHHL (a Group ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8993b288-c32f-445e-996a-c501f27faa7f.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8993b288-c32f-445e-996a-c501f27faa7f.pdf",
+      "ai_summary": "TGV Sraac Ltd has increased its solar power capacity by 2.5 MWp through the acquisition of a Solar Power Plant from M/s Sree Rayalaseema Hi-Strength Hypo Limited. This acquisition represents a strategic expansion within the group's renewable energy assets."
     },
     {
       "date": "2025-09-04T16:26:05.597",
       "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
       "detail": "Submission of Business Responsibility and Sustainability Report (BRSR) for the financial year ended 31st March, 2025.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fd6b55ee-0cea-4105-aa56-79262d5a6ac5.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/fd6b55ee-0cea-4105-aa56-79262d5a6ac5.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted its Business Responsibility and Sustainability Report (BRSR) for the financial year ending 31st March, 2025. This filing demonstrates the company's commitment to transparent reporting on its environmental, social, and governance practices."
     },
     {
       "date": "2025-08-08T19:55:04.763",
       "subject": "Results - Un-Audited Financial Results For Quarter Ended 30.06.2025",
       "detail": "Submission of financial results for the first quarter ended 30.06.2025 along with limited review report issued by statutory auditor.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2c4fc0b3-50c8-4721-b942-cd7f207dd607.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2c4fc0b3-50c8-4721-b942-cd7f207dd607.pdf",
+      "ai_summary": "TGV Sraac Ltd has announced its un-audited financial results for the quarter ended 30.06.2025. The results have been submitted along with the limited review report from the statutory auditor, providing investors with an update on the company's financial performance."
     },
     {
       "date": "2025-08-04T17:52:51.387",
       "subject": "Announcement Under Reg. 30 Of SEBI (LODR) 2015 - Updates - Intimation Regarding Addition Of 1.5 MWP Solar Power Capacity Addition",
       "detail": "It is hereby inform that the company has made 1.50 MWp Solar Power Capacity Addition.  This is in addition to the earlier submission to BSE on 30.07.2025 informing solar power capacity ....",
       "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dec8a88e-d183-48c8-adbf-641c8dcff3ec.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dec8a88e-d183-48c8-adbf-641c8dcff3ec.pdf",
+      "ai_summary": "TGV Sraac Ltd has added 1.50 MWp of solar power capacity, as announced on 30.07.2025. This expansion contributes to the company's ongoing efforts to increase its renewable energy generation capabilities. The addition signifies a step towards enhancing its sustainable energy portfolio."
     },
     {
       "date": "2025-07-30T19:04:25.04",
       "subject": "Announcement Under Regulation 30 - Update - Intimation Regarding Addition Of (One) 1.0 Wmp Solar Power Capacity Addition.\r\n",
       "detail": "In continuation to our earlier submission to the BSE dtd.18.07.2025, we bring to your notice that the company has made (one) 1.0 MWp Solar Power Capacity Addition.\r\n\r\nIt may further be ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/59bcffdb-a0ea-4e81-ad87-cd1be78fcdef.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/59bcffdb-a0ea-4e81-ad87-cd1be78fcdef.pdf",
+      "ai_summary": "TGV Sraac Ltd has further expanded its solar power capacity by adding 1.0 MWp, following up on their submission to BSE on 18.07.2025. This incremental capacity addition reinforces the company's commitment to growing its renewable energy assets. The company continues to invest in solar power to bolster its operational efficiency and environmental footprint."
     },
     {
       "date": "2025-07-18T16:26:58.733",
       "subject": "Announcement Under Reg. 30 - Update - Intimation Regarding Addition Of 2.50 MW Solar Power Capacity.",
       "detail": "It is hereby inform that the company has made 2.50 MW Solar Power generating Capacity addition.  This is in additon to the earlier submission to BSE on 04.02.2025 informing Solar Power ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cb88d700-d6b2-4d39-ab30-adcff01cd601.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cb88d700-d6b2-4d39-ab30-adcff01cd601.pdf",
+      "ai_summary": "TGV Sraac Ltd has announced the addition of 2.50 MW of solar power generating capacity, building upon previous disclosures to BSE on 04.02.2025. This latest capacity increase demonstrates the company's active pursuit of expanding its renewable energy infrastructure. The investment in solar power is a strategic move to enhance its energy generation capabilities."
     },
     {
       "date": "2025-07-12T16:57:43.18",
       "subject": "Announcement Under Regulation 30-Update-Approval For Solar Power Capacity Addition",
       "detail": "The Board of Directors has given in-principle approval by way of Circular Resolution on 12.07.2025 to the Company for taking up 40 MW (in addition to earlier 60 MW approval) Solar Power ....",
       "category": "Board Meeting",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36793c9-4a29-4fa1-9b67-d16dbb09eeda.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36793c9-4a29-4fa1-9b67-d16dbb09eeda.pdf",
+      "ai_summary": "The Board of Directors of TGV Sraac Ltd approved, via Circular Resolution on 12.07.2025, an additional 40 MW of solar power capacity. This approval is in addition to a previously approved 60 MW, bringing the total approved solar capacity to 100 MW. This significant capacity expansion signals a substantial investment in renewable energy for the company."
     },
     {
       "date": "2025-05-27T18:17:09.777",
       "subject": "Integrated Filing (Financial)",
       "detail": "The Board of Directors in its meeting held on 27/05/2025 has approved Audited Financial Results for the fourth quarter and year ended 31st March, 2025.  The Audit Report duly certified ....",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/96e5d750-4722-42c9-bfe1-289bb579f376.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/96e5d750-4722-42c9-bfe1-289bb579f376.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors, in a meeting held on 27/05/2025, approved the audited financial results for the fourth quarter and the full year ended 31st March, 2025. The company has also submitted the duly certified Audit Report. Investors can now review the company's financial performance for the period."
     },
     {
       "date": "2025-05-27T17:47:12.203",
       "subject": "Outcome Of The Board Meeting",
       "detail": "The Board in its meeting held on 27/05/2025 approved Audited Financial Results for the fourth quarter and year ended 31.03.2025.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/93daf16c-fd2b-4c90-9553-c474047c0769.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/93daf16c-fd2b-4c90-9553-c474047c0769.pdf",
+      "ai_summary": "TGV Sraac Ltd announced on 27/05/2025 that its Board of Directors approved the Audited Financial Results for the fourth quarter and the full year ended 31.03.2025. This provides investors with the company's final financial performance for the fiscal year."
     },
     {
       "date": "2025-04-01T11:05:38.713",
       "subject": "Revised Disclosures under Reg. 31(1) and 31(2) of SEBI (SAST) Regulations, 2011.",
       "detail": "The Exchange has received revised Disclosure under Regulation 31(1) and 31(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 on March 29, 2025 for Sri T G Venkatesh, ....",
       "category": "Open Offer",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/C8765DD1_819F_4772_8AC4_FFB9FC2A2DBD_110532.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/C8765DD1_819F_4772_8AC4_FFB9FC2A2DBD_110532.pdf",
+      "ai_summary": "TGV Sraac Ltd has received revised disclosures under Regulation 31(1) and 31(2) of SEBI (SAST) Regulations, 2011, on March 29, 2025, pertaining to Sri T G Venkatesh. These revised filings are important for understanding shareholding patterns and potential takeover-related activities."
     },
     {
       "date": "2025-03-03T17:05:07.817",
       "subject": "Integrated Filing (Financial)",
       "detail": "As advised in your e-mail dtd.03.03.2025, please find attached outcome of Board Meeting held on 30.01.2025 in pdf mode under Integrated filing (Financial) for the quarter and nine months ....",
       "category": "Board Meeting",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/abe3216e-2cec-4a9f-a278-32dae39d5bd5.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/abe3216e-2cec-4a9f-a278-32dae39d5bd5.pdf",
+      "ai_summary": "TGV Sraac Ltd submitted the outcome of its Board Meeting held on 30.01.2025, as requested on 03.03.2025, through an integrated financial filing. This filing contains information on the company's financial performance for the quarter and nine months ending on that date."
     },
     {
       "date": "2025-02-04T18:13:58.407",
       "subject": "Intimation Regarding Solar Power Capacity Addition.",
       "detail": "It is hereby inform that the company has made 2.50 MW Solar Power Capacity addtion.  This is in addition to the earlier submission to BSE on 29.01.2025 informing Solar Power Capacity addition ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c230de4c-5142-4e5c-bbbd-e22b749cbd5e.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c230de4c-5142-4e5c-bbbd-e22b749cbd5e.pdf",
+      "ai_summary": "TGV Sraac Ltd has added 2.50 MW of Solar Power Capacity, as informed on 29.01.2025. This expansion in renewable energy capacity signifies the company's commitment to sustainable operations and potentially lower energy costs."
     },
     {
       "date": "2025-01-30T19:01:20.793",
       "subject": "Board In-Principle Approval For Implementation Of Caustic Soda Expansion Project (Revised).",
       "detail": "The Board of Directors in their meeting held on 30.01.2025 has given in-principle approval for implementation of Caustic Soda Expansion Project of 450 MT of Caustic Soda and 400 MT of Chlorine ....",
       "category": "Business Expansion",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f476358e-1843-45fe-ba46-ae6e5aee7970.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f476358e-1843-45fe-ba46-ae6e5aee7970.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors granted in-principle approval on 30.01.2025 for a Caustic Soda Expansion Project. This project aims to increase production capacity by 450 MT of Caustic Soda and 400 MT of Chlorine, indicating a strategic move to enhance its core business operations."
     },
     {
       "date": "2025-01-30T18:55:00.283",
       "subject": "Intimation Regarding  Decommissioning Of 4.89 MW Wind Mill Unit At Ramgiri (Anantapur)",
       "detail": "The Board of Directors have taken note of the decommissioning of 4.89 MW Wind Mill unit at Ramgiri (Anantapur) effective from 31.12.2024 as the cost of running the plant is more than its ....",
       "category": "Business Expansion",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b14e76c2-3d32-4771-94ff-19036ce21a50.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b14e76c2-3d32-4771-94ff-19036ce21a50.pdf",
+      "ai_summary": "TGV Sraac Ltd is decommissioning a 4.89 MW wind mill unit at Ramgiri (Anantapur) effective 31.12.2024 due to high operating costs. This action indicates a strategic shift away from this specific renewable energy asset."
     },
     {
       "date": "2025-01-30T18:26:09.743",
       "subject": "Outcome Of Board Meeting - Un-Audited Results Qtr And Nine Months Ended 31.12.2024",
       "detail": "Submission of un-audited financial results for the 3rd quarter and nine months ended 31.12.2024.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f117d985-2a2c-4f49-a528-afbd19866481.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f117d985-2a2c-4f49-a528-afbd19866481.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted its un-audited financial results for the third quarter and the nine months ended 31.12.2024. Investors should review these results for insights into the company's recent financial performance."
     },
     {
       "date": "2025-01-29T17:53:58.213",
       "subject": "Intimation Regarding Solar Power Capacity Addition.",
       "detail": "It is hereby inform that the company has made 5.00 MW Solar Power Capacity addition.  This is in addition to the earlier submitted to BSE on 28.08.2024 informing Solar Power Capacity Addition ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bc10a4c7-38aa-467c-b1b2-3ba4933d075d.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bc10a4c7-38aa-467c-b1b2-3ba4933d075d.pdf",
+      "ai_summary": "TGV Sraac Ltd has added 5.00 MW of solar power capacity, building upon a previous announcement on 28.08.2024. This expansion signifies a commitment to increasing renewable energy generation."
     },
     {
       "date": "2025-01-22T11:41:04.153",
       "subject": "Disclosures under Reg. 31(1) and 31(2) of SEBI (SAST) Regulations, 2011.",
       "detail": "The Exchange has received Disclosure under Regulation 31(1) and 31(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 on January 21, 2025 for Smt. T G Rajyalakshmi, ....",
       "category": "Open Offer",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/AD05D048_BC1F_47C8_A263_6E952DC4A2C0_114051.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/AD05D048_BC1F_47C8_A263_6E952DC4A2C0_114051.pdf",
+      "ai_summary": "TGV Sraac Ltd has received disclosures under Regulation 31(1) and 31(2) of SEBI (SAST) Regulations, 2011, on January 21, 2025, from Smt. T G Rajyalakshmi. These disclosures are related to substantial acquisition of shares and takeovers."
     },
     {
       "date": "2025-01-15T19:31:13.27",
       "subject": "Intimation Regarding Commissioning Of Chloromethanes (Second) Expansion Project.",
       "detail": "The company has successfully completed and declared commercial production as on today ie. 15.01.25 of its Second expansion Chloromethanes Project.",
       "category": "Business Expansion",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d924fcf6-e836-4fe8-b093-bef4802edf9b.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d924fcf6-e836-4fe8-b093-bef4802edf9b.pdf",
+      "ai_summary": "TGV Sraac Ltd has successfully commissioned its second expansion project for Chloromethanes, declaring commercial production as of 15.01.2025. This expansion is a significant step in increasing the company's production capacity for this chemical."
     },
     {
       "date": "2025-01-15T18:35:19.517",
       "subject": "Disclosures under Reg. 31(1) and 31(2) of SEBI (SAST) Regulations, 2011.",
       "detail": "The Exchange has received Disclosure under Regulation 31(1) and 31(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 on January 15, 2025 for Sri T G Venkatesh ....",
       "category": "Open Offer",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/DBD1A751_F1F2_4AC3_AF74_C0BB19C355B1_183515.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/DBD1A751_F1F2_4AC3_AF74_C0BB19C355B1_183515.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted disclosures under Regulation 31(1) and 31(2) of SEBI (SAST) Regulations, 2011, on January 15, 2025, concerning Sri T G Venkatesh. This filing is a regulatory requirement related to substantial acquisition of shares and takeovers."
     },
     {
       "date": "2024-10-29T15:36:56.507",
       "subject": "Outcome Of The Board Meeting",
       "detail": "Board approval for Un-audited financial results for the second quarter and half year ended 30.09.2024 along with Limited Review Report issued by Statutory Auditors as per Regulation 33 ....",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/954f5630-b721-4c8c-9039-d9d525e4394b.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/954f5630-b721-4c8c-9039-d9d525e4394b.pdf",
+      "ai_summary": "The Board of Directors of TGV Sraac Ltd has approved the un-audited financial results for the second quarter and half-year ended September 30, 2024. These results have been accompanied by a Limited Review Report from the Statutory Auditors, as per Regulation 33."
     },
     {
       "date": "2024-09-05T18:48:53.013",
       "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
       "detail": "Submission of Business Responsibility & Sustainability Report (BRSR) for the year 2023-24.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/22b8557b-600e-4222-b3a0-02145afab1ab.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/22b8557b-600e-4222-b3a0-02145afab1ab.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted its Business Responsibility and Sustainability Report (BRSR) for the fiscal year 2023-24. This report details the company's performance and commitments in environmental, social, and governance aspects."
     },
     {
       "date": "2024-08-28T17:54:22.053",
       "subject": "Announcement Under Reg. 30 - Intimation Regarding Solar Power Capacity Addition.",
       "detail": "It is hereby inform that the Company has made 7.65 MW Solar Power Capacity addition.  This in in addition to the earlier submission to Bombay Stock Exchange (BSE) on 14.08.2023 informing ....",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8e82a934-fb5c-46ca-a4e5-b27bbad09cf9.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8e82a934-fb5c-46ca-a4e5-b27bbad09cf9.pdf",
+      "ai_summary": "TGV Sraac Ltd has announced a solar power capacity addition of 7.65 MW. This expansion follows a previous submission to the Bombay Stock Exchange (BSE) on August 14, 2023, indicating ongoing investments in renewable energy."
     },
     {
       "date": "2024-08-14T15:31:23.59",
       "subject": "Un-Audited Financial Results For The First Quarter Ending 30Th June, 2024.",
       "detail": "Submission of un-audited financial results for Q.E. 30.06.2024 along with Limited Review Report issued by Statutory Auditors of the Company.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9288f731-99ff-40ba-9928-2257f93ec2c4.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/9288f731-99ff-40ba-9928-2257f93ec2c4.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted its un-audited financial results for the first quarter ending June 30, 2024. The submission includes the Limited Review Report issued by the company's Statutory Auditors."
     },
     {
       "date": "2024-07-18T11:34:27.257",
       "subject": "Compliances-Reg. 39 (3) - Details of Loss of Certificate / Duplicate Certificate",
       "detail": "Intimation regarding Loss of Share Certficates.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5330f358-cbae-44b5-89a2-18d451c0b18d.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5330f358-cbae-44b5-89a2-18d451c0b18d.pdf",
+      "ai_summary": "TGV Sraac Ltd has informed the exchange about the loss of share certificates, a procedural compliance under Regulation 39(3). This announcement indicates a shareholder has reported lost or duplicate share certificates, requiring the company to follow established procedures for reissuance. Investors should note this is a routine administrative matter and does not directly impact the company's financial performance or operations."
     },
     {
       "date": "2024-06-25T16:46:30.22",
       "subject": "Revised Disclosures under Reg. 31(1) and 31(2) of SEBI (SAST) Regulations, 2011.",
       "detail": "The Exchange has received revised Disclosure under Regulation 31(1) and 31(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 on June 25, 2024 for Sree Rayalaseema ....",
       "category": "Open Offer",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/A10A351D_CE07_4D1A_9F22_F18F5F4C019C_164625.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/A10A351D_CE07_4D1A_9F22_F18F5F4C019C_164625.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted revised disclosures under Regulation 31(1) and 31(2) of SEBI (SAST) Regulations, 2011, on June 25, 2024. These revised filings pertain to substantial acquisition of shares and takeovers, suggesting potential changes in shareholding patterns or strategic stake adjustments. Investors should review these updated disclosures for insights into significant ownership changes impacting the company."
     },
     {
       "date": "2024-06-22T15:30:28.443",
       "subject": "Disclosures under Reg. 31(1) and 31(2) of SEBI (SAST) Regulations, 2011.",
       "detail": "The Exchange has received Disclosure under Regulation 31(1) and 31(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 on June 22, 2024 for Sree Rayalaseema Hi-Strength ....",
       "category": "Open Offer",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/00AD4918_2C96_483B_B14B_A48319BCFD96_153009.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/00AD4918_2C96_483B_B14B_A48319BCFD96_153009.pdf",
+      "ai_summary": "TGV Sraac Ltd submitted disclosures under Regulation 31(1) and 31(2) of SEBI (SAST) Regulations, 2011, on June 22, 2024. These filings relate to substantial acquisition of shares and takeovers, providing information on significant changes in shareholding. Investors should monitor these disclosures for any shifts in control or major stake acquisitions that could influence the company's future."
     },
     {
       "date": "2024-05-29T21:20:52.577",
       "subject": "Announcement under Regulation 30 (LODR)-Meeting Updates",
       "detail": "The Board of Directors at their meeting held on 29/05/2024 have :\r\n1.   Appointed Sri Mahadev Tirunagari as Secretarial Auditor for the year 2023-24 in place of deceased Sri N. Ramaswamy.\r\n2. ....",
       "category": "Board Meeting",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1c27dad-dc34-4fd3-9e91-06d212ad211f.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1c27dad-dc34-4fd3-9e91-06d212ad211f.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors, in their meeting on May 29, 2024, appointed Sri Mahadev Tirunagari as the Secretarial Auditor for the fiscal year 2023-24. This appointment follows the passing of the previous auditor, Sri N. Ramaswamy. This is a routine governance update, ensuring compliance with audit requirements."
     },
     {
       "date": "2024-05-29T19:51:26.117",
       "subject": "Board Meeting Outcome for Submission Of Audited Financial Results For The Quarter And Year Ending 31.03.2024",
       "detail": "Pursuant to Regulation 33 of SEBI (LODR) Regulations, 2015, the Board , after consideration of Audit Committee recommendation have approved the Audited Financial Results for the quarter ....",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/899ebd86-4f1c-4518-8593-69d599040d1f.pdf"
-    },
-    {
-      "date": "2024-05-29T19:44:27.033",
-      "subject": "Outcome Of Board Meeting",
-      "detail": "1. The Board of Directors have considered and approved the audited financial results for the quarter and year ending 31.03.2024.  Statutory Auditors have issued their un-modified opinion ....",
-      "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/120a256c-26fc-4153-a858-bbc8ec83e99c.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/899ebd86-4f1c-4518-8593-69d599040d1f.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors has approved the audited financial results for the quarter and year ending March 31, 2024, following a recommendation from the Audit Committee. This announcement, made under Regulation 33 of SEBI (LODR) Regulations, 2015, provides investors with the company's official financial performance for the period. Investors should review these audited results for key financial metrics and performance indicators."
     },
     {
       "date": "2024-04-20T16:13:31.497",
       "subject": "Certificate Issued Under Reg.40(9) Of SEBI (LODR) Reg, 2015",
       "detail": "Submission of Certificate issued by PCS in terms of Reg.40(9) of  SEBI (LODR) 2015 for the year ended 31.03.2024.",
       "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8c33887d-fddf-4f58-8416-33ef5374fb43.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8c33887d-fddf-4f58-8416-33ef5374fb43.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted a certificate from a Practicing Company Secretary (PCS) as per Regulation 40(9) of SEBI (LODR) Regulations, 2015. This certificate covers the financial year ended 31.03.2024 and confirms compliance with regulatory requirements."
     },
     {
       "date": "2024-03-09T16:58:44.58",
       "subject": "Intimation Regarding Increase In Production Capacities Of Caustic Soda And Chloromethanes Divisions.",
       "detail": "The Company has received approval from concerned authority for the production capacity increase of company products Viz., Caustic Soda and Methylene Di Chloride.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d026004f-83ee-4528-8067-f69e14630d85.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d026004f-83ee-4528-8067-f69e14630d85.pdf",
+      "ai_summary": "TGV Sraac Ltd has received approval to increase production capacities for its Caustic Soda and Methylene Di Chloride (Chloromethanes) divisions. This expansion indicates a strategic move to boost output and potentially market share in these key product segments."
     },
     {
       "date": "2024-02-12T17:42:48.837",
       "subject": "Outcome Of The Board Meeting Held On 12.02.2024",
       "detail": "Submission of Unaudited Financial Results for the Quarter & Nine Months Ended 31.12.2023.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ad42f9a3-e26b-4e5d-b1fa-f594d181ed48.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/ad42f9a3-e26b-4e5d-b1fa-f594d181ed48.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors met on 12.02.2024 to approve the Unaudited Financial Results for the Quarter and Nine Months ended 31.12.2023. Investors can now review the company's financial performance for these periods."
     },
     {
       "date": "2023-11-11T16:50:08.167",
       "subject": "Outcome Of The Board Meeting Dtd.11.11.2023",
       "detail": "Submission of Un-audited financial results for the quarter and half year ended 30th September, 2023 along with Limited Review Report issued by Statutory Auditors of the Company.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9f68816-55be-408a-bdf2-449887894f44.pdf"
-    },
-    {
-      "date": "2023-10-11T12:54:30.807",
-      "subject": "Board Meeting Outcome for Outcome Of The Board Meeting Held On 11.10.2023",
-      "detail": "Submission of outcome of the Board meeting held on 11.10.2023.",
-      "category": "Board Meeting",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/65bcb9bf-d6e4-452d-b8f0-62cd4dea87e9.pdf"
-    },
-    {
-      "date": "2023-09-30T15:18:28.71",
-      "subject": "Shareholder Meeting / Postal Ballot-Scrutinizer''s Report",
-      "detail": "Submission of voting results under Reg.44(3) of SEBI (LODR) Regulations, 2015 along with Scrutinizer Report issued by practicing chartered accountant.",
-      "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/6f9bdeab-b485-4ec9-8167-a13479176fd2.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a9f68816-55be-408a-bdf2-449887894f44.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board of Directors met on 11.11.2023 and submitted the Un-audited financial results for the quarter and half-year ended 30th September, 2023. The results were accompanied by a Limited Review Report from the company's Statutory Auditors."
     },
     {
       "date": "2023-09-06T14:11:34.003",
       "subject": "Business Responsibility and Sustainability Reporting (BRSR)",
       "detail": "Submission of Business Responsiblity and Sustainability Report (BRSR) for the year 2022-23 in compliance of Reg. 34 (2) (f) of SEBI (LODR) Regulations, 2015.",
       "category": "Regulatory",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/732908a2-564e-4418-b10a-d7faa83d413d.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/732908a2-564e-4418-b10a-d7faa83d413d.pdf",
+      "ai_summary": "TGV Sraac Ltd has submitted its Business Responsibility and Sustainability Report (BRSR) for the year 2022-23. This submission is in compliance with Regulation 34 (2) (f) of SEBI (LODR) Regulations, 2015, demonstrating the company's commitment to environmental, social, and governance (ESG) reporting."
     },
     {
       "date": "2023-08-14T17:29:25.513",
       "subject": "In-Principle Board Approval For 20 MW Solar Power Plant.",
       "detail": "The Board in its meeting held on 14.08.2023 has given approval to the company for setting up of 20 MW Solar Power Plant.  This is in addition to earlier approval for 40 MW.",
       "category": "Other",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cdf43dc6-c21d-493e-a67a-5fb1915ae024.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cdf43dc6-c21d-493e-a67a-5fb1915ae024.pdf",
+      "ai_summary": "TGV Sraac Ltd's Board has granted in-principle approval on 14.08.2023 for the establishment of a 20 MW Solar Power Plant. This new project is an expansion of their renewable energy capacity, adding to an already approved 40 MW solar power plant. The company is increasing its solar power generation capabilities with this significant investment."
     },
     {
       "date": "2023-08-14T17:15:41.027",
       "subject": "Outcome Of The Board Meeting.",
       "detail": "Submission of un-audited Financial Results for the first quarter ending 30.06.2023 along with Limited Review Report by the Statutory Auditor.",
       "category": "Results",
-      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e371bf41-086b-4dee-82b8-3f66bbc03e23.pdf"
+      "attachment": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/e371bf41-086b-4dee-82b8-3f66bbc03e23.pdf",
+      "ai_summary": "TGV Sraac Ltd announced the outcome of its Board Meeting held on 30.06.2023, which included the submission of un-audited financial results for the first quarter. The company also presented the Limited Review Report from its Statutory Auditor alongside these financial results. This indicates the company has met its reporting obligations for the period."
     }
   ]
 }
