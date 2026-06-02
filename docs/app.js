@@ -1084,6 +1084,9 @@ async function triggerLookup() {
     // Clear any previous results
     document.getElementById("lookupResults").style.display = "none";
     sessionStorage.removeItem("lookup_result");
+    // Record dispatch time so polling ignores the pre-existing (stale) file
+    const lookupDispatchTime = new Date().toISOString();
+    window._lookupDispatchTime = lookupDispatchTime;
 
     setLookupStatus(`⟳ Dispatching workflow for ${lookupSelectedCompany.name}...`, "loading");
 
@@ -1138,7 +1141,11 @@ async function triggerLookup() {
         setLookupStatus(`⟳ Fetching ${name} history... (${timeStr} elapsed)`, "loading");
 
         const data = await pollLookupResult(scrip);
-        if (data) {
+        // Only accept a result generated AFTER this dispatch (ignore the
+        // stale committed file from a previous run).
+        const fresh = data && data.fetched_at &&
+            data.fetched_at > (window._lookupDispatchTime || "");
+        if (fresh) {
             clearInterval(lookupPollTimer);
             sessionStorage.setItem("lookup_result", JSON.stringify(data));
             renderLookupResults(data);
