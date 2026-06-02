@@ -34,10 +34,12 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests==2.32.3
+        run: pip install requests==2.32.3 pypdf==5.4.0
 
       - name: Run lookup worker
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
           COMPANY_NAME: ${{ github.event.inputs.company_name }}
           SCRIP_CODE: ${{ github.event.inputs.scrip_code }}
           NSE_SYMBOL: ${{ github.event.inputs.nse_symbol }}

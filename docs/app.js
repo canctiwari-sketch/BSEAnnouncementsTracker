@@ -1168,20 +1168,21 @@ function renderLookupResults(data) {
 
     const body = document.getElementById("lookupBody");
     if (!data.announcements || !data.announcements.length) {
-        body.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#999">No important announcements found for this period.</td></tr>`;
+        body.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#999">No important announcements found for this period.</td></tr>`;
     } else {
         body.innerHTML = data.announcements.map(a => {
             const dateStr = formatDisplayDate(a.date);
             const cat = a.category || "Other";
             const catClass = `cat-badge cat-${cat.toLowerCase().replace(/[^a-z]+/g, '-')}`;
-            const subjectShort = a.subject && a.subject.length > 120
-                ? a.subject.slice(0, 117) + "..." : (a.subject || "");
+            const summary = a.ai_summary
+                ? escapeHtml(a.ai_summary)
+                : `<span style="color:#aaa">${escapeHtml(a.subject || '')}</span>`;
             const pdfLink = a.attachment
                 ? `<a href="${escapeAttr(a.attachment)}" target="_blank" class="lookup-pdf-link">PDF</a>` : "—";
             return `<tr>
                 <td class="lookup-date">${escapeHtml(dateStr)}</td>
                 <td><span class="${catClass}">${escapeHtml(cat)}</span></td>
-                <td class="lookup-subject" title="${escapeAttr(a.subject || '')}">${escapeHtml(subjectShort)}</td>
+                <td class="lookup-summary">${summary}</td>
                 <td>${pdfLink}</td>
             </tr>`;
         }).join("");

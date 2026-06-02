@@ -19,6 +19,116 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
 LOOKUP_DIR = os.path.join(DATA_DIR, "lookup")
 
+# ─── Gemini summarisation (self-contained; mirrors fetch.py) ──────────────────
+GEMINI_KEYS = [k for k in (os.environ.get("GEMINI_API_KEY", ""),
+                           os.environ.get("GEMINI_API_KEY_2", "")) if k]
+GEMINI_MODEL_CHAIN = [
+    "gemini-2.5-flash-lite", "gemini-2.5-flash",
+    "gemini-2.0-flash", "gemini-2.0-flash-lite",
+]
+
+
+def extract_pdf_text(url, max_chars=3000):
+    """Download a PDF and pull the first ~max_chars of text."""
+    if not url:
+        return ""
+    try:
+        r = requests.get(url, timeout=20, headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        if r.status_code != 200:
+            return ""
+        import io
+        try:
+            import PyPDF2
+            reader = PyPDF2.PdfReader(io.BytesIO(r.content))
+        except ImportError:
+            import pypdf
+            reader = pypdf.PdfReader(io.BytesIO(r.content))
+        text = ""
+        for page in reader.pages[:5]:
+            text += page.extract_text() or ""
+            if len(text) >= max_chars:
+                break
+        return re.sub(r"\s+", " ", text).strip()[:max_chars]
+    except Exception as e:
+        print(f"    PDF extract error: {e}")
+        return ""
+
+
+def summarize_batch(batch, company_name):
+    """Summarize a batch of announcements in one Gemini call (with PDF text).
+    Returns list of summary strings (or None)."""
+    if not GEMINI_KEYS or not batch:
+        return [None] * len(batch)
+    parts = []
+    for i, a in enumerate(batch):
+        entry = (f"[{i+1}]\nCompany: {company_name}\nCategory: {a.get('category','')}\n"
+                 f"Subject: {a.get('subject','')}\nDetails: {a.get('detail','')}")
+        if a.get("_pdf"):
+            entry += f"\nPDF Content: {a['_pdf']}"
+        parts.append(entry)
+    prompt = f"""For each corporate announcement below, write a SUMMARY of 3-5 detailed sentences for an investor.
+Rules:
+- Extract exact numbers: rupee amounts, share counts, percentages, capacities, order values, dates, names.
+- State clearly what happened and what it means. No vague filler.
+- If the PDF content is missing or empty, summarise from the subject/details available.
+Format each response EXACTLY as:
+[N] <summary text>
+
+{chr(10).join(parts)}"""
+    payload = {"contents": [{"parts": [{"text": prompt}]}],
+               "generationConfig": {"maxOutputTokens": 600 * len(batch), "temperature": 0.3}}
+    for model in GEMINI_MODEL_CHAIN:
+        for ki, key in enumerate(GEMINI_KEYS):
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
+            try:
+                r = requests.post(url, json=payload, timeout=90)
+                if r.status_code == 429:
+                    continue
+                r.raise_for_status()
+                txt = r.json()["candidates"][0]["content"]["parts"][0]["text"]
+                return _parse_summaries(txt, len(batch))
+            except Exception as e:
+                print(f"    Gemini {model} key#{ki+1} error: {e}")
+                continue
+    return [None] * len(batch)
+
+
+def _parse_summaries(text, n):
+    out = [None] * n
+    chunks = re.split(r"\[(\d+)\]", text)
+    for i in range(1, len(chunks) - 1, 2):
+        try:
+            idx = int(chunks[i]) - 1
+            body = chunks[i + 1].strip()
+            if 0 <= idx < n and body:
+                out[idx] = body
+        except (ValueError, IndexError):
+            continue
+    return out
+
+
+def summarize_announcements(announcements, company_name, batch_size=5):
+    """Attach an ai_summary to each announcement (downloads PDFs + Gemini)."""
+    if not GEMINI_KEYS:
+        print("  No GEMINI key — skipping summaries")
+        return
+    print(f"  Summarising {len(announcements)} announcements...")
+    for a in announcements:
+        a["_pdf"] = extract_pdf_text(a.get("attachment", ""))
+    done = 0
+    for start in range(0, len(announcements), batch_size):
+        batch = announcements[start:start + batch_size]
+        summaries = summarize_batch(batch, company_name)
+        for a, s in zip(batch, summaries):
+            a["ai_summary"] = s
+            if s:
+                done += 1
+        time.sleep(2)
+    for a in announcements:
+        a.pop("_pdf", None)
+    print(f"  Summarised {done}/{len(announcements)}")
+
 # ─── Noise: same core patterns as fetch.py + presentation/transcript/annual report ───
 NOISE_PATTERNS = [
     r"prohibition of insider trading", r"insider trading", r"trading window",
@@ -239,6 +349,9 @@ def main():
     announcements.sort(key=lambda a: a.get("date", ""), reverse=True)
 
     print(f"Total important announcements: {len(announcements)}")
+
+    # Generate rich, PDF-based AI summaries for the kept announcements
+    summarize_announcements(announcements, company_name)
 
     os.makedirs(LOOKUP_DIR, exist_ok=True)
     output_file = os.path.join(LOOKUP_DIR, f"{scrip_code}.json")
