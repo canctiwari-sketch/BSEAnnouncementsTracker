@@ -278,14 +278,18 @@ def is_important_document(subject, description=""):
     return any(k in combined_text for k in keywords)
 
 
-def is_investor_presentation(subject, description=""):
-    """Investor/analyst presentations — not in the keep-list above, but they
-    often contain capex/expansion figures worth extracting."""
+def is_capex_source(subject, description=""):
+    """Big documents that aren't in the keep-list but commonly carry capex/
+    expansion figures: investor/analyst presentations, concall transcripts,
+    earnings calls, results, annual report. We DON'T send these whole to
+    Gemini — we locally extract only the quantified capex lines."""
     t = f"{subject} {description}".lower()
     return any(p in t for p in (
         "investor presentation", "investor & analyst presentation",
         "analyst presentation", "investor ppt", "investor and analyst",
         "earnings presentation", "results presentation",
+        "transcript", "conference call", "concall", "earnings call",
+        "audio recording", "financial results", "annual report",
     ))
 
 
@@ -1239,27 +1243,36 @@ def analyze_single_stock(stock_name, scrip_code, deep_dive=True, nse_symbol=""):
     if screener_data.get("raw_text"):
         collected_texts.append(screener_data["raw_text"])
 
+    # Process newest-first so the LATEST capex guidance is what we keep.
+    def _ann_dt(a):
+        return str(a.get("NEWS_DT", "") or "")
+    announcements_sorted = sorted(announcements, key=_ann_dt, reverse=True)
+
+    MAX_CAPEX_DOCS = 6   # only harvest capex from the 6 most-recent big docs
     relevant_count = 0
-    for ann in announcements:
+    capex_done = 0
+    capex_blocks = []    # (date, source_label, snippets) newest-first
+
+    for ann in announcements_sorted:
         subject = ann.get("NEWSSUB", "")
         description = ann.get("HEADNAME", "")
         attachment = ann.get("ATTACHMENTNAME", "")
         nse_pdf_url = ann.get("NSE_PDF_URL", "")
         source = ann.get("SOURCE", "BSE")
+        news_dt = ann.get("NEWS_DT", "")
 
-        # Two paths:
-        #  - keep-list docs (orders, capex, M&A, launches, press releases) -> full text
-        #  - investor presentations -> NOT full text; extract only capex snippets
         keep = is_important_document(subject, description)
-        is_pres = (not keep) and is_investor_presentation(subject, description)
-        if not keep and not is_pres:
+        # capex harvest only from the most-recent big docs (presentations,
+        # transcripts, concalls, results); skip once we have enough.
+        is_capex = (not keep) and (capex_done < MAX_CAPEX_DOCS) \
+            and is_capex_source(subject, description)
+        if not keep and not is_capex:
             continue
 
         relevant_count += 1
-        tag = "Presentation(capex-only)" if is_pres else "Relevant"
+        tag = "capex-harvest" if is_capex else "Relevant"
         print(f"  -> [{source}] {tag}: {subject[:55]}...")
 
-        # Download the PDF
         path = None
         if source == "NSE" and nse_pdf_url:
             path = download_nse_pdf(nse_pdf_url, nse_pdf_url.split('/')[-1])
@@ -1276,14 +1289,22 @@ def analyze_single_stock(stock_name, scrip_code, deep_dive=True, nse_symbol=""):
         if not text:
             continue
 
-        if is_pres:
-            # Only the quantified capex lines — keeps Gemini payload tiny
+        if is_capex:
             snippets = extract_capex_snippets(text)
             if snippets:
-                collected_texts.append(
-                    f"--- CAPEX EXTRACT from Investor Presentation ({ann.get('NEWS_DT')}) ---\n{snippets}")
+                label = subject[:50]
+                capex_blocks.append((news_dt, label, snippets))
+                capex_done += 1
         else:
-            collected_texts.append(f"--- Document ({ann.get('NEWS_DT')}): {subject} ---\n{text}")
+            collected_texts.append(f"--- Document ({news_dt}): {subject} ---\n{text}")
+
+    # Consolidate capex harvest into one newest-first section (compact).
+    if capex_blocks:
+        parts = ["### CAPEX & EXPANSION SIGNALS (newest first — extracted locally) ###"]
+        for dt, label, snip in capex_blocks:
+            parts.append(f"\n[{dt}] {label}\n{snip}")
+        collected_texts.append("\n".join(parts))
+        print(f"  Capex harvested from {len(capex_blocks)} recent docs (no full text sent to Gemini)")
 
     print(f"Analyzing {len(collected_texts)} significant documents (out of {len(announcements)} total)...")
 
