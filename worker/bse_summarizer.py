@@ -259,20 +259,74 @@ def fetch_nse_announcements(nse_symbol):
 
 
 def is_important_document(subject, description=""):
-    """Filters for high-value documents by checking both subject and description."""
+    """High-value documents for the deep-dive report. Narrow allow-list:
+    capacity expansion, new order(s), new product launch, acquisition/merger/
+    demerger, capex, press release."""
     combined_text = f"{subject} {description}".lower()
     keywords = [
-        "investor presentation", "earnings call", "transcript", "financial results",
-        "annual report", "outcome of board meeting", "capacity", "expansion",
-        "new product", "launch", "acquisition", "merger", "capex", "order", "award",
-        "investor meet", "analyst meet", "conference call", "concall", "audio visual",
-        "sast", "insider", "promoter", "pledge", "regulation 29", "regulation 7"
+        "capacity expansion", "expansion",
+        "new order", "order",
+        "new product", "product launch", "launch",
+        "acquisition", "merger", "demerger",
+        "capex", "capital expenditure",
+        "press release",
     ]
-    exclude = ["trading window", "certificate", "duplicate", "agm", "scrutinizer", "loss of share", "intimation"]
-
+    exclude = ["trading window", "certificate", "duplicate", "agm",
+               "scrutinizer", "loss of share"]
     if any(ex in combined_text for ex in exclude):
         return False
     return any(k in combined_text for k in keywords)
+
+
+def is_investor_presentation(subject, description=""):
+    """Investor/analyst presentations — not in the keep-list above, but they
+    often contain capex/expansion figures worth extracting."""
+    t = f"{subject} {description}".lower()
+    return any(p in t for p in (
+        "investor presentation", "investor & analyst presentation",
+        "analyst presentation", "investor ppt", "investor and analyst",
+        "earnings presentation", "results presentation",
+    ))
+
+
+# A line is a capex signal only if it mentions a capex concept AND a quantity
+# (₹/crore/Cr/MW/MT/tonnes/units/%/a number) — keeps the Gemini payload tiny.
+_CAPEX_CONCEPT = re.compile(
+    r"(capex|capital expenditure|capacity expansion|expansion plan|"
+    r"installed capacity|capacity addition|debottleneck|brownfield|greenfield|"
+    r"new plant|new facility|new line|investment of|investing|outlay|"
+    r"commission(?:ed|ing)?|expand(?:ing|ed)? capacity)",
+    re.IGNORECASE,
+)
+_CAPEX_QUANTITY = re.compile(
+    r"(₹|rs\.?|inr|crore|\bcr\b|lakh|million|billion|\bmw\b|\bmt\b|"
+    r"tonne|tpa|mtpa|units?|\d{2,})",
+    re.IGNORECASE,
+)
+
+
+def extract_capex_snippets(text, max_snippets=20, max_chars=3500):
+    """Pull only the sentences that carry quantified capex/expansion info from a
+    (possibly long) presentation. Returns a compact string, or '' if none."""
+    if not text:
+        return ""
+    # split into rough sentences/lines
+    parts = re.split(r"(?<=[.!?])\s+|\n+", text)
+    seen, picked = set(), []
+    for p in parts:
+        s = p.strip()
+        if len(s) < 12 or len(s) > 400:
+            continue
+        if _CAPEX_CONCEPT.search(s) and _CAPEX_QUANTITY.search(s):
+            key = s.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            picked.append(s)
+            if len(picked) >= max_snippets:
+                break
+    out = "\n".join(f"- {s}" for s in picked)
+    return out[:max_chars]
 
 def fetch_insider_trading(scrip_code):
     """Fetches insider trading data from BSE for the last 3 years. Returns summary of Market Purchase and Market Sale."""
@@ -1193,36 +1247,43 @@ def analyze_single_stock(stock_name, scrip_code, deep_dive=True, nse_symbol=""):
         nse_pdf_url = ann.get("NSE_PDF_URL", "")
         source = ann.get("SOURCE", "BSE")
 
-        # Smart Filter using both subject and description
-        if not is_important_document(subject, description):
+        # Two paths:
+        #  - keep-list docs (orders, capex, M&A, launches, press releases) -> full text
+        #  - investor presentations -> NOT full text; extract only capex snippets
+        keep = is_important_document(subject, description)
+        is_pres = (not keep) and is_investor_presentation(subject, description)
+        if not keep and not is_pres:
             continue
 
         relevant_count += 1
-        print(f"  -> [{source}] Found Relevant: {subject[:60]}...")
+        tag = "Presentation(capex-only)" if is_pres else "Relevant"
+        print(f"  -> [{source}] {tag}: {subject[:55]}...")
 
+        # Download the PDF
+        path = None
         if source == "NSE" and nse_pdf_url:
-            # Download NSE PDF directly from URL
-            fname = nse_pdf_url.split('/')[-1]
-            path = download_nse_pdf(nse_pdf_url, fname)
-            if path:
-                text = extract_text_from_pdf(path)
-                if text:
-                    collected_texts.append(f"--- Document ({ann.get('NEWS_DT')}): {subject} ---\n{text}")
-                try:
-                    os.remove(path)
-                except:
-                    pass
+            path = download_nse_pdf(nse_pdf_url, nse_pdf_url.split('/')[-1])
         elif attachment:
-            fname = attachment.split('/')[-1]
-            path = download_bse_attachment(attachment, fname)
-            if path:
-                text = extract_text_from_pdf(path)
-                if text:
-                    collected_texts.append(f"--- Document ({ann.get('NEWS_DT')}): {subject} ---\n{text}")
-                try:
-                    os.remove(path)
-                except:
-                    pass
+            path = download_bse_attachment(attachment, attachment.split('/')[-1])
+        if not path:
+            continue
+
+        text = extract_text_from_pdf(path)
+        try:
+            os.remove(path)
+        except Exception:
+            pass
+        if not text:
+            continue
+
+        if is_pres:
+            # Only the quantified capex lines — keeps Gemini payload tiny
+            snippets = extract_capex_snippets(text)
+            if snippets:
+                collected_texts.append(
+                    f"--- CAPEX EXTRACT from Investor Presentation ({ann.get('NEWS_DT')}) ---\n{snippets}")
+        else:
+            collected_texts.append(f"--- Document ({ann.get('NEWS_DT')}): {subject} ---\n{text}")
 
     print(f"Analyzing {len(collected_texts)} significant documents (out of {len(announcements)} total)...")
 
