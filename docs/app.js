@@ -1149,18 +1149,29 @@ async function triggerLookup() {
             clearInterval(lookupPollTimer);
             sessionStorage.setItem("lookup_result", JSON.stringify(data));
             renderLookupResults(data);
-        } else if (elapsed > 300) {
+        } else if (elapsed > 540) {
             clearInterval(lookupPollTimer);
-            setLookupStatus("⚠️ Timed out after 5 minutes. Check GitHub Actions for errors.", "error");
+            setLookupStatus("⚠️ Timed out after 9 minutes. Check GitHub Actions for errors.", "error");
         }
     }, 10000);
 }
 
 async function pollLookupResult(scripCode) {
+    // Use the GitHub contents API (token'd) instead of raw.githubusercontent —
+    // raw.* is CDN-cached ~5 min and would keep returning the stale file.
     try {
-        const url = `https://raw.githubusercontent.com/${REPO}/main/data/lookup/${scripCode}.json?v=${Date.now()}`;
-        const r = await fetch(url);
-        if (r.ok) return await r.json();
+        const token = localStorage.getItem(GH_TOKEN_KEY);
+        const url = `https://api.github.com/repos/${REPO}/contents/data/lookup/${scripCode}.json?ref=main&t=${Date.now()}`;
+        const headers = { Accept: "application/vnd.github.v3+json" };
+        if (token) headers.Authorization = `token ${token}`;
+        const r = await fetch(url, { headers, cache: "no-store" });
+        if (r.ok) {
+            const j = await r.json();
+            if (j.content) {
+                const decoded = decodeURIComponent(escape(atob(j.content.replace(/\n/g, ""))));
+                return JSON.parse(decoded);
+            }
+        }
     } catch {}
     return null;
 }
