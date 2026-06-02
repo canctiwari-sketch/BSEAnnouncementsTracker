@@ -80,6 +80,23 @@ NOISE_PATTERNS = [
     r"annual report.*\d{4}", r"annual return",
     r"investor meet.*intimation", r"schedule of analyst",
     r"analyst.*investor.*meet",
+    # Share-transfer / relodgement routine filings (big offenders in lookup)
+    r"relodgement", r"re.?lodgement", r"lodgement of transfer",
+    r"transfer request", r"report on relodgement", r"relodgment",
+    r"transmission of shares", r"transposition", r"sub.?division of share",
+    r"issue of duplicate", r"split of share certificate",
+    # Routine borrowing / clarification / housekeeping
+    r"financial assistance from bank", r"sanction of.*financial assistance",
+    r"sanction of.*loan", r"availment of.*loan|facility",
+    r"clarification regarding", r"clarification on", r"clarification sought",
+    r"clarification to", r"clarification w\.?r\.?t",
+    r"necessary arrangements", r"production loss", r"stop production",
+    r"temporary (?:shut|suspension)", r"plant shutdown.*maintenance",
+    r"newspaper", r"public announcement", r"postal ballot",
+    r"trading plan", r"disclosure under regulation 7\(2\)",
+    r"regulation 30.*report on", r"submission of.*report on relodg",
+    # Plain board-meeting outcome with no substantive event keyword
+    r"^outcome of board meeting$", r"board meeting outcome for outcome",
 ]
 
 _noise_re = re.compile("|".join(NOISE_PATTERNS), re.IGNORECASE)
