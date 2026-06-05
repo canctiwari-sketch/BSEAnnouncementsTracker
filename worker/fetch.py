@@ -618,6 +618,45 @@ def resolve_bse_scrip(session, company_name):
     return code
 
 
+_screener_mcap_re = re.compile(r'Market Cap.*?<span class="number">\s*([\d,]+)', re.S)
+_screener_cache = {}
+
+def fetch_screener_mcap(session, company_name):
+    """Fetch market cap from screener.in by company name. Works from datacenter
+    IPs (unlike NSE quote API) and covers NSE-only / SME companies that have no
+    BSE listing. Returns {'value','formatted'} in rupees, or None."""
+    if not company_name:
+        return None
+    key = company_name.strip().lower()
+    if key in _screener_cache:
+        return _screener_cache[key]
+    result = None
+    sc_headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Accept": "text/html,application/json,*/*",
+    }
+    try:
+        s = session.get(
+            f"https://www.screener.in/api/company/search/?q={quote(company_name)}",
+            headers=sc_headers, timeout=12)
+        hits = s.json() if s.status_code == 200 else []
+        if hits:
+            url = hits[0].get("url")
+            if url:
+                p = session.get("https://www.screener.in" + url, headers=sc_headers, timeout=12)
+                if p.status_code == 200:
+                    m = _screener_mcap_re.search(p.text)
+                    if m:
+                        cr = float(m.group(1).replace(",", ""))
+                        if cr > 0:
+                            raw = cr * 1e7
+                            result = {"value": raw, "formatted": _format_mcap(raw)}
+    except Exception:
+        pass
+    _screener_cache[key] = result
+    return result
+
+
 def fetch_bse_mcap(session, scrip_code):
     """Fetch market cap directly from BSE StockTrading API using scrip code."""
     try:
@@ -742,15 +781,17 @@ def fetch_nse(from_date, to_date):
         filled = 0
         for s in missing:
             name = sym_to_name.get(s, "")
+            data = None
             scrip = resolve_bse_scrip(bse_sess, name)
-            if not scrip:
-                continue
-            data = fetch_bse_mcap(bse_sess, scrip)
+            if scrip:
+                data = fetch_bse_mcap(bse_sess, scrip)
+            if not data:  # NSE-only / SME — try screener.in
+                data = fetch_screener_mcap(bse_sess, name)
             if data:
                 mcap_data[s] = data
                 filled += 1
             time.sleep(0.15)
-        log(f"BSE-fallback mcap filled {filled}/{len(missing)} NSE symbols")
+        log(f"BSE/screener-fallback mcap filled {filled}/{len(missing)} NSE symbols")
 
     log(f"Got market cap for {len(mcap_data)}/{len(symbols)} symbols total")
 
@@ -1446,12 +1487,15 @@ def main():
         backfilled = 0
         for i, sym in enumerate(sym_list):
             data = fetch_nse_mcap(nse_client, sym) if nse_client else None
-            # BSE fallback via name resolution (NSE quote API blocks datacenter IPs)
+            name = sym_to_cached[sym][0].get("company", "")
+            # Fallback 2: BSE via name->scrip (dual-listed companies)
             if not data:
-                name = sym_to_cached[sym][0].get("company", "")
                 scrip = resolve_bse_scrip(bse_sess, name)
                 if scrip:
                     data = fetch_bse_mcap(bse_sess, scrip)
+            # Fallback 3: screener.in (NSE-only / SME companies)
+            if not data:
+                data = fetch_screener_mcap(bse_sess, name)
             if data:
                 for a in sym_to_cached[sym]:
                     a["market_cap"] = data["value"]
