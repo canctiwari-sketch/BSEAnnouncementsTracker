@@ -593,6 +593,19 @@ def _format_mcap(raw):
         return f"{raw:,.0f}"
 
 
+def _clean_search_name(name):
+    """Strip legal suffixes/parentheticals so BSE & screener search can match.
+    'Lemon Tree Hotels Limited' -> 'Lemon Tree Hotels' (search returns nothing
+    for the full legal name but matches the cleaned one)."""
+    if not name:
+        return ""
+    n = re.sub(r"\([^)]*\)", " ", name)               # drop (India), (I), etc.
+    n = re.sub(r"\b(the|limited|ltd|ltd\.|pvt|private|corporation|"
+               r"industries|enterprises)\b", " ", n, flags=re.I)
+    n = re.sub(r"[^\w\s&]", " ", n)
+    return re.sub(r"\s+", " ", n).strip()
+
+
 _bse_scrip_cache = {}
 
 def resolve_bse_scrip(session, company_name):
@@ -605,8 +618,9 @@ def resolve_bse_scrip(session, company_name):
     if key in _bse_scrip_cache:
         return _bse_scrip_cache[key]
     code = None
+    cleaned = _clean_search_name(company_name) or company_name
     try:
-        url = f"https://api.bseindia.com/BseIndiaAPI/api/PeerSmartSearch/w?Type=SS&text={quote(company_name)}"
+        url = f"https://api.bseindia.com/BseIndiaAPI/api/PeerSmartSearch/w?Type=SS&text={quote(cleaned)}"
         r = session.get(url, timeout=10)
         if r.status_code == 200:
             m = re.search(r"liclick\('(\d{6})'", r.text)
@@ -635,9 +649,10 @@ def fetch_screener_mcap(session, company_name):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
         "Accept": "text/html,application/json,*/*",
     }
+    cleaned = _clean_search_name(company_name) or company_name
     try:
         s = session.get(
-            f"https://www.screener.in/api/company/search/?q={quote(company_name)}",
+            f"https://www.screener.in/api/company/search/?q={quote(cleaned)}",
             headers=sc_headers, timeout=12)
         hits = s.json() if s.status_code == 200 else []
         if hits:
@@ -1475,7 +1490,7 @@ def main():
             if sym not in sym_to_cached:
                 sym_to_cached[sym] = []
             sym_to_cached[sym].append(a)
-        sym_list = list(sym_to_cached.keys())[:60]
+        sym_list = list(sym_to_cached.keys())[:150]
         log(f"Backfilling market cap for {len(sym_list)} cached NSE companies...")
         nse_client = _get_nse_client()
         bse_sess = requests.Session()
