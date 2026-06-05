@@ -593,6 +593,31 @@ def _format_mcap(raw):
         return f"{raw:,.0f}"
 
 
+_bse_scrip_cache = {}
+
+def resolve_bse_scrip(session, company_name):
+    """Resolve a company name -> BSE scrip code via BSE smart-search.
+    Used to fetch BSE market cap for NSE companies (NSE quote API blocks
+    datacenter IPs). Cached per name."""
+    if not company_name:
+        return None
+    key = company_name.strip().lower()
+    if key in _bse_scrip_cache:
+        return _bse_scrip_cache[key]
+    code = None
+    try:
+        url = f"https://api.bseindia.com/BseIndiaAPI/api/PeerSmartSearch/w?Type=SS&text={quote(company_name)}"
+        r = session.get(url, timeout=10)
+        if r.status_code == 200:
+            m = re.search(r"liclick\('(\d{6})'", r.text)
+            if m:
+                code = m.group(1)
+    except Exception:
+        pass
+    _bse_scrip_cache[key] = code
+    return code
+
+
 def fetch_bse_mcap(session, scrip_code):
     """Fetch market cap directly from BSE StockTrading API using scrip code."""
     try:
@@ -697,7 +722,37 @@ def fetch_nse(from_date, to_date):
             time.sleep(0.5)
 
     client.close()
-    log(f"Got market cap for {len(mcap_data)} symbols")
+    log(f"Got market cap (NSE) for {len(mcap_data)}/{len(symbols)} symbols")
+
+    # Fallback: NSE quote-equity blocks datacenter IPs, so for symbols that
+    # failed, resolve the BSE scrip by company name and use BSE's mcap API.
+    missing = [s for s in symbols if s not in mcap_data]
+    if missing:
+        sym_to_name = {}
+        for a in filtered_raw:
+            s = a.get("symbol", "").strip()
+            if s in missing and s not in sym_to_name:
+                sym_to_name[s] = a.get("sm_name") or ""
+        bse_sess = requests.Session()
+        bse_sess.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Referer": "https://www.bseindia.com/",
+        })
+        filled = 0
+        for s in missing:
+            name = sym_to_name.get(s, "")
+            scrip = resolve_bse_scrip(bse_sess, name)
+            if not scrip:
+                continue
+            data = fetch_bse_mcap(bse_sess, scrip)
+            if data:
+                mcap_data[s] = data
+                filled += 1
+            time.sleep(0.15)
+        log(f"BSE-fallback mcap filled {filled}/{len(missing)} NSE symbols")
+
+    log(f"Got market cap for {len(mcap_data)}/{len(symbols)} symbols total")
 
     # Normalize
     results = []
@@ -1379,22 +1434,34 @@ def main():
             if sym not in sym_to_cached:
                 sym_to_cached[sym] = []
             sym_to_cached[sym].append(a)
-        sym_list = list(sym_to_cached.keys())[:40]
+        sym_list = list(sym_to_cached.keys())[:60]
         log(f"Backfilling market cap for {len(sym_list)} cached NSE companies...")
         nse_client = _get_nse_client()
+        bse_sess = requests.Session()
+        bse_sess.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Referer": "https://www.bseindia.com/",
+        })
+        backfilled = 0
+        for i, sym in enumerate(sym_list):
+            data = fetch_nse_mcap(nse_client, sym) if nse_client else None
+            # BSE fallback via name resolution (NSE quote API blocks datacenter IPs)
+            if not data:
+                name = sym_to_cached[sym][0].get("company", "")
+                scrip = resolve_bse_scrip(bse_sess, name)
+                if scrip:
+                    data = fetch_bse_mcap(bse_sess, scrip)
+            if data:
+                for a in sym_to_cached[sym]:
+                    a["market_cap"] = data["value"]
+                    a["market_cap_fmt"] = data["formatted"]
+                backfilled += 1
+            if (i + 1) % 5 == 0:
+                time.sleep(0.4)
         if nse_client:
-            backfilled = 0
-            for i, sym in enumerate(sym_list):
-                data = fetch_nse_mcap(nse_client, sym)
-                if data:
-                    for a in sym_to_cached[sym]:
-                        a["market_cap"] = data["value"]
-                        a["market_cap_fmt"] = data["formatted"]
-                    backfilled += 1
-                if (i + 1) % 5 == 0:
-                    time.sleep(0.5)
             nse_client.close()
-            log(f"Backfilled market cap for {backfilled}/{len(sym_list)} cached NSE companies")
+        log(f"Backfilled market cap for {backfilled}/{len(sym_list)} cached NSE companies")
 
     # Backfill market cap for existing cached BSE announcements still missing it
     bse_missing_mcap = [a for a in existing if a.get("exchange") == "BSE" and not a.get("market_cap") and a.get("symbol")]
