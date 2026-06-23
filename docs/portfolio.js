@@ -2,14 +2,18 @@
 // Client holdings live ONLY in this browser (localStorage). Stock prices come
 // from docs/prices.json, refreshed daily by the Portfolio Prices GitHub Action.
 
-const REPO = "canctiwari-sketch/BSEAnnouncementsTracker";
+const REPO = "canctiwari-sketch/BSEAnnouncementsTracker";  // public repo (code + prices)
 const PF_KEY = "twc_portfolios";       // localStorage: array of holdings
 const GH_TOKEN_KEY = "twc_gh_token";   // shared with the main site (Watchlist sync)
+const PF_REPO_KEY = "twc_pf_repo";     // localStorage: "owner/repo" of the PRIVATE data repo
+const PF_PATH = "portfolios.json";     // file in the private repo holding the shared data
 
 let holdings = [];      // [{id, client, name, scrip_code, nse_symbol, qty, buy, date}]
 let prices = {};        // { "500325.BO": {price, name, currency} }
 let pricesUpdated = null;
 let scrips = [];        // [{name, scrip_code, nse_symbol}] for autocomplete
+let pfSha = null;       // GitHub file SHA of portfolios.json (for updates)
+let pushTimer = null;   // debounce timer for cloud pushes
 
 document.addEventListener("DOMContentLoaded", () => {
     holdings = loadHoldings();
@@ -17,7 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAutocomplete();
     loadPrices().then(render);
     loadScrips();
-    render();  // immediate render from localStorage while prices load
+    render();  // immediate render from localStorage while prices/cloud load
+    // If cloud sync is configured, pull the shared data and re-render.
+    if (syncConfigured()) cloudPull().then(render);
+    else updateSyncUi();
 });
 
 // ─── Yahoo symbol for a holding ─────────────────────────────────────────────
@@ -38,6 +45,123 @@ function loadHoldings() {
 }
 function saveHoldings() {
     localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+    schedulePush();  // mirror to the shared private repo if sync is on
+}
+
+// ─── Cloud sync (shared PRIVATE repo) ────────────────────────────────────────
+// Holdings live in a private GitHub repo so a partner can see the same data.
+// Read/write goes through the GitHub contents API with the user's token — this
+// works for private repos (raw.githubusercontent does not). Same pattern as the
+// main site's Watchlist sync.
+function getDataRepo() { return (localStorage.getItem(PF_REPO_KEY) || "").trim(); }
+function syncConfigured() { return !!getDataRepo() && !!localStorage.getItem(GH_TOKEN_KEY); }
+
+async function fetchRemote() {
+    // Returns { arr, sha } or null. Throws on hard errors so callers can report.
+    const repo = getDataRepo();
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    const r = await fetch(`https://api.github.com/repos/${repo}/contents/${PF_PATH}?t=${Date.now()}`, {
+        headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" },
+    });
+    if (r.status === 404) return { arr: [], sha: null };  // not created yet
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    const json = decodeURIComponent(escape(atob((data.content || "").replace(/\n/g, ""))));
+    const arr = JSON.parse(json);
+    return { arr: Array.isArray(arr) ? arr : [], sha: data.sha };
+}
+
+// Pull shared data and make it the local truth (used on page open / Sync now).
+async function cloudPull() {
+    if (!syncConfigured()) return false;
+    setSync("⟳ Loading shared data…");
+    try {
+        const { arr, sha } = await fetchRemote();
+        pfSha = sha;
+        holdings = arr;
+        localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+        setSync(sha ? `☁ In sync · ${nowTime()}` : "☁ Connected · cloud is empty");
+        return true;
+    } catch (e) {
+        setSync(`⚠️ Cloud read failed: ${e.message}`, true);
+        return false;
+    } finally { updateSyncUi(); }
+}
+
+function schedulePush() {
+    if (!syncConfigured()) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(cloudPush, 1200);  // debounce rapid edits
+}
+
+async function cloudPush() {
+    if (!syncConfigured()) return;
+    const repo = getDataRepo();
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    setSync("⟳ Saving to shared repo…");
+    const put = () => fetch(`https://api.github.com/repos/${repo}/contents/${PF_PATH}`, {
+        method: "PUT",
+        headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: `Update portfolios ${new Date().toISOString()}`,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(holdings, null, 2)))),
+            branch: "main",
+            ...(pfSha ? { sha: pfSha } : {}),
+        }),
+    });
+    try {
+        let r = await put();
+        if (r.status === 409) {
+            // Someone else pushed since our last pull. Merge by holding id
+            // (so both partners' additions survive), then retry once.
+            const { arr, sha } = await fetchRemote();
+            pfSha = sha;
+            const byId = new Map(arr.map(h => [h.id, h]));
+            holdings.forEach(h => byId.set(h.id, h));  // local edits win on overlap
+            holdings = [...byId.values()];
+            localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+            r = await put();
+            render();
+        }
+        if (r.ok) {
+            const d = await r.json();
+            pfSha = d.content.sha;
+            setSync(`☁ Saved · ${nowTime()}`);
+        } else {
+            setSync(`⚠️ Cloud save failed: HTTP ${r.status}`, true);
+        }
+    } catch (e) {
+        setSync(`⚠️ Cloud save error: ${e.message}`, true);
+    } finally { updateSyncUi(); }
+}
+
+function setupSync() {
+    const repo = prompt(
+        "Shared PRIVATE repo for client data, as owner/repo\n" +
+        "(create it on GitHub first, set it Private, add your partner as a collaborator):",
+        getDataRepo() || ""
+    );
+    if (repo === null) return;
+    if (repo.trim()) localStorage.setItem(PF_REPO_KEY, repo.trim());
+
+    const hasTok = localStorage.getItem(GH_TOKEN_KEY);
+    const tok = prompt(
+        (hasTok ? "A token is already set. Enter a new one to replace it, or leave blank to keep it.\n\n" : "") +
+        "Paste a GitHub Personal Access Token with access to that private repo (classic token, 'repo' scope).\n" +
+        "Stored only in this browser — never committed.",
+        ""
+    );
+    if (tok && tok.trim()) localStorage.setItem(GH_TOKEN_KEY, tok.trim());
+
+    if (!syncConfigured()) { setSync("Sync not fully configured — need both repo and token.", true); updateSyncUi(); return; }
+    cloudPull().then(render);
+}
+
+function disconnectSync() {
+    localStorage.removeItem(PF_REPO_KEY);
+    pfSha = null;
+    setSync("Sync turned off — data stays on this device only.");
+    updateSyncUi();
 }
 
 // ─── Prices ──────────────────────────────────────────────────────────────────
@@ -414,4 +538,29 @@ function setStatus(msg, isErr) {
     const el = document.getElementById("pfStatus");
     el.textContent = msg;
     el.style.color = isErr ? "#dc2626" : "#6b7280";
+}
+function setSync(msg, isErr) {
+    const el = document.getElementById("pfSyncStatus");
+    if (!el) return;
+    el.textContent = msg;
+    el.style.color = isErr ? "#dc2626" : "#047857";
+}
+function nowTime() { return new Date().toLocaleTimeString("en-IN"); }
+
+// Reflect sync state in the toolbar (button label + repo shown).
+function updateSyncUi() {
+    const btn = document.getElementById("pfSyncSetupBtn");
+    const now = document.getElementById("pfSyncNowBtn");
+    const off = document.getElementById("pfSyncOffBtn");
+    const repo = getDataRepo();
+    if (btn) btn.textContent = repo ? `⚙ Sync: ${repo}` : "⚙ Set up sharing";
+    if (now) now.style.display = syncConfigured() ? "" : "none";
+    if (off) off.style.display = repo ? "" : "none";
+    if (!repo) setSync("Not shared — data is on this device only.");
+}
+
+// Manual pull — fetch the partner's latest changes (the "Sync now" button).
+async function syncNow() {
+    if (!syncConfigured()) { setupSync(); return; }
+    if (await cloudPull()) render();
 }

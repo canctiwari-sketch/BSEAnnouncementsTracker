@@ -153,6 +153,15 @@
             <span class="pf-freshness" id="pfFreshness"></span>
         </div>
 
+        <!-- Sharing / cloud sync -->
+        <div class="pf-toolbar">
+            <button class="pf-btn ghost" id="pfSyncSetupBtn" onclick="setupSync()">⚙ Set up sharing</button>
+            <button class="pf-btn ghost" id="pfSyncNowBtn" onclick="syncNow()" style="display:none">⟳ Sync now</button>
+            <button class="pf-btn ghost" id="pfSyncOffBtn" onclick="disconnectSync()" style="display:none">Turn off</button>
+            <span class="spacer"></span>
+            <span class="pf-freshness" id="pfSyncStatus"></span>
+        </div>
+
         <div id="pfStatus" class="pf-freshness" style="margin-bottom:12px;"></div>
 
         <!-- Per-client portfolios -->
