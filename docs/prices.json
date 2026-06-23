@@ -1,9 +1,14 @@
 {
-  "last_updated": "2026-06-23T07:48:18",
+  "last_updated": "2026-06-23T07:48:48",
   "prices": {
     "500020.BO": {
       "price": 133.3,
       "name": "The Bombay Dyeing and Manufacturing Company Limited",
+      "currency": "INR"
+    },
+    "STLTECH.NS": {
+      "price": 598.3,
+      "name": "Sterlite Technologies Limited",
       "currency": "INR"
     }
   }
