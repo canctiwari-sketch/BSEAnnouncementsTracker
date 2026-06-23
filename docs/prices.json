@@ -1,4 +1,10 @@
 {
-  "last_updated": null,
-  "prices": {}
+  "last_updated": "2026-06-23T07:48:18",
+  "prices": {
+    "500020.BO": {
+      "price": 133.3,
+      "name": "The Bombay Dyeing and Manufacturing Company Limited",
+      "currency": "INR"
+    }
+  }
 }
