@@ -1,0 +1,54 @@
+name: Portfolio Prices
+
+on:
+  # Daily after Indian market close (15:30 IST = 10:00 UTC). Run at 11:00 UTC
+  # to be safe, plus a morning run so weekend/holiday gaps stay fresh.
+  schedule:
+    - cron: '0 11 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Comma-separated Yahoo symbols to add/refresh (e.g. 500325.BO,TCS.NS). Existing symbols are always refreshed too.'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+# Avoid overlapping runs racing on the same prices.json
+concurrency:
+  group: portfolio-prices
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3 beautifulsoup4==4.12.3
+
+      - name: Fetch prices
+        env:
+          SYMBOLS: ${{ github.event.inputs.symbols }}
+        run: python worker/prices.py
+
+      - name: Commit and push results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/prices.json
+          if git diff --staged --quiet; then
+            echo "No price changes to commit"
+          else
+            git commit -m "Update portfolio prices $(date -u +%Y-%m-%dT%H:%M)"
+            git push
+          fi
