@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-23T07:49:13",
+  "last_updated": "2026-06-23T13:41:00",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -7,12 +7,12 @@
       "currency": "INR"
     },
     "STLTECH.NS": {
-      "price": 598.35,
+      "price": 607.3,
       "name": "Sterlite Technologies Limited",
       "currency": "INR"
     },
     "532457.BO": {
-      "price": 204.0,
+      "price": 205.0,
       "name": "Gulshan Polyols Ltd",
       "currency": "INR"
     }
