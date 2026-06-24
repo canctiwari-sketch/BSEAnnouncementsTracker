@@ -8,6 +8,7 @@ const GH_TOKEN_KEY = "twc_gh_token";   // shared with the main site (Watchlist s
 const PF_REPO_KEY = "twc_pf_repo";     // localStorage: "owner/repo" of the PRIVATE data repo
 const PF_PATH = "portfolios.json";     // file in the private repo holding the shared data
 const PF_BAK_KEY = "twc_portfolios_bak"; // one-step undo snapshot of the prior state
+const PUBLIC_DATA_PATH = "data/portfolios.json"; // public, tokenless-readable holdings (like announcements)
 
 let holdings = [];      // [{id, client, name, scrip_code, nse_symbol, qty, buy, date}]
 let prices = {};        // { "500325.BO": {price, name, currency} }
@@ -23,10 +24,29 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPrices().then(render);
     loadScrips();
     render();  // immediate render from localStorage while prices/cloud load
-    // If cloud sync is configured, pull the shared data and re-render.
+    // Public data: read the shared holdings file from the repo with no token,
+    // so the same data shows on any device anywhere (like the announcements feed).
+    loadPublicData();
+    // If private cloud sync is configured, pull that instead and re-render.
     if (syncConfigured()) cloudPull().then(render);
     else updateSyncUi();
 });
+
+// Read the public holdings file (tokenless) and merge it in by id, so every
+// device shows the same data and local-only edits are never dropped.
+async function loadPublicData() {
+    try {
+        const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/${PUBLIC_DATA_PATH}?t=${Date.now()}`);
+        if (!r.ok) return;
+        const remote = await r.json();
+        if (!Array.isArray(remote)) return;
+        const merged = new Map(holdings.map(h => [h.id, h]));
+        remote.forEach(h => merged.set(h.id, h));  // published file wins on overlap
+        holdings = [...merged.values()];
+        localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+        render();
+    } catch { /* offline or file absent — fall back to local data */ }
+}
 
 // ─── Yahoo symbol for a holding ─────────────────────────────────────────────
 // Prefer NSE (.NS): Yahoo serves reliable live/EOD prices for NSE tickers,
