@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:06:52",
+  "last_updated": "2026-06-24T10:07:23",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -29,6 +29,11 @@
     "TNPL.NS": {
       "price": 145.78,
       "name": "Tamil Nadu Newsprint and Papers Limited",
+      "currency": "INR"
+    },
+    "COSMOFIRST.NS": {
+      "price": 816.1,
+      "name": "Cosmo First Limited",
       "currency": "INR"
     }
   }
