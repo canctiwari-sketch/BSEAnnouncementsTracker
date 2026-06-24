@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:08:40",
+  "last_updated": "2026-06-24T10:10:53",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -49,6 +49,21 @@
     "VALIANTORG.NS": {
       "price": 286.85,
       "name": "Valiant Organics Limited",
+      "currency": "INR"
+    },
+    "505537.BO": {
+      "price": 114.83,
+      "name": "Zee Entertainment Enterprises Limited",
+      "currency": "INR"
+    },
+    "AARVI.NS": {
+      "price": 149.73,
+      "name": "Aarvi Encon Limited",
+      "currency": "INR"
+    },
+    "KIRIINDUS.NS": {
+      "price": 391.15,
+      "name": "Kiri Industries Limited",
       "currency": "INR"
     }
   }
