@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:07:23",
+  "last_updated": "2026-06-24T10:07:56",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -34,6 +34,11 @@
     "COSMOFIRST.NS": {
       "price": 816.1,
       "name": "Cosmo First Limited",
+      "currency": "INR"
+    },
+    "500199.BO": {
+      "price": 450.3,
+      "name": "I G Petrochemicals Limited",
       "currency": "INR"
     }
   }
