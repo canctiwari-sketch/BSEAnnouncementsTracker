@@ -48,6 +48,98 @@ async function loadPublicData() {
     } catch { /* offline or file absent — fall back to local data */ }
 }
 
+// ─── Online editing: publish to the public data file ────────────────────────
+// Viewing is tokenless. Saving changes requires a one-time token (the user
+// pastes it themselves; we never see it) with write access to this repo.
+const PUB_FLAG_KEY = "twc_pf_publish";  // "1" when online editing is enabled
+let pubSha = null;                       // SHA of data/portfolios.json (for updates)
+let pubTimer = null;
+
+function publishEnabled() {
+    return localStorage.getItem(PUB_FLAG_KEY) === "1" && !!localStorage.getItem(GH_TOKEN_KEY);
+}
+
+function toggleEditing() {
+    if (publishEnabled()) {
+        localStorage.removeItem(PUB_FLAG_KEY);
+        setSync("Online editing off — viewing still works everywhere.");
+        updateSyncUi();
+        return;
+    }
+    const t = prompt(
+        "Paste a GitHub token to enable saving changes online.\n" +
+        "Classic token with 'public_repo' scope (or fine-grained with Contents: read/write on this repo).\n" +
+        "Stored only in this browser — never shown to anyone.",
+        ""
+    );
+    if (t === null) return;
+    if (t.trim()) localStorage.setItem(GH_TOKEN_KEY, t.trim());
+    if (!localStorage.getItem(GH_TOKEN_KEY)) { setSync("A token is needed to enable editing.", true); return; }
+    localStorage.setItem(PUB_FLAG_KEY, "1");
+    setSync("✏️ Online editing enabled — your changes will publish for everyone.");
+    updateSyncUi();
+    schedulePublish();  // sync current state up so the file matches this device
+}
+
+function schedulePublish() {
+    if (!publishEnabled()) return;
+    clearTimeout(pubTimer);
+    pubTimer = setTimeout(publishPublic, 1200);  // debounce rapid edits
+}
+
+// Fetch the public file's current array + SHA via the API (needs the token).
+async function getPublicWithSha(token) {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${PUBLIC_DATA_PATH}?t=${Date.now()}`, {
+        headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" },
+    });
+    if (r.status === 404) return { arr: [], sha: null };
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    const arr = JSON.parse(decodeURIComponent(escape(atob((data.content || "").replace(/\n/g, "")))));
+    return { arr: Array.isArray(arr) ? arr : [], sha: data.sha };
+}
+
+async function publishPublic() {
+    if (!publishEnabled()) return;
+    const token = localStorage.getItem(GH_TOKEN_KEY);
+    setSync("⟳ Publishing changes…");
+    const put = (sha) => fetch(`https://api.github.com/repos/${REPO}/contents/${PUBLIC_DATA_PATH}`, {
+        method: "PUT",
+        headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+            message: `Update portfolios ${new Date().toISOString()}`,
+            content: btoa(unescape(encodeURIComponent(JSON.stringify(holdings, null, 2)))),
+            branch: "main",
+            ...(sha ? { sha } : {}),
+        }),
+    });
+    try {
+        if (pubSha === null) { try { pubSha = (await getPublicWithSha(token)).sha; } catch {} }
+        let r = await put(pubSha);
+        if (r.status === 409 || r.status === 422) {
+            // Someone published since our last read — merge their changes by id, then retry.
+            const { arr, sha } = await getPublicWithSha(token);
+            pubSha = sha;
+            const m = new Map(arr.map(h => [h.id, h]));
+            holdings.forEach(h => m.set(h.id, h));  // our edits win on overlap
+            holdings = [...m.values()];
+            localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+            render();
+            r = await put(pubSha);
+        }
+        if (r.ok) {
+            const d = await r.json();
+            pubSha = d.content.sha;
+            setSync(`✅ Published · ${nowTime()}`);
+        } else {
+            const msg = r.status === 401 || r.status === 403 ? "token rejected — check scope" : `HTTP ${r.status}`;
+            setSync(`⚠️ Publish failed: ${msg}`, true);
+        }
+    } catch (e) {
+        setSync(`⚠️ Publish error: ${e.message}`, true);
+    }
+}
+
 // ─── Yahoo symbol for a holding ─────────────────────────────────────────────
 // Prefer NSE (.NS): Yahoo serves reliable live/EOD prices for NSE tickers,
 // whereas numeric BSE codes (.BO) are patchier. Fall back to .BO for BSE-only.
@@ -70,7 +162,8 @@ function saveHoldings() {
     const prev = localStorage.getItem(PF_KEY);
     if (prev && prev !== "[]") localStorage.setItem(PF_BAK_KEY, prev);
     localStorage.setItem(PF_KEY, JSON.stringify(holdings));
-    schedulePush();  // mirror to the shared private repo if sync is on
+    if (syncConfigured()) schedulePush();         // private-repo sync, if configured
+    else if (publishEnabled()) schedulePublish();  // else publish to the public file
 }
 
 // Restore the previous snapshot (the "↩ Restore" button).
@@ -604,11 +697,20 @@ function updateSyncUi() {
     const btn = document.getElementById("pfSyncSetupBtn");
     const now = document.getElementById("pfSyncNowBtn");
     const off = document.getElementById("pfSyncOffBtn");
+    const edit = document.getElementById("pfEditBtn");
     const repo = getDataRepo();
     if (btn) btn.textContent = repo ? `⚙ Sync: ${repo}` : "⚙ Set up sharing";
     if (now) now.style.display = syncConfigured() ? "" : "none";
     if (off) off.style.display = repo ? "" : "none";
-    if (!repo) setSync("Not shared — data is on this device only.");
+    if (edit) {
+        edit.style.display = repo ? "none" : "";  // editing-online applies to public mode
+        edit.textContent = publishEnabled() ? "✏️ Editing on — click to turn off" : "✏️ Enable editing";
+    }
+    if (!repo) {
+        setSync(publishEnabled()
+            ? "✏️ Online editing on — changes publish for everyone."
+            : "🌐 Public — viewable anywhere. Click “Enable editing” to save changes online.");
+    }
 }
 
 // Manual pull — fetch the partner's latest changes (the "Sync now" button).
