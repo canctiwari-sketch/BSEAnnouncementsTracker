@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:12:58",
+  "last_updated": "2026-06-24T10:14:36",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -79,6 +79,11 @@
     "NCLIND.NS": {
       "price": 193.36,
       "name": "NCL Industries Limited",
+      "currency": "INR"
+    },
+    "COALINDIA.NS": {
+      "price": 441.75,
+      "name": "Coal India Limited",
       "currency": "INR"
     }
   }
