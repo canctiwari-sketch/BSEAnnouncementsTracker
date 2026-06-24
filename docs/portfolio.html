@@ -149,6 +149,7 @@
             <button class="pf-btn ghost" onclick="exportHoldings()">⬇ Export</button>
             <button class="pf-btn ghost" onclick="document.getElementById('pfImport').click()">⬆ Import</button>
             <input type="file" id="pfImport" accept="application/json" style="display:none" onchange="importHoldings(event)">
+            <button class="pf-btn ghost" onclick="restoreBackup()" title="Undo the last bulk change (import/restore)">↩ Restore</button>
             <span class="spacer"></span>
             <span class="pf-freshness" id="pfFreshness"></span>
         </div>
@@ -171,6 +172,6 @@
         <div id="pfRollup"></div>
     </div>
 
-    <script src="portfolio.js?v=20260623"></script>
+    <script src="portfolio.js?v=20260624b"></script>
 </body>
 </html>

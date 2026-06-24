@@ -7,6 +7,7 @@ const PF_KEY = "twc_portfolios";       // localStorage: array of holdings
 const GH_TOKEN_KEY = "twc_gh_token";   // shared with the main site (Watchlist sync)
 const PF_REPO_KEY = "twc_pf_repo";     // localStorage: "owner/repo" of the PRIVATE data repo
 const PF_PATH = "portfolios.json";     // file in the private repo holding the shared data
+const PF_BAK_KEY = "twc_portfolios_bak"; // one-step undo snapshot of the prior state
 
 let holdings = [];      // [{id, client, name, scrip_code, nse_symbol, qty, buy, date}]
 let prices = {};        // { "500325.BO": {price, name, currency} }
@@ -44,8 +45,25 @@ function loadHoldings() {
     } catch { return []; }
 }
 function saveHoldings() {
+    // Keep a one-step backup of the prior persisted state, so a bad change
+    // (bulk import, accidental clear) can always be undone.
+    const prev = localStorage.getItem(PF_KEY);
+    if (prev && prev !== "[]") localStorage.setItem(PF_BAK_KEY, prev);
     localStorage.setItem(PF_KEY, JSON.stringify(holdings));
     schedulePush();  // mirror to the shared private repo if sync is on
+}
+
+// Restore the previous snapshot (the "↩ Restore" button).
+function restoreBackup() {
+    const bak = localStorage.getItem(PF_BAK_KEY);
+    if (!bak) { setStatus("No backup available to restore.", true); return; }
+    const restored = JSON.parse(bak);
+    const cur = JSON.stringify(holdings);
+    holdings = restored;
+    localStorage.setItem(PF_BAK_KEY, cur);  // make restore itself undoable
+    saveHoldings();
+    setStatus(`Restored ${holdings.length} holding(s) from backup.`);
+    loadPrices().then(render);
 }
 
 // ─── Cloud sync (shared PRIVATE repo) ────────────────────────────────────────
@@ -78,9 +96,15 @@ async function cloudPull() {
     try {
         const { arr, sha } = await fetchRemote();
         pfSha = sha;
-        holdings = arr;
+        // Merge by id — remote (the shared truth) wins on overlap, but local-only
+        // entries are NEVER dropped, and an empty/missing remote never wipes local.
+        const merged = new Map(holdings.map(h => [h.id, h]));
+        arr.forEach(h => merged.set(h.id, h));
+        const localOnly = holdings.length && arr.length < merged.size;
+        holdings = [...merged.values()];
         localStorage.setItem(PF_KEY, JSON.stringify(holdings));
-        setSync(sha ? `☁ In sync · ${nowTime()}` : "☁ Connected · cloud is empty");
+        if (localOnly) schedulePush();  // push our local-only entries up to the shared file
+        setSync(sha ? `☁ In sync · ${nowTime()}` : "☁ Connected · cloud was empty — your data kept");
         return true;
     } catch (e) {
         setSync(`⚠️ Cloud read failed: ${e.message}`, true);
