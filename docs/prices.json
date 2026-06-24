@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:07:56",
+  "last_updated": "2026-06-24T10:08:40",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -39,6 +39,16 @@
     "500199.BO": {
       "price": 450.3,
       "name": "I G Petrochemicals Limited",
+      "currency": "INR"
+    },
+    "STLNETWORK.NS": {
+      "price": 27.81,
+      "name": "STL NETWORKS LIMITED",
+      "currency": "INR"
+    },
+    "VALIANTORG.NS": {
+      "price": 286.85,
+      "name": "Valiant Organics Limited",
       "currency": "INR"
     }
   }
