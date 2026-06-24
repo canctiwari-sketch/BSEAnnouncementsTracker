@@ -363,9 +363,17 @@ function importHoldings(ev) {
         try {
             const data = JSON.parse(reader.result);
             if (!Array.isArray(data)) throw new Error("Not a holdings file");
-            holdings = data;
+            // Merge (additive) by id so importing one client never wipes others.
+            const byId = new Map(holdings.map(h => [h.id, h]));
+            let added = 0;
+            data.forEach(h => {
+                if (!h.id) h.id = Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+                if (!byId.has(h.id)) added++;
+                byId.set(h.id, h);
+            });
+            holdings = [...byId.values()];
             saveHoldings();
-            setStatus(`Imported ${holdings.length} holding(s).`);
+            setStatus(`Imported ${data.length} holding(s) (${added} new). Total: ${holdings.length}.`);
             loadPrices().then(render);
         } catch (e) { setStatus(`Import failed: ${e.message}`, true); }
     };

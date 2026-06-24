@@ -1,14 +1,79 @@
 {
-  "last_updated": "2026-06-24T10:14:36",
+  "last_updated": "2026-06-24T10:30:15",
   "prices": {
-    "500020.BO": {
-      "price": 133.3,
+    "APEX.NS": {
+      "price": 411.8,
+      "name": "Apex Frozen Foods Limited",
+      "currency": "INR"
+    },
+    "BOMDYEING.NS": {
+      "price": 135.36,
       "name": "The Bombay Dyeing and Manufacturing Company Limited",
+      "currency": "INR"
+    },
+    "COSMOFIRST.NS": {
+      "price": 816.1,
+      "name": "Cosmo First Limited",
+      "currency": "INR"
+    },
+    "GULPOLY.NS": {
+      "price": 198.45,
+      "name": "Gulshan Polyols Limited",
+      "currency": "INR"
+    },
+    "IGPL.NS": {
+      "price": 444.8,
+      "name": "I G Petrochemicals Limited",
+      "currency": "INR"
+    },
+    "JAGRAN.NS": {
+      "price": 65.63,
+      "name": "Jagran Prakashan Limited",
+      "currency": "INR"
+    },
+    "KIRIINDUS.NS": {
+      "price": 391.15,
+      "name": "Kiri Industries Limited",
+      "currency": "INR"
+    },
+    "KRBL.NS": {
+      "price": 393.95,
+      "name": "KRBL Limited",
+      "currency": "INR"
+    },
+    "SHREEPUSHK.NS": {
+      "price": 394.6,
+      "name": "Shree Pushkar Chemicals & Fertilisers Limited",
+      "currency": "INR"
+    },
+    "STLNETWORK.NS": {
+      "price": 27.81,
+      "name": "STL NETWORKS LIMITED",
       "currency": "INR"
     },
     "STLTECH.NS": {
       "price": 584.15,
       "name": "Sterlite Technologies Limited",
+      "currency": "INR"
+    },
+    "TGVSL.NS": {
+      "price": 103.0,
+      "name": "TGV Sraac Ltd",
+      "currency": "INR"
+    },
+    "TNPL.NS": {
+      "price": 145.78,
+      "name": "Tamil Nadu Newsprint and Papers Limited",
+      "currency": "INR"
+    },
+    "VALIANTORG.NS": {
+      "price": 286.85,
+      "name": "Valiant Organics Limited",
+      "currency": "INR"
+    },
+    "500020.BO": {
+      "price": 133.3,
+      "name": "The Bombay Dyeing and Manufacturing Company Limited",
       "currency": "INR"
     },
     "532457.BO": {
@@ -26,29 +91,9 @@
       "name": "Polyplex Corporation Ltd",
       "currency": "INR"
     },
-    "TNPL.NS": {
-      "price": 145.78,
-      "name": "Tamil Nadu Newsprint and Papers Limited",
-      "currency": "INR"
-    },
-    "COSMOFIRST.NS": {
-      "price": 816.1,
-      "name": "Cosmo First Limited",
-      "currency": "INR"
-    },
     "500199.BO": {
       "price": 450.3,
       "name": "I G Petrochemicals Limited",
-      "currency": "INR"
-    },
-    "STLNETWORK.NS": {
-      "price": 27.81,
-      "name": "STL NETWORKS LIMITED",
-      "currency": "INR"
-    },
-    "VALIANTORG.NS": {
-      "price": 286.85,
-      "name": "Valiant Organics Limited",
       "currency": "INR"
     },
     "505537.BO": {
@@ -59,16 +104,6 @@
     "AARVI.NS": {
       "price": 149.73,
       "name": "Aarvi Encon Limited",
-      "currency": "INR"
-    },
-    "KIRIINDUS.NS": {
-      "price": 391.15,
-      "name": "Kiri Industries Limited",
-      "currency": "INR"
-    },
-    "APEX.NS": {
-      "price": 411.8,
-      "name": "Apex Frozen Foods Limited",
       "currency": "INR"
     },
     "NATHBIOGEN.NS": {
