@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:10:53",
+  "last_updated": "2026-06-24T10:11:44",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -64,6 +64,21 @@
     "KIRIINDUS.NS": {
       "price": 391.15,
       "name": "Kiri Industries Limited",
+      "currency": "INR"
+    },
+    "APEX.NS": {
+      "price": 411.8,
+      "name": "Apex Frozen Foods Limited",
+      "currency": "INR"
+    },
+    "NATHBIOGEN.NS": {
+      "price": 170.32,
+      "name": "Nath Bio-Genes (India) Limited",
+      "currency": "INR"
+    },
+    "NCLIND.NS": {
+      "price": 193.36,
+      "name": "NCL Industries Limited",
       "currency": "INR"
     }
   }
