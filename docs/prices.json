@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:05:10",
+  "last_updated": "2026-06-24T10:06:52",
   "prices": {
     "500020.BO": {
       "price": 133.3,
@@ -12,13 +12,23 @@
       "currency": "INR"
     },
     "532457.BO": {
-      "price": 199.0,
+      "price": 198.0,
       "name": "Gulshan Polyols Ltd",
       "currency": "INR"
     },
     "507753.BO": {
       "price": 89.93,
       "name": "507753.BO,0P0000BY8C,262054",
+      "currency": "INR"
+    },
+    "524051.BO": {
+      "price": 1038.0,
+      "name": "Polyplex Corporation Ltd",
+      "currency": "INR"
+    },
+    "TNPL.NS": {
+      "price": 145.78,
+      "name": "Tamil Nadu Newsprint and Papers Limited",
       "currency": "INR"
     }
   }
