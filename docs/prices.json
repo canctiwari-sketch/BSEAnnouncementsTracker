@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T10:36:39",
+  "last_updated": "2026-06-24T10:44:57",
   "prices": {
     "APEX.NS": {
       "price": 411.8,
@@ -119,6 +119,16 @@
     "COALINDIA.NS": {
       "price": 441.75,
       "name": "Coal India Limited",
+      "currency": "INR"
+    },
+    "POLYPLEX.NS": {
+      "price": 1038.15,
+      "name": "Polyplex Corporation Limited",
+      "currency": "INR"
+    },
+    "ZEEL.NS": {
+      "price": 115.48,
+      "name": "Zee Entertainment Enterprises Limited",
       "currency": "INR"
     }
   }
