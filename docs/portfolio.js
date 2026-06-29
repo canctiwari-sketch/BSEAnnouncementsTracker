@@ -16,9 +16,12 @@ let pricesUpdated = null;
 let scrips = [];        // [{name, scrip_code, nse_symbol}] for autocomplete
 let pfSha = null;       // GitHub file SHA of portfolios.json (for updates)
 let pushTimer = null;   // debounce timer for cloud pushes
+let cash = {};          // { "<client>": <cash amount> } — uninvested money per client
+const PF_CASH_KEY = "twc_portfolios_cash";
 
 document.addEventListener("DOMContentLoaded", () => {
     holdings = loadHoldings();
+    cash = loadCash();
     document.getElementById("pfForm").addEventListener("submit", onAddHolding);
     setupAutocomplete();
     loadPrices().then(render);
@@ -38,12 +41,7 @@ async function loadPublicData() {
     try {
         const r = await fetch(`https://raw.githubusercontent.com/${REPO}/main/${PUBLIC_DATA_PATH}?t=${Date.now()}`);
         if (!r.ok) return;
-        const remote = await r.json();
-        if (!Array.isArray(remote)) return;
-        const merged = new Map(holdings.map(h => [h.id, h]));
-        remote.forEach(h => merged.set(h.id, h));  // published file wins on overlap
-        holdings = [...merged.values()];
-        localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+        ingest(await r.json());  // accepts array or {holdings,cash}; merges by id
         render();
     } catch { /* offline or file absent — fall back to local data */ }
 }
@@ -92,11 +90,11 @@ async function getPublicWithSha(token) {
     const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${PUBLIC_DATA_PATH}?t=${Date.now()}`, {
         headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" },
     });
-    if (r.status === 404) return { arr: [], sha: null };
+    if (r.status === 404) return { parsed: [], sha: null };
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
-    const arr = JSON.parse(decodeURIComponent(escape(atob((data.content || "").replace(/\n/g, "")))));
-    return { arr: Array.isArray(arr) ? arr : [], sha: data.sha };
+    const parsed = JSON.parse(decodeURIComponent(escape(atob((data.content || "").replace(/\n/g, "")))));
+    return { parsed, sha: data.sha };
 }
 
 async function publishPublic() {
@@ -108,7 +106,7 @@ async function publishPublic() {
         headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({
             message: `Update portfolios ${new Date().toISOString()}`,
-            content: btoa(unescape(encodeURIComponent(JSON.stringify(holdings, null, 2)))),
+            content: btoa(unescape(encodeURIComponent(serializeData()))),
             branch: "main",
             ...(sha ? { sha } : {}),
         }),
@@ -117,13 +115,13 @@ async function publishPublic() {
         if (pubSha === null) { try { pubSha = (await getPublicWithSha(token)).sha; } catch {} }
         let r = await put(pubSha);
         if (r.status === 409 || r.status === 422) {
-            // Someone published since our last read — merge their changes by id, then retry.
-            const { arr, sha } = await getPublicWithSha(token);
+            // Someone published since our last read — merge their changes (holdings
+            // by id + cash), keeping our edits on overlap, then retry.
+            const { parsed, sha } = await getPublicWithSha(token);
             pubSha = sha;
-            const m = new Map(arr.map(h => [h.id, h]));
-            holdings.forEach(h => m.set(h.id, h));  // our edits win on overlap
-            holdings = [...m.values()];
-            localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+            const mine = { holdings: [...holdings], cash: { ...cash } };
+            ingest(parsed);          // bring in remote
+            ingest(mine);            // re-apply our local edits on top
             render();
             r = await put(pubSha);
         }
@@ -156,14 +154,60 @@ function loadHoldings() {
         return raw ? JSON.parse(raw) : [];
     } catch { return []; }
 }
+function loadCash() {
+    try { const raw = localStorage.getItem(PF_CASH_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch { return {}; }
+}
+function persistCash() { localStorage.setItem(PF_CASH_KEY, JSON.stringify(cash)); }
+
 function saveHoldings() {
     // Keep a one-step backup of the prior persisted state, so a bad change
     // (bulk import, accidental clear) can always be undone.
     const prev = localStorage.getItem(PF_KEY);
     if (prev && prev !== "[]") localStorage.setItem(PF_BAK_KEY, prev);
     localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+    persistCash();
     if (syncConfigured()) schedulePush();         // private-repo sync, if configured
     else if (publishEnabled()) schedulePublish();  // else publish to the public file
+}
+
+// Set/clear a client's cash (uninvested money). Fires on blur to avoid
+// re-rendering while typing.
+function setCash(client, val) {
+    const amt = parseFloat(val);
+    if (!val || isNaN(amt) || amt < 0) delete cash[client];
+    else cash[client] = amt;
+    saveHoldings();
+    render();
+}
+
+// ── Single source of truth for the on-disk / published format ──
+// New format is an object { holdings, cash }; we still accept a bare array
+// (older files / import files) for backward compatibility.
+function serializeData() {
+    return JSON.stringify({ holdings, cash }, null, 2);
+}
+// Merge a parsed payload (array OR {holdings,cash}) into local state by id.
+function ingest(parsed) {
+    let inHoldings, inCash;
+    if (Array.isArray(parsed)) { inHoldings = parsed; inCash = null; }
+    else if (parsed && typeof parsed === "object") {
+        inHoldings = Array.isArray(parsed.holdings) ? parsed.holdings : [];
+        inCash = (parsed.cash && typeof parsed.cash === "object") ? parsed.cash : null;
+    } else return { ok: false, added: 0, count: holdings.length };
+
+    const byId = new Map(holdings.map(h => [h.id, h]));
+    let added = 0;
+    inHoldings.forEach(h => {
+        if (!h.id) h.id = Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+        if (!byId.has(h.id)) added++;
+        byId.set(h.id, h);              // incoming wins on overlap
+    });
+    holdings = [...byId.values()];
+    if (inCash) cash = { ...cash, ...inCash };  // incoming cash wins
+    localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+    persistCash();
+    return { ok: true, added, count: holdings.length, importedHoldings: inHoldings.length };
 }
 
 // Restore the previous snapshot (the "↩ Restore" button).
@@ -194,12 +238,11 @@ async function fetchRemote() {
     const r = await fetch(`https://api.github.com/repos/${repo}/contents/${PF_PATH}?t=${Date.now()}`, {
         headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" },
     });
-    if (r.status === 404) return { arr: [], sha: null };  // not created yet
+    if (r.status === 404) return { parsed: [], sha: null };  // not created yet
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
     const json = decodeURIComponent(escape(atob((data.content || "").replace(/\n/g, ""))));
-    const arr = JSON.parse(json);
-    return { arr: Array.isArray(arr) ? arr : [], sha: data.sha };
+    return { parsed: JSON.parse(json), sha: data.sha };
 }
 
 // Pull shared data and make it the local truth (used on page open / Sync now).
@@ -207,16 +250,12 @@ async function cloudPull() {
     if (!syncConfigured()) return false;
     setSync("⟳ Loading shared data…");
     try {
-        const { arr, sha } = await fetchRemote();
+        const { parsed, sha } = await fetchRemote();
         pfSha = sha;
-        // Merge by id — remote (the shared truth) wins on overlap, but local-only
-        // entries are NEVER dropped, and an empty/missing remote never wipes local.
-        const merged = new Map(holdings.map(h => [h.id, h]));
-        arr.forEach(h => merged.set(h.id, h));
-        const localOnly = holdings.length && arr.length < merged.size;
-        holdings = [...merged.values()];
-        localStorage.setItem(PF_KEY, JSON.stringify(holdings));
-        if (localOnly) schedulePush();  // push our local-only entries up to the shared file
+        // Merge by id — remote (shared truth) wins on overlap, local-only entries
+        // are NEVER dropped, and an empty/missing remote never wipes local.
+        const res = ingest(parsed);
+        if (holdings.length > (res.importedHoldings || 0)) schedulePush();  // push local-only entries up
         setSync(sha ? `☁ In sync · ${nowTime()}` : "☁ Connected · cloud was empty — your data kept");
         return true;
     } catch (e) {
@@ -241,7 +280,7 @@ async function cloudPush() {
         headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
         body: JSON.stringify({
             message: `Update portfolios ${new Date().toISOString()}`,
-            content: btoa(unescape(encodeURIComponent(JSON.stringify(holdings, null, 2)))),
+            content: btoa(unescape(encodeURIComponent(serializeData()))),
             branch: "main",
             ...(pfSha ? { sha: pfSha } : {}),
         }),
@@ -249,14 +288,13 @@ async function cloudPush() {
     try {
         let r = await put();
         if (r.status === 409) {
-            // Someone else pushed since our last pull. Merge by holding id
-            // (so both partners' additions survive), then retry once.
-            const { arr, sha } = await fetchRemote();
+            // Someone else pushed since our last pull. Merge (holdings by id + cash)
+            // keeping our edits on overlap, then retry once.
+            const { parsed, sha } = await fetchRemote();
             pfSha = sha;
-            const byId = new Map(arr.map(h => [h.id, h]));
-            holdings.forEach(h => byId.set(h.id, h));  // local edits win on overlap
-            holdings = [...byId.values()];
-            localStorage.setItem(PF_KEY, JSON.stringify(holdings));
+            const mine = { holdings: [...holdings], cash: { ...cash } };
+            ingest(parsed);
+            ingest(mine);
             r = await put();
             render();
         }
@@ -485,7 +523,7 @@ async function refreshPrices(silent) {
 
 // ─── Export / Import ─────────────────────────────────────────────────────────
 function exportHoldings() {
-    const blob = new Blob([JSON.stringify(holdings, null, 2)], { type: "application/json" });
+    const blob = new Blob([serializeData()], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `portfolios_${new Date().toISOString().slice(0, 10)}.json`;
@@ -499,18 +537,10 @@ function importHoldings(ev) {
     reader.onload = () => {
         try {
             const data = JSON.parse(reader.result);
-            if (!Array.isArray(data)) throw new Error("Not a holdings file");
-            // Merge (additive) by id so importing one client never wipes others.
-            const byId = new Map(holdings.map(h => [h.id, h]));
-            let added = 0;
-            data.forEach(h => {
-                if (!h.id) h.id = Date.now() + "_" + Math.random().toString(36).slice(2, 7);
-                if (!byId.has(h.id)) added++;
-                byId.set(h.id, h);
-            });
-            holdings = [...byId.values()];
+            const res = ingest(data);  // additive merge; accepts array or {holdings,cash}
+            if (!res.ok) throw new Error("Not a holdings file");
             saveHoldings();
-            setStatus(`Imported ${data.length} holding(s) (${added} new). Total: ${holdings.length}.`);
+            setStatus(`Imported ${res.importedHoldings} holding(s) (${res.added} new). Total: ${res.count}.`);
             loadPrices().then(render);
         } catch (e) { setStatus(`Import failed: ${e.message}`, true); }
     };
@@ -559,12 +589,20 @@ function renderCards() {
     const pl = cur - inv;
     const plPct = inv > 0 ? (pl / inv) * 100 : 0;
     const cls = pl >= 0 ? "gain" : "loss";
+    // Cash across all clients, and overall corpus (equity current value + cash)
+    const totalCash = Object.values(cash).reduce((a, b) => a + (Number(b) || 0), 0);
+    const corpus = cur + totalCash;
+    const cashPct = corpus > 0 ? (totalCash / corpus) * 100 : 0;
     el.innerHTML = `
         <div class="pf-card"><div class="lbl">Clients</div><div class="val">${clients.size}</div>
             <div class="sub muted">${holdings.length} holding(s)</div></div>
         <div class="pf-card"><div class="lbl">Total invested</div><div class="val">${fmtINR(inv)}</div></div>
         <div class="pf-card"><div class="lbl">Current value</div><div class="val">${fmtINR(cur)}</div>
-            <div class="sub muted">${anyPriced ? "" : "prices pending"}</div></div>
+            <div class="sub muted">${anyPriced ? "equity" : "prices pending"}</div></div>
+        <div class="pf-card"><div class="lbl">Cash</div><div class="val">${fmtINR(totalCash)}</div>
+            <div class="sub muted">${cashPct.toFixed(1)}% of corpus</div></div>
+        <div class="pf-card"><div class="lbl">Total corpus</div><div class="val">${fmtINR(corpus)}</div>
+            <div class="sub muted">equity + cash</div></div>
         <div class="pf-card"><div class="lbl">Overall P&amp;L</div>
             <div class="val ${cls}">${pl >= 0 ? "+" : ""}${fmtINR(pl)}</div>
             <div class="sub ${cls}">${pl >= 0 ? "+" : ""}${plPct.toFixed(2)}%</div></div>`;
@@ -605,12 +643,26 @@ function renderClients() {
         const cPlPct = (cPl != null && cInv > 0) ? (cPl / cInv) * 100 : null;
         const cCls = cPl == null ? "muted" : cPl >= 0 ? "gain" : "loss";
 
+        // Allocation: equity (current value, or cost if unpriced) + cash = corpus
+        const equityVal = cHasPrice ? cCur : cInv;
+        const clientCash = cash[client] || 0;
+        const corpus = equityVal + clientCash;
+        const cashPct = corpus > 0 ? (clientCash / corpus) * 100 : 0;
+        const equityPct = corpus > 0 ? (equityVal / corpus) * 100 : 0;
+
         return `<div class="pf-client">
             <div class="pf-client-head">
                 <h3>${escapeHtml(client)}</h3>
                 <span class="meta">${rows.length} holding(s) · invested ${fmtINR(cInv)}</span>
                 <span class="pl ${cCls}">${cPl == null ? "" :
                     (cPl >= 0 ? "+" : "") + fmtINR(cPl) + " (" + (cPlPct >= 0 ? "+" : "") + cPlPct.toFixed(1) + "%)"}</span>
+            </div>
+            <div class="pf-client-cash">
+                <label>Cash ₹ <input type="number" class="cash-input" min="0" step="any"
+                    data-client="${escapeHtml(client)}" value="${clientCash || ""}" placeholder="0"></label>
+                <span class="cash-stat">Equity <b>${fmtINR(equityVal)}</b> · ${equityPct.toFixed(1)}%</span>
+                <span class="cash-stat">Cash <b>${fmtINR(clientCash)}</b> · ${cashPct.toFixed(1)}%</span>
+                <span class="cash-stat total">Total corpus <b>${fmtINR(corpus)}</b></span>
             </div>
             <table class="pf-table">
                 <thead><tr>
@@ -629,6 +681,11 @@ function renderClients() {
             </table>
         </div>`;
     }).join("");
+
+    // Wire cash inputs (data-client avoids any quote-escaping issues in handlers).
+    el.querySelectorAll(".cash-input").forEach(inp => {
+        inp.addEventListener("change", () => setCash(inp.dataset.client, inp.value));
+    });
 }
 
 function renderRollup() {
