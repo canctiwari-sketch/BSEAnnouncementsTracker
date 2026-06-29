@@ -735,8 +735,11 @@ def fetch_nse_mcap(client, symbol):
     return None
 
 
-def fetch_nse(from_date, to_date):
-    """Fetch NSE announcements, filter noise, return normalized list."""
+def fetch_nse(from_date, to_date, known_mcap=None):
+    """Fetch NSE announcements, filter noise, return normalized list.
+    known_mcap: {symbol: {'value','formatted'}} of already-computed mcaps to
+    reuse (skips network fetch for companies we've already priced)."""
+    known_mcap = known_mcap or {}
     client = _get_nse_client()
     if not client:
         print("NSE session failed")
@@ -797,8 +800,15 @@ def fetch_nse(from_date, to_date):
         "Referer": "https://www.bseindia.com/",
     })
     mcap_data = {}
-    log(f"Fetching market cap for {len(symbols)} NSE symbols (screener->BSE->NSE)...")
-    for i, sym in enumerate(symbols):
+    # Reuse cached mcaps first — no network for companies we've already priced
+    to_fetch = []
+    for sym in symbols:
+        if sym in known_mcap and known_mcap[sym].get("value"):
+            mcap_data[sym] = known_mcap[sym]
+        else:
+            to_fetch.append(sym)
+    log(f"MCap: {len(mcap_data)} reused from cache, fetching {len(to_fetch)} new (screener->BSE->NSE)...")
+    for i, sym in enumerate(to_fetch):
         name = sym_to_name.get(sym, "")
         # 1) screener.in
         data = fetch_screener_mcap(bse_sess, name)
@@ -813,7 +823,7 @@ def fetch_nse(from_date, to_date):
         if data:
             mcap_data[sym] = data
         if (i + 1) % 10 == 0:
-            log(f"  MCap progress: {i + 1}/{len(symbols)} ({len(mcap_data)} found)")
+            log(f"  MCap progress: {i + 1}/{len(to_fetch)} ({len(mcap_data)} found)")
         time.sleep(0.12)
 
     client.close()
@@ -1257,16 +1267,38 @@ def main():
     seen_keys = set(cache.get("seen_keys", []))
     existing = cache.get("announcements", [])
 
-    # Date range: last 4 days (not just yesterday+today). A wider window means
-    # every announcement gets re-checked by ~4 days of hourly runs, so if one
-    # run hit a firehose hiccup when a filing was fresh, a later run still
-    # catches it. Dedup (seen_keys + dedup()) makes re-fetching harmless.
+    # Split cadence (efficient + complete):
+    #  - Most hourly runs: tight 2-day window (cheap, fast, retry-hardened).
+    #  - Twice a day (incl. night): wide 5-day reconciliation sweep to recover
+    #    anything a hiccupped firehose run missed when a filing was fresh.
+    # This catches more than "wide window every hour" while making far fewer
+    # firehose calls (less throttling). Dedup makes re-fetching harmless.
     today = datetime.utcnow() + timedelta(hours=5, minutes=30)  # IST
-    window_start = today - timedelta(days=3)
+    WIDE_SWEEP_HOURS = {2, 14}  # ~2 AM & 2 PM IST
+    window_days = 5 if today.hour in WIDE_SWEEP_HOURS else 2
+    window_start = today - timedelta(days=window_days)
     from_date = window_start.strftime("%Y-%m-%d")
     to_date = today.strftime("%Y-%m-%d")
 
-    log(f"Fetching {from_date} to {to_date} (3-day window)...")
+    log(f"Fetching {from_date} to {to_date} ({window_days}-day window)...")
+
+    # C) Reuse market caps we already computed in past runs instead of
+    # re-fetching every hour. Announcements keep their fetch-time mcap anyway,
+    # so reusing the cached value is consistent — and saves hundreds of
+    # screener/BSE calls per run (less throttling).
+    known_nse_mcap = {}          # NSE symbol -> {"value","formatted"}
+    known_mcap_by_name = {}      # normalized company name -> {"value","formatted"}
+    for a in existing:
+        v = a.get("market_cap")
+        if not v:
+            continue
+        entry = {"value": v, "formatted": a.get("market_cap_fmt")}
+        if a.get("exchange") == "NSE" and a.get("symbol"):
+            known_nse_mcap.setdefault(a["symbol"], entry)
+        nm = _normalize_name(a.get("company", ""))
+        if nm:
+            known_mcap_by_name.setdefault(nm, entry)
+    log(f"Loaded cached mcap: {len(known_nse_mcap)} NSE symbols, {len(known_mcap_by_name)} names")
 
     # Fetch from both exchanges in parallel
     bse_anns = []
@@ -1279,15 +1311,22 @@ def main():
 
     def do_nse():
         nonlocal nse_anns
-        nse_anns = fetch_nse(from_date, to_date)
+        nse_anns = fetch_nse(from_date, to_date, known_mcap=known_nse_mcap)
         log(f"NSE: {len(nse_anns)} announcements after filtering")
 
     with ThreadPoolExecutor(max_workers=2) as ex:
         ex.submit(do_bse)
         ex.submit(do_nse)
 
-    # Fill BSE market cap from NSE data (cross-reference)
+    # Fill BSE market cap: start from cached names (past runs), then overlay
+    # this run's fresh NSE mcaps. Lets BSE companies reuse cached mcap instead
+    # of re-fetching every hour.
     nse_mcap_by_name = {}
+    for nm, entry in known_mcap_by_name.items():
+        nse_mcap_by_name[nm] = {
+            "market_cap": entry["value"],
+            "market_cap_fmt": entry["formatted"],
+        }
     for a in nse_anns:
         if a.get("market_cap"):
             nse_mcap_by_name[_normalize_name(a["company"])] = {
