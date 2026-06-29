@@ -1408,8 +1408,8 @@ let interviewsLoaded = false;
 let allInterviews = [];
 
 function showTab(tab) {
-    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", research: "researchTab" };
-    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", research: "tabResearch" };
+    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", research: "tabResearch" };
     Object.keys(TABS).forEach(t => {
         const el = document.getElementById(TABS[t]);
         if (el) el.style.display = t === tab ? "" : "none";
@@ -1418,6 +1418,7 @@ function showTab(tab) {
     });
     if (tab === "insider" && !insiderLoaded) fetchInsiderData();
     if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
+    if (tab === "disclosure" && !disclosureLoaded) fetchDisclosure();
     if (tab === "research") {
         loadScrips();
         setTimeout(() => {
@@ -1427,6 +1428,96 @@ function showTab(tab) {
         const cached = sessionStorage.getItem("lookup_result");
         if (cached) { try { renderLookupResults(JSON.parse(cached)); } catch {} }
     }
+}
+
+// ─── Disclosure Style ─────────────────────────────────────────────────────────
+let disclosureLoaded = false;
+let allDisclosure = [];
+let dscSort = { col: "mcap_cr", dir: "desc" };
+
+async function fetchDisclosure() {
+    const status = document.getElementById("dscStatus");
+    if (status) { status.textContent = "Loading disclosure profiles..."; status.className = "status loading"; }
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/comm_profile.json?t=" + Date.now());
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const data = await r.json();
+        allDisclosure = data.rows || [];
+        disclosureLoaded = true;
+        const sel = document.getElementById("dscQuarter");
+        if (sel) sel.innerHTML = '<option value="">All</option>' +
+            (data.quarters || []).map(q => `<option value="${q}">${q}</option>`).join("");
+        renderDisclosure();
+    } catch (e) {
+        if (status) { status.textContent = "Failed to load: " + e.message; status.className = "status error"; }
+    }
+}
+
+function _dscFiltered() {
+    const q = document.getElementById("dscQuarter")?.value || "";
+    const bucket = document.getElementById("dscBucket")?.value || "pres_no_call";
+    const minM = parseFloat(document.getElementById("dscMinMcap")?.value) || 0;
+    const search = (document.getElementById("dscSearch")?.value || "").toLowerCase();
+    let rows = allDisclosure.filter(r => {
+        if (q && r.quarter !== q) return false;
+        if (minM && r.mcap_cr < minM) return false;
+        if (search && !(r.company || "").toLowerCase().includes(search)) return false;
+        if (bucket === "pres_no_call") return r.presentation && !r.concall;
+        if (bucket === "both") return r.presentation && r.concall;
+        if (bucket === "call_no_pres") return r.concall && !r.presentation;
+        return true;
+    });
+    const dir = dscSort.dir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+        let x = a[dscSort.col], y = b[dscSort.col];
+        if (typeof x === "string") { x = x.toLowerCase(); y = (y || "").toLowerCase(); }
+        return x < y ? -dir : x > y ? dir : 0;
+    });
+    return rows;
+}
+
+function renderDisclosure() {
+    const body = document.getElementById("dscBody");
+    if (!body) return;
+    const rows = _dscFiltered();
+    const status = document.getElementById("dscStatus");
+    if (status) { status.textContent = `${rows.length} company-quarters`; status.className = "status"; }
+    if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        return;
+    }
+    const yes = '<span class="dsc-yes">✓ Yes</span>';
+    const no = '<span class="dsc-no">— No</span>';
+    body.innerHTML = rows.map(r => {
+        const g = `https://www.google.com/search?q=${encodeURIComponent(r.company + " screener.in")}`;
+        return `<tr>
+            <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.company)}</a></td>
+            <td style="text-align:right">${Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
+            <td>${escapeHtml(r.quarter)}</td>
+            <td>${r.presentation ? yes : no}</td>
+            <td>${r.concall ? yes : no}</td>
+        </tr>`;
+    }).join("");
+}
+
+function sortDisclosure(col) {
+    if (dscSort.col === col) dscSort.dir = dscSort.dir === "asc" ? "desc" : "asc";
+    else dscSort = { col, dir: col === "company" ? "asc" : "desc" };
+    renderDisclosure();
+}
+
+function exportDisclosure() {
+    const rows = _dscFiltered();
+    if (!rows.length) return;
+    const data = rows.map(r => ({
+        Company: r.company, Symbol: r.symbol, "MCap (Cr)": Math.round(r.mcap_cr),
+        Quarter: r.quarter, Presentation: r.presentation ? "Yes" : "No",
+        "Concall/Transcript": r.concall ? "Yes" : "No",
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Disclosure");
+    XLSX.writeFile(wb, "disclosure_style.xlsx");
 }
 
 // ─── Interviews ──────────────────────────────────────────────────────────────

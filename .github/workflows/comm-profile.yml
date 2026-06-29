@@ -1,0 +1,42 @@
+name: Disclosure Profile
+
+on:
+  schedule:
+    - cron: '0 1 * * 0'   # Weekly, Sunday 06:30 AM IST (01:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  profile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3 "httpx[http2]==0.28.1"
+
+      - name: Build disclosure profile
+        run: python worker/comm_profile.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/comm_profile.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Disclosure profile: $(date +'%Y-%m-%d')"
+            for i in 1 2 3; do
+              if git push; then break; fi
+              git pull --rebase origin main; sleep 3
+            done
+          fi

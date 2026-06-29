@@ -271,6 +271,11 @@ a.company-link {
 }
 a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
 
+/* Disclosure tab yes/no badges */
+.dsc-yes { color: #065f46; font-weight: 600; }
+.dsc-no  { color: #9ca3af; }
+#dscTable td { padding: 9px 13px; }
+
 .scrip-code {
     font-size: 0.7rem;
     color: #aaa;
