@@ -559,6 +559,266 @@
       "qty": 1123,
       "buy": 206.25,
       "date": ""
+    },
+    {
+      "id": "bhakti_t98xcb",
+      "client": "Bhakti Sarangi",
+      "name": "Aarti Industries Ltd",
+      "scrip_code": "",
+      "nse_symbol": "AARTIIND",
+      "qty": 80,
+      "buy": 505.71,
+      "date": ""
+    },
+    {
+      "id": "bhakti_ub9ygn",
+      "client": "Bhakti Sarangi",
+      "name": "AksharChem India Ltd",
+      "scrip_code": "",
+      "nse_symbol": "AKSHARCHEM",
+      "qty": 420,
+      "buy": 269.57,
+      "date": ""
+    },
+    {
+      "id": "bhakti_ak8vy4",
+      "client": "Bhakti Sarangi",
+      "name": "Apex Frozen Foods Ltd",
+      "scrip_code": "540692",
+      "nse_symbol": "APEX",
+      "qty": 604,
+      "buy": 300.4,
+      "date": ""
+    },
+    {
+      "id": "bhakti_vi09gl",
+      "client": "Bhakti Sarangi",
+      "name": "Coal India Ltd",
+      "scrip_code": "533278",
+      "nse_symbol": "COALINDIA",
+      "qty": 712,
+      "buy": 420.34,
+      "date": ""
+    },
+    {
+      "id": "bhakti_c53rbi",
+      "client": "Bhakti Sarangi",
+      "name": "Cosmo First Ltd",
+      "scrip_code": "508814",
+      "nse_symbol": "COSMOFIRST",
+      "qty": 317,
+      "buy": 635.81,
+      "date": ""
+    },
+    {
+      "id": "bhakti_jzhjme",
+      "client": "Bhakti Sarangi",
+      "name": "Dynemic Products Ltd",
+      "scrip_code": "532707",
+      "nse_symbol": "DYNPRO",
+      "qty": 392,
+      "buy": 268.2,
+      "date": ""
+    },
+    {
+      "id": "bhakti_wtzv8t",
+      "client": "Bhakti Sarangi",
+      "name": "Excel Industries Ltd",
+      "scrip_code": "",
+      "nse_symbol": "EXCELINDUS",
+      "qty": 105,
+      "buy": 880.04,
+      "date": ""
+    },
+    {
+      "id": "bhakti_shvi9w",
+      "client": "Bhakti Sarangi",
+      "name": "Finolex Cables Ltd",
+      "scrip_code": "",
+      "nse_symbol": "FINCABLES",
+      "qty": 50,
+      "buy": 1338.04,
+      "date": ""
+    },
+    {
+      "id": "bhakti_7uu062",
+      "client": "Bhakti Sarangi",
+      "name": "Goodricke Group Ltd",
+      "scrip_code": "500166",
+      "nse_symbol": "GOODRICKE",
+      "qty": 150,
+      "buy": 200.91,
+      "date": ""
+    },
+    {
+      "id": "bhakti_318vu9",
+      "client": "Bhakti Sarangi",
+      "name": "Gulshan Polyols Ltd",
+      "scrip_code": "",
+      "nse_symbol": "GULPOLY",
+      "qty": 508,
+      "buy": 185.77,
+      "date": ""
+    },
+    {
+      "id": "bhakti_rwedom",
+      "client": "Bhakti Sarangi",
+      "name": "Himatsingka Seide Ltd",
+      "scrip_code": "",
+      "nse_symbol": "HIMATSEIDE",
+      "qty": 385,
+      "buy": 156.31,
+      "date": ""
+    },
+    {
+      "id": "bhakti_m182s4",
+      "client": "Bhakti Sarangi",
+      "name": "IG Petrochemicals Ltd",
+      "scrip_code": "",
+      "nse_symbol": "IGPL",
+      "qty": 669,
+      "buy": 448.84,
+      "date": ""
+    },
+    {
+      "id": "bhakti_i7q6sk",
+      "client": "Bhakti Sarangi",
+      "name": "MOIL Ltd",
+      "scrip_code": "533286",
+      "nse_symbol": "MOIL",
+      "qty": 350,
+      "buy": 288.44,
+      "date": ""
+    },
+    {
+      "id": "bhakti_yb55az",
+      "client": "Bhakti Sarangi",
+      "name": "Music Broadcast Ltd (Radio City)",
+      "scrip_code": "540366",
+      "nse_symbol": "RADIOCITY",
+      "qty": 3000,
+      "buy": 17.47,
+      "date": ""
+    },
+    {
+      "id": "bhakti_fsl8g3",
+      "client": "Bhakti Sarangi",
+      "name": "Nahar Spinning Mills Ltd",
+      "scrip_code": "",
+      "nse_symbol": "NAHARSPING",
+      "qty": 702,
+      "buy": 278.15,
+      "date": ""
+    },
+    {
+      "id": "bhakti_8f3img",
+      "client": "Bhakti Sarangi",
+      "name": "National Aluminium Company Ltd",
+      "scrip_code": "",
+      "nse_symbol": "NATIONALUM",
+      "qty": 317,
+      "buy": 103.94,
+      "date": ""
+    },
+    {
+      "id": "bhakti_8tsxkz",
+      "client": "Bhakti Sarangi",
+      "name": "Nippon India ETF Junior BeES",
+      "scrip_code": "",
+      "nse_symbol": "JUNIORBEES",
+      "qty": 146,
+      "buy": 743.01,
+      "date": ""
+    },
+    {
+      "id": "bhakti_s52awe",
+      "client": "Bhakti Sarangi",
+      "name": "Oriental Aromatics Ltd",
+      "scrip_code": "500078",
+      "nse_symbol": "OAL",
+      "qty": 285,
+      "buy": 360.03,
+      "date": ""
+    },
+    {
+      "id": "bhakti_tc00ny",
+      "client": "Bhakti Sarangi",
+      "name": "Shree Pushkar Chemicals & Fertilisers Ltd",
+      "scrip_code": "539334",
+      "nse_symbol": "SHREEPUSHK",
+      "qty": 316,
+      "buy": 162.19,
+      "date": ""
+    },
+    {
+      "id": "bhakti_tckxaz",
+      "client": "Bhakti Sarangi",
+      "name": "Shyam Metalics and Energy Ltd",
+      "scrip_code": "543299",
+      "nse_symbol": "SHYAMMETL",
+      "qty": 70,
+      "buy": 708.67,
+      "date": ""
+    },
+    {
+      "id": "bhakti_g65b5u",
+      "client": "Bhakti Sarangi",
+      "name": "South India Paper Mills Ltd",
+      "scrip_code": "",
+      "nse_symbol": "STHINPA",
+      "qty": 372,
+      "buy": 113.26,
+      "date": ""
+    },
+    {
+      "id": "bhakti_yklsp1",
+      "client": "Bhakti Sarangi",
+      "name": "Steel Authority of India Ltd",
+      "scrip_code": "",
+      "nse_symbol": "SAIL",
+      "qty": 333,
+      "buy": 90.49,
+      "date": ""
+    },
+    {
+      "id": "bhakti_nwb5jo",
+      "client": "Bhakti Sarangi",
+      "name": "Tamil Nadu Newsprint & Papers Ltd",
+      "scrip_code": "",
+      "nse_symbol": "TNPL",
+      "qty": 561,
+      "buy": 254.25,
+      "date": ""
+    },
+    {
+      "id": "bhakti_gbvhyf",
+      "client": "Bhakti Sarangi",
+      "name": "Thirumalai Chemicals Ltd",
+      "scrip_code": "",
+      "nse_symbol": "TIRUMALCHM",
+      "qty": 150,
+      "buy": 385.51,
+      "date": ""
+    },
+    {
+      "id": "bhakti_njvluk",
+      "client": "Bhakti Sarangi",
+      "name": "Valiant Organics Ltd",
+      "scrip_code": "540145",
+      "nse_symbol": "VALIANTORG",
+      "qty": 250,
+      "buy": 397.32,
+      "date": ""
+    },
+    {
+      "id": "bhakti_6mmze5",
+      "client": "Bhakti Sarangi",
+      "name": "Wipro Ltd",
+      "scrip_code": "",
+      "nse_symbol": "WIPRO",
+      "qty": 181,
+      "buy": 162.75,
+      "date": ""
     }
   ],
   "cash": {}
