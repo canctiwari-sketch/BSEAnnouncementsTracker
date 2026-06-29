@@ -488,40 +488,58 @@ def fetch_bse(from_date, to_date):
         "Origin": "https://www.bseindia.com",
     })
 
-    all_raw = []
-    seen_ids = set()
-    # BSE returns 50 items/page newest first; on busy days we need many pages
-    # to reach a day-old filing. Keep paginating until we either run out of
-    # results, hit items older than from_date, or hit a hard safety cap.
-    MAX_PAGES = 80  # 80 * 50 = 4000 announcements ≈ 2-3 days of busy market
-    for page in range(1, MAX_PAGES + 1):
+    def _fetch_page(page):
+        """Fetch one firehose page with retries. Returns list of items, or
+        None on hard failure (so the caller can decide). BSE intermittently
+        returns 'No Record Found!' / non-JSON strings under load — retry those."""
         url = (
             f"https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w"
             f"?strCat=-1&strPrevDate={str_from}&strScrip=&strSearch=P"
             f"&strToDate={str_to}&strType=C&pageno={page}"
         )
-        try:
-            r = session.get(url, timeout=15)
-            r.raise_for_status()
-            data = r.json()
-            items = data.get("Table") or []
-            if not items:
-                break
-            for item in items:
-                nid = item.get("NEWSID")
-                if nid and nid not in seen_ids:
-                    seen_ids.add(nid)
-                    all_raw.append(item)
-            # Stop once the oldest item on this page is before our from_date
+        for attempt in range(4):
             try:
-                last_dt = items[-1].get("NEWS_DT", "")
-                if last_dt and last_dt[:10] < from_date:
-                    break
-            except Exception:
-                pass
-        except Exception as e:
-            print(f"BSE page {page} error: {e}")
+                r = session.get(url, timeout=20)
+                r.raise_for_status()
+                try:
+                    data = r.json()
+                except Exception:
+                    data = None
+                if isinstance(data, dict):
+                    return data.get("Table") or []
+                # Non-dict (e.g. "No Record Found!" string) — retry; could be
+                # a genuine empty page OR a transient throttle response.
+            except Exception as e:
+                print(f"BSE page {page} attempt {attempt+1} error: {e}")
+            time.sleep(2 * (attempt + 1))  # backoff
+        return None  # hard failure after retries
+
+    all_raw = []
+    seen_ids = set()
+    # BSE returns 50 items/page newest first; page until we hit items older than
+    # from_date, run out, or hit the safety cap. Wider window => more pages.
+    MAX_PAGES = 130  # 130 * 50 = 6500 announcements ≈ 3 busy days
+    for page in range(1, MAX_PAGES + 1):
+        items = _fetch_page(page)
+        if items is None:
+            # Hard failure on this page after retries. If it's page 1, the whole
+            # run got nothing useful — log loudly. Otherwise keep what we have.
+            print(f"BSE firehose failed at page {page} after retries")
             break
+        if not items:
+            break
+        for item in items:
+            nid = item.get("NEWSID")
+            if nid and nid not in seen_ids:
+                seen_ids.add(nid)
+                all_raw.append(item)
+        try:
+            last_dt = items[-1].get("NEWS_DT", "")
+            if last_dt and last_dt[:10] < from_date:
+                break
+        except Exception:
+            pass
+        time.sleep(0.1)  # be gentle to the firehose
 
     # Filter
     results = []
@@ -1239,13 +1257,16 @@ def main():
     seen_keys = set(cache.get("seen_keys", []))
     existing = cache.get("announcements", [])
 
-    # Date range: today and yesterday (to catch late filings)
+    # Date range: last 4 days (not just yesterday+today). A wider window means
+    # every announcement gets re-checked by ~4 days of hourly runs, so if one
+    # run hit a firehose hiccup when a filing was fresh, a later run still
+    # catches it. Dedup (seen_keys + dedup()) makes re-fetching harmless.
     today = datetime.utcnow() + timedelta(hours=5, minutes=30)  # IST
-    yesterday = today - timedelta(days=1)
-    from_date = yesterday.strftime("%Y-%m-%d")
+    window_start = today - timedelta(days=3)
+    from_date = window_start.strftime("%Y-%m-%d")
     to_date = today.strftime("%Y-%m-%d")
 
-    log(f"Fetching {from_date} to {to_date}...")
+    log(f"Fetching {from_date} to {to_date} (3-day window)...")
 
     # Fetch from both exchanges in parallel
     bse_anns = []
