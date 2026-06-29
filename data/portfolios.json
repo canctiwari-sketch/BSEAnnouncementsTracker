@@ -819,6 +819,66 @@
       "qty": 181,
       "buy": 162.75,
       "date": ""
+    },
+    {
+      "id": "rohit_z626cl",
+      "client": "Rohit Kotha",
+      "name": "Bombay Dyeing & Manufacturing Company Ltd",
+      "scrip_code": "500020",
+      "nse_symbol": "BOMDYEING",
+      "qty": 300,
+      "buy": 177.5,
+      "date": ""
+    },
+    {
+      "id": "rohit_sdg3wp",
+      "client": "Rohit Kotha",
+      "name": "Kiri Industries Ltd",
+      "scrip_code": "532967",
+      "nse_symbol": "KIRIINDUS",
+      "qty": 50,
+      "buy": 624.17,
+      "date": ""
+    },
+    {
+      "id": "rohit_eoba2x",
+      "client": "Rohit Kotha",
+      "name": "Shree Pushkar Chemicals & Fertilisers Ltd",
+      "scrip_code": "539334",
+      "nse_symbol": "SHREEPUSHK",
+      "qty": 90,
+      "buy": 174.84,
+      "date": ""
+    },
+    {
+      "id": "rohit_rzzgzv",
+      "client": "Rohit Kotha",
+      "name": "Tamil Nadu Newsprint & Papers Ltd",
+      "scrip_code": "531426",
+      "nse_symbol": "TNPL",
+      "qty": 50,
+      "buy": 279.0,
+      "date": ""
+    },
+    {
+      "id": "rohit_kexvrj",
+      "client": "Rohit Kotha",
+      "name": "Valiant Organics Ltd",
+      "scrip_code": "540145",
+      "nse_symbol": "VALIANTORG",
+      "qty": 52,
+      "buy": 384.5,
+      "date": ""
+    },
+    {
+      "id": "rohit_34whnt",
+      "client": "Rohit Kotha",
+      "name": "Zee Entertainment Enterprises Ltd",
+      "scrip_code": "505537",
+      "nse_symbol": "ZEEL",
+      "qty": 173,
+      "buy": 143.3,
+      "date": ""
     }
   ],
   "cash": {}
