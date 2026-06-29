@@ -1,342 +1,565 @@
-[
-  {
-    "id": "smotha_pn3m0w",
-    "client": "Suresh Motha",
-    "name": "Apex Frozen Foods Ltd",
-    "scrip_code": "540692",
-    "nse_symbol": "APEX",
-    "qty": 1187,
-    "buy": 257.85,
-    "date": ""
-  },
-  {
-    "id": "smotha_ekuw3x",
-    "client": "Suresh Motha",
-    "name": "Bombay Dyeing & Mfg Company Limited",
-    "scrip_code": "500020",
-    "nse_symbol": "BOMDYEING",
-    "qty": 2920,
-    "buy": 139.22,
-    "date": ""
-  },
-  {
-    "id": "smotha_mrpo9e",
-    "client": "Suresh Motha",
-    "name": "Cosmo First Ltd",
-    "scrip_code": "508814",
-    "nse_symbol": "COSMOFIRST",
-    "qty": 726,
-    "buy": 694.87,
-    "date": ""
-  },
-  {
-    "id": "smotha_jcsae9",
-    "client": "Suresh Motha",
-    "name": "Gulshan Polyols Limited",
-    "scrip_code": "532457",
-    "nse_symbol": "GULPOLY",
-    "qty": 470,
-    "buy": 211.4,
-    "date": ""
-  },
-  {
-    "id": "smotha_62mqih",
-    "client": "Suresh Motha",
-    "name": "IG Petrochemicals Limited",
-    "scrip_code": "500199",
-    "nse_symbol": "IGPL",
-    "qty": 870,
-    "buy": 440.43,
-    "date": ""
-  },
-  {
-    "id": "smotha_g5f21w",
-    "client": "Suresh Motha",
-    "name": "Jagran Prakashan Ltd",
-    "scrip_code": "532705",
-    "nse_symbol": "JAGRAN",
-    "qty": 982,
-    "buy": 96.02,
-    "date": ""
-  },
-  {
-    "id": "smotha_lij4ga",
-    "client": "Suresh Motha",
-    "name": "Kiri Industries Ltd",
-    "scrip_code": "532967",
-    "nse_symbol": "KIRIINDUS",
-    "qty": 475,
-    "buy": 421.76,
-    "date": ""
-  },
-  {
-    "id": "smotha_rc5fgo",
-    "client": "Suresh Motha",
-    "name": "KRBL Limited",
-    "scrip_code": "530813",
-    "nse_symbol": "KRBL",
-    "qty": 330,
-    "buy": 302.57,
-    "date": ""
-  },
-  {
-    "id": "smotha_u1f9nq",
-    "client": "Suresh Motha",
-    "name": "Shree Pushkar Chemicals & Fertilisers Ltd",
-    "scrip_code": "539334",
-    "nse_symbol": "SHREEPUSHK",
-    "qty": 450,
-    "buy": 227.77,
-    "date": ""
-  },
-  {
-    "id": "smotha_sec9hj",
-    "client": "Suresh Motha",
-    "name": "STL Networks Ltd",
-    "scrip_code": "544395",
-    "nse_symbol": "STLNETWORK",
-    "qty": 735,
-    "buy": 78.56,
-    "date": ""
-  },
-  {
-    "id": "smotha_qrqj4j",
-    "client": "Suresh Motha",
-    "name": "Sterlite Technologies Ltd",
-    "scrip_code": "532374",
-    "nse_symbol": "STLTECH",
-    "qty": 735,
-    "buy": 57.43,
-    "date": ""
-  },
-  {
-    "id": "smotha_eoqjau",
-    "client": "Suresh Motha",
-    "name": "TGV SRAAC Ltd",
-    "scrip_code": "507753",
-    "nse_symbol": "TGVSL",
-    "qty": 1880,
-    "buy": 106.15,
-    "date": ""
-  },
-  {
-    "id": "smotha_dgd23u",
-    "client": "Suresh Motha",
-    "name": "Tamil Nadu Newsprint & Papers Limited",
-    "scrip_code": "531426",
-    "nse_symbol": "TNPL",
-    "qty": 996,
-    "buy": 251.68,
-    "date": ""
-  },
-  {
-    "id": "smotha_8goup8",
-    "client": "Suresh Motha",
-    "name": "Valiant Organics Ltd",
-    "scrip_code": "540145",
-    "nse_symbol": "VALIANTORG",
-    "qty": 1015,
-    "buy": 400.92,
-    "date": ""
-  },
-  {
-    "id": "njajoo_6dvwa8",
-    "client": "Neha Jajoo",
-    "name": "Bombay Dyeing & Manufacturing Company Ltd",
-    "scrip_code": "500020",
-    "nse_symbol": "BOMDYEING",
-    "qty": 548,
-    "buy": 126.52,
-    "date": ""
-  },
-  {
-    "id": "njajoo_rjdw0n",
-    "client": "Neha Jajoo",
-    "name": "TGV Sraac Ltd",
-    "scrip_code": "507753",
-    "nse_symbol": "TGVSL",
-    "qty": 857,
-    "buy": 108.19,
-    "date": ""
-  },
-  {
-    "id": "njajoo_k93cry",
-    "client": "Neha Jajoo",
-    "name": "Polyplex Corporation Ltd",
-    "scrip_code": "524051",
-    "nse_symbol": "POLYPLEX",
-    "qty": 51,
-    "buy": 890.0,
-    "date": ""
-  },
-  {
-    "id": "njajoo_xlt18y",
-    "client": "Neha Jajoo",
-    "name": "Sterlite Technologies Ltd",
-    "scrip_code": "532374",
-    "nse_symbol": "STLTECH",
-    "qty": 880,
-    "buy": 48.12,
-    "date": ""
-  },
-  {
-    "id": "njajoo_t4t3yn",
-    "client": "Neha Jajoo",
-    "name": "Tamil Nadu Newsprint & Papers Limited",
-    "scrip_code": "531426",
-    "nse_symbol": "TNPL",
-    "qty": 1199,
-    "buy": 166.15,
-    "date": ""
-  },
-  {
-    "id": "njajoo_ho15fv",
-    "client": "Neha Jajoo",
-    "name": "Cosmo First Ltd",
-    "scrip_code": "508814",
-    "nse_symbol": "COSMOFIRST",
-    "qty": 128,
-    "buy": 726.87,
-    "date": ""
-  },
-  {
-    "id": "njajoo_bj64x6",
-    "client": "Neha Jajoo",
-    "name": "IG Petrochemicals Ltd",
-    "scrip_code": "500199",
-    "nse_symbol": "IGPL",
-    "qty": 161,
-    "buy": 431.83,
-    "date": ""
-  },
-  {
-    "id": "njajoo_5wz1ev",
-    "client": "Neha Jajoo",
-    "name": "STL Networks Ltd",
-    "scrip_code": "544395",
-    "nse_symbol": "STLNETWORK",
-    "qty": 880,
-    "buy": 65.83,
-    "date": ""
-  },
-  {
-    "id": "njajoo_he4nlh",
-    "client": "Neha Jajoo",
-    "name": "Valiant Organics Ltd",
-    "scrip_code": "540145",
-    "nse_symbol": "VALIANTORG",
-    "qty": 300,
-    "buy": 330.59,
-    "date": ""
-  },
-  {
-    "id": "njajoo_nisvrz",
-    "client": "Neha Jajoo",
-    "name": "Zee Entertainment Enterprises Ltd",
-    "scrip_code": "505537",
-    "nse_symbol": "ZEEL",
-    "qty": 850,
-    "buy": 119.15,
-    "date": ""
-  },
-  {
-    "id": "njajoo_jyq9pp",
-    "client": "Neha Jajoo",
-    "name": "Kiri Industries Ltd",
-    "scrip_code": "532967",
-    "nse_symbol": "KIRIINDUS",
-    "qty": 117,
-    "buy": 395.79,
-    "date": ""
-  },
-  {
-    "id": "svidya_2bnma3",
-    "client": "Sumit Vidyarthi",
-    "name": "Aarvi Encon Ltd",
-    "scrip_code": "",
-    "nse_symbol": "AARVI",
-    "qty": 275,
-    "buy": 144.57,
-    "date": ""
-  },
-  {
-    "id": "svidya_usbtqg",
-    "client": "Sumit Vidyarthi",
-    "name": "Apex Frozen Foods Ltd",
-    "scrip_code": "540692",
-    "nse_symbol": "APEX",
-    "qty": 257,
-    "buy": 272.22,
-    "date": ""
-  },
-  {
-    "id": "svidya_et9qkx",
-    "client": "Sumit Vidyarthi",
-    "name": "Nath Bio-Genes (India) Ltd",
-    "scrip_code": "",
-    "nse_symbol": "NATHBIOGEN",
-    "qty": 182,
-    "buy": 219.38,
-    "date": ""
-  },
-  {
-    "id": "svidya_r95d5e",
-    "client": "Sumit Vidyarthi",
-    "name": "NCL Industries Ltd",
-    "scrip_code": "502168",
-    "nse_symbol": "NCLIND",
-    "qty": 308,
-    "buy": 229.92,
-    "date": ""
-  },
-  {
-    "id": "svidya_m4mpim",
-    "client": "Sumit Vidyarthi",
-    "name": "STL Networks Ltd",
-    "scrip_code": "544395",
-    "nse_symbol": "STLNETWORK",
-    "qty": 300,
-    "buy": 76.98,
-    "date": ""
-  },
-  {
-    "id": "svidya_iuxxbh",
-    "client": "Sumit Vidyarthi",
-    "name": "Sterlite Technologies Ltd",
-    "scrip_code": "532374",
-    "nse_symbol": "STLTECH",
-    "qty": 300,
-    "buy": 56.28,
-    "date": ""
-  },
-  {
-    "id": "svidya_xbkw94",
-    "client": "Sumit Vidyarthi",
-    "name": "Tamil Nadu Newsprint & Papers Limited",
-    "scrip_code": "531426",
-    "nse_symbol": "TNPL",
-    "qty": 399,
-    "buy": 226.53,
-    "date": ""
-  },
-  {
-    "id": "svidya_02r0ql",
-    "client": "Sumit Vidyarthi",
-    "name": "Valiant Organics Ltd",
-    "scrip_code": "540145",
-    "nse_symbol": "VALIANTORG",
-    "qty": 228,
-    "buy": 395.43,
-    "date": ""
-  },
-  {
-    "id": "svidya_kifvhp",
-    "client": "Sumit Vidyarthi",
-    "name": "Zee Entertainment Enterprises Ltd",
-    "scrip_code": "505537",
-    "nse_symbol": "ZEEL",
-    "qty": 500,
-    "buy": 138.86,
-    "date": ""
-  }
-]
+{
+  "holdings": [
+    {
+      "id": "smotha_pn3m0w",
+      "client": "Suresh Motha",
+      "name": "Apex Frozen Foods Ltd",
+      "scrip_code": "540692",
+      "nse_symbol": "APEX",
+      "qty": 1187,
+      "buy": 257.85,
+      "date": ""
+    },
+    {
+      "id": "smotha_ekuw3x",
+      "client": "Suresh Motha",
+      "name": "Bombay Dyeing & Mfg Company Limited",
+      "scrip_code": "500020",
+      "nse_symbol": "BOMDYEING",
+      "qty": 2920,
+      "buy": 139.22,
+      "date": ""
+    },
+    {
+      "id": "smotha_mrpo9e",
+      "client": "Suresh Motha",
+      "name": "Cosmo First Ltd",
+      "scrip_code": "508814",
+      "nse_symbol": "COSMOFIRST",
+      "qty": 726,
+      "buy": 694.87,
+      "date": ""
+    },
+    {
+      "id": "smotha_jcsae9",
+      "client": "Suresh Motha",
+      "name": "Gulshan Polyols Limited",
+      "scrip_code": "532457",
+      "nse_symbol": "GULPOLY",
+      "qty": 470,
+      "buy": 211.4,
+      "date": ""
+    },
+    {
+      "id": "smotha_62mqih",
+      "client": "Suresh Motha",
+      "name": "IG Petrochemicals Limited",
+      "scrip_code": "500199",
+      "nse_symbol": "IGPL",
+      "qty": 870,
+      "buy": 440.43,
+      "date": ""
+    },
+    {
+      "id": "smotha_g5f21w",
+      "client": "Suresh Motha",
+      "name": "Jagran Prakashan Ltd",
+      "scrip_code": "532705",
+      "nse_symbol": "JAGRAN",
+      "qty": 982,
+      "buy": 96.02,
+      "date": ""
+    },
+    {
+      "id": "smotha_lij4ga",
+      "client": "Suresh Motha",
+      "name": "Kiri Industries Ltd",
+      "scrip_code": "532967",
+      "nse_symbol": "KIRIINDUS",
+      "qty": 475,
+      "buy": 421.76,
+      "date": ""
+    },
+    {
+      "id": "smotha_rc5fgo",
+      "client": "Suresh Motha",
+      "name": "KRBL Limited",
+      "scrip_code": "530813",
+      "nse_symbol": "KRBL",
+      "qty": 330,
+      "buy": 302.57,
+      "date": ""
+    },
+    {
+      "id": "smotha_u1f9nq",
+      "client": "Suresh Motha",
+      "name": "Shree Pushkar Chemicals & Fertilisers Ltd",
+      "scrip_code": "539334",
+      "nse_symbol": "SHREEPUSHK",
+      "qty": 450,
+      "buy": 227.77,
+      "date": ""
+    },
+    {
+      "id": "smotha_sec9hj",
+      "client": "Suresh Motha",
+      "name": "STL Networks Ltd",
+      "scrip_code": "544395",
+      "nse_symbol": "STLNETWORK",
+      "qty": 735,
+      "buy": 78.56,
+      "date": ""
+    },
+    {
+      "id": "smotha_qrqj4j",
+      "client": "Suresh Motha",
+      "name": "Sterlite Technologies Ltd",
+      "scrip_code": "532374",
+      "nse_symbol": "STLTECH",
+      "qty": 735,
+      "buy": 57.43,
+      "date": ""
+    },
+    {
+      "id": "smotha_eoqjau",
+      "client": "Suresh Motha",
+      "name": "TGV SRAAC Ltd",
+      "scrip_code": "507753",
+      "nse_symbol": "TGVSL",
+      "qty": 1880,
+      "buy": 106.15,
+      "date": ""
+    },
+    {
+      "id": "smotha_dgd23u",
+      "client": "Suresh Motha",
+      "name": "Tamil Nadu Newsprint & Papers Limited",
+      "scrip_code": "531426",
+      "nse_symbol": "TNPL",
+      "qty": 996,
+      "buy": 251.68,
+      "date": ""
+    },
+    {
+      "id": "smotha_8goup8",
+      "client": "Suresh Motha",
+      "name": "Valiant Organics Ltd",
+      "scrip_code": "540145",
+      "nse_symbol": "VALIANTORG",
+      "qty": 1015,
+      "buy": 400.92,
+      "date": ""
+    },
+    {
+      "id": "njajoo_6dvwa8",
+      "client": "Neha Jajoo",
+      "name": "Bombay Dyeing & Manufacturing Company Ltd",
+      "scrip_code": "500020",
+      "nse_symbol": "BOMDYEING",
+      "qty": 548,
+      "buy": 126.52,
+      "date": ""
+    },
+    {
+      "id": "njajoo_rjdw0n",
+      "client": "Neha Jajoo",
+      "name": "TGV Sraac Ltd",
+      "scrip_code": "507753",
+      "nse_symbol": "TGVSL",
+      "qty": 857,
+      "buy": 108.19,
+      "date": ""
+    },
+    {
+      "id": "njajoo_k93cry",
+      "client": "Neha Jajoo",
+      "name": "Polyplex Corporation Ltd",
+      "scrip_code": "524051",
+      "nse_symbol": "POLYPLEX",
+      "qty": 51,
+      "buy": 890.0,
+      "date": ""
+    },
+    {
+      "id": "njajoo_xlt18y",
+      "client": "Neha Jajoo",
+      "name": "Sterlite Technologies Ltd",
+      "scrip_code": "532374",
+      "nse_symbol": "STLTECH",
+      "qty": 880,
+      "buy": 48.12,
+      "date": ""
+    },
+    {
+      "id": "njajoo_t4t3yn",
+      "client": "Neha Jajoo",
+      "name": "Tamil Nadu Newsprint & Papers Limited",
+      "scrip_code": "531426",
+      "nse_symbol": "TNPL",
+      "qty": 1199,
+      "buy": 166.15,
+      "date": ""
+    },
+    {
+      "id": "njajoo_ho15fv",
+      "client": "Neha Jajoo",
+      "name": "Cosmo First Ltd",
+      "scrip_code": "508814",
+      "nse_symbol": "COSMOFIRST",
+      "qty": 128,
+      "buy": 726.87,
+      "date": ""
+    },
+    {
+      "id": "njajoo_bj64x6",
+      "client": "Neha Jajoo",
+      "name": "IG Petrochemicals Ltd",
+      "scrip_code": "500199",
+      "nse_symbol": "IGPL",
+      "qty": 161,
+      "buy": 431.83,
+      "date": ""
+    },
+    {
+      "id": "njajoo_5wz1ev",
+      "client": "Neha Jajoo",
+      "name": "STL Networks Ltd",
+      "scrip_code": "544395",
+      "nse_symbol": "STLNETWORK",
+      "qty": 880,
+      "buy": 65.83,
+      "date": ""
+    },
+    {
+      "id": "njajoo_he4nlh",
+      "client": "Neha Jajoo",
+      "name": "Valiant Organics Ltd",
+      "scrip_code": "540145",
+      "nse_symbol": "VALIANTORG",
+      "qty": 300,
+      "buy": 330.59,
+      "date": ""
+    },
+    {
+      "id": "njajoo_nisvrz",
+      "client": "Neha Jajoo",
+      "name": "Zee Entertainment Enterprises Ltd",
+      "scrip_code": "505537",
+      "nse_symbol": "ZEEL",
+      "qty": 850,
+      "buy": 119.15,
+      "date": ""
+    },
+    {
+      "id": "njajoo_jyq9pp",
+      "client": "Neha Jajoo",
+      "name": "Kiri Industries Ltd",
+      "scrip_code": "532967",
+      "nse_symbol": "KIRIINDUS",
+      "qty": 117,
+      "buy": 395.79,
+      "date": ""
+    },
+    {
+      "id": "svidya_2bnma3",
+      "client": "Sumit Vidyarthi",
+      "name": "Aarvi Encon Ltd",
+      "scrip_code": "",
+      "nse_symbol": "AARVI",
+      "qty": 275,
+      "buy": 144.57,
+      "date": ""
+    },
+    {
+      "id": "svidya_usbtqg",
+      "client": "Sumit Vidyarthi",
+      "name": "Apex Frozen Foods Ltd",
+      "scrip_code": "540692",
+      "nse_symbol": "APEX",
+      "qty": 257,
+      "buy": 272.22,
+      "date": ""
+    },
+    {
+      "id": "svidya_et9qkx",
+      "client": "Sumit Vidyarthi",
+      "name": "Nath Bio-Genes (India) Ltd",
+      "scrip_code": "",
+      "nse_symbol": "NATHBIOGEN",
+      "qty": 182,
+      "buy": 219.38,
+      "date": ""
+    },
+    {
+      "id": "svidya_r95d5e",
+      "client": "Sumit Vidyarthi",
+      "name": "NCL Industries Ltd",
+      "scrip_code": "502168",
+      "nse_symbol": "NCLIND",
+      "qty": 308,
+      "buy": 229.92,
+      "date": ""
+    },
+    {
+      "id": "svidya_m4mpim",
+      "client": "Sumit Vidyarthi",
+      "name": "STL Networks Ltd",
+      "scrip_code": "544395",
+      "nse_symbol": "STLNETWORK",
+      "qty": 300,
+      "buy": 76.98,
+      "date": ""
+    },
+    {
+      "id": "svidya_iuxxbh",
+      "client": "Sumit Vidyarthi",
+      "name": "Sterlite Technologies Ltd",
+      "scrip_code": "532374",
+      "nse_symbol": "STLTECH",
+      "qty": 300,
+      "buy": 56.28,
+      "date": ""
+    },
+    {
+      "id": "svidya_xbkw94",
+      "client": "Sumit Vidyarthi",
+      "name": "Tamil Nadu Newsprint & Papers Limited",
+      "scrip_code": "531426",
+      "nse_symbol": "TNPL",
+      "qty": 399,
+      "buy": 226.53,
+      "date": ""
+    },
+    {
+      "id": "svidya_02r0ql",
+      "client": "Sumit Vidyarthi",
+      "name": "Valiant Organics Ltd",
+      "scrip_code": "540145",
+      "nse_symbol": "VALIANTORG",
+      "qty": 228,
+      "buy": 395.43,
+      "date": ""
+    },
+    {
+      "id": "svidya_kifvhp",
+      "client": "Sumit Vidyarthi",
+      "name": "Zee Entertainment Enterprises Ltd",
+      "scrip_code": "505537",
+      "nse_symbol": "ZEEL",
+      "qty": 500,
+      "buy": 138.86,
+      "date": ""
+    },
+    {
+      "id": "manan_rc889e",
+      "client": "Manan Parekh",
+      "name": "Aarti Industries Ltd",
+      "scrip_code": "",
+      "nse_symbol": "AARTIIND",
+      "qty": 150,
+      "buy": 510.77,
+      "date": ""
+    },
+    {
+      "id": "manan_kh2dl1",
+      "client": "Manan Parekh",
+      "name": "AksharChem India Ltd",
+      "scrip_code": "",
+      "nse_symbol": "AKSHARCHEM",
+      "qty": 930,
+      "buy": 257.02,
+      "date": ""
+    },
+    {
+      "id": "manan_cqrhec",
+      "client": "Manan Parekh",
+      "name": "Apex Frozen Foods Ltd",
+      "scrip_code": "540692",
+      "nse_symbol": "APEX",
+      "qty": 285,
+      "buy": 353.21,
+      "date": ""
+    },
+    {
+      "id": "manan_ncapzh",
+      "client": "Manan Parekh",
+      "name": "Dynemic Products Ltd",
+      "scrip_code": "532707",
+      "nse_symbol": "DYNPRO",
+      "qty": 375,
+      "buy": 270.17,
+      "date": ""
+    },
+    {
+      "id": "manan_0dsj9x",
+      "client": "Manan Parekh",
+      "name": "Entertainment Network India Ltd",
+      "scrip_code": "",
+      "nse_symbol": "ENIL",
+      "qty": 1898,
+      "buy": 166.14,
+      "date": ""
+    },
+    {
+      "id": "manan_440pc0",
+      "client": "Manan Parekh",
+      "name": "Excel Industries Ltd",
+      "scrip_code": "",
+      "nse_symbol": "EXCELINDUS",
+      "qty": 106,
+      "buy": 941.0,
+      "date": ""
+    },
+    {
+      "id": "manan_ofjhrv",
+      "client": "Manan Parekh",
+      "name": "Gujarat Ambuja Exports Ltd",
+      "scrip_code": "",
+      "nse_symbol": "GAEL",
+      "qty": 1872,
+      "buy": 89.07,
+      "date": ""
+    },
+    {
+      "id": "manan_g330wx",
+      "client": "Manan Parekh",
+      "name": "Gujarat Narmada Valley Fert & Chem Ltd",
+      "scrip_code": "",
+      "nse_symbol": "GNFC",
+      "qty": 206,
+      "buy": 289.38,
+      "date": ""
+    },
+    {
+      "id": "manan_drih9i",
+      "client": "Manan Parekh",
+      "name": "Gulshan Polyols Ltd",
+      "scrip_code": "",
+      "nse_symbol": "GULPOLY",
+      "qty": 480,
+      "buy": 170.25,
+      "date": ""
+    },
+    {
+      "id": "manan_rabsxf",
+      "client": "Manan Parekh",
+      "name": "Hercules Hoists Ltd",
+      "scrip_code": "",
+      "nse_symbol": "",
+      "qty": 600,
+      "buy": 122.38,
+      "date": ""
+    },
+    {
+      "id": "manan_q0c74u",
+      "client": "Manan Parekh",
+      "name": "Himatsingka Seide Ltd",
+      "scrip_code": "",
+      "nse_symbol": "HIMATSEIDE",
+      "qty": 865,
+      "buy": 163.8,
+      "date": ""
+    },
+    {
+      "id": "manan_yjh2bs",
+      "client": "Manan Parekh",
+      "name": "JSW Steel Ltd",
+      "scrip_code": "500228",
+      "nse_symbol": "JSWSTEEL",
+      "qty": 55,
+      "buy": 903.36,
+      "date": ""
+    },
+    {
+      "id": "manan_yl2a6l",
+      "client": "Manan Parekh",
+      "name": "MOIL Ltd",
+      "scrip_code": "533286",
+      "nse_symbol": "MOIL",
+      "qty": 350,
+      "buy": 285.23,
+      "date": ""
+    },
+    {
+      "id": "manan_au5qcj",
+      "client": "Manan Parekh",
+      "name": "Nahar Spinning Mills Ltd",
+      "scrip_code": "",
+      "nse_symbol": "NAHARSPING",
+      "qty": 490,
+      "buy": 263.37,
+      "date": ""
+    },
+    {
+      "id": "manan_kgt17w",
+      "client": "Manan Parekh",
+      "name": "National Aluminium Company Ltd",
+      "scrip_code": "",
+      "nse_symbol": "NATIONALUM",
+      "qty": 1000,
+      "buy": 103.2,
+      "date": ""
+    },
+    {
+      "id": "manan_rj86gb",
+      "client": "Manan Parekh",
+      "name": "NCC Ltd",
+      "scrip_code": "500294",
+      "nse_symbol": "NCC",
+      "qty": 531,
+      "buy": 81.42,
+      "date": ""
+    },
+    {
+      "id": "manan_17rmfk",
+      "client": "Manan Parekh",
+      "name": "Oriental Aromatics Ltd",
+      "scrip_code": "500078",
+      "nse_symbol": "OAL",
+      "qty": 340,
+      "buy": 390.76,
+      "date": ""
+    },
+    {
+      "id": "manan_pyjp66",
+      "client": "Manan Parekh",
+      "name": "Music Broadcast Ltd (Radio City)",
+      "scrip_code": "540366",
+      "nse_symbol": "RADIOCITY",
+      "qty": 3000,
+      "buy": 17.49,
+      "date": ""
+    },
+    {
+      "id": "manan_0r8m1z",
+      "client": "Manan Parekh",
+      "name": "Steel Authority of India Ltd",
+      "scrip_code": "",
+      "nse_symbol": "SAIL",
+      "qty": 300,
+      "buy": 103.32,
+      "date": ""
+    },
+    {
+      "id": "manan_6uvvfb",
+      "client": "Manan Parekh",
+      "name": "Sanghvi Movers Ltd",
+      "scrip_code": "",
+      "nse_symbol": "SANGHVIMOV",
+      "qty": 800,
+      "buy": 94.76,
+      "date": ""
+    },
+    {
+      "id": "manan_986yuf",
+      "client": "Manan Parekh",
+      "name": "Shyam Metalics and Energy Ltd",
+      "scrip_code": "543299",
+      "nse_symbol": "SHYAMMETL",
+      "qty": 140,
+      "buy": 716.11,
+      "date": ""
+    },
+    {
+      "id": "manan_j93oit",
+      "client": "Manan Parekh",
+      "name": "Tamil Nadu Newsprint & Papers Ltd",
+      "scrip_code": "",
+      "nse_symbol": "TNPL",
+      "qty": 1123,
+      "buy": 206.25,
+      "date": ""
+    }
+  ],
+  "cash": {}
+}
