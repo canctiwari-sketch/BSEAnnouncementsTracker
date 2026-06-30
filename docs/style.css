@@ -275,6 +275,11 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
 .dsc-yes { color: #065f46; font-weight: 600; }
 .dsc-no  { color: #9ca3af; }
 #dscTable td { padding: 9px 13px; }
+.dsc-badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 0.72rem; font-weight: 600; white-space: nowrap; }
+.dsc-b-pres { background: #fef3c7; color: #92400e; }
+.dsc-b-pend { background: #e0e7ff; color: #3730a3; }
+.dsc-b-both { background: #d1fae5; color: #065f46; }
+.dsc-b-call { background: #f3f4f6; color: #6b7280; }
 
 .scrip-code {
     font-size: 0.7rem;

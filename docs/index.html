@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Wheel Capital - Announcements</title>
-    <link rel="stylesheet" href="style.css?v=20260629b">
+    <link rel="stylesheet" href="style.css?v=20260629c">
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -256,7 +256,8 @@
             </label>
             <label>Show
                 <select id="dscBucket" onchange="renderDisclosure()">
-                    <option value="pres_no_call">Presentation, NO concall</option>
+                    <option value="pres_no_call">Presentation, NO concall (confirmed)</option>
+                    <option value="pending">Pending (concall window still open)</option>
                     <option value="both">Presentation + concall</option>
                     <option value="call_no_pres">Concall, NO presentation</option>
                     <option value="all">All</option>
@@ -276,6 +277,7 @@
                     <th class="sortable" onclick="sortDisclosure('date')">Date</th>
                     <th>Presentation</th>
                     <th>Concall / Transcript</th>
+                    <th>Status</th>
                 </tr></thead>
                 <tbody id="dscBody"></tbody>
             </table>
@@ -323,6 +325,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260629b"></script>
+    <script src="app.js?v=20260629c"></script>
 </body>
 </html>

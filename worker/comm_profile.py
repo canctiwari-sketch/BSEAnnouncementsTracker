@@ -26,9 +26,33 @@ DATA_DIR = os.path.join(ROOT, "data")
 ANN_FILE = os.path.join(DATA_DIR, "announcements.json")
 OUT_FILE = os.path.join(DATA_DIR, "comm_profile.json")
 
-MONTHS_BACK = 6
 MCAP_MIN_CR = 50.0         # lower bound (₹50 Cr)
 MCAP_MAX_CR = 1e12         # no upper bound
+GRACE_DAYS = 10            # wait this long after a presentation before we
+                           # confirm "no concall" (concall can come ~a week later)
+
+
+def current_season(today):
+    """Auto-detect the results season currently being reported, and the date
+    from which its filings (incl. early board-meeting/concall intimations)
+    start appearing. Rolls forward automatically each quarter.
+
+    Indian results calendar (filed ~2 weeks to ~10 weeks after quarter end):
+      Apr-Jun  -> Q4 (Jan-Mar) results
+      Jul-Sep  -> Q1 (Apr-Jun) results
+      Oct-Dec  -> Q2 (Jul-Sep) results
+      Jan-Mar  -> Q3 (Oct-Dec) results
+    Window starts ~2 weeks before typical first filings to catch early
+    board-meeting intimations that bundle the concall schedule.
+    """
+    y, m = today.year, today.month
+    if m in (4, 5, 6):
+        return f"Q4 FY{str(y)[2:]}", datetime(y, 3, 15)
+    if m in (7, 8, 9):
+        return f"Q1 FY{str(y + 1)[2:]}", datetime(y, 6, 15)
+    if m in (10, 11, 12):
+        return f"Q2 FY{str(y + 1)[2:]}", datetime(y, 9, 15)
+    return f"Q3 FY{str(y)[2:]}", datetime(y - 1, 12, 15)
 
 PRES_RE = re.compile(
     r"investor presentation|analyst presentation|earnings presentation|"
@@ -37,8 +61,9 @@ PRES_RE = re.compile(
     re.IGNORECASE,
 )
 CALL_RE = re.compile(
-    r"transcript|conference call|concall|earnings call|audio recording|"
-    r"investor call|earnings conference|audio of",
+    r"transcript|conference call|con\s*call|earnings call|audio recording|"
+    r"investor call|analyst call|earnings conference|audio of|"
+    r"intimation.{0,30}call|q[1-4].{0,15}call|schedule.{0,20}call",
     re.IGNORECASE,
 )
 
@@ -146,12 +171,8 @@ def main():
     log(f"Comm-profile starting {datetime.utcnow().isoformat()}")
     today = datetime.utcnow() + timedelta(hours=5, minutes=30)
 
-    # Only the Q4 (Jan-Mar) results season — its presentations/concalls are
-    # filed Apr onwards. If we're past April, the most recent Q4 season is this
-    # calendar year; else last year's.
-    season_year = today.year if today.month >= 4 else today.year - 1
-    start = datetime(season_year, 4, 1)
-    SEASON_LABEL = f"Q4 FY{str(season_year)[2:]}"
+    # Auto-detect the current results season (rolls forward each quarter).
+    SEASON_LABEL, start = current_season(today)
     log(f"Season: {SEASON_LABEL}  window {start:%d-%b-%Y} -> {today:%d-%b-%Y}")
 
     client = _nse_client()
@@ -231,6 +252,24 @@ def main():
             if done % 100 == 0:
                 log(f"  screener mcap {done}/{len(need)}")
 
+    today_d = today.date()
+    def _status(pres, call, pres_date):
+        # both -> both ; concall only -> call_only ; presentation only ->
+        # pending until GRACE_DAYS after the presentation, then pres_only.
+        if pres and call:
+            return "both"
+        if call and not pres:
+            return "call_only"
+        if pres and not call:
+            try:
+                pd = datetime.fromisoformat(pres_date[:10]).date()
+                if (today_d - pd).days >= GRACE_DAYS:
+                    return "pres_only"
+            except Exception:
+                return "pres_only"  # no date -> assume window closed
+            return "pending"
+        return "none"
+
     rows = []
     for key, c in companies.items():
         mcap = mcap_map.get(key)
@@ -244,11 +283,23 @@ def main():
                 "quarter": q,
                 "presentation": qd["pres"],
                 "concall": qd["call"],
+                "status": _status(qd["pres"], qd["call"], qd.get("pres_date", "")),
                 "date": qd.get("date", ""),
                 "pres_date": qd.get("pres_date", ""),
                 "call_date": qd.get("call_date", ""),
             })
-    log(f"rows after cutoff: {len(rows)}")
+    log(f"rows (this season {SEASON_LABEL}): {len(rows)}")
+
+    # Merge with previously-saved quarters (keep history; replace this season).
+    prior = []
+    if os.path.exists(OUT_FILE):
+        try:
+            prior = json.load(open(OUT_FILE, encoding="utf-8")).get("rows", [])
+        except Exception:
+            prior = []
+    prior = [r for r in prior if r.get("quarter") != SEASON_LABEL]
+    rows = rows + prior
+    log(f"total rows after merge: {len(rows)} (kept {len(prior)} from other quarters)")
 
     rows.sort(key=lambda r: (r["quarter"], -r["mcap_cr"]), reverse=True)
     quarters = sorted({r["quarter"] for r in rows}, reverse=True)

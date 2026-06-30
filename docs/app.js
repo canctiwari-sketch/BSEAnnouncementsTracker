@@ -1453,6 +1453,16 @@ async function fetchDisclosure() {
     }
 }
 
+// Derive status; old rows (past quarters) have no status field -> their
+// concall window is long closed, so presentation+no-concall = confirmed.
+function _dscStatus(r) {
+    if (r.status) return r.status;
+    if (r.presentation && r.concall) return "both";
+    if (r.presentation && !r.concall) return "pres_only";
+    if (r.concall && !r.presentation) return "call_only";
+    return "none";
+}
+
 function _dscFiltered() {
     const q = document.getElementById("dscQuarter")?.value || "";
     const bucket = document.getElementById("dscBucket")?.value || "pres_no_call";
@@ -1462,9 +1472,11 @@ function _dscFiltered() {
         if (q && r.quarter !== q) return false;
         if (minM && r.mcap_cr < minM) return false;
         if (search && !(r.company || "").toLowerCase().includes(search)) return false;
-        if (bucket === "pres_no_call") return r.presentation && !r.concall;
-        if (bucket === "both") return r.presentation && r.concall;
-        if (bucket === "call_no_pres") return r.concall && !r.presentation;
+        const st = _dscStatus(r);
+        if (bucket === "pres_no_call") return st === "pres_only";
+        if (bucket === "pending") return st === "pending";
+        if (bucket === "both") return st === "both";
+        if (bucket === "call_no_pres") return st === "call_only";
         return true;
     });
     const dir = dscSort.dir === "asc" ? 1 : -1;
@@ -1483,11 +1495,18 @@ function renderDisclosure() {
     const status = document.getElementById("dscStatus");
     if (status) { status.textContent = `${rows.length} company-quarters`; status.className = "status"; }
     if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
         return;
     }
     const yes = '<span class="dsc-yes">✓ Yes</span>';
     const no = '<span class="dsc-no">— No</span>';
+    const STATUS = {
+        pres_only: '<span class="dsc-badge dsc-b-pres">Presentation only</span>',
+        pending:   '<span class="dsc-badge dsc-b-pend">Pending</span>',
+        both:      '<span class="dsc-badge dsc-b-both">Both</span>',
+        call_only: '<span class="dsc-badge dsc-b-call">Concall only</span>',
+        none:      '—',
+    };
     const fmtD = s => { const d = new Date(s); return isNaN(d) ? (s || "—") : d.toLocaleDateString("en-IN", {day:"2-digit", month:"short", year:"numeric"}); };
     body.innerHTML = rows.map(r => {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.company + " screener.in")}`;
@@ -1498,6 +1517,7 @@ function renderDisclosure() {
             <td>${fmtD(r.date)}</td>
             <td>${r.presentation ? yes : no}</td>
             <td>${r.concall ? yes : no}</td>
+            <td>${STATUS[_dscStatus(r)] || "—"}</td>
         </tr>`;
     }).join("");
 }
@@ -1511,12 +1531,14 @@ function sortDisclosure(col) {
 function exportDisclosure() {
     const rows = _dscFiltered();
     if (!rows.length) return;
+    const STLABEL = { pres_only: "Presentation only", pending: "Pending", both: "Both", call_only: "Concall only", none: "" };
     const data = rows.map(r => ({
         Company: r.company, Symbol: r.symbol, "MCap (Cr)": Math.round(r.mcap_cr),
         Quarter: r.quarter, Date: r.date || "",
         "Presentation Date": r.pres_date || "", "Concall Date": r.call_date || "",
         Presentation: r.presentation ? "Yes" : "No",
         "Concall/Transcript": r.concall ? "Yes" : "No",
+        Status: STLABEL[_dscStatus(r)] || "",
     }));
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
