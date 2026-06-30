@@ -27,8 +27,8 @@ ANN_FILE = os.path.join(DATA_DIR, "announcements.json")
 OUT_FILE = os.path.join(DATA_DIR, "comm_profile.json")
 
 MONTHS_BACK = 6
-MCAP_MIN_CR = 500.0        # lower bound (skip tiny illiquid microcaps)
-MCAP_MAX_CR = 1e12         # effectively no upper bound for now (review first)
+MCAP_MIN_CR = 50.0         # lower bound (₹50 Cr)
+MCAP_MAX_CR = 1e12         # no upper bound
 
 PRES_RE = re.compile(
     r"investor presentation|analyst presentation|earnings presentation|"
