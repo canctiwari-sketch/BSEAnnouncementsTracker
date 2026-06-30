@@ -1483,17 +1483,19 @@ function renderDisclosure() {
     const status = document.getElementById("dscStatus");
     if (status) { status.textContent = `${rows.length} company-quarters`; status.className = "status"; }
     if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
         return;
     }
     const yes = '<span class="dsc-yes">✓ Yes</span>';
     const no = '<span class="dsc-no">— No</span>';
+    const fmtD = s => { const d = new Date(s); return isNaN(d) ? (s || "—") : d.toLocaleDateString("en-IN", {day:"2-digit", month:"short", year:"numeric"}); };
     body.innerHTML = rows.map(r => {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.company + " screener.in")}`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.company)}</a></td>
             <td style="text-align:right">${Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
             <td>${escapeHtml(r.quarter)}</td>
+            <td>${fmtD(r.date)}</td>
             <td>${r.presentation ? yes : no}</td>
             <td>${r.concall ? yes : no}</td>
         </tr>`;
@@ -1511,7 +1513,9 @@ function exportDisclosure() {
     if (!rows.length) return;
     const data = rows.map(r => ({
         Company: r.company, Symbol: r.symbol, "MCap (Cr)": Math.round(r.mcap_cr),
-        Quarter: r.quarter, Presentation: r.presentation ? "Yes" : "No",
+        Quarter: r.quarter, Date: r.date || "",
+        "Presentation Date": r.pres_date || "", "Concall Date": r.call_date || "",
+        Presentation: r.presentation ? "Yes" : "No",
         "Concall/Transcript": r.concall ? "Yes" : "No",
     }));
     const ws = XLSX.utils.json_to_sheet(data);

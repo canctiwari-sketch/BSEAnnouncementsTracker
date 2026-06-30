@@ -187,9 +187,17 @@ def main():
         c = companies.setdefault(key, {"symbol": sym, "name": name, "quarters": {}})
         if sym and not c["symbol"]:
             c["symbol"] = sym
-        qd = c["quarters"].setdefault(q, {"pres": False, "call": False})
+        qd = c["quarters"].setdefault(q, {"pres": False, "call": False, "date": "",
+                                          "pres_date": "", "call_date": ""})
         qd["pres"] = qd["pres"] or is_pres
         qd["call"] = qd["call"] or is_call
+        fdate = (a.get("sort_date") or "")[:10]
+        if fdate:
+            qd["date"] = max(qd["date"], fdate)
+            if is_pres:
+                qd["pres_date"] = max(qd["pres_date"], fdate)
+            if is_call:
+                qd["call_date"] = max(qd["call_date"], fdate)
     log(f"Companies with pres/call activity: {len(companies)}")
 
     # market cap join + cutoff
@@ -236,6 +244,9 @@ def main():
                 "quarter": q,
                 "presentation": qd["pres"],
                 "concall": qd["call"],
+                "date": qd.get("date", ""),
+                "pres_date": qd.get("pres_date", ""),
+                "call_date": qd.get("call_date", ""),
             })
     log(f"rows after cutoff: {len(rows)}")
 
