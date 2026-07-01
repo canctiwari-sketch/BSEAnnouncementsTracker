@@ -57,7 +57,11 @@ def current_season(today):
 PRES_RE = re.compile(
     r"investor presentation|analyst presentation|earnings presentation|"
     r"results presentation|investor\s*&?\s*analyst|investor ppt|"
-    r"institutional investor|presentation to (?:investors|analysts)",
+    r"institutional investor|presentation to (?:investors|analysts)|"
+    # generic "Presentation ... <results context>" (e.g. "Presentation For
+    # Quarter And Financial Year Ended ..."), in either word order
+    r"presentation.{0,45}(?:quarter|financial year|year ended|results|fy\s?2\d|q[1-4]\b)|"
+    r"(?:quarter|financial year|year ended|results|fy\s?2\d|q[1-4])\b.{0,45}presentation",
     re.IGNORECASE,
 )
 CALL_RE = re.compile(
@@ -108,21 +112,27 @@ def _nse_client():
 
 
 def fetch_nse_window(client, frm, to):
-    """Fetch NSE announcements for a date range (dd-mm-yyyy)."""
-    url = (f"https://www.nseindia.com/api/corporate-announcements"
-           f"?index=equities&from_date={frm}&to_date={to}")
-    for attempt in range(3):
-        try:
-            r = client.get(url)
-            if r.status_code in (401, 403):
-                client.headers.update({})
-                client.get("https://www.nseindia.com")
-                continue
-            return r.json() if r.text.strip() else []
-        except Exception as e:
-            log(f"  NSE window {frm}-{to} attempt {attempt+1}: {e}")
-            time.sleep(3)
-    return []
+    """Fetch NSE announcements for a date range (dd-mm-yyyy) across BOTH the
+    main board (equities) and SME boards — many SME companies file investor
+    presentations but skip concalls, so they must be included."""
+    out = []
+    for index in ("equities", "sme"):
+        url = (f"https://www.nseindia.com/api/corporate-announcements"
+               f"?index={index}&from_date={frm}&to_date={to}")
+        for attempt in range(3):
+            try:
+                r = client.get(url)
+                if r.status_code in (401, 403):
+                    client.get("https://www.nseindia.com")
+                    continue
+                data = r.json() if r.text.strip() else []
+                if isinstance(data, list):
+                    out.extend(data)
+                break
+            except Exception as e:
+                log(f"  NSE {index} {frm}-{to} attempt {attempt+1}: {e}")
+                time.sleep(3)
+    return out
 
 
 # ─── market cap ──────────────────────────────────────────────────────────────
@@ -148,22 +158,57 @@ def load_known_mcap():
     return by_sym, by_name
 
 
-def screener_mcap_cr(sess, name):
+def _clean_name(name):
+    n = re.sub(r"\([^)]*\)", " ", name or "")
+    n = re.sub(r"\b(the|limited|ltd|pvt|private|industries|enterprises|corporation)\b", " ", n, flags=re.I)
+    return re.sub(r"\s+", " ", n).strip()
+
+
+_BSE_MC_RE = re.compile(r'"?MktCapFull"?\s*:\s*"?([\d,]+(?:\.\d+)?)', re.I)
+
+def bse_mcap_cr(sess, name):
+    """Fallback mcap via BSE: resolve scrip by name, then StockTrading API.
+    Reliable from datacenter IPs when screener is flaky."""
     try:
-        clean = re.sub(r"\b(the|limited|ltd|pvt|private|industries|enterprises)\b", " ", name, flags=re.I)
-        clean = re.sub(r"\([^)]*\)", " ", clean)
-        clean = re.sub(r"\s+", " ", clean).strip()
-        j = sess.get(f"https://www.screener.in/api/company/search/?q={requests.utils.quote(clean)}",
-                     headers={"User-Agent": "Mozilla/5.0"}, timeout=12).json()
-        if not j:
+        clean = _clean_name(name) or name
+        r = sess.get(f"https://api.bseindia.com/BseIndiaAPI/api/PeerSmartSearch/w?Type=SS&text={requests.utils.quote(clean)}",
+                     headers={"User-Agent": "Mozilla/5.0", "Referer": "https://www.bseindia.com/"}, timeout=12)
+        m = re.search(r"liclick\('(\d{6})'", r.text)
+        if not m:
             return None
-        p = sess.get("https://www.screener.in" + j[0]["url"],
-                     headers={"User-Agent": "Mozilla/5.0"}, timeout=12)
-        m = _SCR_RE.search(p.text)
-        if m:
-            return float(m.group(1).replace(",", ""))
+        scrip = m.group(1)
+        d = sess.get(f"https://api.bseindia.com/BseIndiaAPI/api/StockTrading/w?flag=&scripcode={scrip}",
+                     headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json",
+                              "Referer": "https://www.bseindia.com/"}, timeout=12).json()
+        v = str(d.get("MktCapFull") or "").replace(",", "").strip()
+        if v:
+            cr = float(v)
+            return cr if cr > 0 else None
     except Exception:
         pass
+    return None
+
+
+def screener_mcap_cr(sess, name):
+    clean = _clean_name(name)
+    for attempt in range(2):   # screener throttles; one retry
+        try:
+            return _screener_once(sess, clean)
+        except Exception:
+            time.sleep(1.5)
+    return None
+
+
+def _screener_once(sess, clean):
+    j = sess.get(f"https://www.screener.in/api/company/search/?q={requests.utils.quote(clean)}",
+                 headers={"User-Agent": "Mozilla/5.0"}, timeout=15).json()
+    if not j:
+        return None
+    p = sess.get("https://www.screener.in" + j[0]["url"],
+                 headers={"User-Agent": "Mozilla/5.0"}, timeout=12)
+    m = _SCR_RE.search(p.text)
+    if m:
+        return float(m.group(1).replace(",", ""))
     return None
 
 
@@ -173,6 +218,13 @@ def main():
 
     # Auto-detect the current results season (rolls forward each quarter).
     SEASON_LABEL, start = current_season(today)
+    # Optional one-off override to (re)build a specific past season, e.g.
+    # FORCE_SEASON="Q4 FY26" FORCE_START="2026-03-15" FORCE_END="2026-06-30"
+    if os.environ.get("FORCE_SEASON"):
+        SEASON_LABEL = os.environ["FORCE_SEASON"]
+        start = datetime.fromisoformat(os.environ.get("FORCE_START", start.strftime("%Y-%m-%d")))
+        if os.environ.get("FORCE_END"):
+            today = datetime.fromisoformat(os.environ["FORCE_END"])
     log(f"Season: {SEASON_LABEL}  window {start:%d-%b-%Y} -> {today:%d-%b-%Y}")
 
     client = _nse_client()
@@ -240,11 +292,17 @@ def main():
         if not hasattr(_local, "s"):
             _local.s = requests.Session()
         return _local.s
+    skip_screener = os.environ.get("SKIP_SCREENER") == "1"
     def _one(item):
         key, name = item
-        return key, screener_mcap_cr(_sess(), name)
+        m = None
+        if not skip_screener:
+            m = screener_mcap_cr(_sess(), name)
+        if m is None:                       # screener off/miss -> BSE fallback
+            m = bse_mcap_cr(_sess(), name)
+        return key, m
     done = 0
-    with ThreadPoolExecutor(max_workers=10) as ex:
+    with ThreadPoolExecutor(max_workers=8) as ex:
         for key, m in ex.map(_one, need):
             if m:
                 mcap_map[key] = m
@@ -272,14 +330,17 @@ def main():
 
     rows = []
     for key, c in companies.items():
-        mcap = mcap_map.get(key)
-        if not mcap or mcap < MCAP_MIN_CR or mcap > MCAP_MAX_CR:
+        mcap = mcap_map.get(key)   # may be None if screener+BSE both failed
+        # Only drop when we KNOW the mcap is outside the band. If mcap is
+        # unknown (source throttled / SME not on BSE), keep the company as N/A
+        # rather than silently losing it (this is why IPHL/Rama disappeared).
+        if mcap is not None and (mcap < MCAP_MIN_CR or mcap > MCAP_MAX_CR):
             continue
         for q, qd in c["quarters"].items():
             rows.append({
                 "company": c["name"],
                 "symbol": c["symbol"],
-                "mcap_cr": round(mcap, 0),
+                "mcap_cr": round(mcap, 0) if mcap else None,
                 "quarter": q,
                 "presentation": qd["pres"],
                 "concall": qd["call"],
@@ -301,12 +362,12 @@ def main():
     rows = rows + prior
     log(f"total rows after merge: {len(rows)} (kept {len(prior)} from other quarters)")
 
-    rows.sort(key=lambda r: (r["quarter"], -r["mcap_cr"]), reverse=True)
+    rows.sort(key=lambda r: (r["quarter"], -(r["mcap_cr"] or 0)), reverse=True)
     quarters = sorted({r["quarter"] for r in rows}, reverse=True)
 
     out = {
         "generated_at": datetime.utcnow().isoformat(),
-        "months_back": MONTHS_BACK,
+        "grace_days": GRACE_DAYS,
         "mcap_min_cr": MCAP_MIN_CR,
         "mcap_max_cr": MCAP_MAX_CR,
         "quarters": quarters,

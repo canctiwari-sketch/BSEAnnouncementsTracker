@@ -1470,7 +1470,8 @@ function _dscFiltered() {
     const search = (document.getElementById("dscSearch")?.value || "").toLowerCase();
     let rows = allDisclosure.filter(r => {
         if (q && r.quarter !== q) return false;
-        if (minM && r.mcap_cr < minM) return false;
+        // unknown mcap (null) passes unless a min filter is explicitly set
+        if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
         if (search && !(r.company || "").toLowerCase().includes(search)) return false;
         const st = _dscStatus(r);
         if (bucket === "pres_no_call") return st === "pres_only";
@@ -1512,7 +1513,7 @@ function renderDisclosure() {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.company + " screener.in")}`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.company)}</a></td>
-            <td style="text-align:right">${Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
+            <td style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
             <td>${escapeHtml(r.quarter)}</td>
             <td>${fmtD(r.date)}</td>
             <td>${r.presentation ? yes : no}</td>
