@@ -9,7 +9,7 @@ concall/transcript.
 
 No Gemini. Pure subject-line classification from NSE corporate announcements
 (covers ~all >500 Cr companies, which are nearly all NSE-listed). Market cap is
-reused from announcements.json where possible, else fetched from screener.in.
+reused from announcements.json where possible, else Yahoo Finance (no screener).
 A market-cap cutoff keeps the list to meaningful names.
 """
 import os
@@ -139,8 +139,11 @@ def fetch_nse_window(client, frm, to):
 _SCR_RE = re.compile(r'Market Cap.*?<span class="number">\s*([\d,]+)', re.S)
 
 def load_known_mcap():
-    """symbol/name -> mcap_cr from announcements.json (avoids re-fetching)."""
+    """symbol/name -> mcap_cr from prior data (persistent cache), so any mcap
+    we've EVER resolved is reused and never re-fetched. Reads both the main
+    announcements feed AND this tab's own prior output."""
     by_sym, by_name = {}, {}
+    # 1) main announcements feed (market_cap is in rupees)
     try:
         d = json.load(open(ANN_FILE, encoding="utf-8"))
         for a in d.get("announcements", []):
@@ -154,8 +157,58 @@ def load_known_mcap():
             if nm:
                 by_name.setdefault(nm, cr)
     except Exception as e:
-        log(f"known mcap load error: {e}")
+        log(f"known mcap load error (announcements): {e}")
+    # 2) this tab's own prior rows (mcap_cr already in Cr) — persistent cache
+    try:
+        p = json.load(open(OUT_FILE, encoding="utf-8"))
+        for r in p.get("rows", []):
+            cr = r.get("mcap_cr")
+            if not cr:
+                continue
+            if r.get("symbol"):
+                by_sym.setdefault(r["symbol"], cr)
+            nm = _norm(r.get("company", ""))
+            if nm:
+                by_name.setdefault(nm, cr)
+    except Exception:
+        pass
     return by_sym, by_name
+
+
+# ─── Yahoo Finance market cap (by symbol; datacenter-friendly, no screener) ──
+_yahoo = {"sess": None, "crumb": None}
+
+def _yahoo_session():
+    if _yahoo["sess"] is None:
+        s = requests.Session()
+        s.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        try:
+            s.get("https://fc.yahoo.com", timeout=12)
+            _yahoo["crumb"] = s.get("https://query1.finance.yahoo.com/v1/test/getcrumb", timeout=12).text.strip()
+        except Exception:
+            _yahoo["crumb"] = None
+        _yahoo["sess"] = s
+    return _yahoo["sess"], _yahoo["crumb"]
+
+
+def yahoo_mcap_cr(symbol):
+    """Market cap (Cr) from Yahoo Finance by NSE symbol (.NS then .BO)."""
+    if not symbol:
+        return None
+    s, crumb = _yahoo_session()
+    if not crumb:
+        return None
+    for suf in (".NS", ".BO"):
+        try:
+            r = s.get(f"https://query1.finance.yahoo.com/v7/finance/quote?symbols={symbol}{suf}&crumb={crumb}", timeout=12)
+            res = r.json().get("quoteResponse", {}).get("result", [])
+            if res:
+                mc = res[0].get("marketCap")
+                if mc:
+                    return mc / 1e7
+        except Exception:
+            pass
+    return None
 
 
 def _clean_name(name):
@@ -189,27 +242,9 @@ def bse_mcap_cr(sess, name):
     return None
 
 
-def screener_mcap_cr(sess, name):
-    clean = _clean_name(name)
-    for attempt in range(2):   # screener throttles; one retry
-        try:
-            return _screener_once(sess, clean)
-        except Exception:
-            time.sleep(1.5)
-    return None
-
-
-def _screener_once(sess, clean):
-    j = sess.get(f"https://www.screener.in/api/company/search/?q={requests.utils.quote(clean)}",
-                 headers={"User-Agent": "Mozilla/5.0"}, timeout=15).json()
-    if not j:
-        return None
-    p = sess.get("https://www.screener.in" + j[0]["url"],
-                 headers={"User-Agent": "Mozilla/5.0"}, timeout=12)
-    m = _SCR_RE.search(p.text)
-    if m:
-        return float(m.group(1).replace(",", ""))
-    return None
+# NOTE: screener.in is intentionally NOT used in this worker — it IP-blocks
+# under load and breaks the user's whole network. Market cap comes from the
+# persistent cache -> Yahoo (by symbol) -> BSE (by name).
 
 
 def main():
@@ -282,8 +317,8 @@ def main():
         if m is not None:
             mcap_map[key] = m
         else:
-            need.append((key, c["name"]))
-    log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} via screener (parallel)...")
+            need.append((key, c["name"], c["symbol"]))
+    log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} (Yahoo->BSE)...")
 
     from concurrent.futures import ThreadPoolExecutor
     import threading
@@ -292,13 +327,12 @@ def main():
         if not hasattr(_local, "s"):
             _local.s = requests.Session()
         return _local.s
-    skip_screener = os.environ.get("SKIP_SCREENER") == "1"
     def _one(item):
-        key, name = item
-        m = None
-        if not skip_screener:
-            m = screener_mcap_cr(_sess(), name)
-        if m is None:                       # screener off/miss -> BSE fallback
+        key, name, symbol = item
+        # Yahoo by symbol (datacenter-friendly) -> BSE by name (dual-listed).
+        # screener.in is NOT used — it IP-blocks and breaks the user's network.
+        m = yahoo_mcap_cr(symbol)
+        if m is None:
             m = bse_mcap_cr(_sess(), name)
         return key, m
     done = 0
@@ -308,7 +342,7 @@ def main():
                 mcap_map[key] = m
             done += 1
             if done % 100 == 0:
-                log(f"  screener mcap {done}/{len(need)}")
+                log(f"  mcap {done}/{len(need)} ({len(mcap_map)} found)")
 
     today_d = today.date()
     def _status(pres, call, pres_date):
