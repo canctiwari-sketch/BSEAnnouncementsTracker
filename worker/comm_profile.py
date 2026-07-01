@@ -37,22 +37,22 @@ def current_season(today):
     from which its filings (incl. early board-meeting/concall intimations)
     start appearing. Rolls forward automatically each quarter.
 
-    Indian results calendar (filed ~2 weeks to ~10 weeks after quarter end):
-      Apr-Jun  -> Q4 (Jan-Mar) results
-      Jul-Sep  -> Q1 (Apr-Jun) results
-      Oct-Dec  -> Q2 (Jul-Sep) results
-      Jan-Mar  -> Q3 (Oct-Dec) results
-    Window starts ~2 weeks before typical first filings to catch early
-    board-meeting intimations that bundle the concall schedule.
+    Each results season = the calendar quarter in which those results are
+    filed. STRICT, non-overlapping boundaries (a filing's date alone decides
+    its quarter — e.g. anything up to Jun 30 is Q4; Jul 1 onward is Q1):
+      Apr 1 - Jun 30  -> Q4 (Jan-Mar) results
+      Jul 1 - Sep 30  -> Q1 (Apr-Jun) results
+      Oct 1 - Dec 31  -> Q2 (Jul-Sep) results
+      Jan 1 - Mar 31  -> Q3 (Oct-Dec) results
     """
     y, m = today.year, today.month
     if m in (4, 5, 6):
-        return f"Q4 FY{str(y)[2:]}", datetime(y, 3, 15)
+        return f"Q4 FY{str(y)[2:]}", datetime(y, 4, 1)
     if m in (7, 8, 9):
-        return f"Q1 FY{str(y + 1)[2:]}", datetime(y, 6, 15)
+        return f"Q1 FY{str(y + 1)[2:]}", datetime(y, 7, 1)
     if m in (10, 11, 12):
-        return f"Q2 FY{str(y + 1)[2:]}", datetime(y, 9, 15)
-    return f"Q3 FY{str(y)[2:]}", datetime(y - 1, 12, 15)
+        return f"Q2 FY{str(y + 1)[2:]}", datetime(y, 10, 1)
+    return f"Q3 FY{str(y)[2:]}", datetime(y, 1, 1)
 
 PRES_RE = re.compile(
     r"investor presentation|analyst presentation|earnings presentation|"
