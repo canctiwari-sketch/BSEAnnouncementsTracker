@@ -252,17 +252,31 @@ _NSE_MCAP_PAGE = "https://www.nseindia.com/static/regulations/listing-compliance
 _XLSX_LINK_RE = re.compile(r'href="([^"]+\.xlsx?)"', re.I)
 
 
-def nse_xlsx_mcap(client):
+def nse_xlsx_mcap():
     """NSE's official semi-annual 'Average Market Capitalisation' file (SEBI
     LODR eligibility list). Unlike Yahoo/BSE/screener, it covers the full
     listed universe including NSE SME/Emerge names. Values are a 6-month
-    average, in Rs. lakhs. Returns (by_symbol, by_name) dicts of mcap in Cr."""
+    average, in Rs. lakhs. Returns (by_symbol, by_name) dicts of mcap in Cr.
+
+    Uses its own plain-browser session rather than _nse_client() — that one
+    sets Accept: application/json for the announcements API, which is the
+    wrong content-type for an HTML page + xlsx download and more likely to
+    get flagged by NSE's bot detection from a datacenter IP."""
     by_sym, by_name = {}, {}
+    client = httpx.Client(http2=True, follow_redirects=True, timeout=30, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9"})
     try:
+        try:
+            client.get("https://www.nseindia.com")
+        except Exception as e:
+            log(f"NSE mcap file warm error: {e}")
         page = client.get(_NSE_MCAP_PAGE)
         links = _XLSX_LINK_RE.findall(page.text)
         if not links:
-            log("NSE mcap file: no xlsx link found on page")
+            log(f"NSE mcap file: no xlsx link found on page (status {page.status_code}, {len(page.text)} bytes)")
             return by_sym, by_name
         xlsx_url = links[0]  # most recently published file listed first
         r = client.get(xlsx_url)
@@ -284,6 +298,8 @@ def nse_xlsx_mcap(client):
         log(f"NSE mcap file: {xlsx_url.rsplit('/', 1)[-1]} -> {len(by_sym)} symbols")
     except Exception as e:
         log(f"NSE mcap file error: {e}")
+    finally:
+        client.close()
     return by_sym, by_name
 
 
@@ -348,23 +364,18 @@ def main():
                 qd["call_date"] = max(qd["call_date"], fdate)
     log(f"Companies with pres/call activity: {len(companies)}")
 
-    # market cap join + cutoff
+    # Market cap: this worker only runs weekly, so re-fetch fresh for every
+    # active company each run instead of trusting a permanent cache — a
+    # cached value from months ago can be badly stale for a small/SME name.
+    # The prior cache is kept only as a last-resort fallback if all three
+    # live sources fail this week (e.g. a source is temporarily down).
     by_sym, by_name = load_known_mcap()
-    mcap_map = {}          # key -> mcap_cr
-    need = []
-    for key, c in companies.items():
-        m = by_sym.get(c["symbol"]) or by_name.get(key)
-        if m is not None:
-            mcap_map[key] = m
-        else:
-            need.append((key, c["name"], c["symbol"]))
-    log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} (Yahoo->BSE->NSE file)...")
+    need = [(key, c["name"], c["symbol"]) for key, c in companies.items()]
+    log(f"mcap: refreshing all {len(need)} active companies (Yahoo->BSE->NSE file->prior cache)...")
 
     nse_by_sym, nse_by_name = {}, {}
     if need:
-        mc_client = _nse_client()
-        nse_by_sym, nse_by_name = nse_xlsx_mcap(mc_client)
-        mc_client.close()
+        nse_by_sym, nse_by_name = nse_xlsx_mcap()
 
     from concurrent.futures import ThreadPoolExecutor
     import threading
@@ -376,14 +387,18 @@ def main():
     def _one(item):
         key, name, symbol = item
         # Yahoo by symbol (datacenter-friendly) -> BSE by name (dual-listed) ->
-        # NSE's own mcap file (covers SME/Emerge names the other two miss).
+        # NSE's own mcap file (covers SME/Emerge names the other two miss) ->
+        # prior cached value (last resort, if all live sources failed).
         # screener.in is NOT used — it IP-blocks and breaks the user's network.
         m = yahoo_mcap_cr(symbol)
         if m is None:
             m = bse_mcap_cr(_sess(), name)
         if m is None:
             m = nse_by_sym.get(symbol) or nse_by_name.get(key)
+        if m is None:
+            m = by_sym.get(symbol) or by_name.get(key)
         return key, m
+    mcap_map = {}
     done = 0
     with ThreadPoolExecutor(max_workers=8) as ex:
         for key, m in ex.map(_one, need):

@@ -1294,18 +1294,28 @@ def main():
     # re-fetching every hour. Announcements keep their fetch-time mcap anyway,
     # so reusing the cached value is consistent — and saves hundreds of
     # screener/BSE calls per run (less throttling).
+    # On Sundays (fewer announcements to process that day, so there's spare
+    # budget) skip the cache and force a fresh mcap fetch for every symbol
+    # seen today, so companies that keep filing don't carry a year-old
+    # market cap forever. Past announcements are untouched — only symbols
+    # with an announcement today get refreshed, and (being the newest date)
+    # that fresh value becomes the cache other runs pick up going forward.
+    is_sunday_refresh = today.weekday() == 6  # Monday=0 ... Sunday=6
     known_nse_mcap = {}          # NSE symbol -> {"value","formatted"}
     known_mcap_by_name = {}      # normalized company name -> {"value","formatted"}
-    for a in existing:
-        v = a.get("market_cap")
-        if not v:
-            continue
-        entry = {"value": v, "formatted": a.get("market_cap_fmt")}
-        if a.get("exchange") == "NSE" and a.get("symbol"):
-            known_nse_mcap.setdefault(a["symbol"], entry)
-        nm = _normalize_name(a.get("company", ""))
-        if nm:
-            known_mcap_by_name.setdefault(nm, entry)
+    if is_sunday_refresh:
+        log("Sunday mcap refresh: ignoring cached market caps for today's symbols")
+    else:
+        for a in existing:
+            v = a.get("market_cap")
+            if not v:
+                continue
+            entry = {"value": v, "formatted": a.get("market_cap_fmt")}
+            if a.get("exchange") == "NSE" and a.get("symbol"):
+                known_nse_mcap.setdefault(a["symbol"], entry)
+            nm = _normalize_name(a.get("company", ""))
+            if nm:
+                known_mcap_by_name.setdefault(nm, entry)
     log(f"Loaded cached mcap: {len(known_nse_mcap)} NSE symbols, {len(known_mcap_by_name)} names")
 
     # Fetch from both exchanges in parallel
