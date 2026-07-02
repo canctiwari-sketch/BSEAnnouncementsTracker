@@ -14,6 +14,7 @@ A market-cap cutoff keeps the list to meaningful names.
 """
 import os
 import re
+import io
 import json
 import time
 from datetime import datetime, timedelta
@@ -244,7 +245,46 @@ def bse_mcap_cr(sess, name):
 
 # NOTE: screener.in is intentionally NOT used in this worker — it IP-blocks
 # under load and breaks the user's whole network. Market cap comes from the
-# persistent cache -> Yahoo (by symbol) -> BSE (by name).
+# persistent cache -> Yahoo (by symbol) -> BSE (by name) -> NSE mcap file
+# (below; covers NSE SME/Emerge names that Yahoo/BSE don't carry).
+
+_NSE_MCAP_PAGE = "https://www.nseindia.com/static/regulations/listing-compliance/nse-market-capitalisation-all-companies"
+_XLSX_LINK_RE = re.compile(r'href="([^"]+\.xlsx?)"', re.I)
+
+
+def nse_xlsx_mcap(client):
+    """NSE's official semi-annual 'Average Market Capitalisation' file (SEBI
+    LODR eligibility list). Unlike Yahoo/BSE/screener, it covers the full
+    listed universe including NSE SME/Emerge names. Values are a 6-month
+    average, in Rs. lakhs. Returns (by_symbol, by_name) dicts of mcap in Cr."""
+    by_sym, by_name = {}, {}
+    try:
+        page = client.get(_NSE_MCAP_PAGE)
+        links = _XLSX_LINK_RE.findall(page.text)
+        if not links:
+            log("NSE mcap file: no xlsx link found on page")
+            return by_sym, by_name
+        xlsx_url = links[0]  # most recently published file listed first
+        r = client.get(xlsx_url)
+        import openpyxl
+        wb = openpyxl.load_workbook(io.BytesIO(r.content), data_only=True)
+        ws = wb.worksheets[0]
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if not row or len(row) < 4:
+                continue
+            _, symbol, name, mcap_lakhs = row[:4]
+            if not isinstance(mcap_lakhs, (int, float)):
+                continue  # e.g. "Not traded during the period"
+            cr = mcap_lakhs / 100.0
+            if symbol:
+                by_sym.setdefault(str(symbol).strip(), cr)
+            nm = _norm(name)
+            if nm:
+                by_name.setdefault(nm, cr)
+        log(f"NSE mcap file: {xlsx_url.rsplit('/', 1)[-1]} -> {len(by_sym)} symbols")
+    except Exception as e:
+        log(f"NSE mcap file error: {e}")
+    return by_sym, by_name
 
 
 def main():
@@ -318,7 +358,13 @@ def main():
             mcap_map[key] = m
         else:
             need.append((key, c["name"], c["symbol"]))
-    log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} (Yahoo->BSE)...")
+    log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} (Yahoo->BSE->NSE file)...")
+
+    nse_by_sym, nse_by_name = {}, {}
+    if need:
+        mc_client = _nse_client()
+        nse_by_sym, nse_by_name = nse_xlsx_mcap(mc_client)
+        mc_client.close()
 
     from concurrent.futures import ThreadPoolExecutor
     import threading
@@ -329,11 +375,14 @@ def main():
         return _local.s
     def _one(item):
         key, name, symbol = item
-        # Yahoo by symbol (datacenter-friendly) -> BSE by name (dual-listed).
+        # Yahoo by symbol (datacenter-friendly) -> BSE by name (dual-listed) ->
+        # NSE's own mcap file (covers SME/Emerge names the other two miss).
         # screener.in is NOT used — it IP-blocks and breaks the user's network.
         m = yahoo_mcap_cr(symbol)
         if m is None:
             m = bse_mcap_cr(_sess(), name)
+        if m is None:
+            m = nse_by_sym.get(symbol) or nse_by_name.get(key)
         return key, m
     done = 0
     with ThreadPoolExecutor(max_workers=8) as ex:
