@@ -750,26 +750,29 @@ def fetch_nse(from_date, to_date, known_mcap=None):
     nse_from = from_dt.strftime("%d-%m-%Y")
     nse_to = to_dt.strftime("%d-%m-%Y")
 
-    url = (
-        f"https://www.nseindia.com/api/corporate-announcements"
-        f"?index=equities&from_date={nse_from}&to_date={nse_to}"
-    )
-
-    try:
-        r = client.get(url)
-        if r.status_code in (401, 403):
-            # Retry with fresh client
-            client.close()
-            client = _get_nse_client()
-            if not client:
-                return []
+    # Fetch BOTH the main board (equities) and the SME board.
+    raw = []
+    for index in ("equities", "sme"):
+        url = (
+            f"https://www.nseindia.com/api/corporate-announcements"
+            f"?index={index}&from_date={nse_from}&to_date={nse_to}"
+        )
+        try:
             r = client.get(url)
-        r.raise_for_status()
-        raw = r.json() if r.text.strip() else []
-    except Exception as e:
-        print(f"NSE fetch error: {e}")
-        client.close()
-        return []
+            if r.status_code in (401, 403):
+                client.close()
+                client = _get_nse_client()
+                if not client:
+                    return []
+                r = client.get(url)
+            r.raise_for_status()
+            data = r.json() if r.text.strip() else []
+            if isinstance(data, list):
+                for a in data:
+                    a["_sme"] = (index == "sme")   # tag board
+                raw.extend(data)
+        except Exception as e:
+            print(f"NSE fetch error ({index}): {e}")
 
     log(f"NSE raw announcements: {len(raw)}")
 
@@ -787,11 +790,14 @@ def fetch_nse(from_date, to_date, known_mcap=None):
     # Fetch market caps for all filtered symbols.
     # Source order: screener.in -> BSE -> NSE (NSE last; its quote API blocks
     # datacenter IPs, screener is fast & reliable, BSE covers the rest).
-    symbols = list(set(a.get("symbol", "").strip() for a in filtered_raw if a.get("symbol")))
+    # SME symbols: skip mcap entirely (no free source — labelled "N/A SME").
+    sme_symbols = set(a.get("symbol", "").strip() for a in filtered_raw if a.get("_sme"))
+    symbols = list(set(a.get("symbol", "").strip() for a in filtered_raw
+                       if a.get("symbol") and not a.get("_sme")))
     sym_to_name = {}
     for a in filtered_raw:
         s = a.get("symbol", "").strip()
-        if s and s not in sym_to_name:
+        if s and not a.get("_sme") and s not in sym_to_name:
             sym_to_name[s] = a.get("sm_name") or ""
     bse_sess = requests.Session()
     bse_sess.headers.update({
@@ -835,12 +841,14 @@ def fetch_nse(from_date, to_date, known_mcap=None):
         subject = a.get("desc") or ""
         detail = a.get("attchmntText") or ""
         sym = a.get("symbol", "").strip()
-        mcap = mcap_data.get(sym, {})
+        is_sme = bool(a.get("_sme"))
+        mcap = {} if is_sme else mcap_data.get(sym, {})
         category = categorize(subject, detail)
         results.append({
             "company": a.get("sm_name") or "Unknown",
             "symbol": sym,
-            "exchange": "NSE",
+            "exchange": "NSE SME" if is_sme else "NSE",
+            "sme": is_sme,
             "subject": subject,
             "detail": detail,
             "date": a.get("an_dt") or "",
@@ -848,7 +856,7 @@ def fetch_nse(from_date, to_date, known_mcap=None):
             "category": category,
             "starred": is_starred(category, subject),
             "market_cap": mcap.get("value"),
-            "market_cap_fmt": mcap.get("formatted"),
+            "market_cap_fmt": ("N/A SME" if is_sme else mcap.get("formatted")),
         })
 
     return results

@@ -215,10 +215,11 @@ function applyFilter() {
         filtered = filtered.filter(a => catFilters.includes(a.category || ""));
     }
 
-    // Market cap filter — exclude N/A unless checkbox is checked
+    // Market cap filter — exclude N/A unless checkbox is checked.
+    // SME companies have no mcap ("N/A SME") but are always shown.
     filtered = filtered.filter(a => {
         const val = a.market_cap;
-        if (!val) return includeNA;  // N/A companies only shown if checkbox checked
+        if (!val) return a.sme || includeNA;  // SME always shown
         if (mcapMin !== null && val < mcapMin) return false;
         if (mcapMax !== null && val > mcapMax) return false;
         return true;
