@@ -1475,7 +1475,7 @@ function _dscFiltered() {
         if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
         if (search && !(r.company || "").toLowerCase().includes(search)) return false;
         const st = _dscStatus(r);
-        if (bucket === "pres_no_call") return st === "pres_only";
+        if (bucket === "pres_no_call") return st === "pres_only" || st === "pending";
         if (bucket === "pending") return st === "pending";
         if (bucket === "both") return st === "both";
         if (bucket === "call_no_pres") return st === "call_only";
