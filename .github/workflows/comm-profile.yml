@@ -2,7 +2,8 @@ name: Disclosure Profile
 
 on:
   schedule:
-    - cron: '0 1 * * 0'   # Weekly, Sunday 06:30 AM IST (01:00 UTC)
+    - cron: '0 1 * * *'   # Daily, 06:30 AM IST (01:00 UTC). Full mcap refresh
+                          # still only runs on Sundays (see comm_profile.py).
   workflow_dispatch:
 
 permissions:

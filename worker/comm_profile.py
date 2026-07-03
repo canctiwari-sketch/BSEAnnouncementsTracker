@@ -365,14 +365,27 @@ def main():
                 qd["call_date"] = max(qd["call_date"], fdate)
     log(f"Companies with pres/call activity: {len(companies)}")
 
-    # Market cap: this worker only runs weekly, so re-fetch fresh for every
-    # active company each run instead of trusting a permanent cache — a
-    # cached value from months ago can be badly stale for a small/SME name.
-    # The prior cache is kept only as a last-resort fallback if all three
-    # live sources fail this week (e.g. a source is temporarily down).
+    # Market cap: this worker now runs daily (presentation/concall detection
+    # is cheap on NSE's API), but a full Yahoo->BSE->NSE-file refresh of every
+    # active company is not — that's ~1,500+ live lookups, and doing it daily
+    # would multiply Yahoo/BSE load 7x/week. So the full refresh only runs on
+    # Sundays (matching the old weekly cadence); other days just fill in
+    # companies that don't have a cached mcap yet, reusing the rest.
     by_sym, by_name = load_known_mcap()
-    need = [(key, c["name"], c["symbol"]) for key, c in companies.items()]
-    log(f"mcap: refreshing all {len(need)} active companies (Yahoo->BSE->NSE file->prior cache)...")
+    is_sunday_refresh = real_today.weekday() == 6  # Monday=0 ... Sunday=6
+    mcap_map = {}
+    if is_sunday_refresh:
+        need = [(key, c["name"], c["symbol"]) for key, c in companies.items()]
+        log(f"mcap: Sunday full refresh — {len(need)} active companies (Yahoo->BSE->NSE file->prior cache)...")
+    else:
+        need = []
+        for key, c in companies.items():
+            m = by_sym.get(c["symbol"]) or by_name.get(key)
+            if m is not None:
+                mcap_map[key] = m
+            else:
+                need.append((key, c["name"], c["symbol"]))
+        log(f"mcap: {len(mcap_map)} from cache, fetching {len(need)} new (Yahoo->BSE->NSE file)...")
 
     nse_by_sym, nse_by_name = {}, {}
     if need:
@@ -399,7 +412,6 @@ def main():
         if m is None:
             m = by_sym.get(symbol) or by_name.get(key)
         return key, m
-    mcap_map = {}
     done = 0
     with ThreadPoolExecutor(max_workers=8) as ex:
         for key, m in ex.map(_one, need):
