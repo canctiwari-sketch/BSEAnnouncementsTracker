@@ -306,6 +306,7 @@ def nse_xlsx_mcap():
 def main():
     log(f"Comm-profile starting {datetime.utcnow().isoformat()}")
     today = datetime.utcnow() + timedelta(hours=5, minutes=30)
+    real_today = today  # kept for grace-day status even if FORCE_END caps the fetch window below
 
     # Auto-detect the current results season (rolls forward each quarter).
     SEASON_LABEL, start = current_season(today)
@@ -408,7 +409,7 @@ def main():
             if done % 100 == 0:
                 log(f"  mcap {done}/{len(need)} ({len(mcap_map)} found)")
 
-    today_d = today.date()
+    today_d = real_today.date()
     def _status(pres, call, pres_date):
         # both -> both ; concall only -> call_only ; presentation only ->
         # pending until GRACE_DAYS after the presentation, then pres_only.
