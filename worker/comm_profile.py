@@ -463,13 +463,25 @@ def main():
     log(f"rows (this season {SEASON_LABEL}): {len(rows)}")
 
     # Merge with previously-saved quarters (keep history; replace this season).
-    prior = []
+    prior_all = []
     if os.path.exists(OUT_FILE):
         try:
-            prior = json.load(open(OUT_FILE, encoding="utf-8")).get("rows", [])
+            prior_all = json.load(open(OUT_FILE, encoding="utf-8")).get("rows", [])
         except Exception:
-            prior = []
-    prior = [r for r in prior if r.get("quarter") != SEASON_LABEL]
+            prior_all = []
+    prior_this_season = [r for r in prior_all if r.get("quarter") == SEASON_LABEL]
+    prior = [r for r in prior_all if r.get("quarter") != SEASON_LABEL]
+
+    # Safety net: now that this runs daily, a single transient NSE throttle
+    # (BSE/NSE are known to intermittently return empty/"No Record Found!")
+    # would otherwise silently wipe the whole current season down to whatever
+    # (possibly nothing) this run managed to fetch. If this run found far
+    # fewer companies than we already had for this season, assume it's a bad
+    # fetch and keep the prior data instead of overwriting it.
+    if prior_this_season and len(rows) < len(prior_this_season) * 0.5:
+        log(f"Suspiciously few rows this run ({len(rows)} vs {len(prior_this_season)} previously) "
+            f"for {SEASON_LABEL} — likely a fetch issue, keeping prior data for this season")
+        rows = prior_this_season
     rows = rows + prior
     log(f"total rows after merge: {len(rows)} (kept {len(prior)} from other quarters)")
 
