@@ -5,6 +5,10 @@ on:
     - cron: '0 4 * * *'   # 9:30 AM IST daily (04:00 UTC)
   workflow_dispatch:
 
+concurrency:
+  group: interviews
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -37,13 +41,20 @@ jobs:
             echo "No changes"
           else
             git commit -m "Interviews: $(date +'%Y-%m-%d')"
+            pushed=false
             for i in 1 2 3; do
               if git push; then
                 echo "Push OK on attempt $i"
+                pushed=true
                 break
               fi
               echo "Retry $i"
-              git pull --rebase origin main
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; }
               sleep 3
             done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Failed to push after 3 attempts — this run's data was NOT saved."
+              exit 1
+            fi
           fi

@@ -54,5 +54,15 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Research report: ${{ github.event.inputs.company_name }}"
-            git push
+            pushed=false
+            for i in 1 2 3; do
+              if git push; then pushed=true; break; fi
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; }
+              sleep 3
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Failed to push after 3 attempts — this run's data was NOT saved."
+              exit 1
+            fi
           fi

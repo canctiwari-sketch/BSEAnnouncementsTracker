@@ -1637,10 +1637,17 @@ def main():
         log(f"Removed {before_dedup - len(merged)} duplicate announcements from cache")
 
     # Remove cached announcements matching noise patterns (cleanup for old data)
-    # Check subject, detail, AND AI summary for noise keywords
+    # Only check the original subject/detail — NOT ai_summary. The noise
+    # patterns are broad bare-word matches (e.g. "resignation", "appointment
+    # of", "annual report") tuned for terse BSE/NSE subject lines. AI summaries
+    # are free-form prose that casually mentions adjacent/incidental facts
+    # ("...the filing also references the appointment of a new project
+    # director...") which was silently deleting genuinely important
+    # announcements (e.g. large order wins) whenever the summary happened to
+    # brush past one of these words, even though the actual filing was fine.
     before_noise = len(merged)
     merged = [a for a in merged if not is_noise(
-        f"{a.get('subject', '')} {a.get('detail', '')} {a.get('ai_summary', '')}",
+        f"{a.get('subject', '')} {a.get('detail', '')}",
         a.get('subject', '')
     )]
     if before_noise != len(merged):

@@ -6,6 +6,16 @@ on:
     - cron: '5 * * * *'
   workflow_dispatch:  # Manual trigger
 
+# Prevent two runs from overlapping and racing to push data/announcements.json.
+# Without this, a slow run + the next hourly trigger can both compute a merge
+# against the same stale base; whichever pushes second conflicts on rebase,
+# and (before this fix) that run's new announcements were silently dropped
+# instead of failing loudly. Queue instead of cancelling so no run's fetch is
+# thrown away.
+concurrency:
+  group: fetch-announcements
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -41,15 +51,22 @@ jobs:
             git commit -m "Update announcements $(date -u +%Y-%m-%dT%H:%M)"
             # Retry push up to 3 times; rebase on remote between attempts
             # to handle race conditions with other workflows/manual pushes.
+            pushed=false
             for i in 1 2 3; do
               if git push; then
                 echo "Push succeeded on attempt $i"
+                pushed=true
                 break
               fi
               echo "Push attempt $i failed — rebasing on remote and retrying"
-              git pull --rebase origin main
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; }
               sleep 3
             done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Failed to push after 3 attempts — this run's data was NOT saved."
+              exit 1
+            fi
           fi
 
       - name: Notify on failure

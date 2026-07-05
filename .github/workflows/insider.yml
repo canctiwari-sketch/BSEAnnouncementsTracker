@@ -14,6 +14,10 @@ on:
           - 'false'
           - 'true'
 
+concurrency:
+  group: insider-trades
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -46,13 +50,20 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Insider trades: $(date +'%Y-%m-%d')"
+            pushed=false
             for i in 1 2 3; do
               if git push; then
                 echo "Push succeeded on attempt $i"
+                pushed=true
                 break
               fi
               echo "Push attempt $i failed — rebasing and retrying"
-              git pull --rebase origin main
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; }
               sleep 3
             done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Failed to push after 3 attempts — this run's data was NOT saved."
+              exit 1
+            fi
           fi
