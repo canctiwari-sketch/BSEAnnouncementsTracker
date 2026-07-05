@@ -352,10 +352,14 @@ def enrich_market_caps(trades, mcap_cache):
 
     bse_session = _get_bse_session()
 
-    # Fetch BSE mcaps
+    # Fetch BSE mcaps. Only cache successful results — caching None would mark
+    # a symbol as "already tried" forever (the lookup-needed check above is
+    # `not in mcap_cache`), permanently blocking retries after a transient
+    # BSE failure instead of just trying again next run.
     for code in need_bse:
         result = fetch_mcap_bse(bse_session, code)
-        mcap_cache[f"BSE:{code}"] = result  # None = tried but failed
+        if result:
+            mcap_cache[f"BSE:{code}"] = result
         time.sleep(0.05)
 
     # Fetch NSE mcaps — probe first to check if session works
@@ -374,7 +378,8 @@ def enrich_market_caps(trades, mcap_cache):
     if nse_client:
         for sym in need_nse:
             result = fetch_mcap_nse(nse_client, sym)
-            mcap_cache[f"NSE:{sym}"] = result
+            if result:
+                mcap_cache[f"NSE:{sym}"] = result
             time.sleep(0.05)
         nse_client.close()
 

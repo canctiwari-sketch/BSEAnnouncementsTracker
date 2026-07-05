@@ -1653,6 +1653,36 @@ def main():
     if before_cleanup != len(merged):
         log(f"Removed {before_cleanup - len(merged)} cached micro-cap announcements (<50 Cr)")
 
+    # Retention: this file had no cap and grew forever (7.4 MB and climbing,
+    # hourly). Keep a rolling 2-year window, same pattern as insider.json's
+    # 365-day cutoff, so it stops growing unbounded while still covering
+    # multiple years of company disclosure history.
+    # NOTE: "date" is NOT a consistent format — BSE stores ISO
+    # ("2026-06-01T18:09:11"), NSE stores "31-May-2026 20:09:40" — so this
+    # can't be a plain string comparison; parse both explicitly.
+    def _parse_ann_date(s):
+        s = (s or "").strip()
+        if not s:
+            return None
+        try:
+            return datetime.fromisoformat(s[:19])
+        except Exception:
+            pass
+        try:
+            return datetime.strptime(s[:11].strip(), "%d-%b-%Y")
+        except Exception:
+            return None
+
+    RETENTION_DAYS = 730
+    retention_cutoff_dt = datetime.utcnow() - timedelta(days=RETENTION_DAYS)
+    before_retention = len(merged)
+    # Keep anything we can't confidently parse (don't silently drop good data
+    # over a date-format surprise) — only drop rows we can parse AND are old.
+    merged = [a for a in merged
+              if (d := _parse_ann_date(a.get("date"))) is None or d >= retention_cutoff_dt]
+    if before_retention != len(merged):
+        log(f"Removed {before_retention - len(merged)} announcements older than {RETENTION_DAYS} days")
+
     # Sort by date
     merged.sort(key=lambda a: a.get("date", ""), reverse=True)
 
