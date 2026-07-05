@@ -264,6 +264,9 @@
                 </select>
             </label>
             <label>Min MCap (Cr)<input type="number" id="dscMinMcap" placeholder="e.g. 500" oninput="renderDisclosure()"></label>
+            <label>Max MCap (Cr)<input type="number" id="dscMaxMcap" placeholder="e.g. 5000" oninput="renderDisclosure()"></label>
+            <label>From<input type="date" id="dscDateFrom" onchange="renderDisclosure()"></label>
+            <label>To<input type="date" id="dscDateTo" onchange="renderDisclosure()"></label>
             <label>Search<input type="text" id="dscSearch" placeholder="Company..." oninput="renderDisclosure()"></label>
             <button class="export-btn" onclick="exportDisclosure()">Export Excel</button>
         </div>
@@ -325,6 +328,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260703a"></script>
+    <script src="app.js?v=20260705a"></script>
 </body>
 </html>

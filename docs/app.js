@@ -1468,11 +1468,21 @@ function _dscFiltered() {
     const q = document.getElementById("dscQuarter")?.value || "";
     const bucket = document.getElementById("dscBucket")?.value || "pres_no_call";
     const minM = parseFloat(document.getElementById("dscMinMcap")?.value) || 0;
+    const maxM = parseFloat(document.getElementById("dscMaxMcap")?.value) || 0;
+    const dateFrom = document.getElementById("dscDateFrom")?.value || "";
+    const dateTo = document.getElementById("dscDateTo")?.value || "";
+    const fromTs = dateFrom ? new Date(dateFrom + "T00:00:00").getTime() : 0;
+    const toTs = dateTo ? new Date(dateTo + "T23:59:59").getTime() : Infinity;
     const search = (document.getElementById("dscSearch")?.value || "").toLowerCase();
     let rows = allDisclosure.filter(r => {
         if (q && r.quarter !== q) return false;
-        // unknown mcap (null) passes unless a min filter is explicitly set
+        // unknown mcap (null) passes unless a min/max filter is explicitly set
         if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
+        if (maxM && (r.mcap_cr == null || r.mcap_cr > maxM)) return false;
+        if ((dateFrom || dateTo) && r.date) {
+            const ts = new Date(r.date).getTime();
+            if (!(ts >= fromTs && ts <= toTs)) return false;
+        }
         if (search && !(r.company || "").toLowerCase().includes(search)) return false;
         const st = _dscStatus(r);
         if (bucket === "pres_no_call") return st === "pres_only" || st === "pending";
