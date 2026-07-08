@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T04:43:21.801974",
+  "generated_at": "2026-07-08T04:09:38.231880",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
@@ -18633,6 +18633,18 @@
       "call_date": ""
     },
     {
+      "company": "Madhusudan Masala Limited",
+      "symbol": "MADHUSUDAN",
+      "mcap_cr": 209.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "Sunlite Recycling Industries Limited",
       "symbol": "SUNLITE",
       "mcap_cr": 222.0,
@@ -18753,6 +18765,18 @@
       "call_date": ""
     },
     {
+      "company": "SRG Housing Finance Limited",
+      "symbol": "SRGHFL",
+      "mcap_cr": 481.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "Modi Naturals Limited",
       "symbol": "MODINATUR",
       "mcap_cr": 485.0,
@@ -18762,6 +18786,18 @@
       "status": "pending",
       "date": "2026-07-03",
       "pres_date": "2026-07-03",
+      "call_date": ""
+    },
+    {
+      "company": "Frog Innovations Limited",
+      "symbol": "FROG",
+      "mcap_cr": 496.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -18909,6 +18945,18 @@
       "call_date": ""
     },
     {
+      "company": "Nelcast Limited",
+      "symbol": "NELCAST",
+      "mcap_cr": 1182.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "DCW Limited",
       "symbol": "DCW",
       "mcap_cr": 1396.0,
@@ -18923,13 +18971,25 @@
     {
       "company": "Virtuoso Optoelectronics Limited",
       "symbol": "VOEPL",
-      "mcap_cr": 1493.0,
+      "mcap_cr": 1480.0,
       "quarter": "Q1 FY27",
       "presentation": true,
       "concall": false,
       "status": "pending",
       "date": "2026-07-06",
       "pres_date": "2026-07-06",
+      "call_date": ""
+    },
+    {
+      "company": "Danish Power Limited",
+      "symbol": "DANISH",
+      "mcap_cr": 1661.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19005,6 +19065,30 @@
       "call_date": ""
     },
     {
+      "company": "Rolex Rings Limited",
+      "symbol": "ROLEXRINGS",
+      "mcap_cr": 3766.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
+      "company": "SG Finserve Limited",
+      "symbol": "SGFIN",
+      "mcap_cr": 3890.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "Aurionpro Solutions Limited",
       "symbol": "AURIONPRO",
       "mcap_cr": 4158.0,
@@ -19024,8 +19108,8 @@
       "presentation": true,
       "concall": false,
       "status": "pending",
-      "date": "2026-07-06",
-      "pres_date": "2026-07-06",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19144,8 +19228,8 @@
       "presentation": true,
       "concall": false,
       "status": "pending",
-      "date": "2026-07-03",
-      "pres_date": "2026-07-03",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19156,8 +19240,20 @@
       "presentation": true,
       "concall": false,
       "status": "pending",
-      "date": "2026-07-01",
-      "pres_date": "2026-07-01",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
+      "company": "Yatharth Hospital & Trauma Care Services Limited",
+      "symbol": "YATHARTH",
+      "mcap_cr": 8088.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19266,6 +19362,30 @@
       "status": "pending",
       "date": "2026-07-04",
       "pres_date": "2026-07-04",
+      "call_date": ""
+    },
+    {
+      "company": "UTI Asset Management Company Limited",
+      "symbol": "UTIAMC",
+      "mcap_cr": 12029.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": "2026-07-07"
+    },
+    {
+      "company": "Elecon Engineering Company Limited",
+      "symbol": "ELECON",
+      "mcap_cr": 12087.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19437,6 +19557,18 @@
       "call_date": "2026-07-01"
     },
     {
+      "company": "MphasiS Limited",
+      "symbol": "MPHASIS",
+      "mcap_cr": 42162.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "Coforge Limited",
       "symbol": "COFORGE",
       "mcap_cr": 60307.0,
@@ -19446,6 +19578,18 @@
       "status": "pending",
       "date": "2026-07-06",
       "pres_date": "2026-07-06",
+      "call_date": ""
+    },
+    {
+      "company": "Bank of Maharashtra",
+      "symbol": "MAHABANK",
+      "mcap_cr": 67824.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19485,6 +19629,18 @@
       "call_date": ""
     },
     {
+      "company": "Yes Bank Limited",
+      "symbol": "YESBANK",
+      "mcap_cr": 76268.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": "2026-07-07"
+    },
+    {
       "company": "Persistent Systems Limited",
       "symbol": "PERSISTENT",
       "mcap_cr": 76375.0,
@@ -19518,6 +19674,18 @@
       "status": "pending",
       "date": "2026-07-02",
       "pres_date": "2026-07-02",
+      "call_date": ""
+    },
+    {
+      "company": "ICICI Lombard General Insurance Company Limited",
+      "symbol": "ICICIGI",
+      "mcap_cr": 88516.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     },
     {
@@ -19617,6 +19785,18 @@
       "call_date": ""
     },
     {
+      "company": "Wipro Limited",
+      "symbol": "WIPRO",
+      "mcap_cr": 183255.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": ""
+    },
+    {
       "company": "Hindustan Zinc Limited",
       "symbol": "HINDZINC",
       "mcap_cr": 218994.0,
@@ -19641,6 +19821,18 @@
       "call_date": ""
     },
     {
+      "company": "HCL Technologies Limited",
+      "symbol": "HCLTECH",
+      "mcap_cr": 303850.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": "2026-07-07"
+    },
+    {
       "company": "UltraTech Cement Limited",
       "symbol": "ULTRACEMCO",
       "mcap_cr": 321574.0,
@@ -19650,6 +19842,30 @@
       "status": "pending",
       "date": "2026-07-03",
       "pres_date": "2026-07-03",
+      "call_date": ""
+    },
+    {
+      "company": "Axis Bank Limited",
+      "symbol": "AXISBANK",
+      "mcap_cr": 418323.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
+      "call_date": "2026-07-07"
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Limited",
+      "symbol": "SUNPHARMA",
+      "mcap_cr": 457529.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-07-07",
+      "pres_date": "2026-07-07",
       "call_date": ""
     }
   ]
