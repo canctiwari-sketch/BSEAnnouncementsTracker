@@ -67,6 +67,12 @@ NOISE_PATTERNS = [
     r"transfer.*physical.*securit",
     r"compliance certificate",
     r"certificate under",
+    # Standardized quarterly compliance boilerplate (every listed company
+    # files these; zero investment signal — added July 2026 per user request)
+    r"quarterly compliance report",
+    r"compliance report on corporate governance",
+    r"integrated filing.{0,6}governance",
+    r"business responsibility",
     r"reg\.?\s*74.*debenture",
     r"change in director.*address",
     r"notice of.*agm",
