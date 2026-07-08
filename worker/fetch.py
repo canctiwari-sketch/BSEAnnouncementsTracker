@@ -1285,6 +1285,12 @@ def main():
     WIDE_SWEEP_HOURS = {2, 14}  # ~2 AM & 2 PM IST
     window_days = 5 if today.hour in WIDE_SWEEP_HOURS else 2
     window_start = today - timedelta(days=window_days)
+    # Optional one-off override for manual backfills/verification, e.g.
+    # FORCE_FROM="2026-06-29" FORCE_TO="2026-07-06"
+    if os.environ.get("FORCE_FROM"):
+        window_start = datetime.fromisoformat(os.environ["FORCE_FROM"])
+    if os.environ.get("FORCE_TO"):
+        today = datetime.fromisoformat(os.environ["FORCE_TO"])
     from_date = window_start.strftime("%Y-%m-%d")
     to_date = today.strftime("%Y-%m-%d")
 
@@ -1636,20 +1642,25 @@ def main():
     if before_dedup != len(merged):
         log(f"Removed {before_dedup - len(merged)} duplicate announcements from cache")
 
-    # Remove cached announcements matching noise patterns (cleanup for old data)
-    # Only check the original subject/detail — NOT ai_summary. The noise
-    # patterns are broad bare-word matches (e.g. "resignation", "appointment
-    # of", "annual report") tuned for terse BSE/NSE subject lines. AI summaries
-    # are free-form prose that casually mentions adjacent/incidental facts
-    # ("...the filing also references the appointment of a new project
-    # director...") which was silently deleting genuinely important
-    # announcements (e.g. large order wins) whenever the summary happened to
-    # brush past one of these words, even though the actual filing was fine.
+    # Remove cached announcements matching noise patterns (cleanup for old data).
+    # The AI summary IS included in this check (restored — removing it let a
+    # flood of junk through: many filings have vague subjects like
+    # "Announcement under Regulation 30 (LODR)" where the routine content is
+    # only visible once the summary spells it out). ONE exception: if the
+    # original subject/detail already matches the IMPORTANT patterns (order
+    # wins, acquisitions, JVs, fund raising...), never purge on summary
+    # wording alone — AI prose casually brushing past a noise word ("...also
+    # references the appointment of a project director...") was silently
+    # deleting genuinely important announcements like NCC's order wins.
+    def _cleanup_noise(a):
+        base = f"{a.get('subject', '')} {a.get('detail', '')}"
+        if is_noise(base, a.get('subject', '')):
+            return True
+        if _important_re.search(base):
+            return False  # clearly important from the filing itself — keep
+        return is_noise(f"{base} {a.get('ai_summary', '') or ''}", a.get('subject', ''))
     before_noise = len(merged)
-    merged = [a for a in merged if not is_noise(
-        f"{a.get('subject', '')} {a.get('detail', '')}",
-        a.get('subject', '')
-    )]
+    merged = [a for a in merged if not _cleanup_noise(a)]
     if before_noise != len(merged):
         log(f"Removed {before_noise - len(merged)} cached announcements matching noise filters")
 
