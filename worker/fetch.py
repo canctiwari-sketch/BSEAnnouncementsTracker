@@ -362,6 +362,29 @@ STARRED_KEYWORDS = re.compile(
     re.IGNORECASE,
 )
 
+# Positive signals that rescue an announcement even when its AI summary also
+# brushes past noise words ("appointment", "reappointment"...). Deliberately
+# TIGHTER than IMPORTANT_PATTERNS: bare words like "order" ("in order to
+# comply...") or "clarification" appear in routine summary prose too often,
+# so "order"/"contract" only count when near win-verbs or money amounts.
+_SUMMARY_POSITIVE_RE = re.compile(
+    r"(?:new|work|purchase|export|repeat)\s+orders?\b|"
+    r"orders?\s+(?:worth|valued|aggregating|totall?ing|book|inflow|wins?)|"
+    # gap allows '.' only inside numbers (Rs 19.97 crore) but still stops at
+    # sentence-ending periods, so the verb and "order" stay in one sentence
+    r"(?:won|wins?|receives?|received|receiving|secured|bagged|bagging|awarded)\b(?:\.(?=\d)|[^.]){0,60}\borders?\b|"
+    r"orders?\b(?:\.(?=\d)|[^.]){0,40}(?:crore|lakh|million|\bcr\b)|"
+    r"letter of intent|\bloi\b|capex|capital expenditure|expansion|"
+    r"new (?:plant|facility|unit|factory|warehouse)|greenfield|brownfield|"
+    r"commissioned|commenced\s+(?:commercial\s+)?(?:production|operations?)|"
+    r"acquisitions?|acquires?|acquired|takeover|mergers?|demergers?|amalgamation|"
+    r"joint venture|\bjv\b|partnership|collaboration|\bmou\b|strategic alliance|"
+    r"stake\s+(?:purchase|sale|acquisition)|buy.?backs?|bonus issue|stock split|"
+    r"rights issue|fund.?rais|\bqip\b|preferential\s+(?:issue|allotment)|\bipo\b|\bfpo\b|"
+    r"open.?offer|delisting|contracts?\s+(?:worth|valued|from)|wins?\s+contracts?|new contracts?",
+    re.IGNORECASE,
+)
+
 # ─── Category Rules ──────────────────────────────────────────────────────────
 CATEGORY_RULES = [
     # Priority categories — matched first
@@ -1658,7 +1681,14 @@ def main():
             return True
         if _important_re.search(base):
             return False  # clearly important from the filing itself — keep
-        return is_noise(f"{base} {a.get('ai_summary', '') or ''}", a.get('subject', ''))
+        summary = a.get('ai_summary', '') or ''
+        # A summary carrying a positive signal (order win, capex, expansion,
+        # acquisition...) is kept even if it also mentions noise words like
+        # "appointment"/"reappointment" — the summary-based purge only fires
+        # when the summary has noise words and NO positive signal.
+        if summary and _SUMMARY_POSITIVE_RE.search(summary):
+            return False
+        return is_noise(f"{base} {summary}", a.get('subject', ''))
     before_noise = len(merged)
     merged = [a for a in merged if not _cleanup_noise(a)]
     if before_noise != len(merged):
