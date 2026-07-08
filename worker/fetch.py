@@ -938,14 +938,18 @@ def dedup(all_anns):
         s += len(a.get("subject", ""))
         return s
 
-    # Pass 1: exact subject match
+    # Pass 1: exact subject match — but only for the SAME filing. NSE subjects
+    # are generic ("Bagging/Receiving of orders/contracts"), so two genuinely
+    # distinct same-day filings (e.g. two separate order wins) share the exact
+    # same subject text; the attachment PDF is what distinguishes them. Include
+    # it in the key so distinct filings are never collapsed here.
     seen = {}
     seen_idx = {}
     results = []
     for a in all_anns:
         norm = _normalize_name(a["company"])
         subj = a.get("subject", "").lower()[:60]
-        key = f"{norm}::{subj}"
+        key = f"{norm}::{subj}::{a.get('attachment', '')}"
         if key in seen:
             if score(a) > score(seen[key]):
                 results[seen_idx[key]] = a
@@ -965,26 +969,43 @@ def dedup(all_anns):
         day = get_day(a.get("date", ""))
         is_dup = False
 
-        # 2a: same company + category + day
+        # 2a: same company + category + day — a duplicate only when it's
+        # plausibly the SAME filing: a cross-exchange mirror, or a copy with
+        # the same/missing attachment. Two different PDFs on the same exchange
+        # are two genuinely distinct filings (e.g. Railtel filing multiple
+        # order wins in one day) and must both stay in the feed.
         day_cat_key = (norm, day, cat)
         if day_cat_key in seen_day_cat:
             prev_idx = seen_day_cat[day_cat_key]
-            if score(a) > score(final[prev_idx]):
-                final[prev_idx] = a
-            is_dup = True
+            prev = final[prev_idx]
+            a_att, p_att = a.get("attachment", ""), prev.get("attachment", "")
+            same_exchange_distinct_files = (
+                a.get("exchange") == prev.get("exchange")
+                and a_att and p_att and a_att != p_att
+            )
+            if not same_exchange_distinct_files:
+                if score(a) > score(prev):
+                    final[prev_idx] = a
+                is_dup = True
 
         # 2b: same company + same day + different exchange = cross-exchange dupe
         if not is_dup:
             day_key = (norm, day)
             if day_key in seen_company_day:
-                for prev_idx, prev_subj, prev_exchange in seen_company_day[day_key]:
+                for prev_idx, prev_subj, prev_exchange, prev_att in seen_company_day[day_key]:
                     # Different exchange = almost certainly same announcement
                     if a.get("exchange") != prev_exchange:
                         if score(a) > score(final[prev_idx]):
                             final[prev_idx] = a
                         is_dup = True
                         break
-                    # Same exchange but overlapping subject = dupe
+                    # Same exchange but overlapping subject = dupe — unless the
+                    # attachments are two different PDFs (distinct filings that
+                    # happen to share generic subject wording, e.g. multiple
+                    # same-day order wins on NSE).
+                    a_att = a.get("attachment", "")
+                    if a_att and prev_att and a_att != prev_att:
+                        continue
                     subj_words = set(a.get("subject", "").lower().split())
                     prev_words = set(prev_subj.lower().split())
                     if prev_words and subj_words:
@@ -1003,7 +1024,7 @@ def dedup(all_anns):
         day_key = (norm, day)
         if day_key not in seen_company_day:
             seen_company_day[day_key] = []
-        seen_company_day[day_key].append((idx, a.get("subject", ""), a.get("exchange", "")))
+        seen_company_day[day_key].append((idx, a.get("subject", ""), a.get("exchange", ""), a.get("attachment", "")))
         final.append(a)
 
     return final
@@ -1303,6 +1324,18 @@ def main():
     cache = load_cache()
     seen_keys = set(cache.get("seen_keys", []))
     existing = cache.get("announcements", [])
+
+    # Guard: announcements.json is tracked in git and always holds thousands
+    # of rows. If the file exists but loaded (near-)empty, something is wrong
+    # (truncated commit, bad checkout) — rebuilding from a 2-day fetch window
+    # would push a wiped history. Abort loudly instead.
+    # Set ALLOW_EMPTY_CACHE=1 for a deliberate from-scratch rebuild.
+    if (os.path.exists(CACHE_FILE) and len(existing) < 100
+            and os.environ.get("ALLOW_EMPTY_CACHE") != "1"):
+        log(f"::error::announcements.json exists but loaded only {len(existing)} "
+            f"announcements — refusing to rebuild history from scratch. "
+            f"Set ALLOW_EMPTY_CACHE=1 to override deliberately.")
+        raise SystemExit(1)
 
     # Split cadence (efficient + complete):
     #  - Most hourly runs: tight 2-day window (cheap, fast, retry-hardened).
@@ -1743,6 +1776,18 @@ def main():
     # Clean internal keys before saving
     for a in merged:
         a.pop("_key", None)
+
+    # Safety net (same guard as comm_profile.json got after the Q1 FY27 wipe):
+    # if this run would shrink the dataset drastically — e.g. the cache file
+    # loaded as empty/partial after a bad checkout, so "merged" is only the
+    # 2-day fetch window — abort loudly instead of pushing a wiped history.
+    # Legitimate cleanups (noise/retention/dedup) trim a few percent per run,
+    # never half the file.
+    if len(existing) >= 500 and len(merged) < 0.5 * len(existing):
+        log(f"::error::Refusing to save: dataset would shrink from {len(existing)} "
+            f"to {len(merged)} announcements in one run — likely a corrupt/empty "
+            f"cache load or catastrophic fetch failure, not a normal cleanup.")
+        raise SystemExit(1)
 
     # Save
     cache = {
