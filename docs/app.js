@@ -1628,7 +1628,7 @@ function renderRelStrength() {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.name + " share price")}`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name)}</a>
-                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}${r.sme ? " · SME" : ""}</span></td>
+                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}${r.sme ? " · SME" : ""}${r.bse ? " · BSE" : ""}</span></td>
             <td style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
             <td style="text-align:right">${r.close.toLocaleString("en-IN")}</td>
             <td style="text-align:right">${pctCell(r.pct_7d)}</td>
@@ -1648,7 +1648,8 @@ function exportRelStrength() {
     const rows = _rsFiltered();
     if (!rows.length) return;
     const data = rows.map(r => ({
-        Company: r.name, Symbol: r.symbol, SME: r.sme ? "Yes" : "No",
+        Company: r.name, Symbol: r.symbol,
+        Exchange: r.bse ? "BSE" : "NSE", SME: r.sme ? "Yes" : "No",
         "MCap (Cr)": r.mcap_cr == null ? "" : Math.round(r.mcap_cr),
         "Close (Rs)": r.close, "7D Change %": r.pct_7d,
         [`RS vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs == null ? "" : r.rs,
