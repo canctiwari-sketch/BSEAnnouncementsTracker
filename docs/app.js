@@ -1409,8 +1409,8 @@ let interviewsLoaded = false;
 let allInterviews = [];
 
 function showTab(tab) {
-    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", research: "researchTab" };
-    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", research: "tabResearch" };
+    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", relstrength: "relStrengthTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", relstrength: "tabRelStrength", research: "tabResearch" };
     Object.keys(TABS).forEach(t => {
         const el = document.getElementById(TABS[t]);
         if (el) el.style.display = t === tab ? "" : "none";
@@ -1420,6 +1420,7 @@ function showTab(tab) {
     if (tab === "insider" && !insiderLoaded) fetchInsiderData();
     if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
     if (tab === "disclosure" && !disclosureLoaded) fetchDisclosure();
+    if (tab === "relstrength" && !relStrengthLoaded) fetchRelStrength();
     if (tab === "research") {
         loadScrips();
         setTimeout(() => {
@@ -1556,6 +1557,107 @@ function exportDisclosure() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Disclosure");
     XLSX.writeFile(wb, "disclosure_style.xlsx");
+}
+
+// ─── Relative Strength ───────────────────────────────────────────────────────
+let relStrengthLoaded = false;
+let allRelStrength = [];
+let rsMeta = {};
+let rsSort = { col: "rs", dir: "desc" };
+
+async function fetchRelStrength() {
+    const status = document.getElementById("rsStatus");
+    if (status) { status.textContent = "Loading relative strength..."; status.className = "status loading"; }
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/rel_strength.json?t=" + Date.now());
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const data = await r.json();
+        allRelStrength = data.rows || [];
+        rsMeta = data;
+        relStrengthLoaded = true;
+        renderRelStrength();
+    } catch (e) {
+        if (status) { status.textContent = "Failed to load: " + e.message; status.className = "status error"; }
+    }
+}
+
+function _rsFiltered() {
+    const bucket = document.getElementById("rsBucket")?.value || "all";
+    const minM = parseFloat(document.getElementById("rsMinMcap")?.value) || 0;
+    const maxM = parseFloat(document.getElementById("rsMaxMcap")?.value) || 0;
+    const hideSme = document.getElementById("rsHideSme")?.checked;
+    const search = (document.getElementById("rsSearch")?.value || "").toLowerCase();
+    let rows = allRelStrength.filter(r => {
+        if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
+        if (maxM && (r.mcap_cr == null || r.mcap_cr > maxM)) return false;
+        if (hideSme && r.sme) return false;
+        if (search && !(`${r.name} ${r.symbol}`).toLowerCase().includes(search)) return false;
+        if (bucket === "outperform") return r.rs != null && r.rs > 0;
+        if (bucket === "underperform") return r.rs != null && r.rs < 0;
+        return true;
+    });
+    const dir = rsSort.dir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+        let x = a[rsSort.col], y = b[rsSort.col];
+        if (x == null) return 1;
+        if (y == null) return -1;
+        if (typeof x === "string") { x = x.toLowerCase(); y = (y || "").toLowerCase(); }
+        return x < y ? -dir : x > y ? dir : 0;
+    });
+    return rows;
+}
+
+function renderRelStrength() {
+    const body = document.getElementById("rsBody");
+    if (!body) return;
+    const rows = _rsFiltered();
+    const status = document.getElementById("rsStatus");
+    if (status) {
+        const bp = rsMeta.benchmark_pct;
+        status.textContent = `${rows.length} stocks · ${rsMeta.base_date} → ${rsMeta.latest_date}` +
+            (bp != null ? ` · ${rsMeta.benchmark}: ${bp > 0 ? "+" : ""}${bp}%` : "");
+        status.className = "status";
+    }
+    if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        return;
+    }
+    const pctCell = v => v == null ? '<span style="color:#bbb">N/A</span>'
+        : `<span style="color:${v >= 0 ? "#065f46" : "#b91c1c"};font-weight:600">${v > 0 ? "+" : ""}${v.toFixed(2)}%</span>`;
+    body.innerHTML = rows.map(r => {
+        const g = `https://www.google.com/search?q=${encodeURIComponent(r.name + " share price")}`;
+        return `<tr>
+            <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name)}</a>
+                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}${r.sme ? " · SME" : ""}</span></td>
+            <td style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
+            <td style="text-align:right">${r.close.toLocaleString("en-IN")}</td>
+            <td style="text-align:right">${pctCell(r.pct_7d)}</td>
+            <td style="text-align:right">${pctCell(r.rs)}</td>
+            <td>${r.adj ? '<span class="dsc-badge dsc-b-pend">split/bonus adj</span>' : ""}</td>
+        </tr>`;
+    }).join("");
+}
+
+function sortRelStrength(col) {
+    if (rsSort.col === col) rsSort.dir = rsSort.dir === "asc" ? "desc" : "asc";
+    else rsSort = { col, dir: col === "name" ? "asc" : "desc" };
+    renderRelStrength();
+}
+
+function exportRelStrength() {
+    const rows = _rsFiltered();
+    if (!rows.length) return;
+    const data = rows.map(r => ({
+        Company: r.name, Symbol: r.symbol, SME: r.sme ? "Yes" : "No",
+        "MCap (Cr)": r.mcap_cr == null ? "" : Math.round(r.mcap_cr),
+        "Close (Rs)": r.close, "7D Change %": r.pct_7d,
+        [`RS vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs == null ? "" : r.rs,
+        Note: r.adj ? "split/bonus adjusted" : "",
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Rel Strength");
+    XLSX.writeFile(wb, "rel_strength_7d.xlsx");
 }
 
 // ─── Interviews ──────────────────────────────────────────────────────────────

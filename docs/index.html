@@ -23,6 +23,7 @@
         <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
         <button class="tab-btn" id="tabInterviews" onclick="showTab('interviews')">🎙️ Interviews</button>
         <button class="tab-btn" id="tabDisclosure" onclick="showTab('disclosure')">📊 Disclosure</button>
+        <button class="tab-btn" id="tabRelStrength" onclick="showTab('relstrength')">📈 Rel Strength</button>
         <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
         <button class="tab-btn" onclick="location.href='portfolio.html'">💼 Portfolios</button>
     </div>
@@ -287,6 +288,38 @@
         </div>
     </div>
 
+    <!-- Relative Strength Tab -->
+    <div id="relStrengthTab" style="display:none">
+        <div class="controls">
+            <label>Show
+                <select id="rsBucket" onchange="renderRelStrength()">
+                    <option value="all">All stocks</option>
+                    <option value="outperform">Outperforming Nifty 500</option>
+                    <option value="underperform">Underperforming Nifty 500</option>
+                </select>
+            </label>
+            <label>Min MCap (Cr)<input type="number" id="rsMinMcap" placeholder="e.g. 500" oninput="renderRelStrength()"></label>
+            <label>Max MCap (Cr)<input type="number" id="rsMaxMcap" placeholder="e.g. 5000" oninput="renderRelStrength()"></label>
+            <label class="star-filter-label"><input type="checkbox" id="rsHideSme" onchange="renderRelStrength()"> Hide SME</label>
+            <label>Search<input type="text" id="rsSearch" placeholder="Company..." oninput="renderRelStrength()"></label>
+            <button class="export-btn" onclick="exportRelStrength()">Export Excel</button>
+        </div>
+        <div class="status-bar"><div id="rsStatus" class="status"></div></div>
+        <div id="rsResults">
+            <table id="rsTable">
+                <thead><tr>
+                    <th class="sortable" onclick="sortRelStrength('name')">Company</th>
+                    <th class="sortable" onclick="sortRelStrength('mcap_cr')">MCap (Cr)</th>
+                    <th class="sortable" onclick="sortRelStrength('close')">Close (Rs)</th>
+                    <th class="sortable" onclick="sortRelStrength('pct_7d')">7D Change</th>
+                    <th class="sortable" onclick="sortRelStrength('rs')">RS vs Nifty 500</th>
+                    <th>Note</th>
+                </tr></thead>
+                <tbody id="rsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- Research Tab (inline, no modal) -->
     <div id="researchTab" style="display:none">
         <div class="research-panel">
@@ -328,6 +361,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260705a"></script>
+    <script src="app.js?v=20260710a"></script>
 </body>
 </html>
