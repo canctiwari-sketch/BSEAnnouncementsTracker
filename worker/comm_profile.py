@@ -65,6 +65,13 @@ PRES_RE = re.compile(
     r"(?:quarter|financial year|year ended|results|fy\s?2\d|q[1-4])\b.{0,45}presentation",
     re.IGNORECASE,
 )
+# A presentation tick additionally requires an actual presentation word.
+# NSE's generic category "Analysts/Institutional Investor Meet/Con. Call
+# Updates" matches PRES_RE via "institutional investor", so bare
+# meeting-schedule intimations ("Schedule of meet", "Outcome of Analyst
+# Meeting") were wrongly ticked as presentations. A genuine presentation
+# filing always says "presentation"/"ppt" somewhere in desc or text.
+PRES_WORD_RE = re.compile(r"presentation|\bppt\b", re.IGNORECASE)
 CALL_RE = re.compile(
     r"transcript|conference call|con\s*call|earnings call|audio recording|"
     r"investor call|analyst call|earnings conference|audio of|"
@@ -339,7 +346,7 @@ def main():
     companies = {}
     for a in raw:
         subj = (a.get("desc") or "") + " " + (a.get("attchmntText") or "")
-        is_pres = bool(PRES_RE.search(subj))
+        is_pres = bool(PRES_RE.search(subj)) and bool(PRES_WORD_RE.search(subj))
         is_call = bool(CALL_RE.search(subj))
         if not (is_pres or is_call):
             continue
@@ -478,9 +485,13 @@ def main():
     # (possibly nothing) this run managed to fetch. If this run found far
     # fewer companies than we already had for this season, assume it's a bad
     # fetch and keep the prior data instead of overwriting it.
-    if prior_this_season and len(rows) < len(prior_this_season) * 0.5:
+    # ALLOW_SHRINK=1 overrides for deliberate rebuilds (e.g. after tightening
+    # the presentation/concall classifier, which legitimately drops rows).
+    if (prior_this_season and len(rows) < len(prior_this_season) * 0.5
+            and os.environ.get("ALLOW_SHRINK") != "1"):
         log(f"Suspiciously few rows this run ({len(rows)} vs {len(prior_this_season)} previously) "
-            f"for {SEASON_LABEL} — likely a fetch issue, keeping prior data for this season")
+            f"for {SEASON_LABEL} — likely a fetch issue, keeping prior data for this season. "
+            f"Set ALLOW_SHRINK=1 if this shrink is intentional.")
         rows = prior_this_season
     rows = rows + prior
     log(f"total rows after merge: {len(rows)} (kept {len(prior)} from other quarters)")
