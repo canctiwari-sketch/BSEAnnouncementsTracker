@@ -73,9 +73,13 @@ PRES_RE = re.compile(
 # filing always says "presentation"/"ppt" somewhere in desc or text.
 PRES_WORD_RE = re.compile(r"presentation|\bppt\b", re.IGNORECASE)
 CALL_RE = re.compile(
-    r"transcript|conference call|con\s*call|earnings call|audio recording|"
+    r"transcript|conference call|con\.?\s*call|earnings call|audio recording|"
     r"investor call|analyst call|earnings conference|audio of|"
-    r"intimation.{0,30}call|q[1-4].{0,15}call|schedule.{0,20}call",
+    r"intimation.{0,30}call|q[1-4].{0,15}call|schedule.{0,20}call|"
+    # NSE's meet/call category itself: bare meeting-schedule intimations
+    # ("Schedule of meet", "Outcome of Analyst Meeting") count as a
+    # meeting/concall signal — NOT as a presentation (see PRES_WORD_RE).
+    r"institutional investor meet|investor meet intimation|analyst meet",
     re.IGNORECASE,
 )
 
