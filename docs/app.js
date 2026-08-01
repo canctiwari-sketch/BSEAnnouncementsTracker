@@ -1581,13 +1581,17 @@ async function fetchRelStrength() {
     }
 }
 
+const RS_BUCKET_RANK = { large: 4, mid: 3, small: 2, micro: 1 };
+
 function _rsFiltered() {
     const bucket = document.getElementById("rsBucket")?.value || "all";
+    const cap = document.getElementById("rsCap")?.value || "";
     const minM = parseFloat(document.getElementById("rsMinMcap")?.value) || 0;
     const maxM = parseFloat(document.getElementById("rsMaxMcap")?.value) || 0;
     const hideSme = document.getElementById("rsHideSme")?.checked;
     const search = (document.getElementById("rsSearch")?.value || "").toLowerCase();
     let rows = allRelStrength.filter(r => {
+        if (cap && r.bucket !== cap) return false;   // cap filter needs known mcap
         if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
         if (maxM && (r.mcap_cr == null || r.mcap_cr > maxM)) return false;
         if (hideSme && r.sme) return false;
@@ -1598,7 +1602,12 @@ function _rsFiltered() {
     });
     const dir = rsSort.dir === "asc" ? 1 : -1;
     rows.sort((a, b) => {
-        let x = a[rsSort.col], y = b[rsSort.col];
+        let x, y;
+        if (rsSort.col === "bucket") {   // sort by cap size, not alphabetically
+            x = RS_BUCKET_RANK[a.bucket] || 0; y = RS_BUCKET_RANK[b.bucket] || 0;
+        } else {
+            x = a[rsSort.col]; y = b[rsSort.col];
+        }
         if (x == null) return 1;
         if (y == null) return -1;
         if (typeof x === "string") { x = x.toLowerCase(); y = (y || "").toLowerCase(); }
@@ -1619,18 +1628,21 @@ function renderRelStrength() {
         status.className = "status";
     }
     if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        body.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
         return;
     }
     const pctCell = v => v == null ? '<span style="color:#bbb">N/A</span>'
         : `<span style="color:${v >= 0 ? "#065f46" : "#b91c1c"};font-weight:600">${v > 0 ? "+" : ""}${v.toFixed(2)}%</span>`;
+    const CAP_LABEL = { large: "Large", mid: "Mid", small: "Small", micro: "Micro" };
     body.innerHTML = rows.map(r => {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.name + " share price")}`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name)}</a>
                 <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}${r.sme ? " · SME" : ""}${r.bse ? " · BSE" : ""}</span></td>
             <td style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
+            <td>${r.bucket ? CAP_LABEL[r.bucket] : '<span style="color:#ccc">—</span>'}</td>
             <td style="text-align:right">${r.close.toLocaleString("en-IN")}</td>
+            <td style="text-align:right">${pctCell(r.pct_1d)}</td>
             <td style="text-align:right">${pctCell(r.pct_7d)}</td>
             <td style="text-align:right">${pctCell(r.rs)}</td>
             <td>${r.adj ? '<span class="dsc-badge dsc-b-pend">split/bonus adj</span>' : ""}</td>
@@ -1647,11 +1659,15 @@ function sortRelStrength(col) {
 function exportRelStrength() {
     const rows = _rsFiltered();
     if (!rows.length) return;
+    const CAP_LABEL = { large: "Large", mid: "Mid", small: "Small", micro: "Micro" };
     const data = rows.map(r => ({
         Company: r.name, Symbol: r.symbol,
         Exchange: r.bse ? "BSE" : "NSE", SME: r.sme ? "Yes" : "No",
         "MCap (Cr)": r.mcap_cr == null ? "" : Math.round(r.mcap_cr),
-        "Close (Rs)": r.close, "7D Change %": r.pct_7d,
+        Cap: r.bucket ? CAP_LABEL[r.bucket] : "",
+        "Close (Rs)": r.close,
+        "1D Change %": r.pct_1d == null ? "" : r.pct_1d,
+        "7D Change %": r.pct_7d,
         [`RS vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs == null ? "" : r.rs,
         Note: r.adj ? "split/bonus adjusted" : "",
     }));

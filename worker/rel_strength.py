@@ -60,6 +60,18 @@ SEARCH_WINDOW_DAYS = 16      # how far back to look for trading days
 # daily moves at ~20%. Neutralize them instead of poisoning the 7d return.
 FACTOR_MIN, FACTOR_MAX = 0.65, 1.50
 
+# Market-cap buckets (₹ Cr) — standard Indian advisory thresholds.
+def cap_bucket(mcap_cr):
+    if mcap_cr is None:
+        return None
+    if mcap_cr < 500:
+        return "micro"
+    if mcap_cr < 5000:
+        return "small"
+    if mcap_cr < 20000:
+        return "mid"
+    return "large"
+
 
 def log(m):
     print(m, flush=True)
@@ -239,21 +251,30 @@ def main():
     if adjusted:
         log(f"NSE: neutralized corporate-action jumps for {len(adjusted)} symbols")
 
-    def make_row(sym, close, name, series, pct, adj, sme, bse, mcap):
+    def make_row(sym, close, prev, name, series, pct, adj, sme, bse, mcap):
+        # 1-day change from the latest bhavcopy (close vs prev close). Same
+        # corp-action guard as the 7d chain: a split ex-date on the latest day
+        # would otherwise read as a fake -90%.
+        pct_1d = None
+        if prev and prev > 0 and FACTOR_MIN <= close / prev <= FACTOR_MAX:
+            pct_1d = round((close - prev) / prev * 100, 2)
+        mc = round(mcap, 0) if mcap else None
         return {
             "symbol": sym,
             "name": name,
             "sme": sme,
             "bse": bse or None,   # True only for BSE-only listings
             "close": round(close, 2),
+            "pct_1d": pct_1d,
             "pct_7d": round(pct, 2),
             "rs": round(pct - idx_pct, 2) if idx_pct is not None else None,
-            "mcap_cr": round(mcap, 0) if mcap else None,
+            "mcap_cr": mc,
+            "bucket": cap_bucket(mc),
             "adj": adj or None,   # split/bonus in window
         }
 
     rows = []
-    for sym, (close, _prev, name, series, _isin) in latest.items():
+    for sym, (close, prev, name, series, _isin) in latest.items():
         if sym not in base:
             continue  # not traded at window start (new listing etc.)
         if series not in SME_SERIES and equity_syms and sym not in equity_syms:
@@ -261,7 +282,7 @@ def main():
         f = factors.get(sym)
         if f is None:
             continue
-        rows.append(make_row(sym, close, name, series, (f - 1.0) * 100,
+        rows.append(make_row(sym, close, prev, name, series, (f - 1.0) * 100,
                              sym in adjusted, series in SME_SERIES, False,
                              mcap_by_sym.get(sym)))
     log(f"NSE rows: {len(rows)}")
@@ -285,7 +306,7 @@ def main():
         if badjusted:
             log(f"BSE: neutralized corporate-action jumps for {len(badjusted)} symbols")
         added = 0
-        for sym, (close, _prev, name, series, isin) in bse_latest.items():
+        for sym, (close, prev, name, series, isin) in bse_latest.items():
             if isin and isin in nse_isins:
                 continue  # dual-listed — already covered via its NSE row
             if sym not in bse_base:
@@ -296,7 +317,7 @@ def main():
             # No mcap join for BSE-only rows: the NSE mcap map is keyed by NSE
             # symbols, and a coincidental symbol collision would attach the
             # wrong company's mcap. They show N/A instead.
-            rows.append(make_row(sym, close, name, series, (f - 1.0) * 100,
+            rows.append(make_row(sym, close, prev, name, series, (f - 1.0) * 100,
                                  sym in badjusted, series in BSE_SME_SERIES,
                                  True, None))
             added += 1

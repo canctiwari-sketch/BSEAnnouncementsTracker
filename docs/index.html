@@ -298,6 +298,15 @@
                     <option value="underperform">Underperforming Nifty 500</option>
                 </select>
             </label>
+            <label>Cap size
+                <select id="rsCap" onchange="renderRelStrength()">
+                    <option value="">All caps</option>
+                    <option value="large">Large (&gt; 20,000 Cr)</option>
+                    <option value="mid">Mid (5,000–20,000 Cr)</option>
+                    <option value="small">Small (500–5,000 Cr)</option>
+                    <option value="micro">Micro (&lt; 500 Cr)</option>
+                </select>
+            </label>
             <label>Min MCap (Cr)<input type="number" id="rsMinMcap" placeholder="e.g. 500" oninput="renderRelStrength()"></label>
             <label>Max MCap (Cr)<input type="number" id="rsMaxMcap" placeholder="e.g. 5000" oninput="renderRelStrength()"></label>
             <label class="star-filter-label"><input type="checkbox" id="rsHideSme" onchange="renderRelStrength()"> Hide SME</label>
@@ -310,7 +319,9 @@
                 <thead><tr>
                     <th class="sortable" onclick="sortRelStrength('name')">Company</th>
                     <th class="sortable" onclick="sortRelStrength('mcap_cr')">MCap (Cr)</th>
+                    <th class="sortable" onclick="sortRelStrength('bucket')">Cap</th>
                     <th class="sortable" onclick="sortRelStrength('close')">Close (Rs)</th>
+                    <th class="sortable" onclick="sortRelStrength('pct_1d')">1D Change</th>
                     <th class="sortable" onclick="sortRelStrength('pct_7d')">7D Change</th>
                     <th class="sortable" onclick="sortRelStrength('rs')">RS vs Nifty 500</th>
                     <th>Note</th>
@@ -361,6 +372,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260710b"></script>
+    <script src="app.js?v=20260710c"></script>
 </body>
 </html>
