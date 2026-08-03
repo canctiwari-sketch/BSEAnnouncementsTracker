@@ -325,6 +325,26 @@ def main():
     else:
         log("::warning::BSE bhavcopy unavailable for window — BSE-only companies skipped this run")
 
+    # Fallback for NSE rows missing from the semi-annual mcap file — mostly
+    # companies that listed on NSE after the file's Jul-Dec window (e.g.
+    # Transpek Industry, listed on NSE 20-Apr-2026). Fetch live mcap from
+    # Yahoo by NSE symbol; safe because these are genuine NSE symbols (unlike
+    # BSE-only rows, which we don't Yahoo-join to avoid symbol collisions).
+    missing = [r for r in rows if not r.get("bse") and r["mcap_cr"] is None]
+    if missing:
+        import comm_profile
+        from concurrent.futures import ThreadPoolExecutor
+        def _y(r):
+            return r, comm_profile.yahoo_mcap_cr(r["symbol"])
+        filled = 0
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            for r, mc in ex.map(_y, missing):
+                if mc:
+                    r["mcap_cr"] = round(mc, 0)
+                    r["bucket"] = cap_bucket(r["mcap_cr"])
+                    filled += 1
+        log(f"Yahoo mcap fallback: filled {filled}/{len(missing)} NSE symbols missing from file")
+
     rows.sort(key=lambda r: r["rs"] if r["rs"] is not None else r["pct_7d"], reverse=True)
     log(f"total rows: {len(rows)}")
 
