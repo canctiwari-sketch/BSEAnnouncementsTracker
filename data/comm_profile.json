@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T03:58:44.758040",
+  "generated_at": "2026-08-05T03:53:55.576746",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
@@ -18868,9 +18868,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Neochem Bio Solutions Limited",
@@ -18931,6 +18931,18 @@
       "date": "2026-08-03",
       "pres_date": "",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Ashwini Container Movers Limited",
+      "symbol": "ASHWINI",
+      "mcap_cr": 206.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
     },
     {
       "company": "Madhusudan Masala Limited",
@@ -19120,9 +19132,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Eleganz Interiors Limited",
@@ -19276,9 +19288,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-01",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-01"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Univastu India Limited",
@@ -19387,6 +19399,18 @@
       "date": "2026-07-24",
       "pres_date": "2026-07-24",
       "call_date": ""
+    },
+    {
+      "company": "DiGiSPICE Technologies Limited",
+      "symbol": "DIGISPICE",
+      "mcap_cr": 463.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Kanpur Plastipack Limited",
@@ -19521,6 +19545,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Repro India Limited",
+      "symbol": "REPRO",
+      "mcap_cr": 530.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "S Chand And Company Limited",
       "symbol": "SCHAND",
       "mcap_cr": 530.0,
@@ -19533,6 +19569,18 @@
       "call_date": "2026-08-02"
     },
     {
+      "company": "Zim Laboratories Limited",
+      "symbol": "ZIMLAB",
+      "mcap_cr": 549.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Best Agrolife Limited",
       "symbol": "BESTAGRO",
       "mcap_cr": 553.0,
@@ -19540,9 +19588,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Allied Digital Services Limited",
@@ -19591,6 +19639,18 @@
       "date": "2026-07-29",
       "pres_date": "",
       "call_date": "2026-07-29"
+    },
+    {
+      "company": "Credo Brands Marketing Limited",
+      "symbol": "MUFTI",
+      "mcap_cr": 581.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Chemfab Alkalis Limited",
@@ -19708,9 +19768,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sutlej Textiles and Industries Limited",
@@ -19809,6 +19869,30 @@
       "call_date": "2026-07-21"
     },
     {
+      "company": "Magadh Sugar & Energy Limited",
+      "symbol": "MAGADSUGAR",
+      "mcap_cr": 675.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
+      "company": "Chemcon Speciality Chemicals Limited",
+      "symbol": "CHEMCON",
+      "mcap_cr": 689.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "Bigbloc Construction Limited",
       "symbol": "BIGBLOC",
       "mcap_cr": 695.0,
@@ -19830,6 +19914,18 @@
       "status": "call_only",
       "date": "2026-07-30",
       "pres_date": "",
+      "call_date": "2026-07-30"
+    },
+    {
+      "company": "Ganesh Consumer Products Limited",
+      "symbol": "GANESHCP",
+      "mcap_cr": 710.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-30"
     },
     {
@@ -19893,16 +19989,16 @@
       "call_date": ""
     },
     {
-      "company": "Ganesh Consumer Products Limited",
-      "symbol": "GANESHCP",
-      "mcap_cr": 798.0,
+      "company": "ZUARI INDUSTRIES LIMITED",
+      "symbol": "ZUARIIND",
+      "mcap_cr": 788.0,
       "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Hexagon Nutrition Limited",
@@ -20056,9 +20152,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Wanbury Limited",
@@ -20200,9 +20296,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "BirlaNu Limited",
@@ -20265,6 +20361,18 @@
       "call_date": ""
     },
     {
+      "company": "Creative Newtech Limited",
+      "symbol": "CNL",
+      "mcap_cr": 1059.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "Kross Limited",
       "symbol": "KROSS",
       "mcap_cr": 1060.0,
@@ -20284,9 +20392,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Fino Payments Bank Limited",
@@ -20344,9 +20452,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Control Print Limited",
@@ -20409,6 +20517,42 @@
       "call_date": "2026-07-27"
     },
     {
+      "company": "Salzer Electronics Limited",
+      "symbol": "SALZERELEC",
+      "mcap_cr": 1119.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Arihant Superstructures Limited",
+      "symbol": "ARIHANTSUP",
+      "mcap_cr": 1123.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Tarsons Products Limited",
+      "symbol": "TARSONS",
+      "mcap_cr": 1124.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Sathlokhar Synergys E&C Global Limited",
       "symbol": "SSEGL",
       "mcap_cr": 1145.0,
@@ -20419,6 +20563,18 @@
       "date": "2026-08-03",
       "pres_date": "2026-08-02",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Linc Limited",
+      "symbol": "LINC",
+      "mcap_cr": 1162.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Arisinfra Solutions Limited",
@@ -20464,9 +20620,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Century Enka Limited",
@@ -20481,6 +20637,18 @@
       "call_date": "2026-07-31"
     },
     {
+      "company": "Gulshan Polyols Limited",
+      "symbol": "GULPOLY",
+      "mcap_cr": 1204.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Meghmani Organics Limited",
       "symbol": "MOL",
       "mcap_cr": 1213.0,
@@ -20488,9 +20656,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Allcargo Logistics Limited",
@@ -20548,9 +20716,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "GPT Healthcare Limited",
@@ -20560,9 +20728,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-25"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Updater Services Limited",
@@ -20608,9 +20776,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Beta Drugs Limited",
@@ -20716,9 +20884,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Digitide Solutions Limited",
@@ -20749,11 +20917,11 @@
       "symbol": "UGROCAP",
       "mcap_cr": 1522.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-29"
     },
     {
@@ -20803,6 +20971,18 @@
       "date": "2026-07-27",
       "pres_date": "2026-07-21",
       "call_date": "2026-07-27"
+    },
+    {
+      "company": "IKIO Technologies Limited",
+      "symbol": "IKIO",
+      "mcap_cr": 1579.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "SMC Global Securities Limited",
@@ -21009,6 +21189,18 @@
       "call_date": "2026-08-01"
     },
     {
+      "company": "Studds Accessories Limited",
+      "symbol": "STUDDS",
+      "mcap_cr": 1791.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Sasken Technologies Limited",
       "symbol": "SASKEN",
       "mcap_cr": 1792.0,
@@ -21016,9 +21208,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "5Paisa Capital Limited",
@@ -21064,9 +21256,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Windlas Biotech Limited",
@@ -21079,6 +21271,18 @@
       "date": "2026-07-09",
       "pres_date": "",
       "call_date": "2026-07-09"
+    },
+    {
+      "company": "M & B Engineering Limited",
+      "symbol": "MBEL",
+      "mcap_cr": 1856.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Hinduja Global Solutions Limited",
@@ -21273,6 +21477,18 @@
       "call_date": "2026-07-14"
     },
     {
+      "company": "Ndr Auto Components Limited",
+      "symbol": "NDRAUTO",
+      "mcap_cr": 2059.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Indoco Remedies Limited",
       "symbol": "INDOCO",
       "mcap_cr": 2077.0,
@@ -21280,9 +21496,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Apollo Pipes Limited",
@@ -21388,9 +21604,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Servotech Renewable Power System Limited",
@@ -21465,6 +21681,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Morepen Laboratories Limited",
+      "symbol": "MOREPENLAB",
+      "mcap_cr": 2337.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "Mold-Tek Packaging Limited",
       "symbol": "MOLDTKPAC",
       "mcap_cr": 2344.0,
@@ -21487,6 +21715,18 @@
       "date": "2026-08-03",
       "pres_date": "",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Shankara Buildpro Limited",
+      "symbol": "BUILDPRO",
+      "mcap_cr": 2371.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sundrop Brands Limited",
@@ -21541,24 +21781,24 @@
       "symbol": "PROTEAN",
       "mcap_cr": 2432.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
-      "call_date": "2026-07-28"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Ajmera Realty & Infra India Limited",
       "symbol": "AJMERA",
       "mcap_cr": 2440.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Brigade Hotel Ventures Limited",
@@ -21580,9 +21820,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Exicom Tele-Systems Limited",
+      "symbol": "EXICOM",
+      "mcap_cr": 2490.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Stove Kraft Limited",
@@ -21592,9 +21844,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-22"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Gujarat Industries Power Company Limited",
@@ -21607,6 +21859,30 @@
       "date": "2026-07-15",
       "pres_date": "",
       "call_date": "2026-07-15"
+    },
+    {
+      "company": "GK Energy Limited",
+      "symbol": "GKENERGY",
+      "mcap_cr": 2535.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Kiri Industries Limited",
+      "symbol": "KIRIINDUS",
+      "mcap_cr": 2577.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Gateway Distriparks Limited",
@@ -21640,9 +21916,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-01",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-01"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Mayur Uniquoters Ltd",
@@ -21736,9 +22012,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Eveready Industries India Limited",
@@ -21813,6 +22089,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Parag Milk Foods Limited",
+      "symbol": "PARAGMILK",
+      "mcap_cr": 2729.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Ganesha Ecosphere Limited",
       "symbol": "GANECOS",
       "mcap_cr": 2739.0,
@@ -21820,9 +22108,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Orient Cement Limited",
@@ -21841,12 +22129,12 @@
       "symbol": "UFBL",
       "mcap_cr": 2761.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Prataap Snacks Limited",
@@ -21919,6 +22207,18 @@
       "date": "2026-08-03",
       "pres_date": "",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Jash Engineering Limited",
+      "symbol": "JASH",
+      "mcap_cr": 2837.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Interarch Building Solutions Limited",
@@ -22021,12 +22321,12 @@
       "symbol": "UNIPARTS",
       "mcap_cr": 3058.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-30",
-      "pres_date": "",
-      "call_date": "2026-07-30"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Steelcast Limited",
@@ -22048,9 +22348,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-21"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Refex Industries Limited",
@@ -22060,32 +22360,32 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Prince Pipes And Fittings Limited",
       "symbol": "PRINCEPIPE",
       "mcap_cr": 3081.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "R Systems International Limited",
       "symbol": "RSYSTEMS",
       "mcap_cr": 3120.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -22096,9 +22396,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "NIIT Learning Systems Limited",
@@ -22123,6 +22423,18 @@
       "date": "2026-07-28",
       "pres_date": "",
       "call_date": "2026-07-28"
+    },
+    {
+      "company": "Nitin Spinners Limited",
+      "symbol": "NITINSPIN",
+      "mcap_cr": 3165.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Carraro India Limited",
@@ -22197,6 +22509,18 @@
       "call_date": "2026-07-21"
     },
     {
+      "company": "Chemplast Sanmar Limited",
+      "symbol": "CHEMPLASTS",
+      "mcap_cr": 3276.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Muthoot Microfin Limited",
       "symbol": "MUTHOOTMF",
       "mcap_cr": 3334.0,
@@ -22252,9 +22576,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Enviro Infra Engineers Limited",
@@ -22279,6 +22603,18 @@
       "date": "2026-08-03",
       "pres_date": "",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Omnitech Engineering Limited",
+      "symbol": "OMNI",
+      "mcap_cr": 3471.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Anand Rathi Share and Stock Brokers Limited",
@@ -22317,6 +22653,18 @@
       "call_date": "2026-07-28"
     },
     {
+      "company": "Shivalik Bimetal Controls Limited",
+      "symbol": "SBCL",
+      "mcap_cr": 3514.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Aarti Drugs Limited",
       "symbol": "AARTIDRUGS",
       "mcap_cr": 3522.0,
@@ -22324,9 +22672,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-01",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Turtlemint Fintech Solutions Limited",
@@ -22360,9 +22708,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sambhv Steel Tubes Limited",
@@ -22372,9 +22720,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Bajaj Electricals Limited",
@@ -22480,21 +22828,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Crizac Limited",
       "symbol": "CRIZAC",
       "mcap_cr": 3791.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Orient Electric Limited",
@@ -22537,11 +22885,11 @@
       "symbol": "VAIBHAVGBL",
       "mcap_cr": 3832.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-20",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-20"
     },
     {
@@ -22593,6 +22941,18 @@
       "call_date": "2026-07-29"
     },
     {
+      "company": "NRB Bearing Limited",
+      "symbol": "NRBBEARING",
+      "mcap_cr": 3935.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Mahindra Logistics Limited",
       "symbol": "MAHLOG",
       "mcap_cr": 3937.0,
@@ -22621,11 +22981,11 @@
       "symbol": "KDDL",
       "mcap_cr": 3987.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
+      "status": "both",
       "date": "2026-08-04",
-      "pres_date": "",
+      "pres_date": "2026-08-04",
       "call_date": "2026-08-04"
     },
     {
@@ -22689,6 +23049,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Pondy Oxides & Chemicals Limited",
+      "symbol": "POCL",
+      "mcap_cr": 4055.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-27"
+    },
+    {
       "company": "Laser Power & Infra Limited",
       "symbol": "LASERPOWER",
       "mcap_cr": 4058.0,
@@ -22725,6 +23097,30 @@
       "call_date": "2026-07-30"
     },
     {
+      "company": "Ideaforge Technology Limited",
+      "symbol": "IDEAFORGE",
+      "mcap_cr": 4107.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Advanced Enzyme Technologies Limited",
+      "symbol": "ADVENZYMES",
+      "mcap_cr": 4110.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "IndoStar Capital Finance Limited",
       "symbol": "INDOSTAR",
       "mcap_cr": 4152.0,
@@ -22749,28 +23145,16 @@
       "call_date": "2026-08-03"
     },
     {
-      "company": "VRL Logistics Limited",
-      "symbol": "VRLLOG",
-      "mcap_cr": 4162.0,
-      "quarter": "Q1 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
-      "call_date": "2026-07-28"
-    },
-    {
       "company": "Sanathan Textiles Limited",
       "symbol": "SANATHAN",
       "mcap_cr": 4173.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Vishnu Chemicals Limited",
@@ -22792,9 +23176,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "KSH International Limited",
@@ -22804,9 +23188,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Man Industries (India) Limited",
@@ -22821,16 +23205,28 @@
       "call_date": "2026-07-07"
     },
     {
+      "company": "Optiemus Infracom Limited",
+      "symbol": "OPTIEMUS",
+      "mcap_cr": 4238.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "Texmaco Rail & Engineering Limited",
       "symbol": "TEXRAIL",
       "mcap_cr": 4249.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-31",
-      "pres_date": "",
-      "call_date": "2026-07-31"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "GNG Electronics Limited",
@@ -22864,21 +23260,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
-      "company": "Pondy Oxides & Chemicals Limited",
-      "symbol": "POCL",
-      "mcap_cr": 4328.0,
+      "company": "PNC Infratech Limited",
+      "symbol": "PNCINFRA",
+      "mcap_cr": 4338.0,
       "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-27",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-27"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Rallis India Limited",
@@ -22897,12 +23293,24 @@
       "symbol": "CAPILLARY",
       "mcap_cr": 4379.0,
       "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Gujarat Themis Biosyn Limited",
+      "symbol": "GUJTHEM",
+      "mcap_cr": 4391.0,
+      "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Epigral Limited",
@@ -22927,6 +23335,18 @@
       "date": "2026-07-24",
       "pres_date": "",
       "call_date": "2026-07-24"
+    },
+    {
+      "company": "Electrosteel Castings Limited",
+      "symbol": "ELECTCAST",
+      "mcap_cr": 4443.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sterling and Wilson Renewable Energy Limited",
@@ -22960,9 +23380,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Laxmi Organic Industries Limited",
@@ -22972,9 +23392,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Gujarat Alkalies and Chemicals Limited",
@@ -23008,9 +23428,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Dhanuka Agritech Limited",
@@ -23092,9 +23512,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
-      "pres_date": "2026-07-20",
-      "call_date": "2026-07-29"
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "RPG Life Sciences Limited",
@@ -23121,6 +23541,18 @@
       "call_date": "2026-07-28"
     },
     {
+      "company": "Kaveri Seed Company Limited",
+      "symbol": "KSCL",
+      "mcap_cr": 4696.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Raymond Lifestyle Limited",
       "symbol": "RAYMONDLSL",
       "mcap_cr": 4704.0,
@@ -23143,6 +23575,18 @@
       "date": "2026-08-03",
       "pres_date": "",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Mstc Limited",
+      "symbol": "MSTCLTD",
+      "mcap_cr": 4745.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Northern Arc Capital Limited",
@@ -23181,15 +23625,27 @@
       "call_date": "2026-07-31"
     },
     {
-      "company": "Greaves Cotton Limited",
-      "symbol": "GREAVESCOT",
-      "mcap_cr": 4790.0,
+      "company": "Raymond Realty Limited",
+      "symbol": "RAYMONDREL",
+      "mcap_cr": 4777.0,
       "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Greaves Cotton Limited",
+      "symbol": "GREAVESCOT",
+      "mcap_cr": 4790.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -23205,16 +23661,40 @@
       "call_date": ""
     },
     {
+      "company": "VRL Logistics Limited",
+      "symbol": "VRLLOG",
+      "mcap_cr": 4828.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-28"
+    },
+    {
       "company": "Rashi Peripherals Limited",
       "symbol": "RPTECH",
       "mcap_cr": 4840.0,
       "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-29"
+    },
+    {
+      "company": "Entero Healthcare Solutions Limited",
+      "symbol": "ENTERO",
+      "mcap_cr": 4850.0,
+      "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sunteck Realty Limited",
@@ -23236,9 +23716,21 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "AvenuesAI Limited",
+      "symbol": "CCAVENUE",
+      "mcap_cr": 4887.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "DEE Development Engineers Limited",
@@ -23305,12 +23797,12 @@
       "symbol": "MAPMYINDIA",
       "mcap_cr": 5140.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Unimech Aerospace and Manufacturing Limited",
@@ -23320,9 +23812,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "ICRA Limited",
@@ -23341,11 +23833,11 @@
       "symbol": "PTC",
       "mcap_cr": 5260.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-30",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-30"
     },
     {
@@ -23411,14 +23903,26 @@
     {
       "company": "Keystone Realtors Limited",
       "symbol": "RUSTOMJEE",
-      "mcap_cr": 5446.0,
+      "mcap_cr": 5390.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Mrs. Bectors Food Specialities Limited",
+      "symbol": "BECTORFOOD",
+      "mcap_cr": 5438.0,
       "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Stylam Industries Limited",
@@ -23560,8 +24064,8 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
-      "pres_date": "2026-07-24",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-31"
     },
     {
@@ -23716,9 +24220,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-24",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Birla Corporation Limited",
@@ -23749,11 +24253,11 @@
       "symbol": "HNDFDS",
       "mcap_cr": 6436.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-29"
     },
     {
@@ -23877,6 +24381,18 @@
       "call_date": "2026-07-24"
     },
     {
+      "company": "Isgec Heavy Engineering Limited",
+      "symbol": "ISGEC",
+      "mcap_cr": 6781.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Greenlam Industries Limited",
       "symbol": "GREENLAM",
       "mcap_cr": 6812.0,
@@ -23908,9 +24424,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "EPL Limited",
+      "symbol": "EPL",
+      "mcap_cr": 6921.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sri Lotus Developers and Realty Limited",
@@ -23920,9 +24448,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-23"
+      "call_date": "2026-08-04"
     },
     {
       "company": "WESTLIFE FOODWORLD LIMITED",
@@ -23932,9 +24460,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "JK Lakshmi Cement Limited",
@@ -23968,9 +24496,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Newgen Software Technologies Limited",
@@ -23980,21 +24508,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-21",
+      "date": "2026-08-04",
       "pres_date": "2026-07-16",
-      "call_date": "2026-07-21"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Indian Metals & Ferro Alloys Limited",
       "symbol": "IMFA",
       "mcap_cr": 7176.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
-      "call_date": "2026-07-28"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Campus Activewear Limited",
@@ -24021,6 +24549,18 @@
       "call_date": "2026-07-31"
     },
     {
+      "company": "Aditya Birla Fashion and Retail Limited",
+      "symbol": "ABFRL",
+      "mcap_cr": 7329.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Sharda Cropchem Limited",
       "symbol": "SHARDACROP",
       "mcap_cr": 7424.0,
@@ -24028,9 +24568,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Tanla Platforms Limited",
@@ -24055,6 +24595,30 @@
       "date": "2026-07-30",
       "pres_date": "2026-07-23",
       "call_date": "2026-07-30"
+    },
+    {
+      "company": "Inox Green Energy Services Limited",
+      "symbol": "INOXGREEN",
+      "mcap_cr": 7572.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Jeena Sikho Lifecare Limited",
+      "symbol": "JSLL",
+      "mcap_cr": 7617.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Sanofi India Limited",
@@ -24091,6 +24655,18 @@
       "date": "2026-07-27",
       "pres_date": "",
       "call_date": "2026-07-27"
+    },
+    {
+      "company": "Paras Defence and Space Technologies Limited",
+      "symbol": "PARAS",
+      "mcap_cr": 7774.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Gujarat Narmada Valley Fertilizers and Chemicals Limited",
@@ -24145,12 +24721,12 @@
       "symbol": "ORKLAINDIA",
       "mcap_cr": 8036.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-20",
-      "pres_date": "",
-      "call_date": "2026-07-20"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "BlueStone Jewellery and Lifestyle Limited",
@@ -24172,9 +24748,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Yatharth Hospital & Trauma Care Services Limited",
@@ -24189,6 +24765,18 @@
       "call_date": "2026-07-07"
     },
     {
+      "company": "Cello World Limited",
+      "symbol": "CELLO",
+      "mcap_cr": 8104.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Aequs Limited",
       "symbol": "AEQUS",
       "mcap_cr": 8122.0,
@@ -24196,9 +24784,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Clean Science and Technology Limited",
@@ -24261,18 +24849,6 @@
       "call_date": "2026-07-12"
     },
     {
-      "company": "Sheela Foam Limited",
-      "symbol": "SFL",
-      "mcap_cr": 8343.0,
-      "quarter": "Q1 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-07-31",
-      "pres_date": "",
-      "call_date": "2026-07-31"
-    },
-    {
       "company": "Powerica Limited",
       "symbol": "POWERICA",
       "mcap_cr": 8356.0,
@@ -24285,6 +24861,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Sheela Foam Limited",
+      "symbol": "SFL",
+      "mcap_cr": 8384.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-31"
+    },
+    {
       "company": "Suven Life Sciences Limited",
       "symbol": "SUVEN",
       "mcap_cr": 8527.0,
@@ -24295,6 +24883,18 @@
       "date": "2026-07-14",
       "pres_date": "",
       "call_date": "2026-07-14"
+    },
+    {
+      "company": "Star Cement Limited",
+      "symbol": "STARCEMENT",
+      "mcap_cr": 8536.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "BOROSIL RENEWABLES LIMITED",
@@ -24321,6 +24921,18 @@
       "call_date": "2026-07-24"
     },
     {
+      "company": "Lemon Tree Hotels Limited",
+      "symbol": "LEMONTREE",
+      "mcap_cr": 8692.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Shadowfax Technologies Limited",
       "symbol": "SHADOWFAX",
       "mcap_cr": 8693.0,
@@ -24337,11 +24949,11 @@
       "symbol": "ASKAUTOLTD",
       "mcap_cr": 8781.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -24400,9 +25012,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-23",
+      "date": "2026-08-04",
       "pres_date": "2026-07-16",
-      "call_date": "2026-07-23"
+      "call_date": "2026-08-04"
     },
     {
       "company": "P N Gadgil Jewellers Limited",
@@ -24412,9 +25024,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "BLACKBUCK LIMITED",
@@ -24436,9 +25048,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Bata India Limited",
+      "symbol": "BATAINDIA",
+      "mcap_cr": 9191.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Fujiyama Power Systems Limited",
@@ -24493,12 +25117,12 @@
       "symbol": "SAREGAMA",
       "mcap_cr": 9438.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "CORONA Remedies Limited",
@@ -24616,9 +25240,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-02",
+      "date": "2026-08-04",
       "pres_date": "2026-07-25",
-      "call_date": "2026-08-02"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Blue Jet Healthcare Limited",
@@ -24637,11 +25261,11 @@
       "symbol": "SUDEEPPHRM",
       "mcap_cr": 9815.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-27"
     },
     {
@@ -24685,11 +25309,11 @@
       "symbol": "RITES",
       "mcap_cr": 10044.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-31",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-31"
     },
     {
@@ -24724,9 +25348,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "SBFC Finance Limited",
@@ -24772,9 +25396,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-22",
+      "date": "2026-08-04",
       "pres_date": "2026-07-16",
-      "call_date": "2026-07-22"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Intellect Design Arena Limited",
@@ -24784,9 +25408,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Whirlpool of India Limited",
@@ -24808,9 +25432,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-23",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Ramkrishna Forgings Limited",
@@ -24856,9 +25480,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-21",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Diamond Power Infrastructure Limited",
@@ -24880,9 +25504,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Finolex Industries Limited",
@@ -24916,9 +25540,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Viyash Scientific Limited",
@@ -24976,9 +25600,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Aavas Financiers Limited",
@@ -25057,11 +25681,11 @@
       "symbol": "METROPOLIS",
       "mcap_cr": 11611.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -25096,9 +25720,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Prudent Corporate Advisory Services Limited",
@@ -25137,18 +25761,6 @@
       "call_date": "2026-08-03"
     },
     {
-      "company": "Avalon Technologies Limited",
-      "symbol": "AVALON",
-      "mcap_cr": 11953.0,
-      "quarter": "Q1 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
-      "call_date": "2026-07-28"
-    },
-    {
       "company": "Deepak Fertilizers and Petrochemicals Corporation Limited",
       "symbol": "DEEPAKFERT",
       "mcap_cr": 11964.0,
@@ -25168,9 +25780,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-27",
+      "date": "2026-08-04",
       "pres_date": "2026-07-22",
-      "call_date": "2026-07-27"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Can Fin Homes Limited",
@@ -25180,9 +25792,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-24",
+      "date": "2026-08-04",
       "pres_date": "2026-07-20",
-      "call_date": "2026-07-24"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Avalon Technologies Limited",
+      "symbol": "AVALON",
+      "mcap_cr": 12078.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-28"
     },
     {
       "company": "Elecon Engineering Company Limited",
@@ -25201,11 +25825,11 @@
       "symbol": "BLUEDART",
       "mcap_cr": 12286.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-08-01",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-08-01"
     },
     {
@@ -25264,9 +25888,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "UTI Asset Management Company Limited",
@@ -25300,9 +25924,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "CEAT Limited",
@@ -25351,6 +25975,18 @@
       "date": "2026-07-31",
       "pres_date": "2026-07-30",
       "call_date": "2026-07-31"
+    },
+    {
+      "company": "Aditya Birla Real Estate Limited",
+      "symbol": "ABREL",
+      "mcap_cr": 13186.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "EID Parry India Limited",
@@ -25405,12 +26041,12 @@
       "symbol": "SHRIPISTON",
       "mcap_cr": 13369.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-21",
-      "pres_date": "",
-      "call_date": "2026-07-21"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Canara HSBC Life Insurance Company Limited",
@@ -25516,9 +26152,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "DOMS Industries Limited",
@@ -25528,9 +26164,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Fractal Analytics Limited",
@@ -25557,18 +26193,6 @@
       "call_date": "2026-08-03"
     },
     {
-      "company": "Happy Forgings Limited",
-      "symbol": "HAPPYFORGE",
-      "mcap_cr": 14132.0,
-      "quarter": "Q1 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
-      "call_date": "2026-07-28"
-    },
-    {
       "company": "Vijaya Diagnostic Centre Limited",
       "symbol": "VIJAYA",
       "mcap_cr": 14205.0,
@@ -25588,9 +26212,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-01",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-08-01"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Privi Speciality Chemicals Limited",
@@ -25624,9 +26248,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-21"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Rainbow Childrens Medicare Limited",
@@ -25636,9 +26260,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Garware Hi-Tech Films Limited",
@@ -25657,12 +26281,12 @@
       "symbol": "AGARWALEYE",
       "mcap_cr": 14732.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "LT Foods Limited",
@@ -25696,9 +26320,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "International Gemological Institute Limited",
@@ -25729,12 +26353,12 @@
       "symbol": "APLLTD",
       "mcap_cr": 14978.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Allied Blenders and Distillers Limited",
@@ -25773,6 +26397,18 @@
       "call_date": "2026-07-31"
     },
     {
+      "company": "Graphite India Limited",
+      "symbol": "GRAPHITE",
+      "mcap_cr": 15142.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
+    },
+    {
       "company": "Vedanta Iron and Steel Limited",
       "symbol": "VISL",
       "mcap_cr": 15161.0,
@@ -25780,9 +26416,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Kirloskar Brothers Limited",
@@ -25840,20 +26476,20 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Ventive Hospitality Limited",
       "symbol": "VENTIVE",
       "mcap_cr": 15601.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -25893,6 +26529,30 @@
       "call_date": "2026-07-25"
     },
     {
+      "company": "Inox Wind Limited",
+      "symbol": "INOXWIND",
+      "mcap_cr": 15727.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Apollo Micro Systems Limited",
+      "symbol": "APOLLO",
+      "mcap_cr": 15822.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Clean Max Enviro Energy Solutions Limited",
       "symbol": "CLEANMAX",
       "mcap_cr": 15844.0,
@@ -25915,6 +26575,18 @@
       "date": "2026-07-31",
       "pres_date": "2026-07-26",
       "call_date": "2026-07-31"
+    },
+    {
+      "company": "Happy Forgings Limited",
+      "symbol": "HAPPYFORGE",
+      "mcap_cr": 16077.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-07-28"
     },
     {
       "company": "Cohance Lifesciences Limited",
@@ -25984,9 +26656,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Leela Palaces Hotels & Resorts Limited",
@@ -26020,9 +26692,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Aarti Industries Limited",
@@ -26041,12 +26713,12 @@
       "symbol": "ZYDUSWELL",
       "mcap_cr": 16843.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-21",
-      "pres_date": "",
-      "call_date": "2026-07-21"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Firstsource Solutions Limited",
@@ -26077,12 +26749,12 @@
       "symbol": "EMAMILTD",
       "mcap_cr": 17089.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-15",
-      "pres_date": "",
-      "call_date": "2026-07-15"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Century Plyboards (India) Limited",
@@ -26092,9 +26764,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Chalet Hotels Limited",
@@ -26169,6 +26841,18 @@
       "call_date": "2026-07-30"
     },
     {
+      "company": "Jyoti CNC Automation Limited",
+      "symbol": "JYOTICNC",
+      "mcap_cr": 17520.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Aether Industries Limited",
       "symbol": "AETHER",
       "mcap_cr": 17585.0,
@@ -26179,6 +26863,18 @@
       "date": "2026-07-31",
       "pres_date": "2026-07-31",
       "call_date": "2026-07-31"
+    },
+    {
+      "company": "Anant Raj Limited",
+      "symbol": "ANANTRAJ",
+      "mcap_cr": 17720.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Godawari Power And Ispat limited",
@@ -26281,11 +26977,11 @@
       "symbol": "DEEPAKNTR",
       "mcap_cr": 18563.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-24",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-24"
     },
     {
@@ -26308,9 +27004,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Kajaria Ceramics Limited",
@@ -26392,9 +27088,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-09"
+      "call_date": "2026-08-04"
     },
     {
       "company": "City Union Bank Limited",
@@ -26409,6 +27105,18 @@
       "call_date": "2026-08-01"
     },
     {
+      "company": "Ola Electric Mobility Limited",
+      "symbol": "OLAELEC",
+      "mcap_cr": 20184.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Eris Lifesciences Limited",
       "symbol": "ERIS",
       "mcap_cr": 20238.0,
@@ -26416,9 +27124,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Tata Chemicals Limited",
@@ -26452,9 +27160,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Mtar Technologies Limited",
@@ -26485,12 +27193,36 @@
       "symbol": "GESHIP",
       "mcap_cr": 20648.0,
       "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Triveni Turbine Limited",
+      "symbol": "TRITURBINE",
+      "mcap_cr": 20941.0,
+      "quarter": "Q1 FY27",
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Belrise Industries Limited",
+      "symbol": "BELRISE",
+      "mcap_cr": 21218.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": ""
     },
     {
       "company": "Gabriel India Limited",
@@ -26512,9 +27244,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Redington Limited",
@@ -26596,9 +27328,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "CREDITACCESS GRAMEEN LIMITED",
@@ -26611,6 +27343,18 @@
       "date": "2026-08-03",
       "pres_date": "2026-07-24",
       "call_date": "2026-08-03"
+    },
+    {
+      "company": "Kalpataru Projects International Limited",
+      "symbol": "KPIL",
+      "mcap_cr": 23555.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Timken India Limited",
@@ -26644,9 +27388,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Neuland Laboratories Limited",
@@ -26740,9 +27484,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-01",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-08-01"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Syrma SGS Technology Limited",
@@ -26752,9 +27496,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Motherson Sumi Wiring India Limited",
+      "symbol": "MSUMI",
+      "mcap_cr": 26308.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Central Depository Services (India) Limited",
@@ -26776,9 +27532,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-07-27",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "ACC Limited",
@@ -26800,9 +27556,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "GUJARAT ENERGY LIMITED",
@@ -26841,18 +27597,6 @@
       "call_date": "2026-07-30"
     },
     {
-      "company": "Motherson Sumi Wiring India Limited",
-      "symbol": "MSUMI",
-      "mcap_cr": 27389.0,
-      "quarter": "Q1 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-07-31",
-      "pres_date": "",
-      "call_date": "2026-07-31"
-    },
-    {
       "company": "Central Bank of India",
       "symbol": "CENTRALBK",
       "mcap_cr": 27507.0,
@@ -26881,11 +27625,11 @@
       "symbol": "METROBRAND",
       "mcap_cr": 28209.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-28",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-28"
     },
     {
@@ -26905,11 +27649,11 @@
       "symbol": "PNBHOUSING",
       "mcap_cr": 28251.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-27"
     },
     {
@@ -27076,9 +27820,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-17",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Global Health Limited",
@@ -27136,9 +27880,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Dalmia Bharat Limited",
@@ -27172,9 +27916,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Poonawalla Fincorp Limited",
@@ -27289,11 +28033,11 @@
       "symbol": "UBL",
       "mcap_cr": 35449.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-22",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-22"
     },
     {
@@ -27357,6 +28101,18 @@
       "call_date": "2026-07-30"
     },
     {
+      "company": "Endurance Technologies Limited",
+      "symbol": "ENDURANCE",
+      "mcap_cr": 37684.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Thermax Limited",
       "symbol": "THERMAX",
       "mcap_cr": 37818.0,
@@ -27385,12 +28141,12 @@
       "symbol": "KALYANKJIL",
       "mcap_cr": 39327.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Ather Energy Limited",
@@ -27427,6 +28183,18 @@
       "date": "2026-07-01",
       "pres_date": "",
       "call_date": "2026-07-01"
+    },
+    {
+      "company": "Petronet LNG Limited",
+      "symbol": "PETRONET",
+      "mcap_cr": 40253.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Mahindra & Mahindra Financial Services Limited",
@@ -27621,6 +28389,18 @@
       "call_date": "2026-08-03"
     },
     {
+      "company": "Godrej Properties Limited",
+      "symbol": "GODREJPROP",
+      "mcap_cr": 50776.0,
+      "quarter": "Q1 FY27",
+      "presentation": true,
+      "concall": true,
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Sundaram Finance Limited",
       "symbol": "SUNDARMFIN",
       "mcap_cr": 51369.0,
@@ -27640,9 +28420,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Motilal Oswal Financial Services Limited",
@@ -27667,6 +28447,18 @@
       "date": "2026-07-31",
       "pres_date": "2026-07-24",
       "call_date": "2026-07-31"
+    },
+    {
+      "company": "Max Financial Services Limited",
+      "symbol": "MFSL",
+      "mcap_cr": 54459.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Tata Communications Limited",
@@ -27703,6 +28495,18 @@
       "date": "2026-07-27",
       "pres_date": "2026-07-17",
       "call_date": "2026-07-27"
+    },
+    {
+      "company": "Tube Investments of India Limited",
+      "symbol": "TIINDIA",
+      "mcap_cr": 59641.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Laurus Labs Limited",
@@ -27784,21 +28588,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-20",
+      "date": "2026-08-04",
       "pres_date": "2026-07-15",
-      "call_date": "2026-07-20"
+      "call_date": "2026-08-04"
     },
     {
       "company": "UNO Minda Limited",
       "symbol": "UNOMINDA",
       "mcap_cr": 62814.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-29",
-      "pres_date": "",
-      "call_date": "2026-07-29"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "SBI Cards and Payment Services Limited",
@@ -27880,9 +28684,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Alkem Laboratories Limited",
@@ -27916,9 +28720,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-17",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
+    },
+    {
+      "company": "Oil India Limited",
+      "symbol": "OIL",
+      "mcap_cr": 67821.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Bank of Maharashtra",
@@ -28000,9 +28816,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Dixon Technologies (India) Limited",
@@ -28012,9 +28828,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Torrent Power Limited",
@@ -28144,9 +28960,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-02",
-      "pres_date": "2026-08-02",
-      "call_date": "2026-07-30"
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Nippon Life India Asset Management Limited",
@@ -28192,9 +29008,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-08-03"
+      "call_date": "2026-08-04"
     },
     {
       "company": "AU Small Finance Bank Limited",
@@ -28333,12 +29149,12 @@
       "symbol": "NYKAA",
       "mcap_cr": 89165.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Aurobindo Pharma Limited",
@@ -28468,9 +29284,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Lodha Developers Limited",
@@ -28540,21 +29356,21 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Marico Limited",
       "symbol": "MARICO",
       "mcap_cr": 108999.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Dr. Reddy's Laboratories Limited",
@@ -28576,9 +29392,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-31",
+      "date": "2026-08-04",
       "pres_date": "2026-07-31",
-      "call_date": "2026-07-31"
+      "call_date": "2026-08-04"
     },
     {
       "company": "LTM Limited",
@@ -28756,21 +29572,21 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-22",
+      "date": "2026-08-04",
       "pres_date": "2026-07-15",
-      "call_date": "2026-07-22"
+      "call_date": "2026-08-04"
     },
     {
       "company": "BSE Limited",
       "symbol": "BSE",
       "mcap_cr": 132970.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-27",
-      "pres_date": "",
-      "call_date": "2026-07-27"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Bank of Baroda",
@@ -28912,9 +29728,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Hyundai Motor India Limited",
@@ -28948,20 +29764,20 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-08-03",
+      "date": "2026-08-04",
       "pres_date": "2026-08-03",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Pidilite Industries Limited",
       "symbol": "PIDILITIND",
       "mcap_cr": 160905.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-13",
-      "pres_date": "",
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
       "call_date": "2026-07-13"
     },
     {
@@ -28984,9 +29800,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "TVS Motor Company Limited",
@@ -29020,9 +29836,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "SBI Life Insurance Company Limited",
@@ -29056,9 +29872,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Wipro Limited",
@@ -29068,9 +29884,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-17",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-17"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Adani Energy Solutions Limited",
@@ -29092,9 +29908,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-29",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Indian Oil Corporation Limited",
@@ -29248,9 +30064,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-29",
+      "date": "2026-08-04",
       "pres_date": "2026-07-24",
-      "call_date": "2026-07-29"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Bajaj Finserv Limited",
@@ -29269,12 +30085,12 @@
       "symbol": "NESTLEIND",
       "mcap_cr": 291098.0,
       "quarter": "Q1 FY27",
-      "presentation": false,
+      "presentation": true,
       "concall": true,
-      "status": "call_only",
-      "date": "2026-07-23",
-      "pres_date": "",
-      "call_date": "2026-07-23"
+      "status": "both",
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Oil & Natural Gas Corporation Limited",
@@ -29308,9 +30124,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "JSW Steel Limited",
@@ -29320,9 +30136,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-23",
+      "date": "2026-08-04",
       "pres_date": "2026-07-17",
-      "call_date": "2026-07-23"
+      "call_date": "2026-08-04"
     },
     {
       "company": "HCL Technologies Limited",
@@ -29373,6 +30189,18 @@
       "call_date": "2026-08-02"
     },
     {
+      "company": "ITC Limited",
+      "symbol": "ITC",
+      "mcap_cr": 352078.0,
+      "quarter": "Q1 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-08-04",
+      "pres_date": "",
+      "call_date": "2026-08-04"
+    },
+    {
       "company": "Mahindra & Mahindra Limited",
       "symbol": "M&M",
       "mcap_cr": 378033.0,
@@ -29380,9 +30208,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Kotak Mahindra Bank Limited",
@@ -29440,9 +30268,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-27",
-      "pres_date": "2026-07-18",
-      "call_date": "2026-07-27"
+      "date": "2026-08-04",
+      "pres_date": "2026-08-04",
+      "call_date": "2026-08-04"
     },
     {
       "company": "Adani Ports and Special Economic Zone Limited",
@@ -29500,9 +30328,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-28",
+      "date": "2026-08-04",
       "pres_date": "2026-07-28",
-      "call_date": "2026-07-28"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Bajaj Finance Limited",
@@ -29512,9 +30340,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-07-30",
+      "date": "2026-08-04",
       "pres_date": "2026-07-30",
-      "call_date": "2026-07-30"
+      "call_date": "2026-08-04"
     },
     {
       "company": "Larsen & Toubro Limited",
@@ -29536,9 +30364,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-07-27",
+      "date": "2026-08-04",
       "pres_date": "",
-      "call_date": "2026-07-27"
+      "call_date": "2026-08-04"
     },
     {
       "company": "State Bank of India",
