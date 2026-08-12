@@ -1598,6 +1598,9 @@ function _rsFiltered() {
         if (search && !(`${r.name} ${r.symbol}`).toLowerCase().includes(search)) return false;
         if (bucket === "outperform") return r.rs != null && r.rs > 0;
         if (bucket === "underperform") return r.rs != null && r.rs < 0;
+        if (bucket === "outperform3m") return r.rs_3m != null && r.rs_3m > 0;
+        if (bucket === "underperform3m") return r.rs_3m != null && r.rs_3m < 0;
+        if (bucket === "outperform_both") return r.rs != null && r.rs > 0 && r.rs_3m != null && r.rs_3m > 0;
         return true;
     });
     const dir = rsSort.dir === "asc" ? 1 : -1;
@@ -1622,13 +1625,15 @@ function renderRelStrength() {
     const rows = _rsFiltered();
     const status = document.getElementById("rsStatus");
     if (status) {
-        const bp = rsMeta.benchmark_pct;
-        status.textContent = `${rows.length} stocks · ${rsMeta.base_date} → ${rsMeta.latest_date}` +
-            (bp != null ? ` · ${rsMeta.benchmark}: ${bp > 0 ? "+" : ""}${bp}%` : "");
+        const bp = rsMeta.benchmark_pct, bp3 = rsMeta.benchmark_pct_3m;
+        const fmt = v => `${v > 0 ? "+" : ""}${v}%`;
+        status.textContent = `${rows.length} stocks · as of ${rsMeta.latest_date}` +
+            (bp != null ? ` · ${rsMeta.benchmark} 7D: ${fmt(bp)}` : "") +
+            (bp3 != null ? ` · 3M: ${fmt(bp3)}` : "");
         status.className = "status";
     }
     if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        body.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
         return;
     }
     const pctCell = v => v == null ? '<span style="color:#bbb">N/A</span>'
@@ -1645,6 +1650,8 @@ function renderRelStrength() {
             <td style="text-align:right">${pctCell(r.pct_1d)}</td>
             <td style="text-align:right">${pctCell(r.pct_7d)}</td>
             <td style="text-align:right">${pctCell(r.rs)}</td>
+            <td style="text-align:right">${pctCell(r.pct_3m)}</td>
+            <td style="text-align:right">${pctCell(r.rs_3m)}</td>
             <td>${r.adj ? '<span class="dsc-badge dsc-b-pend">split/bonus adj</span>' : ""}</td>
         </tr>`;
     }).join("");
@@ -1668,7 +1675,9 @@ function exportRelStrength() {
         "Close (Rs)": r.close,
         "1D Change %": r.pct_1d == null ? "" : r.pct_1d,
         "7D Change %": r.pct_7d,
-        [`RS vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs == null ? "" : r.rs,
+        [`RS 7D vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs == null ? "" : r.rs,
+        "3M Change %": r.pct_3m == null ? "" : r.pct_3m,
+        [`RS 3M vs ${rsMeta.benchmark || "Nifty 500"}`]: r.rs_3m == null ? "" : r.rs_3m,
         Note: r.adj ? "split/bonus adjusted" : "",
     }));
     const ws = XLSX.utils.json_to_sheet(data);

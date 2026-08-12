@@ -294,8 +294,11 @@
             <label>Show
                 <select id="rsBucket" onchange="renderRelStrength()">
                     <option value="all">All stocks</option>
-                    <option value="outperform">Outperforming Nifty 500</option>
-                    <option value="underperform">Underperforming Nifty 500</option>
+                    <option value="outperform">Outperforming (7D)</option>
+                    <option value="underperform">Underperforming (7D)</option>
+                    <option value="outperform3m">Outperforming (3M)</option>
+                    <option value="underperform3m">Underperforming (3M)</option>
+                    <option value="outperform_both">Outperforming (7D + 3M)</option>
                 </select>
             </label>
             <label>Cap size
@@ -323,7 +326,9 @@
                     <th class="sortable" onclick="sortRelStrength('close')">Close (Rs)</th>
                     <th class="sortable" onclick="sortRelStrength('pct_1d')">1D Change</th>
                     <th class="sortable" onclick="sortRelStrength('pct_7d')">7D Change</th>
-                    <th class="sortable" onclick="sortRelStrength('rs')">RS vs Nifty 500</th>
+                    <th class="sortable" onclick="sortRelStrength('rs')">RS 7D vs Nifty 500</th>
+                    <th class="sortable" onclick="sortRelStrength('pct_3m')">3M Change</th>
+                    <th class="sortable" onclick="sortRelStrength('rs_3m')">RS 3M vs Nifty 500</th>
                     <th>Note</th>
                 </tr></thead>
                 <tbody id="rsBody"></tbody>
@@ -372,6 +377,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260710c"></script>
+    <script src="app.js?v=20260812a"></script>
 </body>
 </html>

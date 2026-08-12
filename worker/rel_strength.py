@@ -52,8 +52,9 @@ BSE_SME_SERIES = {"M", "MT"}
 # B and are identified by name.
 _ETF_NAME_RE = re.compile(r"\bETF\b|BEES\b|MUTUAL FUND|FUND OF FUND", re.IGNORECASE)
 
-LOOKBACK_CALENDAR_DAYS = 7   # "past 7 days"
-SEARCH_WINDOW_DAYS = 16      # how far back to look for trading days
+LOOKBACK_CALENDAR_DAYS = 7    # short window: "past 7 days"
+LOOKBACK_3M_CALENDAR_DAYS = 91  # long window: ~3 months (leadership)
+SEARCH_WINDOW_DAYS = 16       # how far back to look for a trading day
 
 # Single-day close/prev-close factors outside these bounds are corporate
 # actions (split/bonus ex-date), not price moves — circuit limits cap real
@@ -161,6 +162,34 @@ def fetch_equity_symbols(sess):
     return set()
 
 
+def find_bhav_on_or_before(sess, target, exchange="NSE"):
+    """Walk back from target until a trading day's bhavcopy exists.
+    Returns (day, bhav_map) or (None, None)."""
+    probe = target
+    for _ in range(SEARCH_WINDOW_DAYS):
+        d = fetch_bhavcopy(sess, probe, exchange)
+        if d:
+            return probe, d
+        probe -= timedelta(days=1)
+    return None, None
+
+
+def download_span(sess, span_start, latest_day, latest_bhav, exchange="NSE"):
+    """Every trading day's bhavcopy in (span_start-1, latest_day], ordered.
+    Reuses the already-fetched latest_bhav for the final day."""
+    out = []
+    probe = span_start
+    while probe <= latest_day:
+        if probe.date() == latest_day.date():
+            out.append((probe, latest_bhav))
+        else:
+            d = fetch_bhavcopy(sess, probe, exchange)
+            if d:
+                out.append((probe, d))
+        probe += timedelta(days=1)
+    return out
+
+
 def load_mcap_map():
     """symbol -> mcap Cr from NSE's official semi-annual mcap file."""
     try:
@@ -191,46 +220,15 @@ def main():
         raise SystemExit(1)
     log(f"Latest trading day: {latest_day:%Y-%m-%d} ({len(latest)} symbols)")
 
-    # Base day: most recent trading day ON/BEFORE latest - 7 calendar days.
-    base_day, base = None, None
-    probe = latest_day - timedelta(days=LOOKBACK_CALENDAR_DAYS)
-    for _ in range(SEARCH_WINDOW_DAYS):
-        data = fetch_bhavcopy(sess, probe)
-        if data:
-            base_day, base = probe, data
-            break
-        probe -= timedelta(days=1)
-    if not base:
-        log("::error::No base-day bhavcopy found — cannot compute returns")
+    # Two lookback windows: 7-day (recent momentum) and ~3-month (leadership).
+    # Base day = most recent trading day ON/BEFORE latest - N calendar days.
+    base7_day, base7 = find_bhav_on_or_before(sess, latest_day - timedelta(days=LOOKBACK_CALENDAR_DAYS))
+    base3_day, base3 = find_bhav_on_or_before(sess, latest_day - timedelta(days=LOOKBACK_3M_CALENDAR_DAYS))
+    if not base7:
+        log("::error::No 7-day base bhavcopy found — cannot compute returns")
         raise SystemExit(1)
-    log(f"Base trading day: {base_day:%Y-%m-%d} ({len(base)} symbols)")
-
-    # All trading days AFTER base up to latest (for chain-linked returns).
-    day_data = []
-    probe = base_day + timedelta(days=1)
-    while probe <= latest_day:
-        if probe.date() == latest_day.date():
-            day_data.append((probe, latest))
-        else:
-            d = fetch_bhavcopy(sess, probe)
-            if d:
-                day_data.append((probe, d))
-        probe += timedelta(days=1)
-    log(f"Trading days in window: {len(day_data)}")
-
-    idx_latest = fetch_index_close(sess, latest_day)
-    idx_base = fetch_index_close(sess, base_day)
-    idx_pct = None
-    if idx_latest and idx_base:
-        idx_pct = (idx_latest - idx_base) / idx_base * 100
-        log(f"{BENCHMARK}: {idx_base:.2f} -> {idx_latest:.2f} ({idx_pct:+.2f}%)")
-    else:
-        log(f"::warning::{BENCHMARK} close unavailable — RS column will be null")
-
-    equity_syms = fetch_equity_symbols(sess)
-    log(f"EQUITY_L symbols: {len(equity_syms)}")
-    mcap_by_sym = load_mcap_map()
-    log(f"mcap map: {len(mcap_by_sym)} symbols")
+    log(f"7d base: {base7_day:%Y-%m-%d}" +
+        (f"  ·  3m base: {base3_day:%Y-%m-%d}" if base3 else "  ·  3m base: UNAVAILABLE"))
 
     # Chain-link daily factors per symbol, neutralizing corporate-action jumps.
     def chain_factors(day_maps):
@@ -247,13 +245,33 @@ def main():
                 factors[sym] = factors.get(sym, 1.0) * fct
         return factors, adjusted
 
-    factors, adjusted = chain_factors([d for _, d in day_data])
+    # Download the full span once; chain over all of it (3-month return) and
+    # over the 7-day sub-span. One download pass feeds both windows.
+    span_start = (base3_day or base7_day) + timedelta(days=1)
+    nse_days = download_span(sess, span_start, latest_day, latest)
+    log(f"NSE trading days downloaded: {len(nse_days)}")
+    factors3, adj3 = chain_factors([d for _, d in nse_days])
+    factors7, adjusted = chain_factors([d for dt, d in nse_days if dt > base7_day])
     if adjusted:
-        log(f"NSE: neutralized corporate-action jumps for {len(adjusted)} symbols")
+        log(f"NSE: neutralized corporate-action jumps for {len(adjusted)} symbols (7d)")
 
-    def make_row(sym, close, prev, name, series, pct, adj, sme, bse, mcap):
+    idx_latest = fetch_index_close(sess, latest_day)
+    idx7 = fetch_index_close(sess, base7_day)
+    idx3 = fetch_index_close(sess, base3_day) if base3_day else None
+    idx_pct = (idx_latest - idx7) / idx7 * 100 if (idx_latest and idx7) else None
+    idx_pct_3m = (idx_latest - idx3) / idx3 * 100 if (idx_latest and idx3) else None
+    log(f"{BENCHMARK} 7d: {idx_pct:+.2f}%" if idx_pct is not None else f"{BENCHMARK} 7d: N/A")
+    if idx_pct_3m is not None:
+        log(f"{BENCHMARK} 3m: {idx_pct_3m:+.2f}%")
+
+    equity_syms = fetch_equity_symbols(sess)
+    log(f"EQUITY_L symbols: {len(equity_syms)}")
+    mcap_by_sym = load_mcap_map()
+    log(f"mcap map: {len(mcap_by_sym)} symbols")
+
+    def make_row(sym, close, prev, name, series, pct7, pct3, adj, sme, bse, mcap):
         # 1-day change from the latest bhavcopy (close vs prev close). Same
-        # corp-action guard as the 7d chain: a split ex-date on the latest day
+        # corp-action guard as the chains: a split ex-date on the latest day
         # would otherwise read as a fake -90%.
         pct_1d = None
         if prev and prev > 0 and FACTOR_MIN <= close / prev <= FACTOR_MAX:
@@ -266,58 +284,68 @@ def main():
             "bse": bse or None,   # True only for BSE-only listings
             "close": round(close, 2),
             "pct_1d": pct_1d,
-            "pct_7d": round(pct, 2),
-            "rs": round(pct - idx_pct, 2) if idx_pct is not None else None,
+            "pct_7d": round(pct7, 2),
+            "rs": round(pct7 - idx_pct, 2) if idx_pct is not None else None,
+            # pct3 is None when the stock has no full 3-month history (listed
+            # mid-window) — rs_3m then null too.
+            "pct_3m": round(pct3, 2) if pct3 is not None else None,
+            "rs_3m": round(pct3 - idx_pct_3m, 2) if (pct3 is not None and idx_pct_3m is not None) else None,
             "mcap_cr": mc,
             "bucket": cap_bucket(mc),
             "adj": adj or None,   # split/bonus in window
         }
 
+    def pct3_for(sym, base_map, factors_map):
+        """3-month return %, or None if the stock lacks full 3m history."""
+        if base_map and sym in base_map:
+            f3 = factors_map.get(sym)
+            if f3 is not None:
+                return (f3 - 1.0) * 100
+        return None
+
     rows = []
     for sym, (close, prev, name, series, _isin) in latest.items():
-        if sym not in base:
-            continue  # not traded at window start (new listing etc.)
+        if sym not in base7:
+            continue  # not traded at 7-day window start (new listing etc.)
         if series not in SME_SERIES and equity_syms and sym not in equity_syms:
             continue  # EQ-series non-equity (ETF etc.)
-        f = factors.get(sym)
-        if f is None:
+        f7 = factors7.get(sym)
+        if f7 is None:
             continue
-        rows.append(make_row(sym, close, prev, name, series, (f - 1.0) * 100,
+        rows.append(make_row(sym, close, prev, name, series, (f7 - 1.0) * 100,
+                             pct3_for(sym, base3, factors3),
                              sym in adjusted, series in SME_SERIES, False,
                              mcap_by_sym.get(sym)))
     log(f"NSE rows: {len(rows)}")
 
     # ── BSE pass: add BSE-only companies (ISINs not present on NSE) ──────────
+    # BSE shares NSE's trading calendar, so base7_day/base3_day are valid BSE
+    # trading days too.
     nse_isins = {t[4] for t in latest.values() if t[4]}
     bse_latest = fetch_bhavcopy(sess, latest_day, "BSE")
-    bse_base = fetch_bhavcopy(sess, base_day, "BSE") if bse_latest else None
-    if bse_latest and bse_base:
-        bse_day_maps = []  # trading days AFTER base, for chain-linked factors
-        probe = base_day + timedelta(days=1)
-        while probe <= latest_day:
-            if probe.date() == latest_day.date():
-                bse_day_maps.append(bse_latest)
-            else:
-                d = fetch_bhavcopy(sess, probe, "BSE")
-                if d:
-                    bse_day_maps.append(d)
-            probe += timedelta(days=1)
-        bfactors, badjusted = chain_factors(bse_day_maps)
+    bse_base7 = fetch_bhavcopy(sess, base7_day, "BSE") if bse_latest else None
+    bse_base3 = fetch_bhavcopy(sess, base3_day, "BSE") if (bse_latest and base3_day) else None
+    if bse_latest and bse_base7:
+        bse_days = download_span(sess, span_start, latest_day, bse_latest, "BSE")
+        log(f"BSE trading days downloaded: {len(bse_days)}")
+        bfactors3, _ = chain_factors([d for _, d in bse_days])
+        bfactors7, badjusted = chain_factors([d for dt, d in bse_days if dt > base7_day])
         if badjusted:
-            log(f"BSE: neutralized corporate-action jumps for {len(badjusted)} symbols")
+            log(f"BSE: neutralized corporate-action jumps for {len(badjusted)} symbols (7d)")
         added = 0
         for sym, (close, prev, name, series, isin) in bse_latest.items():
             if isin and isin in nse_isins:
                 continue  # dual-listed — already covered via its NSE row
-            if sym not in bse_base:
+            if sym not in bse_base7:
                 continue
-            f = bfactors.get(sym)
-            if f is None:
+            f7 = bfactors7.get(sym)
+            if f7 is None:
                 continue
             # No mcap join for BSE-only rows: the NSE mcap map is keyed by NSE
             # symbols, and a coincidental symbol collision would attach the
             # wrong company's mcap. They show N/A instead.
-            rows.append(make_row(sym, close, prev, name, series, (f - 1.0) * 100,
+            rows.append(make_row(sym, close, prev, name, series, (f7 - 1.0) * 100,
+                                 pct3_for(sym, bse_base3, bfactors3),
                                  sym in badjusted, series in BSE_SME_SERIES,
                                  True, None))
             added += 1
@@ -351,9 +379,11 @@ def main():
     out = {
         "generated_at": datetime.utcnow().isoformat(),
         "latest_date": latest_day.strftime("%Y-%m-%d"),
-        "base_date": base_day.strftime("%Y-%m-%d"),
+        "base_date": base7_day.strftime("%Y-%m-%d"),
+        "base_date_3m": base3_day.strftime("%Y-%m-%d") if base3_day else None,
         "benchmark": BENCHMARK,
         "benchmark_pct": round(idx_pct, 2) if idx_pct is not None else None,
+        "benchmark_pct_3m": round(idx_pct_3m, 2) if idx_pct_3m is not None else None,
         "rows": rows,
     }
     os.makedirs(DATA_DIR, exist_ok=True)
