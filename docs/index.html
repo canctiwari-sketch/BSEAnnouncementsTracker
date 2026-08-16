@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Wheel Capital - Announcements</title>
-    <link rel="stylesheet" href="style.css?v=20260629c">
+    <link rel="stylesheet" href="style.css?v=20260816a">
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -24,6 +24,7 @@
         <button class="tab-btn" id="tabInterviews" onclick="showTab('interviews')">🎙️ Interviews</button>
         <button class="tab-btn" id="tabDisclosure" onclick="showTab('disclosure')">📊 Disclosure</button>
         <button class="tab-btn" id="tabRelStrength" onclick="showTab('relstrength')">📈 Rel Strength</button>
+        <button class="tab-btn" id="tabUsMovers" onclick="showTab('usmovers')">🇺🇸 US Movers</button>
         <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
         <button class="tab-btn" onclick="location.href='portfolio.html'">💼 Portfolios</button>
     </div>
@@ -345,6 +346,39 @@
         </div>
     </div>
 
+    <!-- US Movers Tab -->
+    <div id="usMoversTab" style="display:none">
+        <div class="controls">
+            <label>Min 6M gain %<input type="number" id="umMinGain" value="50" step="10" oninput="renderUsMovers()"></label>
+            <label>Sector
+                <select id="umSector" onchange="renderUsMovers()"><option value="">All</option></select>
+            </label>
+            <label>Industry
+                <select id="umIndustry" onchange="renderUsMovers()"><option value="">All</option></select>
+            </label>
+            <label>Min MCap ($M)<input type="number" id="umMinMcap" placeholder="e.g. 1000" oninput="renderUsMovers()"></label>
+            <label>Search<input type="text" id="umSearch" placeholder="Company or ticker..." oninput="renderUsMovers()"></label>
+            <button class="clear-btn" onclick="clearUsMovers()">Clear</button>
+            <button class="export-btn" onclick="exportUsMovers()">Export Excel</button>
+        </div>
+        <div id="umThemes" class="um-themes"></div>
+        <div class="status-bar"><div id="umStatus" class="status"></div></div>
+        <div id="umResults">
+            <table id="umTable">
+                <thead><tr>
+                    <th class="sortable" onclick="sortUsMovers('name')">Company</th>
+                    <th class="sortable" onclick="sortUsMovers('industry')">Industry</th>
+                    <th class="sortable" onclick="sortUsMovers('mcap_usd')">MCap</th>
+                    <th class="sortable" onclick="sortUsMovers('close')">Price ($)</th>
+                    <th class="sortable" onclick="sortUsMovers('pct_1m')">1M</th>
+                    <th class="sortable" onclick="sortUsMovers('pct_3m')">3M</th>
+                    <th class="sortable" onclick="sortUsMovers('pct_6m')">6M</th>
+                </tr></thead>
+                <tbody id="umBody"></tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- Research Tab (inline, no modal) -->
     <div id="researchTab" style="display:none">
         <div class="research-panel">
@@ -386,6 +420,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260812b"></script>
+    <script src="app.js?v=20260816a"></script>
 </body>
 </html>

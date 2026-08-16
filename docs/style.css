@@ -1516,3 +1516,15 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
     cursor: pointer;
 }
 .research-clear-btn:hover { background: #fff0f0; }
+
+/* ── US Movers: hot-theme chips ─────────────────────────────────────────── */
+.um-themes { padding: 10px 14px 2px; }
+.um-themes-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: .04em;
+    color: #6b7280; margin-bottom: 7px; }
+.um-chip { display: inline-block; margin: 0 6px 6px 0; padding: 5px 11px; cursor: pointer;
+    border: 1px solid #d7d9e0; border-radius: 14px; background: #fff; color: #374151;
+    font-size: 0.79rem; font-family: inherit; transition: background .12s, border-color .12s; }
+.um-chip:hover { background: #f3f4f6; border-color: #b9bcc7; }
+.um-chip b { color: #4338ca; margin-left: 2px; }
+.um-chip span { color: #065f46; font-weight: 600; }
+.um-chip-on { background: #eef2ff; border-color: #6366f1; }

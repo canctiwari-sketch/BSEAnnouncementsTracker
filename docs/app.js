@@ -1409,8 +1409,8 @@ let interviewsLoaded = false;
 let allInterviews = [];
 
 function showTab(tab) {
-    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", relstrength: "relStrengthTab", research: "researchTab" };
-    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", relstrength: "tabRelStrength", research: "tabResearch" };
+    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", relstrength: "relStrengthTab", usmovers: "usMoversTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", relstrength: "tabRelStrength", usmovers: "tabUsMovers", research: "tabResearch" };
     Object.keys(TABS).forEach(t => {
         const el = document.getElementById(TABS[t]);
         if (el) el.style.display = t === tab ? "" : "none";
@@ -1421,6 +1421,7 @@ function showTab(tab) {
     if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
     if (tab === "disclosure" && !disclosureLoaded) fetchDisclosure();
     if (tab === "relstrength" && !relStrengthLoaded) fetchRelStrength();
+    if (tab === "usmovers" && !usMoversLoaded) fetchUsMovers();
     if (tab === "research") {
         loadScrips();
         setTimeout(() => {
@@ -1703,6 +1704,164 @@ function exportRelStrength() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Rel Strength");
     XLSX.writeFile(wb, "rel_strength_7d.xlsx");
+}
+
+// ─── US Movers (thematic idea generation) ────────────────────────────────────
+let usMoversLoaded = false;
+let allUsMovers = [];
+let umMeta = {};
+let umSort = { col: "pct_6m", dir: "desc" };
+
+async function fetchUsMovers() {
+    const status = document.getElementById("umStatus");
+    if (status) { status.textContent = "Loading US movers..."; status.className = "status loading"; }
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/us_movers.json?t=" + Date.now());
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const data = await r.json();
+        allUsMovers = data.rows || [];
+        umMeta = data;
+        usMoversLoaded = true;
+        const sectors = [...new Set(allUsMovers.map(x => x.sector))].sort();
+        const sel = document.getElementById("umSector");
+        if (sel) sel.innerHTML = '<option value="">All</option>' +
+            sectors.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
+        renderUsMovers();
+    } catch (e) {
+        if (status) { status.textContent = "Failed to load: " + e.message; status.className = "status error"; }
+    }
+}
+
+// Industry dropdown is scoped to the chosen sector, and to industries that
+// actually have a qualifying mover — otherwise it's a 200-entry wall.
+function _umSyncIndustries(rowsAtThreshold) {
+    const sel = document.getElementById("umIndustry");
+    if (!sel) return;
+    const cur = sel.value;
+    const inds = [...new Set(rowsAtThreshold.map(x => x.industry))].sort();
+    sel.innerHTML = '<option value="">All</option>' +
+        inds.map(i => `<option value="${escapeHtml(i)}">${escapeHtml(i)}</option>`).join("");
+    if (inds.includes(cur)) sel.value = cur;
+}
+
+function _umFiltered() {
+    const minGain = parseFloat(document.getElementById("umMinGain")?.value);
+    const sector = document.getElementById("umSector")?.value || "";
+    const industry = document.getElementById("umIndustry")?.value || "";
+    const minMcap = parseFloat(document.getElementById("umMinMcap")?.value) || 0;
+    const search = (document.getElementById("umSearch")?.value || "").toLowerCase();
+    return allUsMovers.filter(r => {
+        if (!isNaN(minGain) && r.pct_6m < minGain) return false;
+        if (sector && r.sector !== sector) return false;
+        if (industry && r.industry !== industry) return false;
+        if (minMcap && r.mcap_usd < minMcap * 1e6) return false;
+        if (search && !(`${r.name} ${r.symbol}`).toLowerCase().includes(search)) return false;
+        return true;
+    });
+}
+
+function umPickTheme(ind) {
+    const sel = document.getElementById("umIndustry");
+    if (!sel) return;
+    // industry options are threshold-scoped; make sure the pick survives
+    if (![...sel.options].some(o => o.value === ind)) {
+        sel.innerHTML += `<option value="${escapeHtml(ind)}">${escapeHtml(ind)}</option>`;
+    }
+    sel.value = sel.value === ind ? "" : ind;   // click again to clear
+    renderUsMovers();
+}
+
+function renderUsMovers() {
+    const body = document.getElementById("umBody");
+    if (!body) return;
+    const minGain = parseFloat(document.getElementById("umMinGain")?.value);
+    const sectorSel = document.getElementById("umSector")?.value || "";
+
+    // Themes: industries with 2+ names clearing the threshold. One ticker up
+    // 60% is noise; several in one industry is a theme worth chasing in India.
+    const atTh = allUsMovers.filter(r =>
+        (isNaN(minGain) || r.pct_6m >= minGain) && (!sectorSel || r.sector === sectorSel));
+    _umSyncIndustries(atTh);
+    const byInd = {};
+    atTh.forEach(r => (byInd[r.industry] = byInd[r.industry] || []).push(r));
+    const themes = Object.entries(byInd).filter(([, g]) => g.length >= 2)
+        .map(([ind, g]) => ({ ind, n: g.length,
+            med: g.map(x => x.pct_6m).sort((a, b) => a - b)[Math.floor(g.length / 2)] }))
+        .sort((a, b) => b.n - a.n || b.med - a.med).slice(0, 12);
+    const curInd = document.getElementById("umIndustry")?.value || "";
+    const themeEl = document.getElementById("umThemes");
+    if (themeEl) {
+        themeEl.innerHTML = themes.length
+            ? `<div class="um-themes-label">Hot themes — industries with 2+ names up ${isNaN(minGain) ? 0 : minGain}%+ (click to filter)</div>` +
+              themes.map(t => `<button class="um-chip${t.ind === curInd ? " um-chip-on" : ""}" onclick="umPickTheme('${t.ind.replace(/'/g, "\\'")}')">${escapeHtml(t.ind)} <b>${t.n}</b> <span>+${Math.round(t.med)}%</span></button>`).join("")
+            : "";
+    }
+
+    const rows = _umFiltered();
+    const dir = umSort.dir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+        let x = a[umSort.col], y = b[umSort.col];
+        if (x == null) return 1;
+        if (y == null) return -1;
+        if (typeof x === "string") { x = x.toLowerCase(); y = (y || "").toLowerCase(); }
+        return x < y ? -dir : x > y ? dir : 0;
+    });
+
+    const status = document.getElementById("umStatus");
+    if (status) {
+        const asOf = (umMeta.generated_at || "").slice(0, 10);
+        status.textContent = `${rows.length} US stocks · screened ${umMeta.rows ? umMeta.rows.length : 0} names` +
+            (asOf ? ` · as of ${asOf}` : "");
+        status.className = "status";
+    }
+    if (!rows.length) {
+        body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:#999">No matches — try lowering the gain threshold.</td></tr>';
+        return;
+    }
+    const pct = v => v == null ? '<span style="color:#bbb">—</span>'
+        : `<span style="color:${v >= 0 ? "#065f46" : "#b91c1c"};font-weight:600">${v > 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
+    const mc = v => v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : `$${Math.round(v / 1e6)}M`;
+    body.innerHTML = rows.map(r => {
+        const g = `https://finance.yahoo.com/quote/${encodeURIComponent(r.symbol)}`;
+        return `<tr>
+            <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name.replace(/ Common Stock$/i, ""))}</a>
+                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}</span></td>
+            <td style="font-size:0.82rem;color:#555">${escapeHtml(r.industry)}</td>
+            <td style="text-align:right">${mc(r.mcap_usd)}</td>
+            <td style="text-align:right">${r.close.toLocaleString("en-US")}</td>
+            <td style="text-align:right">${pct(r.pct_1m)}</td>
+            <td style="text-align:right">${pct(r.pct_3m)}</td>
+            <td style="text-align:right">${pct(r.pct_6m)}</td>
+        </tr>`;
+    }).join("");
+}
+
+function sortUsMovers(col) {
+    if (umSort.col === col) umSort.dir = umSort.dir === "asc" ? "desc" : "asc";
+    else umSort = { col, dir: (col === "name" || col === "industry") ? "asc" : "desc" };
+    renderUsMovers();
+}
+
+function clearUsMovers() {
+    ["umSector", "umIndustry", "umMinMcap", "umSearch"].forEach(id => {
+        const el = document.getElementById(id); if (el) el.value = "";
+    });
+    const g = document.getElementById("umMinGain"); if (g) g.value = 50;
+    renderUsMovers();
+}
+
+function exportUsMovers() {
+    const rows = _umFiltered();
+    if (!rows.length) return;
+    const data = rows.map(r => ({
+        Company: r.name, Ticker: r.symbol, Sector: r.sector, Industry: r.industry,
+        "MCap ($M)": Math.round(r.mcap_usd / 1e6), "Price ($)": r.close,
+        "1M %": r.pct_1m, "3M %": r.pct_3m, "6M %": r.pct_6m,
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "US Movers");
+    XLSX.writeFile(wb, "us_movers.xlsx");
 }
 
 // ─── Interviews ──────────────────────────────────────────────────────────────
