@@ -1822,7 +1822,9 @@ function renderUsMovers() {
         : `<span style="color:${v >= 0 ? "#065f46" : "#b91c1c"};font-weight:600">${v > 0 ? "+" : ""}${v.toFixed(1)}%</span>`;
     const mc = v => v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : `$${Math.round(v / 1e6)}M`;
     body.innerHTML = rows.map(r => {
-        const g = `https://finance.yahoo.com/quote/${encodeURIComponent(r.symbol)}`;
+        // Direct stockanalysis.com page — its URLs are ticker-predictable, so
+        // this lands on the analysis page in one click rather than via search.
+        const g = `https://stockanalysis.com/stocks/${encodeURIComponent(r.symbol.toLowerCase())}/`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name.replace(/ Common Stock$/i, ""))}</a>
                 <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}</span></td>
