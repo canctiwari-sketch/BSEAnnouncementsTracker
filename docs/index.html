@@ -264,6 +264,14 @@
                     <option value="all">All</option>
                 </select>
             </label>
+            <label>Last quarter
+                <select id="dscPrevQ" onchange="renderDisclosure()">
+                    <option value="">Any</option>
+                    <option value="no_call">No concall last Q (genuine skipper)</option>
+                    <option value="did_call">Did concall last Q (call likely coming)</option>
+                    <option value="unknown">No prior-quarter data</option>
+                </select>
+            </label>
             <label>Min MCap (Cr)<input type="number" id="dscMinMcap" placeholder="e.g. 500" oninput="renderDisclosure()"></label>
             <label>Max MCap (Cr)<input type="number" id="dscMaxMcap" placeholder="e.g. 5000" oninput="renderDisclosure()"></label>
             <label>From<input type="date" id="dscDateFrom" onchange="renderDisclosure()"></label>
@@ -281,6 +289,7 @@
                     <th class="sortable" onclick="sortDisclosure('date')">Date</th>
                     <th>Presentation</th>
                     <th>Concall / Transcript</th>
+                    <th>Last Q</th>
                     <th>Status</th>
                 </tr></thead>
                 <tbody id="dscBody"></tbody>
@@ -377,6 +386,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260812a"></script>
+    <script src="app.js?v=20260812b"></script>
 </body>
 </html>

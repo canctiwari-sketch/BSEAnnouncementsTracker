@@ -84,6 +84,12 @@ CALL_RE = re.compile(
 )
 
 
+def _season_key(label):
+    """Sortable (fy, quarter) from a season label like 'Q1 FY27'."""
+    m = re.match(r"Q([1-4])\s*FY(\d+)", (label or "").strip(), re.I)
+    return (int(m.group(2)), int(m.group(1))) if m else (0, 0)
+
+
 def log(m):
     print(m, flush=True)
 
@@ -499,6 +505,33 @@ def main():
         rows = prior_this_season
     rows = rows + prior
     log(f"total rows after merge: {len(rows)} (kept {len(prior)} from other quarters)")
+
+    # Prior-quarter baseline. Mid-earnings-season, "presentation but no concall
+    # yet" is ambiguous — the call may simply not have happened. A company's own
+    # behaviour last quarter is the best available tell: if it held a concall
+    # last quarter it very likely will again (treat the gap as timing), whereas
+    # if it skipped the call last quarter too, it is genuinely presentation-only.
+    # Uses the most recent EARLIER season we have for that company (tolerates
+    # gaps), and the raw concall flag rather than status — for a closed quarter
+    # the grace window is long over, so concall=False is settled fact.
+    by_company = {}
+    for r in rows:
+        key = _norm(r.get("company", "")) or r.get("symbol", "")
+        if key:
+            by_company.setdefault(key, []).append(r)
+    tagged = 0
+    for rs in by_company.values():
+        rs.sort(key=lambda r: _season_key(r.get("quarter")))
+        for i, r in enumerate(rs):
+            prev = rs[i - 1] if i else None
+            if prev and _season_key(prev.get("quarter")) < _season_key(r.get("quarter")):
+                r["prev_quarter"] = prev.get("quarter")
+                r["prev_concall"] = bool(prev.get("concall"))
+                tagged += 1
+            else:
+                r["prev_quarter"] = None
+                r["prev_concall"] = None
+    log(f"prior-quarter baseline attached to {tagged} rows")
 
     rows.sort(key=lambda r: (r["quarter"], -(r["mcap_cr"] or 0)), reverse=True)
     quarters = sorted({r["quarter"] for r in rows}, reverse=True)

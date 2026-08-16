@@ -1465,6 +1465,18 @@ function _dscStatus(r) {
     return "none";
 }
 
+// Prior-quarter tell: did this company hold a concall last quarter? Green =
+// it skipped the call last quarter too, so "presentation only" this quarter
+// is likely its genuine habit. Amber = it did hold one, so a missing call
+// this quarter is probably just timing.
+function _dscPrevCell(r) {
+    if (r.prev_concall == null) return '<span style="color:#ccc">—</span>';
+    const q = r.prev_quarter ? ` (${r.prev_quarter})` : "";
+    return r.prev_concall
+        ? `<span style="color:#92400e" title="Held a concall last quarter${q} — this quarter's call may still be coming">Did concall${q}</span>`
+        : `<span style="color:#065f46;font-weight:600" title="Skipped the concall last quarter${q} too — likely a genuine presentation-only company">No concall${q}</span>`;
+}
+
 function _dscFiltered() {
     const q = document.getElementById("dscQuarter")?.value || "";
     const bucket = document.getElementById("dscBucket")?.value || "pres_no_call";
@@ -1474,9 +1486,13 @@ function _dscFiltered() {
     const dateTo = document.getElementById("dscDateTo")?.value || "";
     const fromTs = dateFrom ? new Date(dateFrom + "T00:00:00").getTime() : 0;
     const toTs = dateTo ? new Date(dateTo + "T23:59:59").getTime() : Infinity;
+    const prevQ = document.getElementById("dscPrevQ")?.value || "";
     const search = (document.getElementById("dscSearch")?.value || "").toLowerCase();
     let rows = allDisclosure.filter(r => {
         if (q && r.quarter !== q) return false;
+        if (prevQ === "no_call" && r.prev_concall !== false) return false;
+        if (prevQ === "did_call" && r.prev_concall !== true) return false;
+        if (prevQ === "unknown" && r.prev_concall != null) return false;
         // unknown mcap (null) passes unless a min/max filter is explicitly set
         if (minM && (r.mcap_cr == null || r.mcap_cr < minM)) return false;
         if (maxM && (r.mcap_cr == null || r.mcap_cr > maxM)) return false;
@@ -1508,7 +1524,7 @@ function renderDisclosure() {
     const status = document.getElementById("dscStatus");
     if (status) { status.textContent = `${rows.length} company-quarters`; status.className = "status"; }
     if (!rows.length) {
-        body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
+        body.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:#999">No matches.</td></tr>';
         return;
     }
     const yes = '<span class="dsc-yes">✓ Yes</span>';
@@ -1530,6 +1546,7 @@ function renderDisclosure() {
             <td>${fmtD(r.date)}</td>
             <td>${r.presentation ? yes : no}</td>
             <td>${r.concall ? yes : no}</td>
+            <td>${_dscPrevCell(r)}</td>
             <td>${STATUS[_dscStatus(r)] || "—"}</td>
         </tr>`;
     }).join("");
@@ -1551,6 +1568,8 @@ function exportDisclosure() {
         "Presentation Date": r.pres_date || "", "Concall Date": r.call_date || "",
         Presentation: r.presentation ? "Yes" : "No",
         "Concall/Transcript": r.concall ? "Yes" : "No",
+        "Last Q Concall": r.prev_concall == null ? "" : (r.prev_concall ? "Yes" : "No"),
+        "Last Q": r.prev_quarter || "",
         Status: STLABEL[_dscStatus(r)] || "",
     }));
     const ws = XLSX.utils.json_to_sheet(data);
