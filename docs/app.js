@@ -1827,7 +1827,7 @@ function renderUsMovers() {
         const g = `https://stockanalysis.com/stocks/${encodeURIComponent(r.symbol.toLowerCase())}/`;
         return `<tr>
             <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.name.replace(/ Common Stock$/i, ""))}</a>
-                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}</span></td>
+                <span style="color:#9ca3af;font-size:0.78rem"> ${escapeHtml(r.symbol)}</span>${r.split ? ' <span class="um-split" title="Stock split during this window — return is split-adjusted, worth an eyeball">split</span>' : ""}</td>
             <td style="font-size:0.82rem;color:#555">${escapeHtml(r.industry)}</td>
             <td style="text-align:right">${mc(r.mcap_usd)}</td>
             <td style="text-align:right">${r.close.toLocaleString("en-US")}</td>

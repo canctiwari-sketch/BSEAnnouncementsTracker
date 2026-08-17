@@ -18,6 +18,7 @@ lets the frontend apply the % threshold, so the cutoff is adjustable without
 re-running the job.
 """
 import os
+import math
 import json
 import time
 from datetime import datetime
@@ -31,7 +32,8 @@ OUT_FILE = os.path.join(DATA_DIR, "us_movers.json")
 
 SCREENER_URL = ("https://api.nasdaq.com/api/screener/stocks"
                 "?tableonly=true&limit=25&download=true")
-CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=6mo&interval=1wk"
+CHART_URL = ("https://query1.finance.yahoo.com/v8/finance/chart/{sym}"
+             "?range=6mo&interval=1wk&events=split")
 
 MIN_MCAP_USD = 300e6   # floor: keeps the list meaningful, drops penny noise
 MAX_WORKERS = 12
@@ -79,13 +81,62 @@ def fetch_universe(sess):
 
 
 def fetch_returns(sym):
-    """(1m, 3m, 6m) % returns and last close from 6 months of weekly closes."""
+    """(1m, 3m, 6m) % returns and last close from 6 months of weekly closes.
+
+    Split handling — Yahoo is INCONSISTENT here, so we detect rather than
+    assume. For older splits it has already back-adjusted the history
+    (Booking's 25:1 from Apr-2026 shows a smooth series); for a split only
+    days old it has not (Beyond Meat's 1:30 on 14-Aug-2026 still had raw
+    pre-split prices, making a real -38% read as +1758%). Blindly adjusting
+    breaks the first case, blindly trusting Yahoo breaks the second. So for
+    each split we compare the observed price step across the split date
+    against the split ratio, and only rescale when the step shows the series
+    is genuinely unadjusted.
+    """
     try:
         r = requests.get(CHART_URL.format(sym=sym), headers={"User-Agent": UA}, timeout=20)
         if r.status_code != 200:
             return None
         res = r.json()["chart"]["result"][0]
-        closes = [c for c in res["indicators"]["quote"][0]["close"] if c]
+        stamps = res.get("timestamp") or []
+        raw = res["indicators"]["quote"][0]["close"]
+        if len(stamps) != len(raw):
+            return None
+
+        pairs = [(t, c) for t, c in zip(stamps, raw) if c]
+        if len(pairs) < 6:
+            return None
+
+        # R = shares multiplier (25:1 forward -> 25, price divides by 25;
+        # 1:30 reverse -> 1/30, price multiplies by 30).
+        splits = sorted(
+            ((s.get("date") or 0), float(s.get("numerator") or 1) / float(s.get("denominator") or 1))
+            for s in (res.get("events", {}).get("splits") or {}).values()
+        )
+        needs_fix = []
+        for sdate, R in splits:
+            if R <= 0:
+                continue
+            before = [c for t, c in pairs if t < sdate]
+            after = [c for t, c in pairs if t >= sdate]
+            if not before or not after:
+                continue
+            obs = after[0] / before[-1]          # observed step across the split
+            if obs <= 0:
+                continue
+            # Unadjusted series steps by 1/R here; adjusted series steps by ~1.
+            if abs(math.log(obs * R)) < abs(math.log(obs)):
+                needs_fix.append((sdate, R))
+
+        def adj_factor(ts):
+            """Rescale a pre-split price into today's share terms."""
+            f = 1.0
+            for sdate, R in needs_fix:
+                if ts < sdate:
+                    f /= R
+            return f
+
+        closes = [c * adj_factor(t) for t, c in pairs]
         if len(closes) < 6:
             return None  # too little history to judge (recent IPO etc.)
         last = closes[-1]
@@ -101,6 +152,9 @@ def fetch_returns(sym):
             "pct_1m": chg(4),
             "pct_3m": chg(13),
             "pct_6m": (last / closes[0] - 1) * 100,
+            # Surfaced in the UI: any split in the window is worth an eyeball,
+            # since the return depends on getting its adjustment right.
+            "split": bool(splits),
         }
     except Exception:
         return None
@@ -136,6 +190,7 @@ def main():
                 "pct_1m": round(ret["pct_1m"], 1) if ret["pct_1m"] is not None else None,
                 "pct_3m": round(ret["pct_3m"], 1) if ret["pct_3m"] is not None else None,
                 "pct_6m": round(ret["pct_6m"], 1),
+                "split": ret.get("split") or None,
             })
     log(f"priced {len(rows)}/{len(universe)} symbols in {time.time()-t0:.0f}s")
 

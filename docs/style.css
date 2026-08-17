@@ -1528,3 +1528,5 @@ a.company-link:hover { color: #5a3d8a; text-decoration: underline; }
 .um-chip b { color: #4338ca; margin-left: 2px; }
 .um-chip span { color: #065f46; font-weight: 600; }
 .um-chip-on { background: #eef2ff; border-color: #6366f1; }
+.um-split { display:inline-block; margin-left:5px; padding:1px 6px; border-radius:9px;
+    background:#fef3c7; color:#92400e; font-size:0.68rem; font-weight:600; vertical-align:middle; }
