@@ -1409,8 +1409,8 @@ let interviewsLoaded = false;
 let allInterviews = [];
 
 function showTab(tab) {
-    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", relstrength: "relStrengthTab", usmovers: "usMoversTab", research: "researchTab" };
-    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", relstrength: "tabRelStrength", usmovers: "tabUsMovers", research: "tabResearch" };
+    const TABS = { ann: "annTab", insider: "insiderTab", interviews: "interviewsTab", disclosure: "disclosureTab", annual: "annualTab", relstrength: "relStrengthTab", usmovers: "usMoversTab", research: "researchTab" };
+    const BTNS = { ann: "tabAnn", insider: "tabInsider", interviews: "tabInterviews", disclosure: "tabDisclosure", annual: "tabAnnual", relstrength: "tabRelStrength", usmovers: "tabUsMovers", research: "tabResearch" };
     Object.keys(TABS).forEach(t => {
         const el = document.getElementById(TABS[t]);
         if (el) el.style.display = t === tab ? "" : "none";
@@ -1420,6 +1420,7 @@ function showTab(tab) {
     if (tab === "insider" && !insiderLoaded) fetchInsiderData();
     if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
     if (tab === "disclosure" && !disclosureLoaded) fetchDisclosure();
+    if (tab === "annual" && !annualLoaded) fetchAnnual();
     if (tab === "relstrength" && !relStrengthLoaded) fetchRelStrength();
     if (tab === "usmovers" && !usMoversLoaded) fetchUsMovers();
     if (tab === "research") {
@@ -2443,4 +2444,155 @@ function exportInsiderXLSX() {
         XLSX.utils.book_append_sheet(wb, ws, "Insider Trades");
         XLSX.writeFile(wb, "insider_trades_" + new Date().toISOString().slice(0,10) + ".xlsx");
     }
+}
+
+/* ===================== Annual Reports tab =====================
+   Forward-looking extracts mined from the annual reports of companies that
+   hold no concalls and publish no investor presentations -- for those, the
+   annual report is the only thing they say all year.
+
+   Lazy-loaded like every other tab: nothing is fetched until the tab is
+   opened, so the announcements feed is unaffected. Extracts live in their own
+   array and never enter the allAnnouncements filter chain.
+
+   Watchlist reuses the existing machinery -- getWatchlistKey() builds
+   "{symbol}_{exchange}", and the feed ships symbol=<scrip code> and
+   exchange="BSE", so a company starred here is the same entry as one starred
+   from an announcement. */
+let annualLoaded = false;
+let annualData = [];
+const AR_LABELS = { guidance: "Guidance", future_plans: "Future plans", kpis: "KPIs" };
+const AR_HILITE = /(\d[\d,]*\.?\d*\s*(?:%|per\s?cent|crore|lakh|million|billion|bn|mn|GWh|MWh|kWh|MW|GW|MTPA|TPA|TCD)|FY\s?\d{2,4}|Q[1-4]\s?FY?\s?\d{2,4}|20[2-4]\d)/gi;
+
+async function fetchAnnual() {
+    const list = document.getElementById("arList");
+    list.innerHTML = '<div class="muted">Loading annual reports...</div>';
+    try {
+        const r = await fetch("https://raw.githubusercontent.com/canctiwari-sketch/BSEAnnouncementsTracker/main/data/annual_reports.json?t=" + Date.now());
+        const d = await r.json();
+        annualData = d.companies || [];
+        annualLoaded = true;
+        renderAnnual();
+    } catch (e) {
+        list.innerHTML = '<div class="muted">Could not load annual report data.</div>';
+    }
+}
+
+function arMark(text) {
+    return escapeHtml(text).replace(AR_HILITE, '<b>$1</b>');
+}
+
+function renderAnnual() {
+    const term = (document.getElementById("arSearch").value || "").trim().toLowerCase();
+    const band = document.getElementById("arBand").value;
+    const cat = document.getElementById("arCat").value;
+    const sort = document.getElementById("arSort").value;
+    const hideWl = document.getElementById("arHideWl").checked;
+
+    let rows = annualData.slice();
+
+    if (band) {
+        const [lo, hi] = band.split(":");
+        rows = rows.filter(c => {
+            const cr = (c.market_cap || 0) / 1e7;
+            return cr >= (+lo) && (hi === "" || cr < (+hi));
+        });
+    }
+    if (cat) rows = rows.filter(c => c.hits.some(h => h.c.includes(cat)));
+    if (hideWl) rows = rows.filter(c => !isInWatchlist(c));
+    if (term) {
+        rows = rows.filter(c =>
+            (c.company || "").toLowerCase().includes(term) ||
+            (c.symbol || "").toLowerCase().includes(term) ||
+            c.hits.some(h => h.t.toLowerCase().includes(term)));
+    }
+
+    const cmp = {
+        small: (a, b) => (a.market_cap || 0) - (b.market_cap || 0),
+        large: (a, b) => (b.market_cap || 0) - (a.market_cap || 0),
+        filed: (a, b) => (b.filed_on || "").localeCompare(a.filed_on || ""),
+        hits: (a, b) => b.hits.length - a.hits.length,
+        name: (a, b) => (a.company || "").localeCompare(b.company || ""),
+    }[sort];
+    rows.sort(cmp);
+
+    window._arRows = rows;
+    document.getElementById("arMeta").textContent =
+        rows.length + " of " + annualData.length + " companies" +
+        (cat ? " with " + AR_LABELS[cat].toLowerCase() : "");
+
+    document.getElementById("arList").innerHTML = rows.map((c, i) => {
+        const inWL = isInWatchlist(c);
+        const buckets = ["guidance", "future_plans", "kpis"]
+            .filter(k => !cat || k === cat)
+            .map(k => {
+                const hs = c.hits.filter(h => h.c.includes(k));
+                if (!hs.length) return "";
+                return `<div class="ar-bk"><h4 class="ar-${k}">${AR_LABELS[k]} <span>${hs.length}</span></h4>` +
+                    hs.map(h => `<div class="ar-x">${arMark(h.t)}` +
+                        `<a class="ar-pg" href="${escapeHtml(c.url)}#page=${h.p}" target="_blank" rel="noopener">p${h.p}</a></div>`).join("") +
+                    `</div>`;
+            }).join("");
+        return `<div class="ar-co">
+            <div class="ar-head">
+              <a class="ar-name" href="https://www.google.com/search?q=${encodeURIComponent(c.company)}" target="_blank" rel="noopener">${escapeHtml(c.company)}</a>
+              <button class="wl-add-btn ${inWL ? "wl-added" : ""}" onclick="arAddToWatchlist(${i})" title="${inWL ? "In watchlist" : "Add to watchlist"}">${inWL ? "&#10003;" : "+"}</button>
+            </div>
+            <div class="ar-meta"><code>${escapeHtml(c.symbol)}</code>
+              <span>${escapeHtml(c.market_cap_fmt || "")}</span>
+              ${c.filed_on ? `<span>filed ${escapeHtml(c.filed_on)}</span>` : ""}
+              ${c.is_new ? `<span class="ar-new">new</span>` : ""}
+              <span>${c.hits.length} extracts</span>
+              <a href="${escapeHtml(c.url)}" target="_blank" rel="noopener">source PDF &#8599;</a>
+            </div>${buckets}</div>`;
+    }).join("") || '<div class="muted">Nothing matches that filter.</div>';
+}
+
+function arSummary(c, max = 400) {
+    const ranked = c.hits.slice().sort((a, b) => {
+        const w = h => (h.c.includes("guidance") ? 0 : h.c.includes("future_plans") ? 1 : 2);
+        return w(a) - w(b) || b.c.length - a.c.length;
+    });
+    const out = [];
+    for (const h of ranked) {
+        if (out.join(" • ").length + h.t.length > max) break;
+        out.push(h.t);
+        if (out.length >= 3) break;
+    }
+    return (out.length ? out : ranked.slice(0, 1).map(h => h.t.slice(0, max))).join(" • ");
+}
+
+function arAddToWatchlist(i) {
+    const c = window._arRows[i];
+    if (!c) return;
+    const key = getWatchlistKey(c);
+    const note = {
+        subject: "FY2026 Annual Report",
+        category: "Annual Report",
+        // Prefer genuine guidance for the note -- taking the first few extracts
+        // in page order can land on related-party or regulatory boilerplate that
+        // happened to match, which is useless in a watchlist.
+        ai_summary: arSummary(c),
+        date: c.filed_on || "",
+        attachment: c.url || "",
+        added_on: new Date().toISOString(),
+        user_note: "",
+    };
+    if (watchlist[key]) {
+        const dupe = watchlist[key].notes.some(n => n.date === note.date && n.subject === note.subject);
+        if (!dupe) watchlist[key].notes.push(note);
+        watchlist[key].market_cap = c.market_cap || watchlist[key].market_cap;
+        watchlist[key].market_cap_fmt = c.market_cap_fmt || watchlist[key].market_cap_fmt;
+    } else {
+        watchlist[key] = {
+            company: c.company || "Unknown",
+            symbol: c.symbol || "",
+            exchange: c.exchange || "BSE",
+            market_cap: c.market_cap || null,
+            market_cap_fmt: c.market_cap_fmt || "N/A",
+            notes: [note],
+        };
+    }
+    saveWatchlist();
+    renderAnnual();
 }

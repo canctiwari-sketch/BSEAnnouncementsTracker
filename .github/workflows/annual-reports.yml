@@ -1,0 +1,60 @@
+name: Annual Report Guidance
+
+on:
+  schedule:
+    - cron: '30 2 * * *'  # Daily, 08:00 AM IST (02:30 UTC). The universe
+                          # re-screen only runs when the last one is 7+ days
+                          # old (see run_daily.py).
+  workflow_dispatch:
+    inputs:
+      weekly:
+        description: 'Force the weekly re-screen'
+        type: boolean
+        default: false
+
+concurrency:
+  group: annual-reports
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests==2.32.3 beautifulsoup4==4.12.3 lxml==5.2.2 PyMuPDF==1.24.9
+
+      - name: Watch for new annual reports
+        run: python worker/annual_reports/run_daily.py ${{ inputs.weekly && '--weekly' || '' }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/annual_reports/ data/annual_reports.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Annual report guidance: $(date +'%Y-%m-%d')"
+            pushed=false
+            for i in 1 2 3; do
+              if git push; then pushed=true; break; fi
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase origin main || { git rebase --abort 2>/dev/null || true; }
+              sleep 3
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Failed to push after 3 attempts — this run's data was NOT saved."
+              exit 1
+            fi
+          fi

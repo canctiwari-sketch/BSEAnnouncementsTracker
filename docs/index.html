@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Wheel Capital - Announcements</title>
-    <link rel="stylesheet" href="style.css?v=20260816b">
+    <link rel="stylesheet" href="style.css?v=20260820e">
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -23,6 +23,7 @@
         <button class="tab-btn" id="tabInsider" onclick="showTab('insider')">👤 Insider Trades</button>
         <button class="tab-btn" id="tabInterviews" onclick="showTab('interviews')">🎙️ Interviews</button>
         <button class="tab-btn" id="tabDisclosure" onclick="showTab('disclosure')">📊 Disclosure</button>
+        <button class="tab-btn" id="tabAnnual" onclick="showTab('annual')">📄 Annual Reports</button>
         <button class="tab-btn" id="tabRelStrength" onclick="showTab('relstrength')">📈 Rel Strength</button>
         <button class="tab-btn" id="tabUsMovers" onclick="showTab('usmovers')">🌎 US Movers</button>
         <button class="tab-btn" id="tabResearch" onclick="showTab('research')">🔬 Research</button>
@@ -251,6 +252,47 @@
     </div>
 
     <!-- Disclosure Style Tab -->
+    <div id="annualTab" style="display:none">
+        <div class="controls">
+            <label>Search
+                <input id="arSearch" type="search" placeholder="Company or any phrase..."
+                       oninput="renderAnnual()" style="min-width:240px">
+            </label>
+            <label>Size
+                <select id="arBand" onchange="renderAnnual()">
+                    <option value="">All sizes</option>
+                    <option value="0:300">Under 300cr</option>
+                    <option value="300:1000">300cr - 1,000cr</option>
+                    <option value="1000:5000">1,000cr - 5,000cr</option>
+                    <option value="5000:">Over 5,000cr</option>
+                </select>
+            </label>
+            <label>Category
+                <select id="arCat" onchange="renderAnnual()">
+                    <option value="">All</option>
+                    <option value="guidance">Guidance</option>
+                    <option value="future_plans">Future plans</option>
+                    <option value="kpis">KPIs</option>
+                </select>
+            </label>
+            <label>Sort
+                <select id="arSort" onchange="renderAnnual()">
+                    <option value="small">Smallest first</option>
+                    <option value="large">Largest first</option>
+                    <option value="filed">Recently filed</option>
+                    <option value="hits">Most extracts</option>
+                    <option value="name">Company name</option>
+                </select>
+            </label>
+            <label style="display:flex;align-items:center;gap:6px">
+                <input id="arHideWl" type="checkbox" onchange="renderAnnual()">
+                Hide watchlisted
+            </label>
+        </div>
+        <div id="arMeta" class="muted" style="margin:8px 0 14px"></div>
+        <div id="arList"></div>
+    </div>
+
     <div id="disclosureTab" style="display:none">
         <div class="controls">
             <label>Quarter
@@ -420,6 +462,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260816d"></script>
+    <script src="app.js?v=20260820e"></script>
 </body>
 </html>
