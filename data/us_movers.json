@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-05T06:40:20.458681",
+ "generated_at": "2026-09-08T06:55:46.857960",
  "min_mcap_usd": 300000000.0,
  "theme_threshold": 50.0,
  "universe": 3355,
@@ -24446,6 +24446,18 @@
    "close": 20.59,
    "pct_1m": -31.2,
    "pct_3m": 11.0,
+   "pct_6m": 2.2,
+   "split": null
+  },
+  {
+   "symbol": "HOS",
+   "name": "Hornbeck Offshore Services Inc. Common Stock",
+   "sector": "Energy",
+   "industry": "Oilfield Services/Equipment",
+   "mcap_usd": 1703848114,
+   "close": 9.2,
+   "pct_1m": -11.8,
+   "pct_3m": -5.5,
    "pct_6m": 2.2,
    "split": null
   },
