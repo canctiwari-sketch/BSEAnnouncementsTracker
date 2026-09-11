@@ -1048,19 +1048,24 @@
 {"key": "544854", "name": "Dhaval Packaging Ltd", "scrip_code": "544854", "nse_symbol": "", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/31d78330-ba06-4b54-b4ff-5428a4663d41.pdf", "source": "bse", "filed_on": "2026-09-08", "revised_on": "", "first_seen": "2026-09-09"}
 {"key": "TECHNOCRAF", "name": "Technocraft Ventures Ltd", "scrip_code": "544864", "nse_symbol": "TECHNOCRAF", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/7446b0e6-c569-487d-945d-d994ae5a929f.pdf", "source": "bse", "filed_on": "2026-09-08", "revised_on": "", "first_seen": "2026-09-09"}
 {"key": "EQUIPPP", "name": "Equippp Social Impact Technologies Ltd", "scrip_code": "590057", "nse_symbol": "EQUIPPP", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d39a319a-c5a9-4f62-8087-caf90e3bbe24.pdf", "source": "bse", "filed_on": "2026-09-08", "revised_on": "", "first_seen": "2026-09-09"}
+{"key": "CRSL", "name": "Cressanda Railway Solutions Ltd", "scrip_code": "512379", "nse_symbol": "CRSL", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f02e6936-4ae8-4097-b946-a83827b2bc2c.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
+{"key": "EBIX", "name": "EBIX Ltd", "scrip_code": "531035", "nse_symbol": "EBIX", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4d55652f-104d-48f1-a392-7957427f5a03.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
+{"key": "NAVKARURB", "name": "Navkar Urbanstructure Ltd", "scrip_code": "531494", "nse_symbol": "NAVKARURB", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb54a644-4f4a-4a6e-9d76-7582fc9a66e1.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
+{"key": "BSHSL", "name": "Bombay Super Hybrid Seeds Ltd", "scrip_code": "544757", "nse_symbol": "BSHSL", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b3936de7-6162-4706-b703-aea9fa7d0a19.pdf", "source": "bse", "filed_on": "2026-09-10", "revised_on": "", "first_seen": "2026-09-10"}
+{"key": "DALMIASUG", "name": "Dalmia Bharat Sugar and Industries Ltd", "scrip_code": "500097", "nse_symbol": "DALMIASUG", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "ELANTAS", "name": "Elantas Beck India Ltd-$", "scrip_code": "500123", "nse_symbol": "ELANTAS", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "DICIND", "name": "DIC India Ltd", "scrip_code": "500089", "nse_symbol": "DICIND", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "DALMIASUG", "name": "Dalmia Bharat Sugar and Industries Ltd", "scrip_code": "500097", "nse_symbol": "DALMIASUG", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "RAIN", "name": "Rain Industries Ltd", "scrip_code": "500339", "nse_symbol": "RAIN", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "INVPRECQ", "name": "Investment & Precision Castings Ltd", "scrip_code": "504786", "nse_symbol": "INVPRECQ", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "504746", "name": "Indian Link Chain Manufacturers Ltd", "scrip_code": "504746", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "509026", "name": "VJTF Eduservices Ltd", "scrip_code": "509026", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "INVPRECQ", "name": "Investment & Precision Castings Ltd", "scrip_code": "504786", "nse_symbol": "INVPRECQ", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "504959", "name": "Stovec Industries Ltd", "scrip_code": "504959", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "KENNAMET", "name": "Kennametal India Ltd-$", "scrip_code": "505890", "nse_symbol": "KENNAMET", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "CRSL", "name": "Cressanda Railway Solutions Ltd", "scrip_code": "512379", "nse_symbol": "CRSL", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f02e6936-4ae8-4097-b946-a83827b2bc2c.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
+{"key": "509026", "name": "VJTF Eduservices Ltd", "scrip_code": "509026", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "VIPULLTD", "name": "Vipul Ltd", "scrip_code": "511726", "nse_symbol": "VIPULLTD", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "512065", "name": "Mrugesh Trading Ltd", "scrip_code": "512065", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "PVP", "name": "PVP Ventures Ltd", "scrip_code": "517556", "nse_symbol": "PVP", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "STCINDIA", "name": "State Trading Corporation of India Ltd", "scrip_code": "512531", "nse_symbol": "STCINDIA", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "519295", "name": "Bambino Agro Industries Ltd", "scrip_code": "519295", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "PVP", "name": "PVP Ventures Ltd", "scrip_code": "517556", "nse_symbol": "PVP", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "ABAN", "name": "Aban Offshore Ltd", "scrip_code": "523204", "nse_symbol": "ABAN", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "523105", "name": "Cropster Agro Ltd", "scrip_code": "523105", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "523586", "name": "Indian Toners & Developers Ltd-$", "scrip_code": "523586", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2023", "2022", "2021", "2020"]}
@@ -1071,58 +1076,53 @@
 {"key": "SUNSHIEL", "name": "Sunshield Chemicals Ltd", "scrip_code": "530845", "nse_symbol": "SUNSHIEL", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "530927", "name": "Haryana Financial Corporation Ltd", "scrip_code": "530927", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "VIKASECO", "name": "Vikas EcoTech Ltd", "scrip_code": "530961", "nse_symbol": "VIKASECO", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "EBIX", "name": "EBIX Ltd", "scrip_code": "531035", "nse_symbol": "EBIX", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4d55652f-104d-48f1-a392-7957427f5a03.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
 {"key": "531127", "name": "Mena Mani Industries Ltd", "scrip_code": "531127", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "RAJESHEXPO", "name": "Rajesh Exports Ltd", "scrip_code": "531500", "nse_symbol": "RAJESHEXPO", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "NAVKARURB", "name": "Navkar Urbanstructure Ltd", "scrip_code": "531494", "nse_symbol": "NAVKARURB", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bb54a644-4f4a-4a6e-9d76-7582fc9a66e1.pdf", "source": "bse", "filed_on": "2026-09-09", "revised_on": "", "first_seen": "2026-09-10"}
 {"key": "ASTAR", "name": "Asian Star Company Ltd-$", "scrip_code": "531847", "nse_symbol": "ASTAR", "status": "no_fy_report", "years_available": ["None", "2025", "2024", "2023", "2022"]}
-{"key": "531910", "name": "JOJO Ltd", "scrip_code": "531910", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "532011", "name": "Vashu Bhagnani Industries Ltd", "scrip_code": "532011", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "531910", "name": "JOJO Ltd", "scrip_code": "531910", "nse_symbol": "", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/686155ce-b2b1-496d-aa88-825849e3781f.pdf", "source": "bse", "filed_on": "2026-09-10", "revised_on": "", "first_seen": "2026-09-11"}
 {"key": "ACCELYA", "name": "Accelya Solutions India Ltd", "scrip_code": "532268", "nse_symbol": "ACCELYA", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "BFUTILITIE", "name": "BF Utilities Ltd-$", "scrip_code": "532430", "nse_symbol": "BFUTILITIE", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "RCOM", "name": "Reliance Communications Ltd", "scrip_code": "532712", "nse_symbol": "RCOM", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "SUPREMEINF", "name": "Supreme Infrastructure India Ltd", "scrip_code": "532904", "nse_symbol": "SUPREMEINF", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "533385", "name": "Motilal Oswal NASDAQ 100 ETF", "scrip_code": "533385", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2016"]}
+{"key": "RCOM", "name": "Reliance Communications Ltd", "scrip_code": "532712", "nse_symbol": "RCOM", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "ENKEIWHEL", "name": "Enkei Wheels (India) Ltd", "scrip_code": "533477", "nse_symbol": "ENKEIWHEL", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "BFUTILITIE", "name": "BF Utilities Ltd-$", "scrip_code": "532430", "nse_symbol": "BFUTILITIE", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "533385", "name": "Motilal Oswal NASDAQ 100 ETF", "scrip_code": "533385", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2016"]}
 {"key": "538476", "name": "Capital Trade Links Ltd", "scrip_code": "538476", "nse_symbol": "", "status": "no_fy_report", "years_available": ["None", "2025", "2024", "2023", "2022"]}
 {"key": "GENCON", "name": "Generic Engineering Construction and Projects Ltd", "scrip_code": "539407", "nse_symbol": "GENCON", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "539594", "name": "Mishtann Foods Ltd", "scrip_code": "539594", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2024", "2023", "2022", "2021", "2020"]}
 {"key": "540199", "name": "Corporate Merchant Bankers Ltd", "scrip_code": "540199", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "KIOCL", "name": "KIOCL Ltd", "scrip_code": "540680", "nse_symbol": "KIOCL", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "VIPULLTD", "name": "Vipul Ltd", "scrip_code": "511726", "nse_symbol": "VIPULLTD", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "BRNL", "name": "Bharat Road Network Ltd", "scrip_code": "540700", "nse_symbol": "BRNL", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "KIOCL", "name": "KIOCL Ltd", "scrip_code": "540680", "nse_symbol": "KIOCL", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/608a4ffd-8fdd-46b4-91a3-051ce234e76c.pdf", "source": "bse", "filed_on": "2026-09-10", "revised_on": "", "first_seen": "2026-09-11"}
+{"key": "539594", "name": "Mishtann Foods Ltd", "scrip_code": "539594", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2024", "2023", "2022", "2021", "2020"]}
 {"key": "VIKASLIFE", "name": "Vikas Lifecare Ltd", "scrip_code": "542655", "nse_symbol": "VIKASLIFE", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "542679", "name": "Dhanashree Electronics Ltd", "scrip_code": "542679", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
+{"key": "BRNL", "name": "Bharat Road Network Ltd", "scrip_code": "540700", "nse_symbol": "BRNL", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "LIKHITHA", "name": "Likhitha Infrastructure Ltd", "scrip_code": "543240", "nse_symbol": "LIKHITHA", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
-{"key": "519295", "name": "Bambino Agro Industries Ltd", "scrip_code": "519295", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2021"]}
 {"key": "RMDRIP", "name": "R M Drip and Sprinklers Systems Ltd", "scrip_code": "544456", "nse_symbol": "RMDRIP", "status": "no_fy_report", "years_available": ["2025"]}
-{"key": "544552", "name": "Rukmani Devi Garg Agro Impex Ltd", "scrip_code": "544552", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
 {"key": "544460", "name": "Patel Chem Specialities Ltd", "scrip_code": "544460", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2025"]}
 {"key": "KWIL", "name": "Kwality Walls (India) Ltd", "scrip_code": "544622", "nse_symbol": "KWIL", "status": "no_fy_report", "years_available": []}
+{"key": "544552", "name": "Rukmani Devi Garg Agro Impex Ltd", "scrip_code": "544552", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
 {"key": "544807", "name": "Crazy Snacks Ltd", "scrip_code": "544807", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "BSHSL", "name": "Bombay Super Hybrid Seeds Ltd", "scrip_code": "544757", "nse_symbol": "BSHSL", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b3936de7-6162-4706-b703-aea9fa7d0a19.pdf", "source": "bse", "filed_on": "2026-09-10", "revised_on": "", "first_seen": "2026-09-10"}
-{"key": "544809", "name": "Adon Agro Commodities Ltd", "scrip_code": "544809", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "544832", "name": "Sotefin Bharat Ltd", "scrip_code": "544832", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
+{"key": "544809", "name": "Adon Agro Commodities Ltd", "scrip_code": "544809", "nse_symbol": "", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/433caed8-0ae0-4231-9487-c2ec0becbddd.pdf", "source": "bse", "filed_on": "2026-09-10", "revised_on": "", "first_seen": "2026-09-11"}
 {"key": "ALPINETEX", "name": "Alpine Texworld Ltd", "scrip_code": "544825", "nse_symbol": "ALPINETEX", "status": "no_fy_report", "years_available": []}
 {"key": "544840", "name": "Silverstorm Parks And Resorts Ltd", "scrip_code": "544840", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
+{"key": "544832", "name": "Sotefin Bharat Ltd", "scrip_code": "544832", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
 {"key": "544848", "name": "H. R. Hygiene Products Ltd", "scrip_code": "544848", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
+{"key": "544856", "name": "Fusion Klassroom Edutech Ltd", "scrip_code": "544856", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
 {"key": "JNPR", "name": "Juniper Green Energy Ltd", "scrip_code": "544853", "nse_symbol": "JNPR", "status": "no_fy_report", "years_available": []}
 {"key": "544859", "name": "G V Electricals Ltd", "scrip_code": "544859", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "544856", "name": "Fusion Klassroom Edutech Ltd", "scrip_code": "544856", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "ARDEE", "name": "Ardee Industries Ltd", "scrip_code": "544860", "nse_symbol": "ARDEE", "status": "no_fy_report", "years_available": []}
 {"key": "LEAPIND", "name": "LEAP India Ltd", "scrip_code": "544865", "nse_symbol": "LEAPIND", "status": "no_fy_report", "years_available": []}
 {"key": "MOLBIO", "name": "Molbio Diagnostics Ltd", "scrip_code": "544866", "nse_symbol": "MOLBIO", "status": "no_fy_report", "years_available": []}
+{"key": "DHOOTTRANS", "name": "Dhoot Transmission Ltd", "scrip_code": "544867", "nse_symbol": "DHOOTTRANS", "status": "no_fy_report", "years_available": []}
 {"key": "MILKYMIST", "name": "Milky Mist Dairy Food Ltd", "scrip_code": "544868", "nse_symbol": "MILKYMIST", "status": "no_fy_report", "years_available": []}
 {"key": "544869", "name": "Sham Foam Ltd", "scrip_code": "544869", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
+{"key": "ARDEE", "name": "Ardee Industries Ltd", "scrip_code": "544860", "nse_symbol": "ARDEE", "status": "no_fy_report", "years_available": []}
 {"key": "BLEL", "name": "Behari Lal Engineering Ltd", "scrip_code": "544870", "nse_symbol": "BLEL", "status": "no_fy_report", "years_available": []}
 {"key": "SPIC", "name": "Southern Petrochemicals Industries Corporation Ltd", "scrip_code": "590030", "nse_symbol": "SPIC", "status": "no_fy_report", "years_available": ["2024", "2022", "2021", "2018", "2017"]}
 {"key": "SALONA", "name": "Salona Cotspin Ltd", "scrip_code": "590056", "nse_symbol": "SALONA", "status": "no_fy_report", "years_available": ["2020", "2016", "2015", "2014", "2013"]}
 {"key": "ANDHRSUGAR", "name": "Andhra Sugars Ltd", "scrip_code": "590062", "nse_symbol": "ANDHRSUGAR", "status": "no_fy_report", "years_available": ["2013", "2012", "2010", "2009", "2008"]}
-{"key": "555555", "name": "ICICI Prudential BSE Sensex ETF", "scrip_code": "555555", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "DHOOTTRANS", "name": "Dhoot Transmission Ltd", "scrip_code": "544867", "nse_symbol": "DHOOTTRANS", "status": "no_fy_report", "years_available": []}
 {"key": "FACT", "name": "Fertilizers and Chemicals Travancore Ltd", "scrip_code": "590024", "nse_symbol": "FACT", "status": "no_fy_report", "years_available": ["2018", "2017", "2016", "2013", "2012"]}
+{"key": "555555", "name": "ICICI Prudential BSE Sensex ETF", "scrip_code": "555555", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
+{"key": "ORISSAMINE", "name": "Orissa Minerals Development Company Ltd", "scrip_code": "590086", "nse_symbol": "ORISSAMINE", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2020"]}
 {"key": "MADRASFERT", "name": "Madras Fertilizers Ltd", "scrip_code": "590134", "nse_symbol": "MADRASFERT", "status": "no_fy_report", "years_available": ["2018", "2017", "2016", "2015", "2014"]}
 {"key": "590115", "name": "Motilal Oswal Nifty 50 ETF", "scrip_code": "590115", "nse_symbol": "", "status": "no_fy_report", "years_available": ["2018", "2016"]}
-{"key": "590104", "name": "Nippon India ETF Nifty Next 50 Junior BeES", "scrip_code": "590104", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
 {"key": "590103", "name": "Nippon India ETF Nifty 50 BeES", "scrip_code": "590103", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
-{"key": "ORISSAMINE", "name": "Orissa Minerals Development Company Ltd", "scrip_code": "590086", "nse_symbol": "ORISSAMINE", "status": "no_fy_report", "years_available": ["2025", "2024", "2023", "2022", "2020"]}
+{"key": "590104", "name": "Nippon India ETF Nifty Next 50 Junior BeES", "scrip_code": "590104", "nse_symbol": "", "status": "no_fy_report", "years_available": []}
