@@ -1,48 +1,48 @@
 {
-  "last_updated": "2026-09-11T14:48:12",
+  "last_updated": "2026-09-14T16:44:49",
   "prices": {
     "APEX.NS": {
-      "price": 368.5,
+      "price": 368.0,
       "name": "Apex Frozen Foods Limited",
       "currency": "INR"
     },
     "BOMDYEING.NS": {
-      "price": 111.27,
+      "price": 111.1,
       "name": "The Bombay Dyeing and Manufacturing Company Limited",
       "currency": "INR"
     },
     "COSMOFIRST.NS": {
-      "price": 874.9,
+      "price": 874.0,
       "name": "Cosmo First Limited",
       "currency": "INR"
     },
     "GULPOLY.NS": {
-      "price": 174.84,
+      "price": 175.2,
       "name": "Gulshan Polyols Limited",
       "currency": "INR"
     },
     "IGPL.NS": {
-      "price": 547.05,
+      "price": 549.5,
       "name": "I G Petrochemicals Limited",
       "currency": "INR"
     },
     "JAGRAN.NS": {
-      "price": 62.09,
+      "price": 62.23,
       "name": "Jagran Prakashan Limited",
       "currency": "INR"
     },
     "KIRIINDUS.NS": {
-      "price": 537.35,
+      "price": 534.4,
       "name": "Kiri Industries Limited",
       "currency": "INR"
     },
     "KRBL.NS": {
-      "price": 421.05,
+      "price": 420.7,
       "name": "KRBL Limited",
       "currency": "INR"
     },
     "SHREEPUSHK.NS": {
-      "price": 486.9,
+      "price": 487.5,
       "name": "Shree Pushkar Chemicals & Fertilisers Limited",
       "currency": "INR"
     },
@@ -52,17 +52,17 @@
       "currency": "INR"
     },
     "STLTECH.NS": {
-      "price": 897.4,
+      "price": 897.45,
       "name": "Sterlite Technologies Limited",
       "currency": "INR"
     },
     "TGVSL.NS": {
-      "price": 105.91,
+      "price": 105.99,
       "name": "TGV SRAAC Limited",
       "currency": "INR"
     },
     "TNPL.NS": {
-      "price": 153.27,
+      "price": 153.99,
       "name": "Tamil Nadu Newsprint and Papers Limited",
       "currency": "INR"
     },
@@ -97,22 +97,22 @@
       "currency": "INR"
     },
     "505537.BO": {
-      "price": 80.99,
+      "price": 79.43,
       "name": "Zee Entertainment Enterprises Limited",
       "currency": "INR"
     },
     "AARVI.NS": {
-      "price": 141.85,
+      "price": 142.6,
       "name": "Aarvi Encon Limited",
       "currency": "INR"
     },
     "NATHBIOGEN.NS": {
-      "price": 147.78,
+      "price": 148.0,
       "name": "Nath Bio-Genes (India) Limited",
       "currency": "INR"
     },
     "NCLIND.NS": {
-      "price": 175.05,
+      "price": 174.6,
       "name": "NCL Industries Limited",
       "currency": "INR"
     },
@@ -122,12 +122,12 @@
       "currency": "INR"
     },
     "POLYPLEX.NS": {
-      "price": 1134.2,
+      "price": 1128.0,
       "name": "Polyplex Corporation Limited",
       "currency": "INR"
     },
     "ZEEL.NS": {
-      "price": 79.36,
+      "price": 79.45,
       "name": "Zee Entertainment Enterprises Limited",
       "currency": "INR"
     },
@@ -137,37 +137,37 @@
       "currency": "INR"
     },
     "AARTIIND.NS": {
-      "price": 492.7,
+      "price": 492.65,
       "name": "Aarti Industries Limited",
       "currency": "INR"
     },
     "AKSHARCHEM.NS": {
-      "price": 423.4,
+      "price": 425.0,
       "name": "AksharChem (India) Limited",
       "currency": "INR"
     },
     "DYNPRO.NS": {
-      "price": 232.18,
+      "price": 231.75,
       "name": "Dynemic Products Limited",
       "currency": "INR"
     },
     "ENIL.NS": {
-      "price": 101.24,
+      "price": 101.05,
       "name": "Entertainment Network (India) Limited",
       "currency": "INR"
     },
     "EXCELINDUS.NS": {
-      "price": 980.8,
+      "price": 988.7,
       "name": "Excel Industries Limited",
       "currency": "INR"
     },
     "GAEL.NS": {
-      "price": 163.08,
+      "price": 163.19,
       "name": "Gujarat Ambuja Exports Limited",
       "currency": "INR"
     },
     "GNFC.NS": {
-      "price": 562.4,
+      "price": 564.25,
       "name": "Gujarat Narmada Valley Fertilizers & Chemicals Limited",
       "currency": "INR"
     },
@@ -177,7 +177,7 @@
       "currency": "INR"
     },
     "HIMATSEIDE.NS": {
-      "price": 67.83,
+      "price": 67.6,
       "name": "Himatsingka Seide Limited",
       "currency": "INR"
     },
@@ -187,12 +187,12 @@
       "currency": "INR"
     },
     "MOIL.NS": {
-      "price": 244.93,
+      "price": 245.7,
       "name": "MOIL Limited",
       "currency": "INR"
     },
     "NAHARSPING.NS": {
-      "price": 273.1,
+      "price": 272.3,
       "name": "Nahar Spinning Mills Limited",
       "currency": "INR"
     },
@@ -202,17 +202,17 @@
       "currency": "INR"
     },
     "NCC.NS": {
-      "price": 140.94,
+      "price": 140.9,
       "name": "NCC Limited",
       "currency": "INR"
     },
     "OAL.NS": {
-      "price": 532.1,
+      "price": 531.3,
       "name": "Oriental Aromatics Limited",
       "currency": "INR"
     },
     "RADIOCITY.NS": {
-      "price": 6.15,
+      "price": 6.11,
       "name": "Music Broadcast Limited",
       "currency": "INR"
     },
@@ -222,12 +222,12 @@
       "currency": "INR"
     },
     "SANGHVIMOV.NS": {
-      "price": 426.5,
+      "price": 423.8,
       "name": "Sanghvi Movers Limited",
       "currency": "INR"
     },
     "SHYAMMETL.NS": {
-      "price": 1074.8,
+      "price": 1076.9,
       "name": "Shyam Metalics and Energy Limited",
       "currency": "INR"
     },
@@ -237,7 +237,7 @@
       "currency": "INR"
     },
     "FINCABLES.NS": {
-      "price": 1424.0,
+      "price": 1430.1,
       "name": "Finolex Cables Limited",
       "currency": "INR"
     },
@@ -247,7 +247,7 @@
       "currency": "INR"
     },
     "JUNIORBEES.NS": {
-      "price": 781.96,
+      "price": 784.76,
       "name": "Nippon India ETF Nifty Next 50 Junior BeES",
       "currency": "INR"
     },
@@ -257,7 +257,7 @@
       "currency": "INR"
     },
     "TIRUMALCHM.NS": {
-      "price": 155.98,
+      "price": 157.5,
       "name": "Thirumalai Chemicals Limited",
       "currency": "INR"
     },
