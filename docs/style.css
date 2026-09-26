@@ -1555,3 +1555,221 @@ h4.ar-kpis { background: #a8570a; }
 .ar-pg { position: absolute; right: 8px; top: 8px; font-size: 11.5px;
     opacity: .6; text-decoration: none; }
 .ar-pg:hover { opacity: 1; color: #1f6feb; }
+
+/* ═══ Mobile reading layout — Announcements + Insider Trades only ════════════
+   Scoped on purpose: every rule below targets the shared tab bar, #annTab or
+   #insiderTab. Other tabs keep their existing layout. Desktop is unaffected —
+   the only rule outside the media query hides the mobile filter toggle. */
+.m-filter-toggle { display: none; }
+
+@media (max-width: 768px) {
+    /* Tab bar: 9 tabs can't fit, and unscrolled they stretched the whole page
+       to ~1300px wide on a phone. Scroll sideways instead. */
+    .tab-bar {
+        padding: 0 4px;
+        gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn { flex: 0 0 auto; padding: 11px 12px; font-size: 0.84rem; }
+
+    /* ── Collapsible filter panel ─────────────────────────────────────────── */
+    .m-filter-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        background: #fff;
+        color: #3d2c6e;
+        border: 0;
+        border-bottom: 1px solid #e8e8eb;
+        border-radius: 0;
+        padding: 12px 14px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+    }
+    .m-filter-toggle:hover, .m-filter-toggle:active { background: #faf8ff; }
+    .m-ft-summary {
+        flex: 1;
+        min-width: 0;
+        color: #6b5a92;
+        font-weight: 500;
+        font-size: 0.86rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .m-ft-caret { color: #999; font-size: 0.8rem; }
+
+    #annTab > .controls.m-collapsed,
+    #insiderTab > .controls.m-collapsed { display: none; }
+
+    #annTab > .controls,
+    #insiderTab > .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 12px;
+        align-items: end;
+        padding: 12px 14px 14px;
+        border-bottom: 1px solid #e8e8eb;
+    }
+    #annTab > .controls > *,
+    #insiderTab > .controls > * { min-width: 0; }
+    #annTab > .controls input:not([type="checkbox"]),
+    #annTab > .controls select,
+    #annTab > .controls .multi-select,
+    #insiderTab > .controls input:not([type="checkbox"]),
+    #insiderTab > .controls select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;        /* below 16px iOS zooms the page on focus */
+        padding: 8px 10px;
+    }
+    #annTab .multi-select-wrap,
+    #annTab > .controls > label:has(#searchBox),
+    #insiderTab > .controls > label:has(#insiderSearch) { grid-column: 1 / -1; }
+    #insiderCustomRange { display: contents; }   /* its From/To join the grid */
+    #annTab .na-filter-label,
+    #annTab .star-filter-label {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 40px;
+        align-self: stretch;
+    }
+    #annTab > .controls > button,
+    #insiderTab > .controls > button { min-height: 40px; }
+
+    #annTab .status-bar,
+    #insiderTab .status-bar { padding: 8px 14px; }
+    #annTab .status,
+    #insiderTab .status { padding: 0 0 4px; font-size: 0.76rem; }
+
+    /* ── Announcements: one card per announcement ─────────────────────────── */
+    #annTab #results { padding: 0; overflow: visible; background: transparent; }
+    #annTable, #annTable tbody { display: block; width: 100%; }
+    #annTable thead { display: none; }
+    #annTable tbody tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "company mcap"
+            "subject subject"
+            "ai      ai"
+            "date    pdf";
+        column-gap: 12px;
+        row-gap: 7px;
+        padding: 14px 14px 12px;
+        background: #fff;
+        border-bottom: 8px solid #f1f2f5;
+    }
+    #annTable tbody tr:hover { background: #fff; }
+    #annTable tbody tr.starred-row,
+    #annTable tbody tr.starred-row:hover { background: #fffdf2; border-left: 3px solid #f9a825; }
+    #annTable td { display: block; padding: 0; min-width: 0; max-width: none; border: 0; }
+    #annTable td[colspan] { grid-column: 1 / -1; padding: 28px 0; }
+
+    #annTable .company-cell { grid-area: company; }
+    #annTable a.company-name { display: inline; font-size: 1rem; line-height: 1.35; }
+    #annTable .scrip-code { margin-top: 4px; font-size: 0.74rem; }
+    #annTable .mcap-cell { grid-area: mcap; text-align: right; font-size: 0.86rem; }
+    #annTable .subject-cell { grid-area: subject; }
+    #annTable .category-badge { font-size: 0.72rem; padding: 2px 9px; margin: 0; }
+    #annTable .summary-text { font-size: 0.86rem; line-height: 1.45; color: #555; }
+    #annTable .ai-cell { grid-area: ai; font-size: 0.97rem; line-height: 1.55; }
+    #annTable .date-cell { grid-area: date; font-size: 0.78rem; align-self: center; }
+    #annTable .pdf-cell { grid-area: pdf; text-align: right; align-self: center; }
+    #annTable .attachment-link {
+        display: inline-block;
+        padding: 6px 14px;
+        border: 1px solid #d9d0ea;
+        border-radius: 16px;
+        font-size: 0.8rem;
+    }
+    /* The AI summary is the reading content. Once it exists, the exchange's own
+       text ("X has informed the Exchange about...") is boilerplate, so show it
+       only while a summary is still pending. */
+    #annTable tr:has(.ai-summary) .summary-text { display: none; }
+    #annTable tr:has(.ai-pending) .ai-cell { display: none; }
+
+    /* ── Insider Trades: one card per trade ───────────────────────────────── */
+    #insiderTab #insiderResults { padding: 0; overflow: visible; background: transparent; }
+    #insiderTable, #insiderTable tbody { display: block; width: 100%; }
+    #insiderTable thead { display: none; }
+    #insiderTable tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px 8px;
+        padding: 13px 14px;
+        background: #fff;
+        border-bottom: 8px solid #f1f2f5;
+    }
+    #insiderTable tbody tr:hover { background: #fff; }
+    #insiderTable td { display: block; padding: 0; border: 0; text-align: left !important; }
+    #insiderTable td[colspan] { flex-basis: 100%; text-align: center !important; }
+    #insiderTable .it-c-nil { display: none; }
+
+    /* line 1: company ............ mcap */
+    #insiderTable .it-c-co   { order: 1; flex: 1 1 60%; min-width: 0; font-size: 0.97rem; line-height: 1.35; }
+    #insiderTable .it-c-co small { display: inline-flex; gap: 6px; margin-top: 3px; font-size: 0.74rem; color: #888; }
+    #insiderTable .it-c-mcap { order: 2; flex: 0 0 auto; margin-left: auto; font-size: 0.84rem; }
+    /* line 2: [Buy] [Promoter] ..... ₹ value Cr */
+    #insiderTable .it-c-txn  { order: 3; }
+    #insiderTable .it-c-cat  { order: 4; }
+    #insiderTable .it-c-val  { order: 5; margin-left: auto; font-size: 1.02rem; color: #1a1a2e; }
+    #insiderTable .it-c-val::before { content: "\20B9"; }
+    #insiderTable .it-c-val::after  { content: " Cr"; font-size: 0.8rem; font-weight: 500; color: #777; }
+    /* line 3: person */
+    #insiderTable .it-c-person { order: 6; flex-basis: 100%; font-size: 0.88rem; color: #444; }
+    /* line 4: date · mode · qty @ price · stake before → after */
+    #insiderTable .it-c-date,
+    #insiderTable .it-c-mode,
+    #insiderTable .it-c-qty,
+    #insiderTable .it-c-price,
+    #insiderTable .it-c-bpct,
+    #insiderTable .it-c-apct { font-size: 0.78rem; color: #777 !important; }
+    #insiderTable .it-c-date  { order: 7; }
+    #insiderTable .it-c-mode  { order: 8; }
+    #insiderTable .it-c-qty   { order: 9; }
+    #insiderTable .it-c-price { order: 10; }
+    #insiderTable .it-c-bpct  { order: 11; }
+    #insiderTable .it-c-apct  { order: 12; }
+    #insiderTable .it-c-qty::before   { content: "Qty "; }
+    #insiderTable .it-c-price::before { content: "@ "; }
+    #insiderTable .it-c-bpct::before  { content: "Stake "; }
+    #insiderTable .it-c-apct::before  { content: "\2192  "; }
+
+    /* Aggregate view stays a comparison table: scroll it sideways inside its
+       section, with the company column pinned so rows stay identifiable. */
+    #insiderAggResults .agg-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    #insiderAggResults .agg-section-title { position: sticky; left: 0; }
+    #insiderAggResults .agg-table { font-size: 0.8rem; }
+    #insiderAggResults .agg-table td,
+    #insiderAggResults .agg-table th { white-space: nowrap; }
+    #insiderAggResults .agg-table th:first-child,
+    #insiderAggResults .agg-table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: #fff;
+        min-width: 130px;
+        max-width: 150px;
+        white-space: normal;
+        box-shadow: 1px 0 0 #eee;
+    }
+
+    #annTab .pagination,
+    #insiderTab .pagination { flex-wrap: wrap; justify-content: center; gap: 8px 10px; padding: 12px 10px 20px; }
+    #annTab .pagination button,
+    #insiderTab .pagination button { padding: 8px 14px; }
+    #annTab .pagination input,
+    #insiderTab .pagination input { font-size: 16px; }
+    #annTab .page-info,
+    #insiderTab .page-info { flex-basis: 100%; text-align: center; margin: 0; }
+}

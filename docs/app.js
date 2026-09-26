@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     loadWatchlist();
     restoreFilters();
+    setDefaultAnnDates();
+    initMobileFilterToggles();
     fetchData();
 });
 
@@ -245,6 +247,7 @@ function applyFilter() {
 
     renderPage();
     saveFilters();
+    updateAnnFilterSummary();
 }
 
 function clearAllFilters() {
@@ -262,11 +265,11 @@ function clearAllFilters() {
 }
 
 // ─── localStorage persistence ───────────────────────────────────────────────
+// Dates are deliberately NOT persisted: every page load opens on the
+// previous trading day's announcements (see setDefaultAnnDates).
 function saveFilters() {
     const state = {
         starOnly: document.getElementById("starFilter").checked,
-        dateFrom: document.getElementById("dateFrom").value,
-        dateTo: document.getElementById("dateTo").value,
         search: document.getElementById("searchBox").value,
         mcapMin: document.getElementById("mcapMin").value,
         mcapMax: document.getElementById("mcapMax").value,
@@ -281,13 +284,85 @@ function restoreFilters() {
         if (!raw) return;
         const state = JSON.parse(raw);
         if (state.starOnly) document.getElementById("starFilter").checked = true;
-        if (state.dateFrom) document.getElementById("dateFrom").value = state.dateFrom;
-        if (state.dateTo) document.getElementById("dateTo").value = state.dateTo;
         if (state.search) document.getElementById("searchBox").value = state.search;
         if (state.mcapMin) document.getElementById("mcapMin").value = state.mcapMin;
         if (state.mcapMax) document.getElementById("mcapMax").value = state.mcapMax;
         if (state.includeNA) document.getElementById("includeNA").checked = true;
     } catch {}
+}
+
+// ─── Default date window: yesterday ─────────────────────────────────────────
+// Opens on yesterday's announcements so they can be read without touching the
+// date pickers. The window starts at the last weekday, so a Monday opens on
+// Fri–Sun and a Sunday on Fri–Sat: plain "yesterday" would show only the
+// handful of weekend filings and force a manual date change, which defeats
+// the point. Uses device-local dates (IST on the user's phone), matching how
+// applyFilter parses the inputs — never toISOString(), which is UTC and would
+// land on the wrong day before 05:30 IST.
+function _ymdLocal(d) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function setDefaultAnnDates() {
+    const to = new Date();
+    to.setDate(to.getDate() - 1);                         // yesterday
+    const from = new Date(to);
+    while (from.getDay() === 0 || from.getDay() === 6) {  // back over Sat/Sun
+        from.setDate(from.getDate() - 1);
+    }
+    document.getElementById("dateFrom").value = _ymdLocal(from);
+    document.getElementById("dateTo").value = _ymdLocal(to);
+}
+
+// ─── Mobile: collapsible filter panels (Announcements + Insider only) ───────
+// On a phone the full filter set is a screen of controls before the first
+// row. It collapses behind a toggle that shows the active date window, so the
+// data is the first thing on screen. The toggle is display:none on desktop,
+// where the controls render exactly as before.
+function initMobileFilterToggles() {
+    ["annTab", "insiderTab"].forEach(tabId => {
+        const controls = document.querySelector(`#${tabId} > .controls`);
+        if (!controls || controls.previousElementSibling?.classList.contains("m-filter-toggle")) return;
+        controls.classList.add("m-collapsed");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "m-filter-toggle";
+        btn.id = `${tabId}FilterToggle`;
+        btn.setAttribute("aria-expanded", "false");
+        btn.innerHTML = '<span class="m-ft-label">Filters</span><span class="m-ft-summary"></span><span class="m-ft-caret">▾</span>';
+        btn.addEventListener("click", () => {
+            const open = controls.classList.toggle("m-collapsed") === false;
+            btn.setAttribute("aria-expanded", String(open));
+            btn.querySelector(".m-ft-caret").textContent = open ? "▴" : "▾";
+        });
+        controls.parentNode.insertBefore(btn, controls);
+    });
+    updateAnnFilterSummary();
+}
+
+function _fmtShortDate(ymd) {
+    if (!ymd) return "";
+    const d = new Date(ymd + "T00:00:00");
+    return d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+}
+
+function updateAnnFilterSummary() {
+    const el = document.querySelector("#annTabFilterToggle .m-ft-summary");
+    if (!el) return;
+    const from = document.getElementById("dateFrom").value;
+    const to = document.getElementById("dateTo").value;
+    let dates;
+    if (!from && !to) dates = "All dates";
+    else if (from === to) dates = _fmtShortDate(from);
+    else dates = `${from ? _fmtShortDate(from) : "…"} – ${to ? _fmtShortDate(to) : "…"}`;
+    let extra = 0;
+    if (document.getElementById("starFilter").checked) extra++;
+    if (document.getElementById("searchBox").value.trim()) extra++;
+    if (document.getElementById("mcapMin").value || document.getElementById("mcapMax").value) extra++;
+    if (document.getElementById("includeNA").checked) extra++;
+    const cats = document.querySelectorAll("#categoryDropdown input");
+    if (cats.length && [...cats].some(c => !c.checked)) extra++;
+    el.textContent = dates + (extra ? ` · +${extra} filter${extra > 1 ? "s" : ""}` : "");
 }
 
 // ─── Export Excel ────────────────────────────────────────────────────────────
@@ -451,7 +526,7 @@ function renderRow(a, idx) {
         </td>
         <td class="ai-cell">${aiHtml}</td>
         <td class="date-cell">${escapeHtml(date)}</td>
-        <td>${attachmentLink}</td>
+        <td class="pdf-cell">${attachmentLink}</td>
     </tr>`;
 }
 
@@ -1417,6 +1492,13 @@ function showTab(tab) {
         const btn = document.getElementById(BTNS[t]);
         if (btn) btn.classList.toggle("tab-active", t === tab);
     });
+    // On a phone the tab bar scrolls sideways; centre the active tab in it.
+    // Sets scrollLeft on the bar only — never scrolls the page vertically.
+    const bar = document.querySelector(".tab-bar");
+    const activeBtn = document.getElementById(BTNS[tab]);
+    if (bar && activeBtn && bar.scrollWidth > bar.clientWidth) {
+        bar.scrollTo({ left: activeBtn.offsetLeft - (bar.clientWidth - activeBtn.offsetWidth) / 2, behavior: "smooth" });
+    }
     if (tab === "insider" && !insiderLoaded) fetchInsiderData();
     if (tab === "interviews" && !interviewsLoaded) fetchInterviews();
     if (tab === "disclosure" && !disclosureLoaded) fetchDisclosure();
@@ -2162,19 +2244,22 @@ function renderInsiderTable() {
         const mcapCr = t.market_cap ? t.market_cap / 1e7 : null;
         const mcapCls = !mcapCr ? "mcap-na" : mcapCr >= 20000 ? "mcap-large" : mcapCr >= 5000 ? "mcap-mid" : "mcap-small";
         const mcapTxt = t.market_cap_fmt || "N/A";
+        // it-c-* classes only drive the phone card layout (style.css); desktop
+        // rendering is unchanged. it-c-nil marks empty cells so the card hides them.
+        const nil = v => v === "\u2014" ? " it-c-nil" : "";
         return "<tr>"
-            + "<td style='white-space:nowrap'>" + escapeHtml(t.date) + "</td>"
-            + "<td><a href='" + screenerLink(t.company) + "' target='_blank' class='company-link'><strong>" + escapeHtml(t.company) + "</strong></a><br><small>" + sym + exBadge + "</small></td>"
-            + "<td class='" + mcapCls + "' style='text-align:right;font-weight:500'>" + mcapTxt + "</td>"
-            + "<td>" + escapeHtml(t.person) + "</td>"
-            + "<td><span class='it-badge " + catCls + "'>" + escapeHtml(t.category) + "</span></td>"
-            + "<td><span class='it-badge " + txnCls + "'>" + escapeHtml(t.txn_type) + "</span></td>"
-            + "<td><small>" + escapeHtml(t.mode || "\u2014") + "</small></td>"
-            + "<td style='text-align:right'>" + qty + "</td>"
-            + "<td style='text-align:right'>" + price + "</td>"
-            + "<td style='text-align:right;font-weight:600'>" + val + "</td>"
-            + "<td style='text-align:right;color:#888'>" + bpct + "</td>"
-            + "<td style='text-align:right;color:#888'>" + apct + "</td>"
+            + "<td class='it-c-date' style='white-space:nowrap'>" + escapeHtml(t.date) + "</td>"
+            + "<td class='it-c-co'><a href='" + screenerLink(t.company) + "' target='_blank' class='company-link'><strong>" + escapeHtml(t.company) + "</strong></a><br><small>" + sym + exBadge + "</small></td>"
+            + "<td class='it-c-mcap " + mcapCls + "' style='text-align:right;font-weight:500'>" + mcapTxt + "</td>"
+            + "<td class='it-c-person'>" + escapeHtml(t.person) + "</td>"
+            + "<td class='it-c-cat'><span class='it-badge " + catCls + "'>" + escapeHtml(t.category) + "</span></td>"
+            + "<td class='it-c-txn'><span class='it-badge " + txnCls + "'>" + escapeHtml(t.txn_type) + "</span></td>"
+            + "<td class='it-c-mode'><small>" + escapeHtml(t.mode || "\u2014") + "</small></td>"
+            + "<td class='it-c-qty" + nil(qty) + "' style='text-align:right'>" + qty + "</td>"
+            + "<td class='it-c-price" + nil(price) + "' style='text-align:right'>" + price + "</td>"
+            + "<td class='it-c-val" + nil(val) + "' style='text-align:right;font-weight:600'>" + val + "</td>"
+            + "<td class='it-c-bpct" + nil(bpct) + "' style='text-align:right;color:#888'>" + bpct + "</td>"
+            + "<td class='it-c-apct" + nil(apct) + "' style='text-align:right;color:#888'>" + apct + "</td>"
             + "</tr>";
     }).join("");
 
