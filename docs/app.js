@@ -267,26 +267,28 @@ function clearAllFilters() {
 // ─── localStorage persistence ───────────────────────────────────────────────
 // Dates are deliberately NOT persisted: every page load opens on the
 // previous trading day's announcements (see setDefaultAnnDates).
+// Every visit opens on the same fixed view — yesterday, Max MCap 20,000, not
+// starred-only, empty search — whatever was changed last time. Search and
+// Starred Only are deliberately NOT remembered: a leftover search silently
+// emptied the list (and on a phone the collapsed filter panel hides the box).
+// Only Min MCap and Include N/A are still carried over between visits.
+const DEFAULT_MCAP_MAX = "20000";
+
 function saveFilters() {
     const state = {
-        starOnly: document.getElementById("starFilter").checked,
-        search: document.getElementById("searchBox").value,
         mcapMin: document.getElementById("mcapMin").value,
-        mcapMax: document.getElementById("mcapMax").value,
         includeNA: document.getElementById("includeNA").checked,
     };
-    localStorage.setItem("twc_filters", JSON.stringify(state));
+    try { localStorage.setItem("twc_filters", JSON.stringify(state)); } catch {}
 }
 
 function restoreFilters() {
+    document.getElementById("mcapMax").value = DEFAULT_MCAP_MAX;
     try {
         const raw = localStorage.getItem("twc_filters");
         if (!raw) return;
         const state = JSON.parse(raw);
-        if (state.starOnly) document.getElementById("starFilter").checked = true;
-        if (state.search) document.getElementById("searchBox").value = state.search;
         if (state.mcapMin) document.getElementById("mcapMin").value = state.mcapMin;
-        if (state.mcapMax) document.getElementById("mcapMax").value = state.mcapMax;
         if (state.includeNA) document.getElementById("includeNA").checked = true;
     } catch {}
 }
