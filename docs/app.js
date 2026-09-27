@@ -294,26 +294,20 @@ function restoreFilters() {
 }
 
 // ─── Default date window: yesterday ─────────────────────────────────────────
-// Opens on yesterday's announcements so they can be read without touching the
-// date pickers. The window starts at the last weekday, so a Monday opens on
-// Fri–Sun and a Sunday on Fri–Sat: plain "yesterday" would show only the
-// handful of weekend filings and force a manual date change, which defeats
-// the point. Uses device-local dates (IST on the user's phone), matching how
-// applyFilter parses the inputs — never toISOString(), which is UTC and would
-// land on the wrong day before 05:30 IST.
+// Opens on exactly yesterday (From = To = yesterday), every day of the week —
+// no stretching back over weekends; the user asked for yesterday only. Uses
+// device-local dates (IST on the user's phone), matching how applyFilter
+// parses the inputs — never toISOString(), which is UTC and would land on the
+// wrong day before 05:30 IST.
 function _ymdLocal(d) {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 function setDefaultAnnDates() {
-    const to = new Date();
-    to.setDate(to.getDate() - 1);                         // yesterday
-    const from = new Date(to);
-    while (from.getDay() === 0 || from.getDay() === 6) {  // back over Sat/Sun
-        from.setDate(from.getDate() - 1);
-    }
-    document.getElementById("dateFrom").value = _ymdLocal(from);
-    document.getElementById("dateTo").value = _ymdLocal(to);
+    const y = new Date();
+    y.setDate(y.getDate() - 1);
+    document.getElementById("dateFrom").value = _ymdLocal(y);
+    document.getElementById("dateTo").value = _ymdLocal(y);
 }
 
 // ─── Mobile: collapsible filter panels (Announcements + Insider only) ───────
