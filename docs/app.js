@@ -316,7 +316,7 @@ function setDefaultAnnDates() {
 // data is the first thing on screen. The toggle is display:none on desktop,
 // where the controls render exactly as before.
 function initMobileFilterToggles() {
-    ["annTab", "insiderTab"].forEach(tabId => {
+    ["annTab", "insiderTab", "disclosureTab"].forEach(tabId => {
         const controls = document.querySelector(`#${tabId} > .controls`);
         if (!controls || controls.previousElementSibling?.classList.contains("m-filter-toggle")) return;
         controls.classList.add("m-collapsed");
@@ -1515,7 +1515,7 @@ function showTab(tab) {
 // ─── Disclosure Style ─────────────────────────────────────────────────────────
 let disclosureLoaded = false;
 let allDisclosure = [];
-let dscSort = { col: "mcap_cr", dir: "desc" };
+let dscSort = { col: "date", dir: "desc" };   // latest filings first
 
 async function fetchDisclosure() {
     const status = document.getElementById("dscStatus");
@@ -1592,7 +1592,9 @@ function _dscFiltered() {
     rows.sort((a, b) => {
         let x = a[dscSort.col], y = b[dscSort.col];
         if (typeof x === "string") { x = x.toLowerCase(); y = (y || "").toLowerCase(); }
-        return x < y ? -dir : x > y ? dir : 0;
+        if (x < y) return -dir;
+        if (x > y) return dir;
+        return (b.mcap_cr || 0) - (a.mcap_cr || 0);   // same day: bigger company first
     });
     return rows;
 }
@@ -1620,14 +1622,14 @@ function renderDisclosure() {
     body.innerHTML = rows.map(r => {
         const g = `https://www.google.com/search?q=${encodeURIComponent(r.company + " screener.in")}`;
         return `<tr>
-            <td><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.company)}</a></td>
-            <td style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
-            <td>${escapeHtml(r.quarter)}</td>
-            <td>${fmtD(r.date)}</td>
-            <td>${r.presentation ? yes : no}</td>
-            <td>${r.concall ? yes : no}</td>
-            <td>${_dscPrevCell(r)}</td>
-            <td>${STATUS[_dscStatus(r)] || "—"}</td>
+            <td class="dsc-c-co"><a href="${g}" target="_blank" rel="noopener" class="company-link">${escapeHtml(r.company)}</a></td>
+            <td class="dsc-c-mcap${r.mcap_cr == null ? " dsc-c-na" : ""}" style="text-align:right">${r.mcap_cr == null ? '<span style="color:#bbb">N/A</span>' : Math.round(r.mcap_cr).toLocaleString("en-IN")}</td>
+            <td class="dsc-c-q">${escapeHtml(r.quarter)}</td>
+            <td class="dsc-c-date">${fmtD(r.date)}</td>
+            <td class="dsc-c-pres">${r.presentation ? yes : no}</td>
+            <td class="dsc-c-call">${r.concall ? yes : no}</td>
+            <td class="dsc-c-prev">${_dscPrevCell(r)}</td>
+            <td class="dsc-c-st">${STATUS[_dscStatus(r)] || "—"}</td>
         </tr>`;
     }).join("");
 }
@@ -2048,11 +2050,7 @@ async function fetchInsiderData() {
         setInsiderStatus(allInsiderTrades.length.toLocaleString() + " trades \u2014 Last updated: " + updStr);
         populateInsiderPeriods();
         populateInsiderModes();
-        // Default: last 30 days via custom range
-        const today = new Date();
-        const d30 = new Date(today - 30 * 86400000);
-        document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
-        document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
+        setInsiderDefaults();
         applyInsiderFilter();
     } catch (e) {
         setInsiderStatus("Error loading insider data: " + e.message, "error");
@@ -2075,6 +2073,29 @@ function populateInsiderPeriods() {
     for (let y = today.getFullYear(); y >= today.getFullYear() - 2; y--) {
         sel.innerHTML += "<option value='year:" + y + "'>Year " + y + "</option>";
     }
+}
+
+// Every visit opens on the same view: promoter/insider BUYING in the open
+// market over the last month, companies up to ₹30,000 Cr, both exchanges.
+// Filters can still be changed on the page; they reset on the next visit.
+// "Clear Filters" still clears everything (all types, all modes, no mcap cap).
+function _insiderRangeLastMonth() {
+    const to = new Date();
+    const from = new Date(to);
+    from.setMonth(from.getMonth() - 1);
+    document.getElementById("insiderFrom").value = _ymdLocal(from);
+    document.getElementById("insiderTo").value = _ymdLocal(to);
+}
+
+function setInsiderDefaults() {
+    _insiderRangeLastMonth();
+    document.getElementById("insiderTxn").value = "Buy";
+    document.getElementById("insiderCategory").value = "";
+    const modeSel = document.getElementById("insiderMode");
+    modeSel.value = "Market Purchase";
+    if (modeSel.selectedIndex < 0) modeSel.value = "";   // mode absent from the data → All
+    document.getElementById("insiderMcapMax").value = "30000";
+    document.getElementById("insiderExchange").value = "";
 }
 
 function onInsiderPeriodChange() {
@@ -2184,10 +2205,7 @@ function clearInsiderFilters() {
     document.getElementById("insiderPeriod").value = "custom";
     document.getElementById("insiderCustomRange").style.display = "";
     document.getElementById("insiderView").value = "trades";
-    const today = new Date();
-    const d30 = new Date(today - 30 * 86400000);
-    document.getElementById("insiderFrom").value = d30.toISOString().slice(0, 10);
-    document.getElementById("insiderTo").value = today.toISOString().slice(0, 10);
+    _insiderRangeLastMonth();
     ["insiderTxn","insiderCategory","insiderMode","insiderExchange"].forEach(id => document.getElementById(id).value = "");
     ["insiderMinVal","insiderMcapMin","insiderMcapMax","insiderSearch"].forEach(id => document.getElementById(id).value = "");
     applyInsiderFilter();

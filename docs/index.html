@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Wheel Capital - Announcements</title>
-    <link rel="stylesheet" href="style.css?v=20260926a">
+    <link rel="stylesheet" href="style.css?v=20260929b">
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -316,7 +316,7 @@
                 </select>
             </label>
             <label>Min MCap (Cr)<input type="number" id="dscMinMcap" placeholder="e.g. 500" oninput="renderDisclosure()"></label>
-            <label>Max MCap (Cr)<input type="number" id="dscMaxMcap" placeholder="e.g. 5000" oninput="renderDisclosure()"></label>
+            <label>Max MCap (Cr)<input type="number" id="dscMaxMcap" value="20000" placeholder="e.g. 5000" autocomplete="off" oninput="renderDisclosure()"></label>
             <label>From<input type="date" id="dscDateFrom" onchange="renderDisclosure()"></label>
             <label>To<input type="date" id="dscDateTo" onchange="renderDisclosure()"></label>
             <label>Search<input type="text" id="dscSearch" placeholder="Company..." oninput="renderDisclosure()"></label>
@@ -462,6 +462,6 @@
         </div>
     </div>
 
-    <script src="app.js?v=20260927a"></script>
+    <script src="app.js?v=20260929a"></script>
 </body>
 </html>

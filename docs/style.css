@@ -1556,9 +1556,9 @@ h4.ar-kpis { background: #a8570a; }
     opacity: .6; text-decoration: none; }
 .ar-pg:hover { opacity: 1; color: #1f6feb; }
 
-/* ═══ Mobile reading layout — Announcements + Insider Trades only ════════════
-   Scoped on purpose: every rule below targets the shared tab bar, #annTab or
-   #insiderTab. Other tabs keep their existing layout. Desktop is unaffected —
+/* ═══ Mobile reading layout — Announcements, Insider Trades, Disclosure ══════
+   Scoped on purpose: every rule below targets the shared tab bar, #annTab,
+   #insiderTab or #disclosureTab. Other tabs keep their existing layout. Desktop is unaffected —
    the only rule outside the media query hides the mobile filter toggle. */
 .m-filter-toggle { display: none; }
 
@@ -1606,10 +1606,12 @@ h4.ar-kpis { background: #a8570a; }
     .m-ft-caret { color: #999; font-size: 0.8rem; }
 
     #annTab > .controls.m-collapsed,
-    #insiderTab > .controls.m-collapsed { display: none; }
+    #insiderTab > .controls.m-collapsed,
+    #disclosureTab > .controls.m-collapsed { display: none; }
 
     #annTab > .controls,
-    #insiderTab > .controls {
+    #insiderTab > .controls,
+    #disclosureTab > .controls {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px 12px;
@@ -1618,12 +1620,15 @@ h4.ar-kpis { background: #a8570a; }
         border-bottom: 1px solid #e8e8eb;
     }
     #annTab > .controls > *,
-    #insiderTab > .controls > * { min-width: 0; }
+    #insiderTab > .controls > *,
+    #disclosureTab > .controls > * { min-width: 0; }
     #annTab > .controls input:not([type="checkbox"]),
     #annTab > .controls select,
     #annTab > .controls .multi-select,
     #insiderTab > .controls input:not([type="checkbox"]),
-    #insiderTab > .controls select {
+    #insiderTab > .controls select,
+    #disclosureTab > .controls input,
+    #disclosureTab > .controls select {
         width: 100%;
         min-width: 0;
         font-size: 16px;        /* below 16px iOS zooms the page on focus */
@@ -1631,7 +1636,11 @@ h4.ar-kpis { background: #a8570a; }
     }
     #annTab .multi-select-wrap,
     #annTab > .controls > label:has(#searchBox),
-    #insiderTab > .controls > label:has(#insiderSearch) { grid-column: 1 / -1; }
+    #insiderTab > .controls > label:has(#insiderSearch),
+    #disclosureTab > .controls > label:has(#dscBucket),
+    #disclosureTab > .controls > label:has(#dscPrevQ),
+    #disclosureTab > .controls > label:has(#dscSearch),
+    #disclosureTab > .controls > button { grid-column: 1 / -1; }
     #insiderCustomRange { display: contents; }   /* its From/To join the grid */
     #annTab .na-filter-label,
     #annTab .star-filter-label {
@@ -1646,9 +1655,45 @@ h4.ar-kpis { background: #a8570a; }
     #insiderTab > .controls > button { min-height: 40px; }
 
     #annTab .status-bar,
-    #insiderTab .status-bar { padding: 8px 14px; }
+    #insiderTab .status-bar,
+    #disclosureTab .status-bar { padding: 8px 14px; }
     #annTab .status,
-    #insiderTab .status { padding: 0 0 4px; font-size: 0.76rem; }
+    #insiderTab .status,
+    #disclosureTab .status { padding: 0 0 4px; font-size: 0.76rem; }
+
+    /* ── Disclosure: one card per company-quarter ─────────────────────────── */
+    #disclosureTab #dscResults { padding: 0; overflow: visible; background: transparent; }
+    #dscTable, #dscTable tbody { display: block; width: 100%; }
+    #dscTable thead { display: none; }
+    #dscTable tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px 10px;
+        padding: 13px 14px;
+        background: #fff;
+        border-bottom: 8px solid #f1f2f5;
+    }
+    #dscTable tbody tr:hover { background: #fff; }
+    #dscTable td { display: block; padding: 0; border: 0; text-align: left !important; }
+    #dscTable td[colspan] { flex-basis: 100%; text-align: center !important; }
+    /* line 1: company ............ mcap */
+    /* company + mcap bases sum to a full line, so line 2 always wraps below */
+    #dscTable .dsc-c-co   { order: 1; flex: 1 1 calc(100% - 100px); min-width: 0; font-size: 0.97rem; font-weight: 600; line-height: 1.35; }
+    #dscTable .dsc-c-mcap { order: 2; flex: 0 0 90px; text-align: right !important; font-size: 0.86rem; font-weight: 600; }
+    #dscTable .dsc-c-mcap:not(.dsc-c-na)::after { content: " Cr"; font-weight: 500; color: #777; }
+    /* line 2: [status] quarter ........... date */
+    #dscTable .dsc-c-st   { order: 3; }
+    #dscTable .dsc-c-q    { order: 4; font-size: 0.8rem; color: #666; }
+    #dscTable .dsc-c-date { order: 5; margin-left: auto; font-size: 0.8rem; color: #666; }
+    /* line 3: Presentation ✓ · Concall — · Last Q */
+    #dscTable tbody tr::before { content: ""; order: 6; flex-basis: 100%; height: 0; }  /* line break */
+    #dscTable .dsc-c-pres { order: 7; font-size: 0.8rem; }
+    #dscTable .dsc-c-call { order: 8; font-size: 0.8rem; }
+    #dscTable .dsc-c-prev { order: 9; flex-basis: 100%; font-size: 0.8rem; }
+    #dscTable .dsc-c-pres::before { content: "Presentation: "; color: #888; }
+    #dscTable .dsc-c-call::before { content: "Concall: "; color: #888; }
+    #dscTable .dsc-c-prev::before { content: "Last quarter: "; color: #888; }
 
     /* ── Announcements: one card per announcement ─────────────────────────── */
     #annTab #results { padding: 0; overflow: visible; background: transparent; }
@@ -1716,9 +1761,9 @@ h4.ar-kpis { background: #a8570a; }
     #insiderTable .it-c-nil { display: none; }
 
     /* line 1: company ............ mcap */
-    #insiderTable .it-c-co   { order: 1; flex: 1 1 60%; min-width: 0; font-size: 0.97rem; line-height: 1.35; }
+    #insiderTable .it-c-co   { order: 1; flex: 1 1 calc(100% - 100px); min-width: 0; font-size: 0.97rem; line-height: 1.35; }
     #insiderTable .it-c-co small { display: inline-flex; gap: 6px; margin-top: 3px; font-size: 0.74rem; color: #888; }
-    #insiderTable .it-c-mcap { order: 2; flex: 0 0 auto; margin-left: auto; font-size: 0.84rem; }
+    #insiderTable .it-c-mcap { order: 2; flex: 0 0 90px; text-align: right !important; font-size: 0.84rem; }
     /* line 2: [Buy] [Promoter] ..... ₹ value Cr */
     #insiderTable .it-c-txn  { order: 3; }
     #insiderTable .it-c-cat  { order: 4; }
