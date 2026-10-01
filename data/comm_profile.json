@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-09-30T06:11:48.273846",
+  "generated_at": "2026-10-01T06:42:09.616072",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
   "quarters": [
     "Q4 FY26",
+    "Q2 FY27",
     "Q1 FY27"
   ],
   "rows": [
@@ -21693,6 +21694,20 @@
       "call_date": "2026-06-04",
       "prev_quarter": null,
       "prev_concall": null
+    },
+    {
+      "company": "HDFC Asset Management Company Limited",
+      "symbol": "HDFCAMC",
+      "mcap_cr": 120010.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-01",
+      "pres_date": "",
+      "call_date": "2026-10-01",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
     },
     {
       "company": "Clay Craft India Limited",
