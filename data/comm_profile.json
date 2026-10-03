@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T06:28:43.185036",
+  "generated_at": "2026-10-03T05:55:01.199920",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
@@ -21780,6 +21780,48 @@
       "prev_concall": true
     },
     {
+      "company": "Ambika Cotton Mills Limited",
+      "symbol": "AMBIKCO",
+      "mcap_cr": 979.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-02",
+      "pres_date": "",
+      "call_date": "2026-10-02",
+      "prev_quarter": null,
+      "prev_concall": null
+    },
+    {
+      "company": "Monolithisch India Limited",
+      "symbol": "MONOLITH",
+      "mcap_cr": 1011.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-02",
+      "pres_date": "",
+      "call_date": "2026-10-02",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Pranav Constructions Limited",
+      "symbol": "PRANAV",
+      "mcap_cr": 1099.0,
+      "quarter": "Q2 FY27",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-10-02",
+      "pres_date": "2026-10-02",
+      "call_date": "",
+      "prev_quarter": null,
+      "prev_concall": null
+    },
+    {
       "company": "Fermenta Biotech Limited",
       "symbol": "FERMENTA",
       "mcap_cr": 1610.0,
@@ -21818,6 +21860,20 @@
       "date": "2026-10-01",
       "pres_date": "",
       "call_date": "2026-10-01",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Vishnu Chemicals Limited",
+      "symbol": "VISHNU",
+      "mcap_cr": 4893.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-02",
+      "pres_date": "",
+      "call_date": "2026-10-02",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -21916,6 +21972,20 @@
       "date": "2026-10-01",
       "pres_date": "",
       "call_date": "2026-10-01",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Tech Mahindra Limited",
+      "symbol": "TECHM",
+      "mcap_cr": 144409.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-02",
+      "pres_date": "",
+      "call_date": "2026-10-02",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
