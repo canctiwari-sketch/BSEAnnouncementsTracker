@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T05:55:01.199920",
+  "generated_at": "2026-10-04T06:32:21.380472",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
@@ -21710,20 +21710,6 @@
       "prev_concall": null
     },
     {
-      "company": "Glass Wall Systems (India) Limited",
-      "symbol": "GLASSWALL",
-      "mcap_cr": null,
-      "quarter": "Q2 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-10-01",
-      "pres_date": "",
-      "call_date": "2026-10-01",
-      "prev_quarter": null,
-      "prev_concall": null
-    },
-    {
       "company": "Avience Biomedicals Limited",
       "symbol": "AVIENCE",
       "mcap_cr": null,
@@ -21766,23 +21752,9 @@
       "prev_concall": true
     },
     {
-      "company": "Ganesh Benzoplast Limited",
-      "symbol": "GANESHBE",
-      "mcap_cr": 771.0,
-      "quarter": "Q2 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-10-01",
-      "pres_date": "",
-      "call_date": "2026-10-01",
-      "prev_quarter": "Q4 FY26",
-      "prev_concall": true
-    },
-    {
       "company": "Ambika Cotton Mills Limited",
       "symbol": "AMBIKCO",
-      "mcap_cr": 979.0,
+      "mcap_cr": 868.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21792,6 +21764,20 @@
       "call_date": "2026-10-02",
       "prev_quarter": null,
       "prev_concall": null
+    },
+    {
+      "company": "Ganesh Benzoplast Limited",
+      "symbol": "GANESHBE",
+      "mcap_cr": 896.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-01",
+      "pres_date": "",
+      "call_date": "2026-10-01",
+      "prev_quarter": "Q4 FY26",
+      "prev_concall": true
     },
     {
       "company": "Monolithisch India Limited",
@@ -21824,7 +21810,7 @@
     {
       "company": "Fermenta Biotech Limited",
       "symbol": "FERMENTA",
-      "mcap_cr": 1610.0,
+      "mcap_cr": 1583.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21838,7 +21824,7 @@
     {
       "company": "Virtuoso Optoelectronics Limited",
       "symbol": "VOEPL",
-      "mcap_cr": 1955.0,
+      "mcap_cr": 1705.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21852,7 +21838,35 @@
     {
       "company": "Sai Parenterals Limited",
       "symbol": "SAIPARENT",
-      "mcap_cr": 2175.0,
+      "mcap_cr": 2310.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-01",
+      "pres_date": "",
+      "call_date": "2026-10-01",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Glass Wall Systems (India) Limited",
+      "symbol": "GLASSWALL",
+      "mcap_cr": 2348.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-01",
+      "pres_date": "",
+      "call_date": "2026-10-01",
+      "prev_quarter": null,
+      "prev_concall": null
+    },
+    {
+      "company": "Canara Robeco Asset Management Company Limited",
+      "symbol": "CRAMC",
+      "mcap_cr": 4321.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21866,7 +21880,7 @@
     {
       "company": "Vishnu Chemicals Limited",
       "symbol": "VISHNU",
-      "mcap_cr": 4893.0,
+      "mcap_cr": 4429.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21878,23 +21892,23 @@
       "prev_concall": true
     },
     {
-      "company": "Canara Robeco Asset Management Company Limited",
-      "symbol": "CRAMC",
-      "mcap_cr": 5102.0,
+      "company": "Manipal Payment and Identity Solutions Limited",
+      "symbol": "MPIMANIPAL",
+      "mcap_cr": 9455.0,
       "quarter": "Q2 FY27",
-      "presentation": false,
-      "concall": true,
-      "status": "call_only",
-      "date": "2026-10-01",
-      "pres_date": "",
-      "call_date": "2026-10-01",
+      "presentation": true,
+      "concall": false,
+      "status": "pending",
+      "date": "2026-10-03",
+      "pres_date": "2026-10-03",
+      "call_date": "",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
     {
       "company": "Pearl Global Industries Limited",
       "symbol": "PGIL",
-      "mcap_cr": 9528.0,
+      "mcap_cr": 11787.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21908,7 +21922,7 @@
     {
       "company": "The India Cements Limited",
       "symbol": "INDIACEM",
-      "mcap_cr": 11790.0,
+      "mcap_cr": 13713.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21920,9 +21934,23 @@
       "prev_concall": true
     },
     {
+      "company": "Garware Hi-Tech Films Limited",
+      "symbol": "GRWRHITECH",
+      "mcap_cr": 15977.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-03",
+      "pres_date": "",
+      "call_date": "2026-10-03",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
       "company": "Prime Focus Limited",
       "symbol": "PFOCUS",
-      "mcap_cr": 22155.0,
+      "mcap_cr": 23359.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21936,7 +21964,7 @@
     {
       "company": "Poonawalla Fincorp Limited",
       "symbol": "POONAWALLA",
-      "mcap_cr": 33265.0,
+      "mcap_cr": 37970.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21950,7 +21978,7 @@
     {
       "company": "Dixon Technologies (India) Limited",
       "symbol": "DIXON",
-      "mcap_cr": 70868.0,
+      "mcap_cr": 77218.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21964,7 +21992,7 @@
     {
       "company": "HDFC Asset Management Company Limited",
       "symbol": "HDFCAMC",
-      "mcap_cr": 120010.0,
+      "mcap_cr": 99034.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21978,7 +22006,7 @@
     {
       "company": "Tech Mahindra Limited",
       "symbol": "TECHM",
-      "mcap_cr": 144409.0,
+      "mcap_cr": 135812.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -21992,7 +22020,7 @@
     {
       "company": "UltraTech Cement Limited",
       "symbol": "ULTRACEMCO",
-      "mcap_cr": 321574.0,
+      "mcap_cr": 315056.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
@@ -22006,7 +22034,7 @@
     {
       "company": "Tata Consultancy Services Limited",
       "symbol": "TCS",
-      "mcap_cr": 804482.0,
+      "mcap_cr": 750753.0,
       "quarter": "Q2 FY27",
       "presentation": false,
       "concall": true,
