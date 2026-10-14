@@ -1064,29 +1064,29 @@
 {"key": "DALMIASUG", "name": "Dalmia Bharat Sugar and Industries Ltd", "scrip_code": "500097", "nse_symbol": "DALMIASUG", "status": "http_403"}
 {"key": "DICIND", "name": "DIC India Ltd", "scrip_code": "500089", "nse_symbol": "DICIND", "status": "http_403"}
 {"key": "504746", "name": "Indian Link Chain Manufacturers Ltd", "scrip_code": "504746", "nse_symbol": "", "status": "http_403"}
-{"key": "INVPRECQ", "name": "Investment & Precision Castings Ltd", "scrip_code": "504786", "nse_symbol": "INVPRECQ", "status": "http_403"}
 {"key": "RAIN", "name": "Rain Industries Ltd", "scrip_code": "500339", "nse_symbol": "RAIN", "status": "http_403"}
+{"key": "INVPRECQ", "name": "Investment & Precision Castings Ltd", "scrip_code": "504786", "nse_symbol": "INVPRECQ", "status": "http_403"}
 {"key": "504959", "name": "Stovec Industries Ltd", "scrip_code": "504959", "nse_symbol": "", "status": "http_403"}
 {"key": "KENNAMET", "name": "Kennametal India Ltd-$", "scrip_code": "505890", "nse_symbol": "KENNAMET", "status": "http_403"}
 {"key": "VIPULLTD", "name": "Vipul Ltd", "scrip_code": "511726", "nse_symbol": "VIPULLTD", "status": "http_403"}
-{"key": "PVP", "name": "PVP Ventures Ltd", "scrip_code": "517556", "nse_symbol": "PVP", "status": "http_403"}
-{"key": "512065", "name": "Mrugesh Trading Ltd", "scrip_code": "512065", "nse_symbol": "", "status": "http_403"}
 {"key": "STCINDIA", "name": "State Trading Corporation of India Ltd", "scrip_code": "512531", "nse_symbol": "STCINDIA", "status": "http_403"}
-{"key": "523105", "name": "Cropster Agro Ltd", "scrip_code": "523105", "nse_symbol": "", "status": "http_403"}
+{"key": "512065", "name": "Mrugesh Trading Ltd", "scrip_code": "512065", "nse_symbol": "", "status": "http_403"}
+{"key": "PVP", "name": "PVP Ventures Ltd", "scrip_code": "517556", "nse_symbol": "PVP", "status": "http_403"}
 {"key": "ABAN", "name": "Aban Offshore Ltd", "scrip_code": "523204", "nse_symbol": "ABAN", "status": "http_403"}
+{"key": "523105", "name": "Cropster Agro Ltd", "scrip_code": "523105", "nse_symbol": "", "status": "http_403"}
 {"key": "519295", "name": "Bambino Agro Industries Ltd", "scrip_code": "519295", "nse_symbol": "", "status": "http_403"}
+{"key": "523586", "name": "Indian Toners & Developers Ltd-$", "scrip_code": "523586", "nse_symbol": "", "status": "http_403"}
 {"key": "ITI", "name": "ITI Ltd", "scrip_code": "523610", "nse_symbol": "ITI", "status": "http_403"}
 {"key": "524444", "name": "Evexia Lifecare Ltd", "scrip_code": "524444", "nse_symbol": "", "status": "http_403"}
-{"key": "523586", "name": "Indian Toners & Developers Ltd-$", "scrip_code": "523586", "nse_symbol": "", "status": "http_403"}
 {"key": "HAMPTON", "name": "Hampton Sky Realty Ltd", "scrip_code": "526407", "nse_symbol": "HAMPTON", "status": "http_403"}
 {"key": "526415", "name": "OK Play India Ltd", "scrip_code": "526415", "nse_symbol": "", "status": "http_403"}
 {"key": "SUNSHIEL", "name": "Sunshield Chemicals Ltd", "scrip_code": "530845", "nse_symbol": "SUNSHIEL", "status": "http_403"}
-{"key": "VIKASECO", "name": "Vikas EcoTech Ltd", "scrip_code": "530961", "nse_symbol": "VIKASECO", "status": "http_403"}
 {"key": "530927", "name": "Haryana Financial Corporation Ltd", "scrip_code": "530927", "nse_symbol": "", "status": "http_403"}
+{"key": "VIKASECO", "name": "Vikas EcoTech Ltd", "scrip_code": "530961", "nse_symbol": "VIKASECO", "status": "http_403"}
 {"key": "531127", "name": "Mena Mani Industries Ltd", "scrip_code": "531127", "nse_symbol": "", "status": "http_403"}
-{"key": "ACCELYA", "name": "Accelya Solutions India Ltd", "scrip_code": "532268", "nse_symbol": "ACCELYA", "status": "http_403"}
-{"key": "532011", "name": "Vashu Bhagnani Industries Ltd", "scrip_code": "532011", "nse_symbol": "", "status": "http_403"}
 {"key": "RAJESHEXPO", "name": "Rajesh Exports Ltd", "scrip_code": "531500", "nse_symbol": "RAJESHEXPO", "status": "http_403"}
+{"key": "532011", "name": "Vashu Bhagnani Industries Ltd", "scrip_code": "532011", "nse_symbol": "", "status": "http_403"}
+{"key": "ACCELYA", "name": "Accelya Solutions India Ltd", "scrip_code": "532268", "nse_symbol": "ACCELYA", "status": "http_403"}
 {"key": "BFUTILITIE", "name": "BF Utilities Ltd-$", "scrip_code": "532430", "nse_symbol": "BFUTILITIE", "status": "http_403"}
 {"key": "RCOM", "name": "Reliance Communications Ltd", "scrip_code": "532712", "nse_symbol": "RCOM", "status": "http_403"}
 {"key": "SUPREMEINF", "name": "Supreme Infrastructure India Ltd", "scrip_code": "532904", "nse_symbol": "SUPREMEINF", "status": "http_403"}
@@ -1106,8 +1106,8 @@
 {"key": "544832", "name": "Sotefin Bharat Ltd", "scrip_code": "544832", "nse_symbol": "", "status": "http_403"}
 {"key": "544840", "name": "Silverstorm Parks And Resorts Ltd", "scrip_code": "544840", "nse_symbol": "", "status": "http_403"}
 {"key": "544848", "name": "H. R. Hygiene Products Ltd", "scrip_code": "544848", "nse_symbol": "", "status": "http_403"}
-{"key": "JNPR", "name": "Juniper Green Energy Ltd", "scrip_code": "544853", "nse_symbol": "JNPR", "status": "http_403"}
 {"key": "544856", "name": "Fusion Klassroom Edutech Ltd", "scrip_code": "544856", "nse_symbol": "", "status": "http_403"}
+{"key": "JNPR", "name": "Juniper Green Energy Ltd", "scrip_code": "544853", "nse_symbol": "JNPR", "status": "http_403"}
 {"key": "544859", "name": "G V Electricals Ltd", "scrip_code": "544859", "nse_symbol": "", "status": "http_403"}
 {"key": "ARDEE", "name": "Ardee Industries Ltd", "scrip_code": "544860", "nse_symbol": "ARDEE", "status": "http_403"}
 {"key": "LEAPIND", "name": "LEAP India Ltd", "scrip_code": "544865", "nse_symbol": "LEAPIND", "status": "http_403"}
@@ -1121,8 +1121,8 @@
 {"key": "SALONA", "name": "Salona Cotspin Ltd", "scrip_code": "590056", "nse_symbol": "SALONA", "status": "http_403"}
 {"key": "ANDHRSUGAR", "name": "Andhra Sugars Ltd", "scrip_code": "590062", "nse_symbol": "ANDHRSUGAR", "status": "http_403"}
 {"key": "555555", "name": "ICICI Prudential BSE Sensex ETF", "scrip_code": "555555", "nse_symbol": "", "status": "http_403"}
-{"key": "590103", "name": "Nippon India ETF Nifty 50 BeES", "scrip_code": "590103", "nse_symbol": "", "status": "http_403"}
 {"key": "ORISSAMINE", "name": "Orissa Minerals Development Company Ltd", "scrip_code": "590086", "nse_symbol": "ORISSAMINE", "status": "http_403"}
+{"key": "590103", "name": "Nippon India ETF Nifty 50 BeES", "scrip_code": "590103", "nse_symbol": "", "status": "http_403"}
 {"key": "MADRASFERT", "name": "Madras Fertilizers Ltd", "scrip_code": "590134", "nse_symbol": "MADRASFERT", "status": "http_403"}
 {"key": "590115", "name": "Motilal Oswal Nifty 50 ETF", "scrip_code": "590115", "nse_symbol": "", "status": "http_403"}
 {"key": "590104", "name": "Nippon India ETF Nifty Next 50 Junior BeES", "scrip_code": "590104", "nse_symbol": "", "status": "http_403"}
