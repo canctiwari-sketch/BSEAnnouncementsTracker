@@ -1,0 +1,25 @@
+name: Weekly RS Telegram
+
+on:
+  schedule:
+    # Saturday 09:00 IST (03:30 UTC) — uses Friday's close from the RS job
+    - cron: '30 3 * * 6'
+  workflow_dispatch:   # "Run workflow" button for an on-demand send
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send weekly RS note
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python worker/rs_telegram.py
