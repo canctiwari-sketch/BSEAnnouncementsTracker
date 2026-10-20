@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T18:47:52.210724",
+ "generated_at": "2026-10-20T17:26:19.150230",
  "latest_date": "2026-10-19",
  "base_date": "2026-10-12",
  "base_date_3m": "2026-07-20",
@@ -4488,7 +4488,7 @@
    "rs": 9.16,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 230.0,
+   "mcap_cr": 232.0,
    "bucket": "micro",
    "adj": null
   },
