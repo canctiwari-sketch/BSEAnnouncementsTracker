@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T05:33:49.548639",
+  "generated_at": "2026-10-21T05:34:01.321806",
   "grace_days": 10,
   "mcap_min_cr": 50.0,
   "mcap_max_cr": 1000000000000.0,
@@ -22277,9 +22277,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-10-02",
+      "date": "2026-10-20",
       "pres_date": "",
-      "call_date": "2026-10-02",
+      "call_date": "2026-10-20",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -23299,9 +23299,9 @@
       "presentation": false,
       "concall": true,
       "status": "call_only",
-      "date": "2026-10-13",
+      "date": "2026-10-21",
       "pres_date": "",
-      "call_date": "2026-10-13",
+      "call_date": "2026-10-21",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -23374,6 +23374,20 @@
       "call_date": "2026-10-13",
       "prev_quarter": null,
       "prev_concall": null
+    },
+    {
+      "company": "Juniper Hotels Limited",
+      "symbol": "JUNIPER",
+      "mcap_cr": 4587.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-20",
+      "pres_date": "",
+      "call_date": "2026-10-20",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
     },
     {
       "company": "eMudhra Limited",
@@ -23922,6 +23936,20 @@
       "prev_concall": true
     },
     {
+      "company": "Amagi Media Labs Limited",
+      "symbol": "AMAGI",
+      "mcap_cr": 7680.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-20",
+      "pres_date": "",
+      "call_date": "2026-10-20",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
       "company": "Healthcare Global Enterprises Limited",
       "symbol": "HCG",
       "mcap_cr": 7765.0,
@@ -24027,9 +24055,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-10-15",
+      "date": "2026-10-21",
       "pres_date": "2026-10-15",
-      "call_date": "2026-10-15",
+      "call_date": "2026-10-21",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -24254,6 +24282,20 @@
       "date": "2026-10-14",
       "pres_date": "",
       "call_date": "2026-10-14",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Indiamart Intermesh Limited",
+      "symbol": "INDIAMART",
+      "mcap_cr": 10596.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-20",
+      "pres_date": "",
+      "call_date": "2026-10-20",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -25028,6 +25070,20 @@
       "prev_concall": true
     },
     {
+      "company": "Netweb Technologies India Limited",
+      "symbol": "NETWEB",
+      "mcap_cr": 25660.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-20",
+      "pres_date": "",
+      "call_date": "2026-10-20",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
       "company": "PTC Industries Limited",
       "symbol": "PTCIL",
       "mcap_cr": 26131.0,
@@ -25665,9 +25721,9 @@
       "presentation": true,
       "concall": true,
       "status": "both",
-      "date": "2026-10-14",
+      "date": "2026-10-20",
       "pres_date": "2026-10-14",
-      "call_date": "2026-10-14",
+      "call_date": "2026-10-20",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
@@ -26312,6 +26368,20 @@
       "date": "2026-10-17",
       "pres_date": "2026-10-14",
       "call_date": "2026-10-17",
+      "prev_quarter": "Q1 FY27",
+      "prev_concall": true
+    },
+    {
+      "company": "Bharat Petroleum Corporation Limited",
+      "symbol": "BPCL",
+      "mcap_cr": 122498.0,
+      "quarter": "Q2 FY27",
+      "presentation": false,
+      "concall": true,
+      "status": "call_only",
+      "date": "2026-10-20",
+      "pres_date": "",
+      "call_date": "2026-10-20",
       "prev_quarter": "Q1 FY27",
       "prev_concall": true
     },
