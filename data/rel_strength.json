@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-09T22:37:54.632638",
+ "generated_at": "2026-11-10T19:55:17.064684",
  "latest_date": "2026-11-09",
  "base_date": "2026-11-02",
  "base_date_3m": "2026-08-10",
@@ -1068,8 +1068,8 @@
    "rs": 20.95,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": null,
-   "bucket": null,
+   "mcap_cr": 9990.0,
+   "bucket": "mid",
    "adj": null
   },
   {
@@ -6348,7 +6348,7 @@
    "rs": 7.4,
    "pct_3m": 28.83,
    "rs_3m": 29.57,
-   "mcap_cr": 7325.0,
+   "mcap_cr": 7329.0,
    "bucket": "mid",
    "adj": null
   },
@@ -31968,8 +31968,8 @@
    "rs": -2.27,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": null,
-   "bucket": null,
+   "mcap_cr": 2868.0,
+   "bucket": "small",
    "adj": null
   },
   {
@@ -54468,7 +54468,7 @@
    "rs": -7.11,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 237.0,
+   "mcap_cr": 47.0,
    "bucket": "micro",
    "adj": null
   },
@@ -54903,7 +54903,7 @@
    "rs": -7.22,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 764.0,
+   "mcap_cr": 765.0,
    "bucket": "small",
    "adj": null
   },
