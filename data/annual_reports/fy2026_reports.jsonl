@@ -1060,8 +1060,8 @@
 {"key": "538476", "name": "Capital Trade Links Ltd", "scrip_code": "538476", "nse_symbol": "", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachHis/0905e4fa-9f60-4276-9cfc-728c609b1a10.pdf", "source": "bse", "filed_on": "2026-09-05", "revised_on": "", "first_seen": "2026-09-12"}
 {"key": "RMDRIP", "name": "R M Drip and Sprinklers Systems Ltd", "scrip_code": "544456", "nse_symbol": "RMDRIP", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8251834d-9bd2-4473-92fc-969d4817c73b.pdf", "source": "bse", "filed_on": "2026-09-17", "revised_on": "", "first_seen": "2026-09-17"}
 {"key": "LIKHITHA", "name": "Likhitha Infrastructure Ltd", "scrip_code": "543240", "nse_symbol": "LIKHITHA", "status": "found", "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cf4ba564-c26d-4e1e-be2b-069238675da3.pdf", "source": "bse", "filed_on": "2026-09-19", "revised_on": "", "first_seen": "2026-09-20"}
-{"key": "DALMIASUG", "name": "Dalmia Bharat Sugar and Industries Ltd", "scrip_code": "500097", "nse_symbol": "DALMIASUG", "status": "http_403"}
 {"key": "ELANTAS", "name": "Elantas Beck India Ltd-$", "scrip_code": "500123", "nse_symbol": "ELANTAS", "status": "http_403"}
+{"key": "DALMIASUG", "name": "Dalmia Bharat Sugar and Industries Ltd", "scrip_code": "500097", "nse_symbol": "DALMIASUG", "status": "http_403"}
 {"key": "DICIND", "name": "DIC India Ltd", "scrip_code": "500089", "nse_symbol": "DICIND", "status": "http_403"}
 {"key": "RAIN", "name": "Rain Industries Ltd", "scrip_code": "500339", "nse_symbol": "RAIN", "status": "http_403"}
 {"key": "504746", "name": "Indian Link Chain Manufacturers Ltd", "scrip_code": "504746", "nse_symbol": "", "status": "http_403"}
@@ -1089,8 +1089,8 @@
 {"key": "ACCELYA", "name": "Accelya Solutions India Ltd", "scrip_code": "532268", "nse_symbol": "ACCELYA", "status": "http_403"}
 {"key": "BFUTILITIE", "name": "BF Utilities Ltd-$", "scrip_code": "532430", "nse_symbol": "BFUTILITIE", "status": "http_403"}
 {"key": "SUPREMEINF", "name": "Supreme Infrastructure India Ltd", "scrip_code": "532904", "nse_symbol": "SUPREMEINF", "status": "http_403"}
-{"key": "RCOM", "name": "Reliance Communications Ltd", "scrip_code": "532712", "nse_symbol": "RCOM", "status": "http_403"}
 {"key": "533385", "name": "Motilal Oswal NASDAQ 100 ETF", "scrip_code": "533385", "nse_symbol": "", "status": "http_403"}
+{"key": "RCOM", "name": "Reliance Communications Ltd", "scrip_code": "532712", "nse_symbol": "RCOM", "status": "http_403"}
 {"key": "ENKEIWHEL", "name": "Enkei Wheels (India) Ltd", "scrip_code": "533477", "nse_symbol": "ENKEIWHEL", "status": "http_403"}
 {"key": "GENCON", "name": "Generic Engineering Construction and Projects Ltd", "scrip_code": "539407", "nse_symbol": "GENCON", "status": "http_403"}
 {"key": "539594", "name": "Mishtann Foods Ltd", "scrip_code": "539594", "nse_symbol": "", "status": "http_403"}
