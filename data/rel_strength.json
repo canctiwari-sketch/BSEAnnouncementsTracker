@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-24T00:11:41.852497",
+ "generated_at": "2026-11-24T22:40:53.494472",
  "latest_date": "2026-11-23",
  "base_date": "2026-11-16",
  "base_date_3m": "2026-08-24",
@@ -528,7 +528,7 @@
    "rs": 25.84,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 804.0,
+   "mcap_cr": 803.0,
    "bucket": "small",
    "adj": null
   },
@@ -13593,7 +13593,7 @@
    "rs": 2.28,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 684.0,
+   "mcap_cr": 688.0,
    "bucket": "small",
    "adj": null
   },
@@ -18618,7 +18618,7 @@
    "rs": 0.84,
    "pct_3m": -9.97,
    "rs_3m": -10.98,
-   "mcap_cr": 5701.0,
+   "mcap_cr": 5748.0,
    "bucket": "mid",
    "adj": null
   },
@@ -20148,7 +20148,7 @@
    "rs": 0.5,
    "pct_3m": 9.37,
    "rs_3m": 8.36,
-   "mcap_cr": 191.0,
+   "mcap_cr": 190.0,
    "bucket": "micro",
    "adj": null
   },
@@ -22418,21 +22418,6 @@
    "adj": null
   },
   {
-   "symbol": "CLCIND",
-   "name": "CLC INDUSTRIES LIMITED",
-   "sme": false,
-   "bse": null,
-   "close": 43.07,
-   "pct_1d": 0.0,
-   "pct_7d": 0.0,
-   "rs": 0.02,
-   "pct_3m": -10.44,
-   "rs_3m": -11.44,
-   "mcap_cr": 45.0,
-   "bucket": "micro",
-   "adj": null
-  },
-  {
    "symbol": "EXIMROUTES",
    "name": "EXIM ROUTES LIMITED",
    "sme": true,
@@ -22654,21 +22639,6 @@
    "pct_3m": -19.2,
    "rs_3m": -20.21,
    "mcap_cr": 92.0,
-   "bucket": "micro",
-   "adj": null
-  },
-  {
-   "symbol": "UNIVAFOODS",
-   "name": "UNIVA FOODS LIMITED",
-   "sme": false,
-   "bse": null,
-   "close": 9.95,
-   "pct_1d": 0.0,
-   "pct_7d": 0.0,
-   "rs": 0.02,
-   "pct_3m": 10.19,
-   "rs_3m": 9.18,
-   "mcap_cr": 18.0,
    "bucket": "micro",
    "adj": null
   },
@@ -27273,7 +27243,7 @@
    "rs": -0.67,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 10039.0,
+   "mcap_cr": 10041.0,
    "bucket": "mid",
    "adj": null
   },
@@ -27438,7 +27408,7 @@
    "rs": -0.71,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 934.0,
+   "mcap_cr": 929.0,
    "bucket": "small",
    "adj": null
   },
@@ -28023,7 +27993,7 @@
    "rs": -0.82,
    "pct_3m": 9.41,
    "rs_3m": 8.4,
-   "mcap_cr": 154.0,
+   "mcap_cr": 155.0,
    "bucket": "micro",
    "adj": null
   },
@@ -28053,7 +28023,7 @@
    "rs": -0.82,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 1747.0,
+   "mcap_cr": 1753.0,
    "bucket": "small",
    "adj": null
   },
@@ -31458,7 +31428,7 @@
    "rs": -1.36,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 7290.0,
+   "mcap_cr": 7276.0,
    "bucket": "mid",
    "adj": null
   },
@@ -33003,7 +32973,7 @@
    "rs": -1.63,
    "pct_3m": -6.77,
    "rs_3m": -7.78,
-   "mcap_cr": 4522.0,
+   "mcap_cr": 4519.0,
    "bucket": "small",
    "adj": null
   },
@@ -34908,7 +34878,7 @@
    "rs": -1.96,
    "pct_3m": -3.67,
    "rs_3m": -4.67,
-   "mcap_cr": 2146.0,
+   "mcap_cr": 2164.0,
    "bucket": "small",
    "adj": null
   },
@@ -39908,21 +39878,6 @@
    "adj": null
   },
   {
-   "symbol": "SELMC",
-   "name": "SEL MANUFACTURING CO LTD",
-   "sme": false,
-   "bse": null,
-   "close": 21.04,
-   "pct_1d": -2.77,
-   "pct_7d": -2.77,
-   "rs": -2.75,
-   "pct_3m": -25.07,
-   "rs_3m": -26.08,
-   "mcap_cr": 107.0,
-   "bucket": "micro",
-   "adj": null
-  },
-  {
    "symbol": "APIS",
    "name": "APIS INDIA LTD.",
    "sme": false,
@@ -42153,7 +42108,7 @@
    "rs": -3.08,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 225.0,
+   "mcap_cr": 45.0,
    "bucket": "micro",
    "adj": null
   },
@@ -42573,7 +42528,7 @@
    "rs": -3.14,
    "pct_3m": -9.79,
    "rs_3m": -10.8,
-   "mcap_cr": 1062.0,
+   "mcap_cr": 1061.0,
    "bucket": "small",
    "adj": null
   },
@@ -45093,7 +45048,7 @@
    "rs": -3.55,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 3809.0,
+   "mcap_cr": 3779.0,
    "bucket": "small",
    "adj": null
   },
@@ -45888,7 +45843,7 @@
    "rs": -3.66,
    "pct_3m": 9.5,
    "rs_3m": 8.49,
-   "mcap_cr": 485.0,
+   "mcap_cr": 480.0,
    "bucket": "micro",
    "adj": null
   },
@@ -47463,7 +47418,7 @@
    "rs": -3.93,
    "pct_3m": -11.74,
    "rs_3m": -12.75,
-   "mcap_cr": 742.0,
+   "mcap_cr": 735.0,
    "bucket": "small",
    "adj": null
   },
@@ -47553,7 +47508,7 @@
    "rs": -3.95,
    "pct_3m": 9.6,
    "rs_3m": 8.59,
-   "mcap_cr": 91116.0,
+   "mcap_cr": 91157.0,
    "bucket": "large",
    "adj": null
   },
@@ -48108,7 +48063,7 @@
    "rs": -4.05,
    "pct_3m": -12.13,
    "rs_3m": -13.14,
-   "mcap_cr": 948.0,
+   "mcap_cr": 943.0,
    "bucket": "small",
    "adj": null
   },
@@ -49473,7 +49428,7 @@
    "rs": -4.31,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 750.0,
+   "mcap_cr": 755.0,
    "bucket": "small",
    "adj": null
   },
@@ -52838,21 +52793,6 @@
    "adj": null
   },
   {
-   "symbol": "LASA",
-   "name": "LASA SUPERGENERICS LTD",
-   "sme": false,
-   "bse": null,
-   "close": 3.81,
-   "pct_1d": -4.99,
-   "pct_7d": -4.99,
-   "rs": -4.97,
-   "pct_3m": -47.52,
-   "rs_3m": -48.53,
-   "mcap_cr": 53.0,
-   "bucket": "micro",
-   "adj": null
-  },
-  {
    "symbol": "SUPREMEPWR",
    "name": "SUPREME POWER EQUIPMENT L",
    "sme": true,
@@ -53088,7 +53028,7 @@
    "rs": -5.01,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 11310.0,
+   "mcap_cr": 11389.0,
    "bucket": "mid",
    "adj": null
   },
@@ -55143,7 +55083,7 @@
    "rs": -5.49,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 1751.0,
+   "mcap_cr": 1756.0,
    "bucket": "small",
    "adj": null
   },
@@ -55308,7 +55248,7 @@
    "rs": -5.54,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 8024.0,
+   "mcap_cr": 8047.0,
    "bucket": "mid",
    "adj": null
   },
@@ -55323,7 +55263,7 @@
    "rs": -5.54,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 675.0,
+   "mcap_cr": 674.0,
    "bucket": "small",
    "adj": null
   },
@@ -55683,7 +55623,7 @@
    "rs": -5.64,
    "pct_3m": 18.74,
    "rs_3m": 17.73,
-   "mcap_cr": 7135.0,
+   "mcap_cr": 7077.0,
    "bucket": "mid",
    "adj": null
   },
@@ -55878,7 +55818,7 @@
    "rs": -5.69,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 519.0,
+   "mcap_cr": 520.0,
    "bucket": "small",
    "adj": null
   },
@@ -56898,7 +56838,7 @@
    "rs": -5.98,
    "pct_3m": -20.04,
    "rs_3m": -21.04,
-   "mcap_cr": 753.0,
+   "mcap_cr": 754.0,
    "bucket": "small",
    "adj": null
   },
@@ -57918,7 +57858,7 @@
    "rs": -6.24,
    "pct_3m": -8.8,
    "rs_3m": -9.81,
-   "mcap_cr": 710.0,
+   "mcap_cr": 713.0,
    "bucket": "small",
    "adj": null
   },
@@ -60228,7 +60168,7 @@
    "rs": -6.94,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 4178.0,
+   "mcap_cr": 4158.0,
    "bucket": "small",
    "adj": null
   },
@@ -61203,7 +61143,7 @@
    "rs": -7.26,
    "pct_3m": -14.25,
    "rs_3m": -15.25,
-   "mcap_cr": 760.0,
+   "mcap_cr": 755.0,
    "bucket": "small",
    "adj": null
   },
@@ -62523,7 +62463,7 @@
    "rs": -7.75,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 5747.0,
+   "mcap_cr": 5770.0,
    "bucket": "mid",
    "adj": null
   },
@@ -63063,7 +63003,7 @@
    "rs": -8.08,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 3938.0,
+   "mcap_cr": 3925.0,
    "bucket": "small",
    "adj": null
   },
@@ -64053,7 +63993,7 @@
    "rs": -8.55,
    "pct_3m": -15.03,
    "rs_3m": -16.03,
-   "mcap_cr": 1652.0,
+   "mcap_cr": 1651.0,
    "bucket": "small",
    "adj": null
   },
@@ -65583,8 +65523,8 @@
    "rs": -9.2,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": null,
-   "bucket": null,
+   "mcap_cr": 2708.0,
+   "bucket": "small",
    "adj": null
   },
   {
@@ -66183,7 +66123,7 @@
    "rs": -9.57,
    "pct_3m": null,
    "rs_3m": null,
-   "mcap_cr": 2704.0,
+   "mcap_cr": 2746.0,
    "bucket": "small",
    "adj": null
   },
